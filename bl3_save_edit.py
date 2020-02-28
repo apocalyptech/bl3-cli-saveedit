@@ -56,6 +56,17 @@ class DictAction(argparse.Action):
 parser = argparse.ArgumentParser(
         description='Edit Borderlands 3 Save Files (PC Only)',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        epilog="""
+            The default output type of "savegame" will output theoretically-valid
+            savegames which can be loaded into BL3.  The output type "protobuf"
+            will save out the extracted, decrypted protobufs.  These protobufs
+            CANNOT be read back into the file using this editor, so that's a
+            write-only operation.  The output type "items" will output a text
+            file containing base64-encoded representations of the user's
+            inventory.  These can be read back in using the -i/--import-items
+            option.  Note that these are NOT the same as the item strings used
+            by the BL3 Memory Editor.
+        """
         )
 
 parser.add_argument('-o', '--output',
@@ -133,7 +144,7 @@ parser.add_argument('output_filename',
 
 # Parse args
 args = parser.parse_args()
-if args.level and (args.level < 1 or args.level > bl3save.max_level):
+if args.level is not None and (args.level < 1 or args.level > bl3save.max_level):
     raise argparse.ArgumentTypeError('Valid level range is 1 through {}'.format(bl3save.max_level))
 if 'all' in args.unlock:
     args.unlock = {k: True for k in unlock_choices}
@@ -169,28 +180,29 @@ if args.name:
     save.set_char_name(args.name)
 
 # Savegame ID
-if args.save_game_id:
+if args.save_game_id is not None:
     print(' - Setting Savegame ID to: {}'.format(args.save_game_id))
     save.set_savegame_id(args.save_game_id)
 
-if args.mayhem:
+if args.mayhem is not None:
     print(' - Setting Mayhem Level to: {}'.format(args.mayhem))
     save.set_all_mayhem_level(args.mayhem)
-    print('   - Also ensuring that Mayhem Mode is unlocked')
-    save.unlock_challenge(bl3save.MAYHEM)
+    if args.mayhem > 0:
+        print('   - Also ensuring that Mayhem Mode is unlocked')
+        save.unlock_challenge(bl3save.MAYHEM)
 
 # Level
-if args.level:
+if args.level is not None:
     print(' - Setting Character Level to: {}'.format(args.level))
     save.set_level(args.level)
 
 # Money
-if args.money:
+if args.money is not None:
     print(' - Setting Money to: {}'.format(args.money))
     save.set_money(args.money)
 
 # Eridium
-if args.eridium:
+if args.eridium is not None:
     print(' - Setting Eridium to: {}'.format(args.eridium))
     save.set_eridium(args.eridium)
 
