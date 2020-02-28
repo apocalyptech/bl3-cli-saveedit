@@ -170,102 +170,119 @@ if args.copy_nvhm:
         if 'tvhm' not in args.unlock:
             args.unlock['tvhm'] = True
 
+# Check to see if we have any changes to make
+have_changes = any([
+    args.name,
+    args.save_game_id is not None,
+    args.level is not None,
+    args.mayhem is not None,
+    args.money is not None,
+    args.eridium is not None,
+    len(args.unlock) > 0,
+    args.copy_nvhm,
+    args.import_items,
+    ])
+
 # Make changes
-print('Making requested changes...')
-print('')
+if have_changes:
 
-# Char Name
-if args.name:
-    print(' - Setting Character Name to: {}'.format(args.name))
-    save.set_char_name(args.name)
+    print('Making requested changes...')
+    print('')
 
-# Savegame ID
-if args.save_game_id is not None:
-    print(' - Setting Savegame ID to: {}'.format(args.save_game_id))
-    save.set_savegame_id(args.save_game_id)
+    # Char Name
+    if args.name:
+        print(' - Setting Character Name to: {}'.format(args.name))
+        save.set_char_name(args.name)
 
-if args.mayhem is not None:
-    print(' - Setting Mayhem Level to: {}'.format(args.mayhem))
-    save.set_all_mayhem_level(args.mayhem)
-    if args.mayhem > 0:
-        print('   - Also ensuring that Mayhem Mode is unlocked')
-        save.unlock_challenge(bl3save.MAYHEM)
+    # Savegame ID
+    if args.save_game_id is not None:
+        print(' - Setting Savegame ID to: {}'.format(args.save_game_id))
+        save.set_savegame_id(args.save_game_id)
 
-# Level
-if args.level is not None:
-    print(' - Setting Character Level to: {}'.format(args.level))
-    save.set_level(args.level)
+    if args.mayhem is not None:
+        print(' - Setting Mayhem Level to: {}'.format(args.mayhem))
+        save.set_all_mayhem_level(args.mayhem)
+        if args.mayhem > 0:
+            print('   - Also ensuring that Mayhem Mode is unlocked')
+            save.unlock_challenge(bl3save.MAYHEM)
 
-# Money
-if args.money is not None:
-    print(' - Setting Money to: {}'.format(args.money))
-    save.set_money(args.money)
+    # Level
+    if args.level is not None:
+        print(' - Setting Character Level to: {}'.format(args.level))
+        save.set_level(args.level)
 
-# Eridium
-if args.eridium is not None:
-    print(' - Setting Eridium to: {}'.format(args.eridium))
-    save.set_eridium(args.eridium)
+    # Money
+    if args.money is not None:
+        print(' - Setting Money to: {}'.format(args.money))
+        save.set_money(args.money)
 
-# Unlocks
-if len(args.unlock) > 0:
-    print(' - Processing Unlocks:')
+    # Eridium
+    if args.eridium is not None:
+        print(' - Setting Eridium to: {}'.format(args.eridium))
+        save.set_eridium(args.eridium)
 
-    # Ammo
-    if 'ammo' in args.unlock:
-        print('   - Ammo SDUs (and setting ammo to max)')
-        save.set_max_sdus(bl3save.ammo_sdus)
-        save.set_max_ammo()
+    # Unlocks
+    if len(args.unlock) > 0:
+        print(' - Processing Unlocks:')
 
-    # Backpack
-    if 'backpack' in args.unlock:
-        print('   - Backpack SDUs')
-        save.set_max_sdus([bl3save.SDU_BACKPACK])
+        # Ammo
+        if 'ammo' in args.unlock:
+            print('   - Ammo SDUs (and setting ammo to max)')
+            save.set_max_sdus(bl3save.ammo_sdus)
+            save.set_max_ammo()
 
-    # Eridian Analyzer
-    if 'analyzer' in args.unlock:
-        print('   - Eridian Analyzer')
-        save.unlock_challenge(bl3save.ERIDIAN_ANALYZER)
+        # Backpack
+        if 'backpack' in args.unlock:
+            print('   - Backpack SDUs')
+            save.set_max_sdus([bl3save.SDU_BACKPACK])
 
-    # Eridian Resonator
-    if 'resonator' in args.unlock:
-        print('   - Eridian Resonator')
-        save.unlock_challenge(bl3save.ERIDIAN_RESONATOR)
+        # Eridian Analyzer
+        if 'analyzer' in args.unlock:
+            print('   - Eridian Analyzer')
+            save.unlock_challenge(bl3save.ERIDIAN_ANALYZER)
 
-    # Artifact Slot
-    if 'artifactslot' in args.unlock:
-        print('   - Artifact Inventory Slot')
-        save.unlock_challenge(bl3save.CHAL_ARTIFACT)
+        # Eridian Resonator
+        if 'resonator' in args.unlock:
+            print('   - Eridian Resonator')
+            save.unlock_challenge(bl3save.ERIDIAN_RESONATOR)
 
-    # COM Slot
-    if 'comslot' in args.unlock:
-        print('   - COM Inventory Slot')
-        save.unlock_char_com_slot()
+        # Artifact Slot
+        if 'artifactslot' in args.unlock:
+            print('   - Artifact Inventory Slot')
+            save.unlock_challenge(bl3save.CHAL_ARTIFACT)
 
-    # TVHM
-    if 'tvhm' in args.unlock:
-        print('   - TVHM')
-        save.set_playthroughs_completed(1)
+        # COM Slot
+        if 'comslot' in args.unlock:
+            print('   - COM Inventory Slot')
+            save.unlock_char_com_slot()
 
-# Import Items
-if args.import_items:
-    print(' - Importing items from {}'.format(args.import_items))
-    added_count = 0
-    with open(args.import_items) as df:
-        for line in df:
-            itemline = line.strip()
-            if itemline != '' and itemline[0] != '#' and itemline[0] != ';':
-                itemdata = base64.b64decode(itemline)
-                save.add_new_item(itemdata)
-                added_count += 1
-    print('   - Added Item Count: {}'.format(added_count))
+        # TVHM
+        if 'tvhm' in args.unlock:
+            print('   - TVHM')
+            save.set_playthroughs_completed(1)
 
-# Copying NVHM state
-if args.copy_nvhm:
-    print(' - Copying NVHM state to TVHM')
-    save.copy_playthrough_data()
+    # Import Items
+    if args.import_items:
+        print(' - Importing items from {}'.format(args.import_items))
+        added_count = 0
+        with open(args.import_items) as df:
+            for line in df:
+                itemline = line.strip()
+                if itemline != '' and itemline[0] != '#' and itemline[0] != ';':
+                    itemdata = base64.b64decode(itemline)
+                    save.add_new_item(itemdata)
+                    added_count += 1
+        print('   - Added Item Count: {}'.format(added_count))
+
+    # Copying NVHM state
+    if args.copy_nvhm:
+        print(' - Copying NVHM state to TVHM')
+        save.copy_playthrough_data()
+
+    # Newline at the end of all this.
+    print('')
 
 # Write out
-print('')
 if args.output == 'savegame':
     save.save_to(args.output_filename)
     print('Wrote savegame to {}'.format(args.output_filename))
