@@ -101,11 +101,18 @@ parser.add_argument('--eridium',
         help='Set Eridium value',
         )
 
+unlock_choices = ['ammo', 'backpack', 'analyzer', 'resonator', 'artifactslot', 'comslot', 'tvhm']
 parser.add_argument('--unlock',
         action=DictAction,
-        choices=['ammo', 'backpack', 'analyzer', 'resonator', 'artifactslot', 'comslot'],
+        choices=unlock_choices + ['all'],
         default={},
         help='Game features to unlock',
+        )
+
+parser.add_argument('--copy-nvhm',
+        dest='copy_nvhm',
+        action='store_true',
+        help='Copies NVHM/Normal state to TVHM',
         )
 
 # Positional args
@@ -121,6 +128,8 @@ parser.add_argument('output_filename',
 args = parser.parse_args()
 if args.level and (args.level < 1 or args.level > bl3save.max_level):
     raise argparse.ArgumentTypeError('Valid level range is 1 through {}'.format(bl3save.max_level))
+if 'all' in args.unlock:
+    args.unlock = {k: True for k in unlock_choices}
 
 # Check for overwrite warnings
 if os.path.exists(args.output_filename) and not args.force:
@@ -136,6 +145,12 @@ if os.path.exists(args.output_filename) and not args.force:
 print('Loading {}'.format(args.input_filename))
 save = BL3Save(args.input_filename)
 print('')
+
+# Some argument interactions we should check on
+if args.copy_nvhm:
+    if save.get_playthroughs_completed() < 1:
+        if 'tvhm' not in args.unlock:
+            args.unlock['tvhm'] = True
 
 # Make changes
 print('Making requested changes...')
@@ -172,39 +187,50 @@ if args.eridium:
     print(' - Setting Eridium to: {}'.format(args.eridium))
     save.set_eridium(args.eridium)
 
-# Unlocks: Ammo
+# Unlocks
 if len(args.unlock) > 0:
     print(' - Processing Unlocks:')
 
+    # Ammo
     if 'ammo' in args.unlock:
         print('   - Ammo SDUs (and setting ammo to max)')
         save.set_max_sdus(bl3save.ammo_sdus)
         save.set_max_ammo()
 
-    # Unlocks: Backpack
+    # Backpack
     if 'backpack' in args.unlock:
         print('   - Backpack SDUs')
         save.set_max_sdus([bl3save.SDU_BACKPACK])
 
-    # Unlocks: Eridian Analyzer
+    # Eridian Analyzer
     if 'analyzer' in args.unlock:
         print('   - Eridian Analyzer')
         save.unlock_challenge(bl3save.ERIDIAN_ANALYZER)
 
-    # Unlocks: Eridian Resonator
+    # Eridian Resonator
     if 'resonator' in args.unlock:
         print('   - Eridian Resonator')
         save.unlock_challenge(bl3save.ERIDIAN_RESONATOR)
 
-    # Unlocks: Artifact Slot
+    # Artifact Slot
     if 'artifactslot' in args.unlock:
         print('   - Artifact Inventory Slot')
         save.unlock_challenge(bl3save.CHAL_ARTIFACT)
 
-    # Unlocks: COM Slot
+    # COM Slot
     if 'comslot' in args.unlock:
         print('   - COM Inventory Slot')
         save.unlock_char_com_slot()
+
+    # TVHM
+    if 'tvhm' in args.unlock:
+        print('   - TVHM')
+        save.set_playthroughs_completed(1)
+
+# Copying NVHM state
+if args.copy_nvhm:
+    print(' - Copying NVHM state to TVHM')
+    save.copy_playthrough_data()
 
 # Write out
 print('')

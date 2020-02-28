@@ -12,6 +12,7 @@ TODO
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
+- Figure out how the extra gun slots are unlocked
 - Figure out item serial number parsing (or, almost certainly, wait for
   someone else to figure it out and then take it from there, assuming
   a FOSS'd project. :)
