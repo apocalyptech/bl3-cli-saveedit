@@ -1,0 +1,260 @@
+package OakSave;
+import "OakShared.proto";
+message PlayerInputBinding_Button {
+  optional string rebind_data_path = 1;
+  repeated string key_names = 2;
+}
+message PlayerInputBinding_Axis_Key {
+  optional string key_name = 1;
+  optional Vec3 scale_3d = 2;
+}
+message PlayerInputBinding_Axis {
+  optional string rebind_data_path = 1;
+  repeated PlayerInputBinding_Axis_Key keys = 2;
+}
+message PlayerInputBinding_Category {
+  optional string category_data_path = 1;
+  optional string context_data_path = 2;
+  repeated PlayerInputBinding_Button button_bindings = 3;
+  repeated PlayerInputBinding_Axis axis_bindings = 4;
+}
+message PlayerInputBindings {
+  repeated PlayerInputBinding_Category categories = 1;
+}
+message OakProfileLastInventoryFilterInfo {
+  optional string slot_type_id = 1;
+  optional int32 last_filter_index = 2;
+}
+message OakProfileMenuTutorialInfo {
+  repeated string seen_tutorials = 1;
+  optional bool tutorials_disabled = 2;
+  optional bool tutorials_allowed_in_non_game_modes = 3;
+}
+message OakFriendEncounterData {
+  optional uint32 num_encounters = 1;
+  optional int64 time_last_encounter = 2;
+}
+message OakMailItem {
+  optional uint32 mail_item_type = 1;
+  optional string sender_display_name = 2;
+  optional string subject = 3;
+  optional string body = 4;
+  optional string gear_serial_number = 5;
+  optional string mail_guid = 6;
+  optional int64 date_sent = 7;
+  optional int64 expiration_date = 8;
+  optional string from_player_id = 9;
+  optional bool has_been_read = 10;
+}
+message GearSoldByFriendData {
+  optional string gear_serial_number = 1;
+  optional int32 player_class_identifier_hash = 2;
+  optional string friend_net_id = 3;
+}
+message OakCustomizationSaveGameData {
+  optional bool is_new = 1;
+  optional string customization_asset_path = 2;
+}
+message OakInventoryCustomizationPartInfo {
+  optional uint32 customization_part_hash = 1;
+  optional bool is_new = 2;
+}
+message GuardianRankRewardSaveGameData {
+  optional int32 num_tokens = 1;
+  optional string reward_data_path = 2;
+}
+message GuardianRankProfileData {
+  optional int32 available_tokens = 1;
+  repeated GuardianRankRewardSaveGameData rank_rewards = 2;
+  optional int32 guardian_rank = 3;
+  optional int32 guardian_experience = 4;
+}
+message CrewQuartersDecorationItemSaveGameData {
+  optional bool is_new = 1;
+  optional string decoration_item_asset_path = 2;
+}
+message CrewQuartersRoomItemSaveGameData {
+  optional bool is_new = 1;
+  optional string room_item_asset_path = 2;
+}
+message Profile {
+  message FriendEncountersEntry {
+    optional string key = 1;
+    optional OakFriendEncounterData value = 2;
+  }
+  optional bool enable_aim_assist = 1;
+  optional bool gamepad_invert_look = 2;
+  optional bool gamepad_invert_turn = 3;
+  optional bool gamepad_invert_move = 4;
+  optional bool gamepad_invert_strafe = 5;
+  optional bool enable_vibration = 6;
+  optional bool invert_mouse_pitch = 7;
+  optional bool enable_mouse_smoothing = 8;
+  optional float mouse_scale = 9;
+  optional bool show_damage_numbers = 10;
+  optional bool show_damage_number_icons = 11;
+  optional bool enable_training_messages = 12;
+  optional bool show_text_chat = 13;
+  optional bool center_crosshair = 14;
+  optional bool toggle_sprint = 15;
+  optional bool toggle_crouch = 16;
+  optional bool censor_content = 17;
+  optional float music_volume = 18;
+  optional float sound_effects_volume = 19;
+  optional float vo_volume = 20;
+  optional float voice_volume = 21;
+  optional bool enable_optional_vo = 22;
+  optional bool push_to_talk = 23;
+  optional bool enable_controller_audio = 24;
+  optional float speaker_angle_front = 25;
+  optional float speaker_angle_side = 26;
+  optional float speaker_angle_back = 27;
+  optional uint32 speaker_setup = 28;
+  optional bool mute_audio_on_focus_loss = 29;
+  optional bool hide_strict_nat_help_dialog = 34;
+  optional PlayerInputBindings player_input_bindings = 35;
+  repeated uint32 news_hashes = 36;
+  optional uint32 last_used_savegame_id = 37;
+  optional int32 gamepad_hip_sensitivity_level = 38;
+  optional int32 gamepad_zoomed_sensitivity_level = 39;
+  optional int32 gamepad_vehicle_sensitivity_level = 40;
+  optional float gamepad_movement_dead_zone_x = 41;
+  optional float gamepad_movement_dead_zone_y = 42;
+  optional float gamepad_look_dead_zone_inner_x = 43;
+  optional float gamepad_look_dead_zone_outer_x = 44;
+  optional float gamepad_look_dead_zone_inner_y = 45;
+  optional float gamepad_look_dead_zone_outer_y = 46;
+  optional float gamepad_vehicle_movement_dead_zone_x = 47;
+  optional float gamepad_vehicle_movement_dead_zone_y = 48;
+  optional float gamepad_vehicle_look_dead_zone_inner_x = 49;
+  optional float gamepad_vehicle_look_dead_zone_outer_x = 50;
+  optional float gamepad_vehicle_look_dead_zone_inner_y = 51;
+  optional float gamepad_vehicle_look_dead_zone_outer_y = 52;
+  optional float gamepad_left_dead_zone_inner = 53;
+  optional float gamepad_left_dead_zone_outer = 54;
+  optional float gamepad_right_dead_zone_inner = 55;
+  optional float gamepad_right_dead_zone_outer = 56;
+  optional float gamepad_look_axial_dead_zone_scale = 57;
+  optional float gamepad_move_axial_dead_zone_scale = 58;
+  optional bool gamepad_use_advanced_hip_aim_settings = 59;
+  optional bool gamepad_use_advanced_zoomed_aim_settings = 60;
+  optional bool gamepad_use_advanced_vehicle_aim_settings = 61;
+  optional float gamepad_hip_yaw_rate = 62;
+  optional float gamepad_hip_pitch_rate = 63;
+  optional float gamepad_hip_extra_yaw = 64;
+  optional float gamepad_hip_extra_pitch = 65;
+  optional float gamepad_hip_ramp_up_time = 66;
+  optional float gamepad_hip_ramp_up_delay = 67;
+  optional float gamepad_zoomed_yaw_rate = 68;
+  optional float gamepad_zoomed_pitch_rate = 69;
+  optional float gamepad_zoomed_extra_yaw = 70;
+  optional float gamepad_zoomed_extra_pitch = 71;
+  optional float gamepad_zoomed_ramp_up_time = 72;
+  optional float gamepad_zoomed_ramp_up_delay = 73;
+  optional float gamepad_vehicle_yaw_rate = 74;
+  optional float gamepad_vehicle_pitch_rate = 75;
+  optional float gamepad_vehicle_extra_yaw = 76;
+  optional float gamepad_vehicle_extra_pitch = 77;
+  optional float gamepad_vehicle_ramp_up_time = 78;
+  optional float gamepad_vehicle_ramp_up_delay = 79;
+  optional bool ironsight_aim_assist = 80;
+  optional uint32 walking_joystick_scheme = 81;
+  optional uint32 driving_joystick_scheme = 82;
+  optional float mouse_ads_scale = 83;
+  optional float mouse_vehicle_scale = 84;
+  optional bool mouse_ironsight_aim_assist = 85;
+  optional uint32 vehicle_input_mode = 86;
+  optional bool weapon_aim_toggle = 87;
+  optional bool mantle_requires_button = 88;
+  optional bool fixed_minimap_rotation = 89;
+  optional bool map_invert_pitch = 90;
+  optional bool map_invert_yaw = 91;
+  optional uint32 difficulty = 92;
+  optional bool swap_dual_wield_controls = 93;
+  optional float base_fov = 94;
+  optional uint32 crosshair_neutral_color_frame = 95;
+  optional uint32 crosshair_enemy_color_frame = 96;
+  optional uint32 crosshair_ally_color_frame = 97;
+  optional bool enable_subtitles = 98;
+  optional bool enable_closed_captions = 99;
+  optional string last_status_menu_page = 100;
+  repeated OakProfileLastInventoryFilterInfo inventory_screen_last_filter = 101;
+  optional OakProfileMenuTutorialInfo tutorial_info = 102;
+  optional uint32 default_network_type = 103;
+  optional uint32 default_invite_type = 104;
+  optional string matchmaking_region = 105;
+  optional uint32 streaming_service = 106;
+  optional int32 max_cached_friend_events = 107;
+  optional int32 max_cached_friend_statuses = 108;
+  repeated string friend_events = 109;
+  repeated string friend_statuses = 110;
+  optional int64 last_whisper_fetch_events_time = 111;
+  optional int64 last_whisper_fetch_statuses_time = 112;
+  repeated string recently_met_players = 132;
+  repeated FriendEncountersEntry friend_encounters = 133;
+  optional int32 max_friend_encounter_size = 134;
+  repeated GameStatSaveGameData profile_stats_data = 135;
+  repeated InventoryCategorySaveData bank_inventory_category_list = 136;
+  repeated bytes bank_inventory_list = 137;
+  repeated bytes lost_loot_inventory_list = 138;
+  repeated OakMailItem npc_mail_items = 139;
+  repeated string mail_guids = 140;
+  repeated string unread_mail_guids = 141;
+  repeated GearSoldByFriendData gear_sold_by_friends = 142;
+  repeated OakSDUSaveGameData profile_sdu_list = 143;
+  repeated OakCustomizationSaveGameData unlocked_customizations = 144;
+  repeated OakInventoryCustomizationPartInfo unlocked_inventory_customization_parts = 145;
+  optional GuardianRankProfileData guardian_rank = 146;
+  repeated CrewQuartersDecorationItemSaveGameData unlocked_crew_quarters_decorations = 147;
+  repeated CrewQuartersRoomItemSaveGameData unlocked_crew_quarters_rooms = 148;
+  optional bool enable_mouse_acceleration = 150;
+  optional bool enable_gamepad_input = 151;
+  optional bool use_classic_gamepad_input = 152;
+  optional float master_volume = 153;
+  optional uint32 monitor_display_type = 154;
+  optional uint32 graphics_mode = 155;
+  optional uint32 frame_rate_limit = 156;
+  optional float base_vehicle_fov = 157;
+  optional uint32 graphics_quality = 158;
+  optional uint32 anisotropic_filtering = 159;
+  optional uint32 shadow_quality = 160;
+  optional uint32 display_performance_stats = 161;
+  optional uint32 texture_detail = 162;
+  optional uint32 draw_distance = 163;
+  optional uint32 clutter = 164;
+  optional uint32 tessellation = 165;
+  optional uint32 foliage = 166;
+  optional bool foliage_shadows = 167;
+  optional bool planar_reflections = 168;
+  optional uint32 volumetric_fog = 169;
+  optional uint32 screen_space_reflections = 170;
+  optional uint32 character_texture_detail = 171;
+  optional uint32 character_detail = 172;
+  optional uint32 ambient_occlusion_quality = 173;
+  optional bool object_motion_blur = 174;
+  optional bool lens_flare = 175;
+  optional bool combat_number_long_format = 176;
+  optional bool show_minimap_legendaries = 177;
+  optional bool use_player_callouts = 178;
+  optional uint32 friend_event_notification_lifetime = 179;
+  optional uint32 friend_event_notification_frequency = 180;
+  optional uint32 trade_request_reception_type = 181;
+  optional float head_bob_scale = 182;
+  optional bool has_seen_first_boot = 184;
+  optional float subs_cc_size = 189;
+  optional float cc_subs_background_opacity = 190;
+  optional uint32 walking_button_scheme = 191;
+  optional uint32 driving_button_scheme = 192;
+  optional uint32 glyph_mode = 193;
+  optional bool use_MPH = 194;
+  repeated RegisteredDownloadableEntitlements registered_downloadable_entitlements = 195;
+  repeated string seen_news_items = 196;
+  optional bool auto_centering_enabled = 197;
+  optional bool increased_chance_for_subscribers = 198;
+  optional bool rare_chest_event_enabled = 199;
+  optional bool badass_event_enabled = 200;
+  optional bool pinata_event_enabled = 201;
+  optional int32 min_time_between_badass_events = 202;
+  optional float hud_scale_multiplier = 203;
+  optional bool disable_spatial_audio = 204;
+}

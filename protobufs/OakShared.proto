@@ -1,0 +1,29 @@
+package OakSave;
+message Vec3 {
+  optional float x = 1;
+  optional float y = 2;
+  optional float z = 3;
+}
+message GameStatSaveGameData {
+  optional int32 stat_value = 1;
+  optional string stat_path = 2;
+}
+message InventoryCategorySaveData {
+  optional uint32 base_category_definition_hash = 1;
+  optional int32 quantity = 2;
+}
+message OakSDUSaveGameData {
+  optional int32 sdu_level = 1;
+  optional string sdu_data_path = 2;
+}
+message RegisteredDownloadableEntitlement {
+  optional int32 id = 1;
+  optional uint32 consumed = 2;
+  optional bool registered = 3;
+  optional bool seen = 4;
+}
+message RegisteredDownloadableEntitlements {
+  optional string entitlement_source_asset_path = 1;
+  repeated int64 entitlement_ids = 2;
+  repeated RegisteredDownloadableEntitlement entitlements = 3;
+}
