@@ -81,7 +81,7 @@ class BL3Item(object):
         return self.protobuf.item_serial_number
 
     def get_serial_base64(self):
-        return base64.b64encode(self.get_serial_number())
+        return base64.b64encode(self.get_serial_number()).decode('latin1')
 
     def get_pickup_order_idx(self):
         return self.protobuf.pickup_order_index
@@ -223,6 +223,13 @@ class BL3Save(object):
             self._write_int(df, len(data))
             df.write(data)
 
+    def save_protobuf_to(self, filename):
+        """
+        Saves the raw protobufs to the specified filename
+        """
+        with open(filename, 'wb') as df:
+            df.write(self.save.SerializeToString())
+
     def _read_int(self, df):
         return struct.unpack('<I', df.read(4))[0]
 
@@ -276,6 +283,24 @@ class BL3Save(object):
         Returns the character name
         """
         return self.save.preferred_character_name
+
+    def set_char_name(self, new_name):
+        """
+        Sets the character name
+        """
+        self.save.preferred_character_name = new_name
+
+    def get_savegame_id(self):
+        """
+        Returns the savegame ID (not sure if this is important at all)
+        """
+        return self.save.save_game_id
+
+    def set_savegame_id(self, new_id):
+        """
+        Sets the savegame ID (not sure if this is important at all)
+        """
+        self.save.save_game_id = new_id
 
     def get_pet_names(self, eng=False):
         """

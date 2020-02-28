@@ -32,6 +32,9 @@ save = BL3Save(sys.argv[1])
 # Character name
 print('Character: {}'.format(save.get_char_name()))
 
+# Savegame ID
+print('Savegame ID: {}'.format(save.get_savegame_id()))
+
 # Pet Names
 petnames = save.get_pet_names(True)
 if len(petnames) > 0:
