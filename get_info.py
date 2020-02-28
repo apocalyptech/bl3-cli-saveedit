@@ -48,6 +48,10 @@ print('Player Class: {}'.format(save.get_class(True)))
 print('XP: {}'.format(save.get_xp()))
 print('Level: {}'.format(save.get_level()))
 
+# Currencies
+print('Money: {}'.format(save.get_money()))
+print('Eridium: {}'.format(save.get_eridium()))
+
 # Playthroughs
 print('Playthroughs Completed: {}'.format(save.get_playthroughs_completed()))
 

@@ -61,6 +61,16 @@ parser.add_argument('--level',
         help='Set the character to this level (from 1 to {})'.format(bl3save.max_level),
         )
 
+parser.add_argument('--money',
+        type=int,
+        help='Set money value',
+        )
+
+parser.add_argument('--eridium',
+        type=int,
+        help='Set Eridium value',
+        )
+
 # Positional args
 parser.add_argument('input_filename',
         help='Input filename',
@@ -108,6 +118,16 @@ if args.save_game_id:
 if args.level:
     print(' - Setting Character Level to: {}'.format(args.level))
     save.set_level(args.level)
+
+# Money
+if args.money:
+    print(' - Setting Money to: {}'.format(args.money))
+    save.set_money(args.money)
+
+# Eridium
+if args.eridium:
+    print(' - Setting Eridium to: {}'.format(args.eridium))
+    save.set_eridium(args.eridium)
 
 # Write out
 print('')

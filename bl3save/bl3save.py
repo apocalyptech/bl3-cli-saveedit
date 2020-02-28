@@ -711,6 +711,58 @@ class BL3Save(object):
                     trinket_data_path='',
                     ))
 
+    def get_currency(self, currency_type):
+        """
+        Returns the amount of currency of the given type
+        """
+        for cat_save_data in self.save.inventory_category_list:
+            if cat_save_data.base_category_definition_hash in curhash_to_currency:
+                if currency_type == curhash_to_currency[cat_save_data.base_category_definition_hash]:
+                    return cat_save_data.quantity
+        return 0
+
+    def set_currency(self, currency_type, new_value):
+        """
+        Sets a new currency value
+        """
+
+        # Update an existing value, if we have it
+        for cat_save_data in self.save.inventory_category_list:
+            if cat_save_data.base_category_definition_hash in curhash_to_currency:
+                if currency_type == curhash_to_currency[cat_save_data.base_category_definition_hash]:
+                    cat_save_data.quantity = new_value
+                    return
+
+        # Add a new one, if we don't
+        self.save.inventory_category_list.append(OakShared_pb2.InventoryCategorySaveData(
+            base_category_definition_hash=currency_to_curhash[currency_type],
+            quantity=new_value,
+            ))
+
+    def get_money(self):
+        """
+        Returns the amount of money we have
+        """
+        return self.get_currency(MONEY)
+
+    def set_money(self, new_value):
+        """
+        Sets the amount of money we have
+        """
+        return self.set_currency(MONEY, new_value)
+
+    def get_eridium(self):
+        """
+        Returns the amount of eridium we have
+        """
+        return self.get_currency(ERIDIUM)
+
+    def set_eridium(self, new_value):
+        """
+        Sets the amount of eridium we have
+        """
+        return self.set_currency(ERIDIUM, new_value)
+
     def get_sdus(self, eng=False):
         """
         Returns a dict containing the SDU type and the number purchased.  The SDU

@@ -48,6 +48,18 @@ petkey_to_pet = {
         }
 pet_to_petkey = {v: k for k, v in petkey_to_pet.items()}
 
+# Currencies
+(MONEY, ERIDIUM) = range(2)
+currency_to_eng = {
+        MONEY: 'Money',
+        ERIDIUM: 'Eridium',
+        }
+currency_to_curhash = {
+        MONEY: 618814354,
+        ERIDIUM: 3679636065
+        }
+curhash_to_currency = {v: k for k, v in currency_to_curhash.items()}
+
 # Inventory Slots
 (WEAPON1, WEAPON2, WEAPON3, WEAPON4, SHIELD, GRENADE, COM, ARTIFACT) = range(8)
 slot_to_eng = {
