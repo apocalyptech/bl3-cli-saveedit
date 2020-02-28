@@ -23,6 +23,7 @@
 
 import os
 import sys
+import base64
 import argparse
 import bl3save
 from bl3save.bl3save import BL3Save
@@ -113,6 +114,12 @@ parser.add_argument('--copy-nvhm',
         dest='copy_nvhm',
         action='store_true',
         help='Copies NVHM/Normal state to TVHM',
+        )
+
+parser.add_argument('-i', '--import-items',
+        dest='import_items',
+        type=str,
+        help='Import items from file',
         )
 
 # Positional args
@@ -226,6 +233,19 @@ if len(args.unlock) > 0:
     if 'tvhm' in args.unlock:
         print('   - TVHM')
         save.set_playthroughs_completed(1)
+
+# Import Items
+if args.import_items:
+    print(' - Importing items from {}'.format(args.import_items))
+    added_count = 0
+    with open(args.import_items) as df:
+        for line in df:
+            itemline = line.strip()
+            if itemline != '' and itemline[0] != '#' and itemline[0] != ';':
+                itemdata = base64.b64decode(itemline)
+                save.add_new_item(itemdata)
+                added_count += 1
+    print('   - Added Item Count: {}'.format(added_count))
 
 # Copying NVHM state
 if args.copy_nvhm:

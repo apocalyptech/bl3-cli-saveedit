@@ -21,13 +21,29 @@
 # 
 # 3. This notice may not be removed or altered from any source distribution.
 
-import sys
 import bl3save
+import argparse
 import itertools
 from bl3save.bl3save import BL3Save
 
+# Arguments
+parser = argparse.ArgumentParser(
+        description='Print information about a BL3 Savegame',
+        )
+
+parser.add_argument('-v', '--verbose',
+        action='store_true',
+        help='Show all available information',
+        )
+
+parser.add_argument('filename',
+        help='Filename to process',
+        )
+
+args = parser.parse_args()
+
 # Load the save
-save = BL3Save(sys.argv[1])
+save = BL3Save(args.filename)
 
 # Character name
 print('Character: {}'.format(save.get_char_name()))
@@ -74,7 +90,7 @@ for pt, (mayhem, mapname, stations, missions) in enumerate(itertools.zip_longest
         print(' - In Map: {}'.format(mapname))
 
     # FT Stations
-    if False:
+    if args.verbose:
         if stations is not None:
             if len(stations) == 0:
                 print(' - No Active FT Stations')
@@ -93,7 +109,7 @@ for pt, (mayhem, mapname, stations, missions) in enumerate(itertools.zip_longest
                 print('   - {}'.format(mission))
 
 # Inventory
-if False:
+if args.verbose:
     items = save.get_items()
     if len(items) == 0:
         print('Nothing in Inventory')
@@ -103,7 +119,7 @@ if False:
             print(' - {}'.format(item.get_serial_base64()))
 
 # Equipped Items
-if False:
+if args.verbose:
     items = save.get_equipped_items(True)
     if any(items.values()):
         print('Equipped Items:')
