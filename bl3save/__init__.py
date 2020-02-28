@@ -86,6 +86,7 @@ slot_to_slotobj = {v: k for k, v in slotobj_to_slot.items()}
 
 # SDUs
 (SDU_BACKPACK, SDU_AR, SDU_PISTOL, SDU_SNIPER, SDU_SHOTGUN, SDU_GRENADE, SDU_SMG, SDU_HEAVY) = range(8)
+ammo_sdus = [SDU_AR, SDU_PISTOL, SDU_SNIPER, SDU_SHOTGUN, SDU_GRENADE, SDU_SMG, SDU_HEAVY]
 sdu_to_eng = {
         SDU_BACKPACK: 'Backpack',
         SDU_AR: 'AR',
@@ -150,11 +151,6 @@ ammo_to_max = {
         }
 
 # Challenges
-# Completed challenges will have:
-#    is_active -> False
-#    completed_count -> 1, for the ones I care about (resonator, etc)
-#    completed_progress_level -> 0
-#    progress_counter -> 0
 (ERIDIAN_ANALYZER,
         ERIDIAN_RESONATOR,
         MAYHEM,

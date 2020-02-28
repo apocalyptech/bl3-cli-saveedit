@@ -326,7 +326,8 @@ class BL3Save(object):
 
     def get_class(self, eng=False):
         """
-        Returns the class of this character, as a constant
+        Returns the class of this character.  By default it will be a constant,
+        but if `eng` is `True` it will be an English label instead.
         """
         classval = classobj_to_class[self.save.player_class_data.player_class_path]
         if eng:
@@ -785,17 +786,21 @@ class BL3Save(object):
             return sdus[sdu]
         return 0
 
-    def set_max_sdus(self):
+    def set_max_sdus(self, sdulist=None):
         """
-        Sets our SDUs to be at the max level
+        Sets the specified SDUs (or all SDUs that we know about) to be at the max level
         """
-        all_sdus = set(sdu_to_eng.keys())
+        if sdulist is None:
+            all_sdus = set(sdu_to_eng.keys())
+        else:
+            all_sdus = set(sdulist)
 
         # Set all existing SDUs to max
         for sdu in self.save.sdu_list:
             sdu_key = sduobj_to_sdu[sdu.sdu_data_path]
-            all_sdus.remove(sdu_key)
-            sdu.sdu_level = sdu_to_max[sdu_key]
+            if sdu_key in all_sdus:
+                all_sdus.remove(sdu_key)
+                sdu.sdu_level = sdu_to_max[sdu_key]
 
         # If we're missing any, add them.
         for sdu in all_sdus:
@@ -861,4 +866,49 @@ class BL3Save(object):
         if chal_type in challenges:
             return challenges[chal_type]
         return None
+
+    def unlock_challenge_obj(self, challenge_obj, completed_count=1, progress_level=0):
+        """
+        Unlock the given challenge object.  Not sure what `progress_level`
+        does, honestly.  Presumably `completed_count` would be useful for the
+        more user-visible challenges on the map menu.  The ones that we're
+        primarily concerned with here will just have 1 for it, though.
+        """
+        # First look for existing objects (should always be here, I think)
+        for chal in self.save.challenge_data:
+            if chal.challenge_class_path == challenge_obj:
+                chal.currently_completed = True
+                chal.is_active = False
+                chal.completed_count = completed_count
+                chal.progress_counter = 0
+                chal.completed_progress_level = progress_level
+                return
+
+        # AFAIK we should never get here; rather than create a new one,
+        # I'm just going to raise an Exception for now.
+        raise Exception('Challenge not found: {}'.format(challenge_obj))
+
+    def unlock_challenge(self, chal_type):
+        """
+        Unlocks the given challenge type
+        """
+        self.unlock_challenge_obj(challenge_to_challengeobj[chal_type])
+
+    def unlock_char_com_slot(self):
+        """
+        Special-case routine to unlock the appropriate challenge for COM slot, which
+        will depend on what character we are.
+        """
+        char_class = self.get_class()
+        if char_class == BEASTMASTER:
+            self.unlock_challenge(COM_BEASTMASER)
+        elif char_class == GUNNER:
+            self.unlock_challenge(COM_GUNNER)
+        elif char_class == OPERATIVE:
+            self.unlock_challenge(COM_OPERATIVE)
+        elif char_class == SIREN:
+            self.unlock_challenge(COM_SIREN)
+        else:
+            # How in the world would we get here?
+            raise Exception('Unknown character class: {}'.format(char_class))
 

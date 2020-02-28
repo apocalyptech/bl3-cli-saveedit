@@ -27,6 +27,30 @@ import argparse
 import bl3save
 from bl3save.bl3save import BL3Save
 
+class DictAction(argparse.Action):
+    """
+    Custom argparse action to put list-like arguments into
+    a dict (where the value will be True) rather than a list.
+    This is probably implemented fairly shoddily.
+    """
+    def __init__(self, option_strings, dest, nargs=None, **kwargs):
+        """
+        Constructor, taken right from https://docs.python.org/2.7/library/argparse.html#action
+        """
+        if nargs is not None:
+            raise ValueError('nargs is not allowed')
+        super(DictAction, self).__init__(option_strings, dest, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        """
+        Actually setting a value.  Forces the attr into a dict if it isn't already.
+        """
+        arg_value = getattr(namespace, self.dest)
+        if not isinstance(arg_value, dict):
+            arg_value = {}
+        arg_value[values] = True
+        setattr(namespace, self.dest, arg_value)
+
 # Set up args
 parser = argparse.ArgumentParser(
         description='Edit Borderlands 3 Save Files (PC Only)',
@@ -61,6 +85,12 @@ parser.add_argument('--level',
         help='Set the character to this level (from 1 to {})'.format(bl3save.max_level),
         )
 
+parser.add_argument('--mayhem',
+        type=int,
+        choices=range(5),
+        help='Set the mayhem mode for all playthroughs (mostly useful for Normal mode)',
+        )
+
 parser.add_argument('--money',
         type=int,
         help='Set money value',
@@ -69,6 +99,13 @@ parser.add_argument('--money',
 parser.add_argument('--eridium',
         type=int,
         help='Set Eridium value',
+        )
+
+parser.add_argument('--unlock',
+        action=DictAction,
+        choices=['ammo', 'backpack', 'analyzer', 'resonator', 'artifactslot', 'comslot'],
+        default={},
+        help='Game features to unlock',
         )
 
 # Positional args
@@ -114,6 +151,12 @@ if args.save_game_id:
     print(' - Setting Savegame ID to: {}'.format(args.save_game_id))
     save.set_savegame_id(args.save_game_id)
 
+if args.mayhem:
+    print(' - Setting Mayhem Level to: {}'.format(args.mayhem))
+    save.set_all_mayhem_level(args.mayhem)
+    print('   - Also ensuring that Mayhem Mode is unlocked')
+    save.unlock_challenge(bl3save.MAYHEM)
+
 # Level
 if args.level:
     print(' - Setting Character Level to: {}'.format(args.level))
@@ -128,6 +171,40 @@ if args.money:
 if args.eridium:
     print(' - Setting Eridium to: {}'.format(args.eridium))
     save.set_eridium(args.eridium)
+
+# Unlocks: Ammo
+if len(args.unlock) > 0:
+    print(' - Processing Unlocks:')
+
+    if 'ammo' in args.unlock:
+        print('   - Ammo SDUs (and setting ammo to max)')
+        save.set_max_sdus(bl3save.ammo_sdus)
+        save.set_max_ammo()
+
+    # Unlocks: Backpack
+    if 'backpack' in args.unlock:
+        print('   - Backpack SDUs')
+        save.set_max_sdus([bl3save.SDU_BACKPACK])
+
+    # Unlocks: Eridian Analyzer
+    if 'analyzer' in args.unlock:
+        print('   - Eridian Analyzer')
+        save.unlock_challenge(bl3save.ERIDIAN_ANALYZER)
+
+    # Unlocks: Eridian Resonator
+    if 'resonator' in args.unlock:
+        print('   - Eridian Resonator')
+        save.unlock_challenge(bl3save.ERIDIAN_RESONATOR)
+
+    # Unlocks: Artifact Slot
+    if 'artifactslot' in args.unlock:
+        print('   - Artifact Inventory Slot')
+        save.unlock_challenge(bl3save.CHAL_ARTIFACT)
+
+    # Unlocks: COM Slot
+    if 'comslot' in args.unlock:
+        print('   - COM Inventory Slot')
+        save.unlock_char_com_slot()
 
 # Write out
 print('')
