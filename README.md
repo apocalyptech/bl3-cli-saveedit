@@ -252,6 +252,16 @@ any line starting with `BL3(` as an item into the savegame:
 
     bl3-save-edit old.sav new.sav -i items.txt
 
+# Savegame Info Usage
+
+The `bl3-save-info` script is extremely simple, and just dumps a bunch
+of information about the specified savegame to the console.  If you
+specify the `-v`/`--verbose` option, it'll output a little more info
+than it ordinarily would, such as inventory contents and discovered
+Fast Travel stations:
+
+    bl3-save-info -v old.sav
+
 # TODO
 
 - Something a bit more Enum-like for various things in `__init__.py`; I
