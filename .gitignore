@@ -3,3 +3,6 @@
 step
 __pycache__
 *.swp
+bl3_cli_saveedit.egg-info
+build
+dist

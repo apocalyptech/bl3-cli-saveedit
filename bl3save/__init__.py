@@ -19,6 +19,9 @@
 # 
 # 3. This notice may not be removed or altered from any source distribution.
 
+# Editor Version
+__version__ = '1.0.0'
+
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
 class_to_eng = {

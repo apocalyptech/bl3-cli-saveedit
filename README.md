@@ -6,8 +6,6 @@ This project will eventually be a CLI savefile editor for Borderlands 3.
 TODO
 ====
 
-- Proper packaging (would like to get this on PyPI)
-- Proper modularization (I think it's probably a bit weird at the moment)
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
@@ -35,4 +33,10 @@ License
 All code in this project is licensed under the
 [zlib/libpng license](https://opensource.org/licenses/Zlib).  A copy is
 provided in [COPYING.txt](COPYING.txt).
+
+Changelog
+=========
+
+**v1.0.0** - *unreleased*
+ - Initial version
 
