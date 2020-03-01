@@ -722,6 +722,39 @@ class BL3Save(object):
                 return self.items[inv_idx]
         return None
 
+    def get_equip_slots(self, eng=False):
+        """
+        Returns a dict of slot ID and BL3EquipSlot objects, for all inventory
+        slots.  The slot will be a constant by default, or an English label if
+        `eng` is `True`
+        """
+        return self.equipslots
+
+    def get_equip_slot(self, slot):
+        """
+        Returns the BL3EquipSlot object in the specified `slot`.
+        """
+        if slot in self.equipslots:
+            return self.equipslots[slot]
+        return None
+
+    def unlock_slots(self, slots=None):
+        """
+        Unlocks the specified inventory `slots`, which should be a list of slot
+        IDs.  If `slots` is not passed in, will unlock all inventory slots.  This
+        will take the initiative to unlock some associated challenges, if
+        necessary -- Artifacts and COMs in particular have an associated challenge
+        with their slot unlocking, which we'll go ahead and process.
+        """
+        if not slots:
+            slots = slot_to_eng.keys()
+        for slot in slots:
+            self.equipslots[slot].set_enabled()
+            if slot == ARTIFACT:
+                self.unlock_challenge(CHAL_ARTIFACT)
+            elif slot == COM:
+                self.unlock_char_com_challenge()
+
     def add_new_item(self, itemdata):
         """
         Adds a new item to our item list.  Returns a tuple containing the new
@@ -949,7 +982,7 @@ class BL3Save(object):
         """
         self.unlock_challenge_obj(challenge_to_challengeobj[chal_type])
 
-    def unlock_char_com_slot(self):
+    def unlock_char_com_challenge(self):
         """
         Special-case routine to unlock the appropriate challenge for COM slot, which
         will depend on what character we are.

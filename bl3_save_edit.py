@@ -117,7 +117,7 @@ parser.add_argument('--eridium',
         help='Set Eridium value',
         )
 
-unlock_choices = ['ammo', 'backpack', 'analyzer', 'resonator', 'artifactslot', 'comslot', 'tvhm']
+unlock_choices = ['ammo', 'backpack', 'analyzer', 'resonator', 'gunslots', 'artifactslot', 'comslot', 'allslots', 'tvhm']
 parser.add_argument('--unlock',
         action=DictAction,
         choices=unlock_choices + ['all'],
@@ -152,6 +152,10 @@ if args.level is not None and (args.level < 1 or args.level > bl3save.max_level)
     raise argparse.ArgumentTypeError('Valid level range is 1 through {}'.format(bl3save.max_level))
 if 'all' in args.unlock:
     args.unlock = {k: True for k in unlock_choices}
+elif 'allslots' in args.unlock:
+    args.unlock['gunslots'] = True
+    args.unlock['artifactslot'] = True
+    args.unlock['comslot'] = True
 
 # Check for overwrite warnings
 if os.path.exists(args.output_filename) and not args.force:
@@ -265,17 +269,23 @@ if have_changes:
                 print('   - Eridian Resonator')
             save.unlock_challenge(bl3save.ERIDIAN_RESONATOR)
 
+        # Gun Slots
+        if 'gunslots' in args.unlock:
+            if not args.quiet:
+                print('   - Weapon Slots (3+4)')
+            save.unlock_slots([bl3save.WEAPON3, bl3save.WEAPON4])
+
         # Artifact Slot
         if 'artifactslot' in args.unlock:
             if not args.quiet:
                 print('   - Artifact Inventory Slot')
-            save.unlock_challenge(bl3save.CHAL_ARTIFACT)
+            save.unlock_slots([bl3save.ARTIFACT])
 
         # COM Slot
         if 'comslot' in args.unlock:
             if not args.quiet:
                 print('   - COM Inventory Slot')
-            save.unlock_char_com_slot()
+            save.unlock_slots([bl3save.COM])
 
         # TVHM
         if 'tvhm' in args.unlock:

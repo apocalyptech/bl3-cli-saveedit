@@ -6,13 +6,11 @@ This project will eventually be a CLI savefile editor for Borderlands 3.
 TODO
 ====
 
-- The actual CLI editor bit
 - Proper packaging (would like to get this on PyPI)
 - Proper modularization (I think it's probably a bit weird at the moment)
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
-- Figure out how the extra gun slots are unlocked
 - Figure out item serial number parsing (or, almost certainly, wait for
   someone else to figure it out and then take it from there, assuming
   a FOSS'd project. :)

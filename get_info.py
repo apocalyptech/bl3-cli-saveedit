@@ -108,6 +108,14 @@ for pt, (mayhem, mapname, stations, missions) in enumerate(itertools.zip_longest
             for mission in sorted(missions):
                 print('   - {}'.format(mission))
 
+# Inventory Slots that we care about
+print('Unlockable Inventory Slots:')
+for slot in [bl3save.WEAPON3, bl3save.WEAPON4, bl3save.COM, bl3save.ARTIFACT]:
+    print(' - {}: {}'.format(
+        bl3save.slot_to_eng[slot],
+        save.get_equip_slot(slot).enabled(),
+        ))
+
 # Inventory
 if args.verbose:
     items = save.get_items()
