@@ -96,9 +96,17 @@ parser.add_argument('--save-game-id',
         help='Set the save game slot ID (possibly not actually ever needed)',
         )
 
-parser.add_argument('--level',
+levelgroup = parser.add_mutually_exclusive_group()
+
+levelgroup.add_argument('--level',
         type=int,
         help='Set the character to this level (from 1 to {})'.format(bl3save.max_level),
+        )
+
+levelgroup.add_argument('--level-max',
+        dest='level_max',
+        action='store_true',
+        help='Set the character to max level ({})'.format(bl3save.max_level),
         )
 
 parser.add_argument('--mayhem',
@@ -150,12 +158,18 @@ parser.add_argument('output_filename',
 args = parser.parse_args()
 if args.level is not None and (args.level < 1 or args.level > bl3save.max_level):
     raise argparse.ArgumentTypeError('Valid level range is 1 through {}'.format(bl3save.max_level))
+
+# Expand any of our "all" unlock actions
 if 'all' in args.unlock:
     args.unlock = {k: True for k in unlock_choices}
 elif 'allslots' in args.unlock:
     args.unlock['gunslots'] = True
     args.unlock['artifactslot'] = True
     args.unlock['comslot'] = True
+
+# Set max level arg
+if args.level_max:
+    args.level = bl3save.max_level
 
 # Check for overwrite warnings
 if os.path.exists(args.output_filename) and not args.force:
