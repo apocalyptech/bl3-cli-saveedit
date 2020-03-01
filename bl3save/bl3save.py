@@ -92,6 +92,60 @@ class BL3Item(object):
         """
         self.protobuf.item_serial_number = new_data
 
+class BL3EquipSlot(object):
+    """
+    Real simple wrapper for a BL3 equipment slot.
+
+    We touch this in a couple of different ways, so it felt like maybe we should
+    wrap it up a bit.  We don't touch trinkets at all so I haven't wrapped any
+    of that stuff.
+
+    All these getters/setters are rather un-Pythonic; should be using
+    some decorations for that instead.  Alas!
+    """
+
+    def __init__(self, protobuf):
+        self.protobuf = protobuf
+
+    @staticmethod
+    def create(index, obj_name, enabled=True, trinket_name=''):
+        return BL3EquipSlot(OakSave_pb2.EquippedInventorySaveGameData(
+            inventory_list_index=index,
+            enabled=enabled,
+            slot_data_path=obj_name,
+            trinket_data_path=trinket_name,
+            ))
+
+    def get_inventory_idx(self):
+        """
+        Gets the inventory index that we're pointing to
+        """
+        return self.protobuf.inventory_list_index
+
+    def set_inventory_idx(self, new_idx):
+        """
+        Sets the inventory index that we're pointing to
+        """
+        self.protobuf.inventory_list_index = new_idx
+
+    def enabled(self):
+        """
+        Returns whether we're enabled or not
+        """
+        return self.protobuf.enabled
+
+    def set_enabled(self, enabled=True):
+        """
+        Sets our enabled state
+        """
+        self.protobuf.enabled = enabled
+
+    def get_obj_name(self):
+        """
+        Returns our path object name
+        """
+        return self.protobuf.slot_data_path
+
 class BL3Save(object):
     """
     Real simple wrapper for a BL3 savegame file.
@@ -183,7 +237,15 @@ class BL3Save(object):
             self.save.ParseFromString(data)
 
             # Do some data processing so that we can wrap things APIwise
+            # First: Items
             self.items = [BL3Item(i) for i in self.save.inventory_items]
+
+            # Next: Equip slots
+            self.equipslots = {}
+            for e in self.save.equipped_inventory_list:
+                equip = BL3EquipSlot(e)
+                slot = slotobj_to_slot[equip.get_obj_name()]
+                self.equipslots[slot] = equip
 
     def save_to(self, filename):
         """
@@ -641,12 +703,11 @@ class BL3Save(object):
         be a constant by default, or an English label if `eng` is `True`
         """
         to_ret = {}
-        for equip in self.save.equipped_inventory_list:
-            key = slotobj_to_slot[equip.slot_data_path]
+        for (key, equipslot) in self.equipslots.items():
             if eng:
                 key = slot_to_eng[key]
-            if equip.inventory_list_index >= 0:
-                to_ret[key] = self.items[equip.inventory_list_index]
+            if equipslot.get_inventory_idx() >= 0:
+                to_ret[key] = self.items[equipslot.get_inventory_idx()]
             else:
                 to_ret[key] = None
         return to_ret
@@ -655,9 +716,10 @@ class BL3Save(object):
         """
         Given a slot, return the item equipped in that slot
         """
-        items = self.get_equipped_items()
-        if slot in items:
-            return items[slot]
+        if slot in self.equipslots:
+            inv_idx = self.equipslots[slot].get_inventory_idx()
+            if inv_idx >= 0 and len(self.items) > inv_idx:
+                return self.items[inv_idx]
         return None
 
     def add_new_item(self, itemdata):
@@ -695,22 +757,15 @@ class BL3Save(object):
 
             # Now assign it to the slot
             found_slot = False
-            slot_obj = slot_to_slotobj[slot]
-            for equip in self.save.equipped_inventory_list:
-                if equip.slot_data_path == slot_obj:
-                    found_slot = True
-                    equip.inventory_list_index = new_index
-                    break
+            if slot in self.equipslots:
+                found_slot = True
+                self.equipslots[slot].set_inventory_idx(new_index)
 
             # If we didn't find a slot, create it (I don't *think* this should ever happen?)
             if not found_slot:
-                self.save.equipped_inventory_list.append(OakSave_pb2.EquippedInventorySaveGameData(
-                    inventory_list_index=new_index,
-                    # Enabled seems to always be 0, probably not used.
-                    enabled=0,
-                    slot_data_path=slot_obj,
-                    trinket_data_path='',
-                    ))
+                equipslot = BL3EquipSlot.create(new_index, slot_obj)
+                self.save.equipped_inventory_list.append(equipslot.protobuf)
+                self.equipslots[slot] = equipslot
 
     def get_currency(self, currency_type):
         """
