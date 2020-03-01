@@ -9,8 +9,10 @@ def readme():
     with open('README.md') as f:
         return f.read()
 
+app_name = 'bl3-cli-saveedit'
+
 setup(
-        name='bl3-cli-saveedit',
+        name=app_name,
         version=__version__,
         packages=find_packages(),
         include_package_data=True,
@@ -23,11 +25,11 @@ setup(
         author_email='cj@apocalyptech.com',
         data_files=[
             # I always like these to be installed along with the apps
-            ('share/bl3-cli-saveedit', ['COPYING.txt', 'README.md']),
+            (f'share/{app_name}', ['COPYING.txt', 'README.md']),
             # Seems helpful to bundle the Protobuf definitions (via Gibbed) in here
-            ('share/bl3-cli-saveedit/protobufs', [os.path.join('protobufs', f) for f in sorted(os.listdir('protobufs'))]),
+            (f'share/{app_name}/protobufs', [os.path.join('protobufs', f) for f in sorted(os.listdir('protobufs'))]),
             # Seems less helpful to package my mod testing gear, but whatever.
-            ('share/bl3-cli-saveedit/item_exports', ['mod_testing_gear.txt']),
+            (f'share/{app_name}/item_exports', ['mod_testing_gear.txt']),
             ],
         install_requires=[
             'protobuf ~= 3.0',
