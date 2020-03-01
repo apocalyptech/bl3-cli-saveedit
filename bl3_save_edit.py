@@ -23,7 +23,6 @@
 
 import os
 import sys
-import base64
 import argparse
 import bl3save
 from bl3save.bl3save import BL3Save
