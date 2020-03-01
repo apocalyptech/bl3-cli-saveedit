@@ -315,9 +315,8 @@ if have_changes:
         with open(args.import_items) as df:
             for line in df:
                 itemline = line.strip()
-                if itemline != '' and itemline[0] != '#' and itemline[0] != ';':
-                    itemdata = base64.b64decode(itemline)
-                    save.add_new_item(itemdata)
+                if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
+                    save.add_new_item_encoded(itemline)
                     added_count += 1
         if not args.quiet:
             print('   - Added Item Count: {}'.format(added_count))

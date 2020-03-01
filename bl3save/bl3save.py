@@ -81,7 +81,7 @@ class BL3Item(object):
         return self.protobuf.item_serial_number
 
     def get_serial_base64(self):
-        return base64.b64encode(self.get_serial_number()).decode('latin1')
+        return 'BL3({})'.format(base64.b64encode(self.get_serial_number()).decode('latin1'))
 
     def get_pickup_order_idx(self):
         return self.protobuf.pickup_order_index
@@ -91,6 +91,16 @@ class BL3Item(object):
         Overwrites this item with a new one
         """
         self.protobuf.item_serial_number = new_data
+
+    @staticmethod
+    def decode_serial_base64(new_data):
+        """
+        Overwrites this item with a new one, from a base64 encoding
+        """
+        if not new_data.lower().startswith('bl3(') or not new_data.endswith(')'):
+            raise Exception('Unknown item format: {}'.format(new_data))
+        encoded = new_data[4:-1]
+        return base64.b64decode(encoded)
 
 class BL3EquipSlot(object):
     """
@@ -775,6 +785,14 @@ class BL3Save(object):
         self.save.inventory_items.append(new_item.protobuf)
         self.items.append(new_item)
         return (self.items[-1], len(self.items)-1)
+
+    def add_new_item_encoded(self, itemdata):
+        """
+        Adds a new item to our item list, using the textual representation that we can
+        save to a file (which happens to be base64).  Returns a tuple containing the new
+        BL3Item object itself, and its new index in our item list.
+        """
+        return self.add_new_item(BL3Item.decode_serial_base64(itemdata))
 
     def overwrite_item_in_slot(self, slot, itemdata):
         """
