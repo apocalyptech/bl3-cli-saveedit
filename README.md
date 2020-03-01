@@ -55,9 +55,9 @@ as well, if you like:
 ### Running from Github
 
 Alternatively, if you want to download or run the Github version of
-the app, clone the repository and then install `protobuf` (you can
+the app: clone the repository and then install `protobuf` (you can
 use `pip install -r requirements.txt` to do so, though a `pip install protobuf`
-will also work just fine.
+will also work just fine).
 
 You can then run the scripts directly from the Github checkout, though
 you'll have to use a slightly different syntax.  Here are the equivalents:
@@ -70,7 +70,7 @@ you'll have to use a slightly different syntax.  Here are the equivalents:
 
 This section will assume that you've installed via `pip` - if you're using
 a Github checkout, substitute the commands as appropriate, as per the
-Installation section.
+Installation section above.
 
 ## Basic Operation
 
@@ -108,7 +108,7 @@ specify the format using the `-o`/`--output` option, like so:
     bl3-save-edit old.sav new.txt -o items
 
 - **savegame** - This is the default, if you don't specify an output
-  format, and will save the game like a valid BL3 savegame.  This
+  format.  It will save the game like a valid BL3 savegame.  This
   will likely be your most commonly-used option.
 - **protobuf** - This will write out the raw, unencrypted Protobuf
   entries contained in the savegame, which might be useful if you
@@ -153,13 +153,13 @@ or to the max level allowed by the game using `--level-max`
 
 ### Mayhem Level
 
-This is only really useful before you've got Mayhem Mode unlocked;
-you can use it to activate Mayhem mode even from the very beginning
-of the game.  Note that you still won't have access to the Mayhem
-console on Sanctuary until it's properly unlocked by the game, so
-this will be the only way of changing Mayhem mode until that point
-in the game.  This will set the Mayhem level for all playthroughs
-found in the game.
+This is only really useful before you've got Mayhem Mode unlocked.
+You can use the `--mayhem` argument to activate Mayhem mode even from
+the very beginning of the game.  Note that you still won't have access
+to the Mayhem console on Sanctuary until it's properly unlocked by the
+game, so this will be the only way of changing Mayhem mode until that
+point in the game.  This will set the Mayhem level for all
+playthroughs found in the game.
 
     bl3-save-edit old.sav new.sav --mayhem 4
 
@@ -183,8 +183,8 @@ at once, like so:
 #### Ammo/Backpack Unlocks
 
 The `ammo` and `backpack` unlocks will give you the maximum number
-of SDUs for all Ammo types and your backpack space, respectively.
-The Ammo SDU unlock will also alter your ammo count to be full.
+of SDUs for all ammo types, and your backpack space, respectively.
+The `ammo` SDU unlock will also fill your ammo reserves.
 
     bl3-save-edit old.sav new.sav --unlock ammo
     bl3-save-edit old.sav new.sav --unlock backpack
@@ -229,7 +229,7 @@ You can use the `tvhm` unlock to unlock TVHM mode early:
 
 #### All Unlocks at Once
 
-You can also use `all` to unlock literally all the various `--unlock`
+You can also use `all` to unlock all the various `--unlock`
 options at once, without having to specify each one individually:
 
     bl3-save-edit old.sav new.sav --unlock all
