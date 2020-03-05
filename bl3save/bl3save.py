@@ -1007,7 +1007,7 @@ class BL3Save(object):
         """
         char_class = self.get_class()
         if char_class == BEASTMASTER:
-            self.unlock_challenge(COM_BEASTMASER)
+            self.unlock_challenge(COM_BEASTMASTER)
         elif char_class == GUNNER:
             self.unlock_challenge(COM_GUNNER)
         elif char_class == OPERATIVE:
@@ -1017,4 +1017,157 @@ class BL3Save(object):
         else:
             # How in the world would we get here?
             raise Exception('Unknown character class: {}'.format(char_class))
+
+    def get_vehicle_chassis_counts(self, eng=False):
+        """
+        Returns a dict containing the vehicle type and a count of unlocked chassis for
+        the vehicle.  The vehicle type key will be a constant by default, or an English
+        label if `eng` is `True`
+        """
+        to_ret = {}
+        for v in self.save.vehicles_unlocked_data:
+            key = chassis_to_vehicle[v.asset_path]
+            if eng:
+                key = vehicle_to_eng[key]
+            if key in to_ret:
+                to_ret[key] += 1
+            else:
+                to_ret[key] = 1
+        return to_ret
+
+    def get_vehicle_chassis_count(self, vehicle_type):
+        """
+        Given a vehicle type, return the number of chassis types that are unlocked
+        """
+        counts = self.get_vehicle_chassis_counts()
+        if vehicle_type in counts:
+            return counts[vehicle_type]
+        return 0
+
+    def unlock_vehicle_chassis(self, vehicle_type=None):
+        """
+        Unlocks vehicle chassis types for the specified `vehicle_type`, or for all
+        vehicle types if a type is not specified
+        """
+        # Construct a list of types
+        if vehicle_type:
+            types = [vehicle_type]
+        else:
+            types = [OUTRUNNER, TECHNICAL, CYCLONE]
+
+        # Construct a set of all currently-unlocked chassis types
+        cur_unlocks = set([v.asset_path for v in self.save.vehicles_unlocked_data])
+
+        # Now add in any parts which aren't already part of that
+        for vehicle_type in types:
+            for part in vehicle_chassis[vehicle_type]:
+                if part not in cur_unlocks:
+                    self.save.vehicles_unlocked_data.append(OakSave_pb2.VehicleUnlockedSaveGameData(
+                        asset_path=part,
+                        just_unlocked=True,
+                        ))
+
+    def _get_vehicle_part_counts(self, p2v_map, eng=False):
+        """
+        Returns a dict containing the vehicle type and a count of unlocked
+        parts (minus wheels, which are part of the chassis definition) for the
+        vehicle, using the specified `p2v_map` for the part mapping.  This is
+        generalized because we are separating out "functional" parts from
+        skins.  The only reasonable values for `p2v_map` are `part_to_vehicle`
+        and `skin_to_vehicle`, both found in `__init__.py`.  The vehicle type
+        key will be a constant by default, or an English label if `eng` is
+        `True`
+        """
+        to_ret = {}
+        for part in self.save.vehicle_parts_unlocked:
+            if part in p2v_map:
+                key = p2v_map[part]
+                if eng:
+                    key = vehicle_to_eng[key]
+                if key in to_ret:
+                    to_ret[key] += 1
+                else:
+                    to_ret[key] = 1
+        return to_ret
+
+    def get_vehicle_part_counts(self, eng=False):
+        """
+        Returns a dict containing the vehicle type and a count of unlocked parts (minus
+        wheels, which are part of the chassis definition) for the vehicle.  The vehicle
+        type key will be a constant by default, or an English label if `eng` is `True`
+        """
+        return self._get_vehicle_part_counts(part_to_vehicle, eng=eng)
+
+    def get_vehicle_skin_counts(self, eng=False):
+        """
+        Returns a dict containing the vehicle type and a count of unlocked
+        skins for the vehicle.  The vehicle type key will be a constant by
+        default, or an English label if `eng` is `True`
+        """
+        return self._get_vehicle_part_counts(skin_to_vehicle, eng=eng)
+
+    def _get_vehicle_part_count(self, vehicle_type, generic_count_func):
+        """
+        Given a vehicle type, return the number of parts (minus wheels, which
+        are part of the chassis definition) that are unlocked, using the
+        specified `generic_count_func` to get the counts for all vehicle types.
+        This is generalized because we are separating out "functional" parts
+        from skins.  The only reasonable values for `generic_count_func` are
+        `self.get_vehicle_part_counts` and `self.get_vehicle_skin_counts`.
+        """
+        counts = generic_count_func()
+        if vehicle_type in counts:
+            return counts[vehicle_type]
+        return 0
+
+    def get_vehicle_part_count(self, vehicle_type):
+        """
+        Given a vehicle type, return the number of parts (minus wheels, which are part
+        of the chassis definition) that are unlocked.
+        """
+        return self._get_vehicle_part_count(vehicle_type, self.get_vehicle_part_counts)
+
+    def get_vehicle_skin_count(self, vehicle_type):
+        """
+        Given a vehicle type, return the number of skins that are unlocked.
+        """
+        return self._get_vehicle_part_count(vehicle_type, self.get_vehicle_skin_counts)
+
+    def _unlock_vehicle_parts(self, part_struct, vehicle_type=None):
+        """
+        Unlocks vehicle parts for the specified `vehicle_type`, or for all
+        vehicle types if a type is not specified, using the specified
+        `part_struct` to know which parts to unlock.  This is generalized
+        because we are separating out "functional" parts from skins.  The only
+        reasonable values for `part_struct` are `vehicle_parts` and
+        `vehicle_skins`.
+        """
+        # Construct a list of types
+        if vehicle_type:
+            types = [vehicle_type]
+        else:
+            types = [OUTRUNNER, TECHNICAL, CYCLONE]
+
+        # Construct a set of all currently-unlocked chassis types
+        cur_parts = set(self.save.vehicle_parts_unlocked)
+
+        # Now add in any parts which aren't already part of that
+        for vehicle_type in types:
+            for part in part_struct[vehicle_type]:
+                if part not in cur_parts:
+                    self.save.vehicle_parts_unlocked.append(part)
+
+    def unlock_vehicle_parts(self, vehicle_type=None):
+        """
+        Unlocks vehicle parts for the specified `vehicle_type`, or for all
+        vehicle types if a type is not specified
+        """
+        return self._unlock_vehicle_parts(vehicle_parts)
+
+    def unlock_vehicle_skins(self, vehicle_type=None):
+        """
+        Unlocks vehicle skins for the specified `vehicle_type`, or for all
+        vehicle types if a type is not specified
+        """
+        return self._unlock_vehicle_parts(vehicle_skins)
 

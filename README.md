@@ -221,6 +221,23 @@ Or:
 
     bl3-save-edit old.sav new.sav --unlock allslots
 
+#### Vehicles
+
+You can use the `vehicles` unlock to unlock all vehicles and
+vehicle parts.  Note that this does *not* prematurely unlock the
+Catch-A-Ride system.  You will still have to at least complete
+the story mission with Ellie which unlocks those, to have access
+to the vehicles.
+
+    bl3-save-edit old.sav new.sav --unlock vehicles
+
+#### Vehicle Skins
+
+You can use `vehicleskins` to unlock all vehicle skins, for all
+vehicle types.
+
+    bl3-save-edit old.sav new.sav --unlock vehicleskins
+
 #### TVHM
 
 You can use the `tvhm` unlock to unlock TVHM mode early:

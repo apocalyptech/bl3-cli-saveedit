@@ -199,6 +199,184 @@ challengeobj_to_challenge = {
         }
 challenge_to_challengeobj = {v: k for k, v in challengeobj_to_challenge.items()}
 
+# Vehicle info.  We're not doing as much object-to-english mapping stuff here, 'cause
+# I don't care enough to code it into the editor.  Just doing some more general
+# "unlock all" type activity.
+(OUTRUNNER, TECHNICAL, CYCLONE) = range(3)
+vehicle_to_eng = {
+        OUTRUNNER: 'Outrunner',
+        TECHNICAL: 'Technical',
+        CYCLONE: 'Cyclone',
+        }
+vehicle_chassis = {
+        OUTRUNNER: set([
+            '/Game/Vehicles/Outrunner/Design/WT_Outrunner_BuggyWheels.WT_Outrunner_BuggyWheels',
+            '/Game/Vehicles/Outrunner/Design/WT_Outrunner_HoverWheels.WT_Outrunner_HoverWheels',
+            '/Game/Vehicles/Outrunner/Design/WT_Outrunner_TwitchyWheels.WT_Outrunner_TwitchyWheels',
+            '/Game/Vehicles/Outrunner/Design/WT_Outrunner_ZipWheels.WT_Outrunner_ZipWheels',
+            ]),
+        TECHNICAL: set([
+            '/Game/Vehicles/Technical/Design/WT_Technical_AllTerrainWheels.WT_Technical_AllTerrainWheels',
+            '/Game/Vehicles/Technical/Design/WT_Technical_BarbedWheels.WT_Technical_BarbedWheels',
+            '/Game/Vehicles/Technical/Design/WT_Technical_HoverWheels.WT_Technical_HoverWheels',
+            '/Game/Vehicles/Technical/Design/WT_Technical_MonsterWheels.WT_Technical_MonsterWheels',
+            ]),
+        CYCLONE: set([
+            '/Game/Vehicles/Revolver/Design/WT_Revolver_DualWheel.WT_Revolver_DualWheel',
+            '/Game/Vehicles/Revolver/Design/WT_Revolver_HoverWheel.WT_Revolver_HoverWheel',
+            '/Game/Vehicles/Revolver/Design/WT_Revolver_MonoWheel.WT_Revolver_MonoWheel',
+            '/Game/Vehicles/Revolver/Design/WT_Revolver_WIdeWheel.WT_Revolver_WIdeWheel',
+            ]),
+        }
+chassis_to_vehicle = {}
+for vehicle, chassislist in vehicle_chassis.items():
+    for chassis in chassislist:
+        chassis_to_vehicle[chassis] = vehicle
+vehicle_parts = {
+        OUTRUNNER: set([
+            '/Game/Vehicles/Outrunner/Design/Parts/Armor/VehiclePart_Outrunner_Armor_BasicArmor.VehiclePart_Outrunner_Armor_BasicArmor',
+            '/Game/Vehicles/Outrunner/Design/Parts/Armor/VehiclePart_Outrunner_Armor_HeavyArmor.VehiclePart_Outrunner_Armor_HeavyArmor',
+            '/Game/Vehicles/Outrunner/Design/Parts/CoreMod/BlazeBooster/VehiclePart_CoreMod_BlazeBooster.VehiclePart_CoreMod_BlazeBooster',
+            '/Game/Vehicles/Outrunner/Design/Parts/CoreMod/BoostCanisters/VehiclePart_CoreMod_BoostCanisters.VehiclePart_CoreMod_BoostCanisters',
+            '/Game/Vehicles/Outrunner/Design/Parts/CoreMod/EnergyCells/VehiclePart_CoreMod_EnergyCells.VehiclePart_CoreMod_EnergyCells',
+            '/Game/Vehicles/Outrunner/Design/Parts/CoreMod/RazerWings/VehiclePart_CoreMod_RazerWings.VehiclePart_CoreMod_RazerWings',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_FlameThrower/FlameThrower/VehiclePart_WeaponDriver_FlameThrower_Native.VehiclePart_WeaponDriver_FlameThrower_Native',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_FlameThrower/TeslaCoil/VehiclePart_WeaponDriver_TeslaCoil_Native.VehiclePart_WeaponDriver_TeslaCoil_Native',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MachineGun/OutrunnerMachineGun/VehiclePart_WeaponDriver_OutrunnerMachineGun_Native.VehiclePart_WeaponDriver_OutrunnerMachineGun_Native',
+            '/Game/Vehicles/VehicleWeapons/GunnerWeapons/Type_MissileLauncher/HeavyMissile/VehiclePart_Weapon_HeavyMissile_Native.VehiclePart_Weapon_HeavyMissile_Native',
+            '/Game/Vehicles/VehicleWeapons/GunnerWeapons/Type_MissileLauncher/ShotgunMissile/VehiclePart_Weapon_ShotgunMissile_Native.VehiclePart_Weapon_ShotgunMissile_Native',
+            '/Game/Vehicles/VehicleWeapons/GunnerWeapons/Type_MissileLauncher/SwarmerMissile/VehiclePart_Weapon_SwarmerMissile_Native.VehiclePart_Weapon_SwarmerMissile_Native',
+            ]),
+        TECHNICAL: set([
+            '/Game/Vehicles/Technical/Design/Parts/Accessory/FlatBed/VehiclePart_CoreMod_Flatbed.VehiclePart_CoreMod_Flatbed',
+            '/Game/Vehicles/Technical/Design/Parts/Accessory/FuelBarrels/VehiclePart_CoreMod_FuelBarrels.VehiclePart_CoreMod_FuelBarrels',
+            '/Game/Vehicles/Technical/Design/Parts/Accessory/JetBooster/VehiclePart_CoreMod_JetBooster.VehiclePart_CoreMod_JetBooster',
+            '/Game/Vehicles/Technical/Design/Parts/Accessory/ToxicBooster/VehiclePart_CoreMod_ToxicBooster.VehiclePart_CoreMod_ToxicBooster',
+            '/Game/Vehicles/Technical/Design/Parts/Armor/VehiclePart_Techincal_Armor_BasicArmor.VehiclePart_Techincal_Armor_BasicArmor',
+            '/Game/Vehicles/Technical/Design/Parts/Armor/VehiclePart_Technical_Armor_HeavyArmor.VehiclePart_Technical_Armor_HeavyArmor',
+            '/Game/Vehicles/Technical/Design/Parts/Armor/VehiclePart_Technical_Armor_MeatGrinder.VehiclePart_Technical_Armor_MeatGrinder',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MachineGun/FlakCannon/VehiclePart_WeaponDriver_FlakCannon_Native.VehiclePart_WeaponDriver_FlakCannon_Native',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MachineGun/MachineGun/VehiclePart_WeaponDriver_MachineGun_Native.VehiclePart_WeaponDriver_MachineGun_Native',
+            '/Game/Vehicles/VehicleWeapons/GunnerWeapons/Type_Catapult/BarrelLauncher/VehiclePart_Weapon_BarrelLauncher_Native.VehiclePart_Weapon_BarrelLauncher_Native',
+            '/Game/Vehicles/VehicleWeapons/GunnerWeapons/Type_Catapult/PropelledBombsLauncher/VehiclePart_Weapon_PropelledBombsLauncher_Native.VehiclePart_Weapon_PropelledBombsLauncher_Native',
+            '/Game/Vehicles/VehicleWeapons/GunnerWeapons/Type_Catapult/StickyBombLauncher/VehiclePart_Weapon_StickyBombs_Native.VehiclePart_Weapon_StickyBombs_Native',
+            ]),
+        CYCLONE: set([
+            '/Game/Vehicles/Revolver/Design/Parts/Armor/VehiclePart_Revolver_Armor_BasicArmor.VehiclePart_Revolver_Armor_BasicArmor',
+            '/Game/Vehicles/Revolver/Design/Parts/Armor/VehiclePart_Revolver_Armor_HeavyArmor.VehiclePart_Revolver_Armor_HeavyArmor',
+            '/Game/Vehicles/Revolver/Design/Parts/CoreMod/CryoBooster/VehiclePart_CryoBooster.VehiclePart_CryoBooster',
+            '/Game/Vehicles/Revolver/Design/Parts/CoreMod/DigiThruster/VehiclePart_DigiThruster.VehiclePart_DigiThruster',
+            '/Game/Vehicles/Revolver/Design/Parts/CoreMod/Firestarter/VehiclePart_FireStarter.VehiclePart_FireStarter',
+            '/Game/Vehicles/Revolver/Design/Parts/CoreMod/HeavyBooster/VehiclePart_HeavyBooster.VehiclePart_HeavyBooster',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MechanicalLauncher/BlazeRodLancer/VehiclePart_WeaponDriver_BlazeRodLauncher_Native.VehiclePart_WeaponDriver_BlazeRodLauncher_Native',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MechanicalLauncher/RevolverMachineGun/VehiclePart_WeaponDriver_RevolverMachineGun_Native.VehiclePart_WeaponDriver_RevolverMachineGun_Native',
+            '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MechanicalLauncher/SawBladeLancer/VehiclePart_WeaponDriver_SawBladeLauncher_Native.VehiclePart_WeaponDriver_SawBladeLauncher_Native',
+            ]),
+        }
+part_to_vehicle = {}
+for vehicle, parts in vehicle_parts.items():
+    for part in parts:
+        part_to_vehicle[part] = vehicle
+vehicle_skins = {
+        OUTRUNNER: set([
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Atlas.VehiclePart_Mat_VehiclePart_Outrunner_Atlas',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Batmobile.VehiclePart_Mat_VehiclePart_Outrunner_Batmobile',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_COV.VehiclePart_Mat_VehiclePart_Outrunner_COV',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Dahl.VehiclePart_Mat_VehiclePart_Outrunner_Dahl',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Default.VehiclePart_Mat_VehiclePart_Outrunner_Default',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Ellie1.VehiclePart_Mat_VehiclePart_Outrunner_Ellie1',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_FF.VehiclePart_Mat_VehiclePart_Outrunner_FF',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Fire.VehiclePart_Mat_VehiclePart_Outrunner_Fire',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Forest.VehiclePart_Mat_VehiclePart_Outrunner_Forest',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_GBX.VehiclePart_Mat_VehiclePart_Outrunner_GBX',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Gold.VehiclePart_Mat_VehiclePart_Outrunner_Gold',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Grog.VehiclePart_Mat_VehiclePart_Outrunner_Grog',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Gulf.VehiclePart_Mat_VehiclePart_Outrunner_Gulf',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Herbie.VehiclePart_Mat_VehiclePart_Outrunner_Herbie',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Hexagon.VehiclePart_Mat_VehiclePart_Outrunner_Hexagon',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Houndstooth.VehiclePart_Mat_VehiclePart_Outrunner_Houndstooth',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_HubbaBubba.VehiclePart_Mat_VehiclePart_Outrunner_HubbaBubba',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Hyp.VehiclePart_Mat_VehiclePart_Outrunner_Hyp',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Hyp2.VehiclePart_Mat_VehiclePart_Outrunner_Hyp2',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Infection.VehiclePart_Mat_VehiclePart_Outrunner_Infection',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Jakobs.VehiclePart_Mat_VehiclePart_Outrunner_Jakobs',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Maliwan.VehiclePart_Mat_VehiclePart_Outrunner_Maliwan',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Maya.VehiclePart_Mat_VehiclePart_Outrunner_Maya',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Pirate.VehiclePart_Mat_VehiclePart_Outrunner_Pirate',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Prisa.VehiclePart_Mat_VehiclePart_Outrunner_Prisa',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_RedMachine.VehiclePart_Mat_VehiclePart_Outrunner_RedMachine',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_SDCC.VehiclePart_Mat_VehiclePart_Outrunner_SDCC',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Stealth.VehiclePart_Mat_VehiclePart_Outrunner_Stealth',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Torgue.VehiclePart_Mat_VehiclePart_Outrunner_Torgue',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Tri.VehiclePart_Mat_VehiclePart_Outrunner_Tri',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Vladof.VehiclePart_Mat_VehiclePart_Outrunner_Vladof',
+            '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Wrap.VehiclePart_Mat_VehiclePart_Outrunner_Wrap',
+            ]),
+        TECHNICAL: set([
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Atlas.VehiclePart_Mat_VehiclePart_Technical_Atlas',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Bling.VehiclePart_Mat_VehiclePart_Technical_Bling',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_BlueAngel.VehiclePart_Mat_VehiclePart_Technical_BlueAngel',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Bubblegum.VehiclePart_Mat_VehiclePart_Technical_Bubblegum',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Camo.VehiclePart_Mat_VehiclePart_Technical_Camo',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Checker.VehiclePart_Mat_VehiclePart_Technical_Checker',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Cov.VehiclePart_Mat_VehiclePart_Technical_Cov',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Dahl.VehiclePart_Mat_VehiclePart_Technical_Dahl',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Default.VehiclePart_Mat_VehiclePart_Technical_Default',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Dino.VehiclePart_Mat_VehiclePart_Technical_Dino',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_E3.VehiclePart_Mat_VehiclePart_Technical_E3',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Ellie1.VehiclePart_Mat_VehiclePart_Technical_Ellie1',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Festi.VehiclePart_Mat_VehiclePart_Technical_Festi',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Forest.VehiclePart_Mat_VehiclePart_Technical_Forest',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_GBX.VehiclePart_Mat_VehiclePart_Technical_GBX',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_GoldenTicket.VehiclePart_Mat_VehiclePart_Technical_GoldenTicket',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_HYP.VehiclePart_Mat_VehiclePart_Technical_HYP',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Halftone.VehiclePart_Mat_VehiclePart_Technical_Halftone',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_JAK.VehiclePart_Mat_VehiclePart_Technical_JAK',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_MAL.VehiclePart_Mat_VehiclePart_Technical_MAL',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Maya.VehiclePart_Mat_VehiclePart_Technical_Maya',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Plaid.VehiclePart_Mat_VehiclePart_Technical_Plaid',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Roadkill.VehiclePart_Mat_VehiclePart_Technical_Roadkill',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Sand.VehiclePart_Mat_VehiclePart_Technical_Sand',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Skag.VehiclePart_Mat_VehiclePart_Technical_Skag',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Stealth.VehiclePart_Mat_VehiclePart_Technical_Stealth',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Thunderbird.VehiclePart_Mat_VehiclePart_Technical_Thunderbird',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Torgue.VehiclePart_Mat_VehiclePart_Technical_Torgue',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Vaughn.VehiclePart_Mat_VehiclePart_Technical_Vaughn',
+            '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Vladof.VehiclePart_Mat_VehiclePart_Technical_Vladof',
+            ]),
+        CYCLONE: set([
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Atlas.VehiclePart_Mat_VehiclePart_Revolver_Atlas',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_COV.VehiclePart_Mat_VehiclePart_Revolver_COV',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Chopper.VehiclePart_Mat_VehiclePart_Revolver_Chopper',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Chups.VehiclePart_Mat_VehiclePart_Revolver_Chups',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Dahl.VehiclePart_Mat_VehiclePart_Revolver_Dahl',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Dark.VehiclePart_Mat_VehiclePart_Revolver_Dark',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Default.VehiclePart_Mat_VehiclePart_Revolver_Default',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Ellie1.VehiclePart_Mat_VehiclePart_Revolver_Ellie1',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Forest.VehiclePart_Mat_VehiclePart_Revolver_Forest',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_GBX.VehiclePart_Mat_VehiclePart_Revolver_GBX',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_GC.VehiclePart_Mat_VehiclePart_Revolver_GC',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_HubbaBubba.VehiclePart_Mat_VehiclePart_Revolver_HubbaBubba',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Hyp.VehiclePart_Mat_VehiclePart_Revolver_Hyp',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Hyp2.VehiclePart_Mat_VehiclePart_Revolver_Hyp2',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Jakobs.VehiclePart_Mat_VehiclePart_Revolver_Jakobs',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_LifeSaver.VehiclePart_Mat_VehiclePart_Revolver_LifeSaver',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Maliwan.VehiclePart_Mat_VehiclePart_Revolver_Maliwan',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Mask.VehiclePart_Mat_VehiclePart_Revolver_Mask',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Maya.VehiclePart_Mat_VehiclePart_Revolver_Maya',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Ninja.VehiclePart_Mat_VehiclePart_Revolver_Ninja',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Pepto.VehiclePart_Mat_VehiclePart_Revolver_Pepto',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Police.VehiclePart_Mat_VehiclePart_Revolver_Police',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Stealth.VehiclePart_Mat_VehiclePart_Revolver_Stealth',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Torgue.VehiclePart_Mat_VehiclePart_Revolver_Torgue',
+            '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Vladof.VehiclePart_Mat_VehiclePart_Revolver_Vladof',
+            ]),
+        }
+skin_to_vehicle = {}
+for vehicle, skins in vehicle_skins.items():
+    for skin in skins:
+        skin_to_vehicle[skin] = vehicle
+
 # XP
 max_level = 53
 required_xp_list = [

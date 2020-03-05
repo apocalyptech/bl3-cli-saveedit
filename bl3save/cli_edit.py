@@ -126,7 +126,13 @@ def main():
             help='Set Eridium value',
             )
 
-    unlock_choices = ['ammo', 'backpack', 'analyzer', 'resonator', 'gunslots', 'artifactslot', 'comslot', 'allslots', 'tvhm']
+    unlock_choices = [
+            'ammo', 'backpack',
+            'analyzer', 'resonator',
+            'gunslots', 'artifactslot', 'comslot', 'allslots',
+            'tvhm',
+            'vehicles', 'vehicleskins',
+            ]
     parser.add_argument('--unlock',
             action=DictAction,
             choices=unlock_choices + ['all'],
@@ -301,6 +307,19 @@ def main():
                 if not args.quiet:
                     print('   - COM Inventory Slot')
                 save.unlock_slots([bl3save.COM])
+
+            # Vehicles
+            if 'vehicles' in args.unlock:
+                if not args.quiet:
+                    print('   - Vehicles (and parts)')
+                save.unlock_vehicle_chassis()
+                save.unlock_vehicle_parts()
+
+            # Vehicle Skins
+            if 'vehicleskins' in args.unlock:
+                if not args.quiet:
+                    print('   - Vehicle Skins')
+                save.unlock_vehicle_skins()
 
             # TVHM
             if 'tvhm' in args.unlock:

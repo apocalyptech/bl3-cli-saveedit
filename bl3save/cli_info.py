@@ -158,5 +158,20 @@ def main():
     for challenge, status in save.get_interesting_challenges(True).items():
         print(' - {}: {}'.format(challenge, status))
 
+    # Vehicle unlocks
+    print('Unlocked Vehicle Parts:')
+    for vehicle, chassis_count in save.get_vehicle_chassis_counts().items():
+        eng = bl3save.vehicle_to_eng[vehicle]
+        print(' - {} - Chassis: {}/{}, Parts: {}/{}, Skins: {}/{}'.format(
+            eng,
+            chassis_count, len(bl3save.vehicle_chassis[vehicle]),
+            save.get_vehicle_part_count(vehicle), len(bl3save.vehicle_parts[vehicle]),
+            save.get_vehicle_skin_count(vehicle), len(bl3save.vehicle_skins[vehicle]),
+            ))
+
+    #print('Vehicle Parts:')
+    #for p in save.save.vehicle_parts_unlocked:
+    #    print(' - {}'.format(p))
+
 if __name__ == '__main__':
     main()
