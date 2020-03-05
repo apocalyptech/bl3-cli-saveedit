@@ -162,7 +162,7 @@ def main():
     print('Unlocked Vehicle Parts:')
     for vehicle, chassis_count in save.get_vehicle_chassis_counts().items():
         eng = bl3save.vehicle_to_eng[vehicle]
-        print(' - {} - Chassis: {}/{}, Parts: {}/{}, Skins: {}/{}'.format(
+        print(' - {} - Chassis (wheels): {}/{}, Parts: {}/{}, Skins: {}/{}'.format(
             eng,
             chassis_count, len(bl3save.vehicle_chassis[vehicle]),
             save.get_vehicle_part_count(vehicle), len(bl3save.vehicle_parts[vehicle]),
