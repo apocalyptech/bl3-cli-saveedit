@@ -281,8 +281,6 @@ Fast Travel stations:
 
 # TODO
 
-- I have not *actually* confirmed yet that I have the Skag pet name
-  key right, for FL4K
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
