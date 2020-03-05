@@ -169,9 +169,5 @@ def main():
             save.get_vehicle_skin_count(vehicle), len(bl3save.vehicle_skins[vehicle]),
             ))
 
-    #print('Vehicle Parts:')
-    #for p in save.save.vehicle_parts_unlocked:
-    #    print(' - {}'.format(p))
-
 if __name__ == '__main__':
     main()
