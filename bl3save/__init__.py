@@ -311,6 +311,8 @@ vehicle_skins = {
             '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Tri.VehiclePart_Mat_VehiclePart_Outrunner_Tri',
             '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Vladof.VehiclePart_Mat_VehiclePart_Outrunner_Vladof',
             '/Game/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Wrap.VehiclePart_Mat_VehiclePart_Outrunner_Wrap',
+            '/Game/PatchDLC/Hibiscus/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Fish.VehiclePart_Mat_VehiclePart_Outrunner_Fish',
+            '/Game/PatchDLC/Hibiscus/Vehicles/Outrunner/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Outrunner_Tentacle.VehiclePart_Mat_VehiclePart_Outrunner_Tentacle',
             ]),
         TECHNICAL: set([
             '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Atlas.VehiclePart_Mat_VehiclePart_Technical_Atlas',
@@ -343,6 +345,9 @@ vehicle_skins = {
             '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Torgue.VehiclePart_Mat_VehiclePart_Technical_Torgue',
             '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Vaughn.VehiclePart_Mat_VehiclePart_Technical_Vaughn',
             '/Game/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Vladof.VehiclePart_Mat_VehiclePart_Technical_Vladof',
+            '/Game/PatchDLC/Hibiscus/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Tentacle.VehiclePart_Mat_VehiclePart_Technical_Tentacle',
+            '/Game/PatchDLC/Hibiscus/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Fish.VehiclePart_Mat_VehiclePart_Technical_Fish',
+            '/Game/PatchDLC/Hibiscus/Vehicles/Technical/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Technical_Frost.VehiclePart_Mat_VehiclePart_Technical_Frost',
             ]),
         CYCLONE: set([
             '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Atlas.VehiclePart_Mat_VehiclePart_Revolver_Atlas',
@@ -370,6 +375,7 @@ vehicle_skins = {
             '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Stealth.VehiclePart_Mat_VehiclePart_Revolver_Stealth',
             '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Torgue.VehiclePart_Mat_VehiclePart_Revolver_Torgue',
             '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Vladof.VehiclePart_Mat_VehiclePart_Revolver_Vladof',
+            '/Game/PatchDLC/Hibiscus/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Fish.VehiclePart_Mat_VehiclePart_Revolver_Fish',
             ]),
         }
 skin_to_vehicle = {}
