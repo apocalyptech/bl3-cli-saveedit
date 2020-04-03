@@ -74,11 +74,12 @@ def main():
     print('Playthroughs Completed: {}'.format(save.get_playthroughs_completed()))
 
     # Playthrough-specific Data
-    for pt, (mayhem, mapname, stations, missions) in enumerate(itertools.zip_longest(
+    for pt, (mayhem, mapname, stations, missions, mission_count) in enumerate(itertools.zip_longest(
             save.get_pt_mayhem_levels(),
             save.get_pt_last_maps(True),
             save.get_pt_active_ft_station_lists(),
             save.get_pt_active_mission_lists(True),
+            save.get_pt_completed_mission_counts(),
             )):
 
         print('Playthrough {} Info:'.format(pt+1))
@@ -109,6 +110,10 @@ def main():
                 print(' - Active Missions:')
                 for mission in sorted(missions):
                     print('   - {}'.format(mission))
+
+        # Completed mission count
+        if mission_count is not None:
+            print(' - Missions completed: {}'.format(mission_count))
 
     # Inventory Slots that we care about
     print('Unlockable Inventory Slots:')

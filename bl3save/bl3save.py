@@ -670,6 +670,29 @@ class BL3Save(object):
             return missions[pt]
         return None
 
+    def get_pt_completed_mission_counts(self):
+        """
+        Returns a count of completed missions for each Playthrough.
+        """
+        to_ret = []
+        for pt in self.save.mission_playthroughs_data:
+            mission_count = 0
+            for mission in pt.mission_list:
+                if mission.status == MissionState.MS_Complete:
+                    mission_count += 1
+            to_ret.append(mission_count)
+        return to_ret
+
+    def get_pt_completed_mission_count(self, pt):
+        """
+        Returns a count of completed mission object names for the given
+        Playthrough (zero-indexed).
+        """
+        counts = self.get_pt_completed_mission_counts()
+        if len(counts) > pt:
+            return counts[pt]
+        return None
+
     def copy_mission_pt(self, from_pt=0, to_pt=1):
         """
         Copies mission state from one Playthrough to another (zero-indexed
