@@ -509,7 +509,8 @@ class BL3Save(object):
         if to_pt == len(self.save.game_state_save_data_for_playthrough):
             self.save.game_state_save_data_for_playthrough.append(self.save.game_state_save_data_for_playthrough[from_pt])
         else:
-            self.save.game_state_save_data_for_playthrough[to_pt] = self.save.game_state_save_data_for_playthrough[from_pt]
+            del self.save.game_state_save_data_for_playthrough[to_pt]
+            self.save.game_state_save_data_for_playthrough.insert(to_pt, self.save.game_state_save_data_for_playthrough[from_pt])
 
     def get_pt_last_stations(self):
         """
@@ -637,7 +638,8 @@ class BL3Save(object):
         if to_pt == len(self.save.active_travel_stations_for_playthrough):
             self.save.active_travel_stations_for_playthrough.append(self.save.active_travel_stations_for_playthrough[from_pt])
         else:
-            self.save.active_travel_stations_for_playthrough[to_pt] = self.save.active_travel_stations_for_playthrough[from_pt]
+            del self.save.active_travel_stations_for_playthrough[to_pt]
+            self.save.active_travel_stations_for_playthrough.insert(to_pt, self.save.active_travel_stations_for_playthrough[from_pt])
 
     def get_pt_active_mission_lists(self, eng=False):
         """
@@ -687,7 +689,8 @@ class BL3Save(object):
         if to_pt == len(self.save.mission_playthroughs_data):
             self.save.mission_playthroughs_data.append(self.save.mission_playthroughs_data[from_pt])
         else:
-            self.save.mission_playthroughs_data[to_pt] = self.save.mission_playthroughs_data[from_pt]
+            del self.save.mission_playthroughs_data[to_pt]
+            self.save.mission_playthroughs_data.insert(to_pt, self.save.mission_playthroughs_data[from_pt])
 
     def copy_playthrough_data(self, from_pt=0, to_pt=1):
         """
