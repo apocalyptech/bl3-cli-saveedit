@@ -657,7 +657,10 @@ class BL3Save(object):
                 if mission.status == MissionState.MS_Active:
                     mission_name = mission.mission_class_path
                     if eng:
-                        mission_name = mission_to_name[mission_name.lower()]
+                        if mission_name.lower() in mission_to_name:
+                            mission_name = mission_to_name[mission_name.lower()]
+                        else:
+                            mission_name = '(Unknown mission: {})'.format(mission_name)
                     active_missions.append(mission_name)
             to_ret.append(active_missions)
         return to_ret
