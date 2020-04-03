@@ -573,7 +573,7 @@ class BL3Save(object):
                             mapname = '(Unknown map: {})'.format(mapname)
                     maps.append(mapname)
                 else:
-                    maps.append('(UNKNOWN MAP)')
+                    maps.append('(Unknown station: {})'.format(station))
         return maps
 
     def get_pt_last_map(self, pt, eng=False):
