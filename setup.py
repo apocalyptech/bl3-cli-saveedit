@@ -50,6 +50,7 @@ setup(
             'console_scripts': [
                 'bl3-save-edit = bl3save.cli_edit:main',
                 'bl3-save-info = bl3save.cli_info:main',
+                'bl3-save-copy-pt = bl3save.cli_copy_pt:main',
                 'bl3-process-archive-saves = bl3save.cli_archive:main',
                 ],
             },

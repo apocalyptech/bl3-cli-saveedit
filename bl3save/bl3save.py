@@ -462,6 +462,21 @@ class BL3Save(object):
         """
         self.save.playthroughs_completed = playthrough_count
 
+    def get_max_playthrough_with_data(self):
+        """
+        Returns the maximum playthrough for which we have actual data in
+        the savegame.  Even if TVHM is unlocked, for instance, we may
+        only have NVHM data in the savefile.
+        """
+        # Really I don't think that any of these numbers will ever be
+        # different, but what the hell, we'll check 'em all anyway.
+        return min(
+                len(self.save.mission_playthroughs_data),
+                len(self.save.active_travel_stations_for_playthrough),
+                len(self.save.last_active_travel_station_for_playthrough),
+                len(self.save.game_state_save_data_for_playthrough),
+                )
+
     def get_pt_mayhem_levels(self):
         """
         Returns a list of Mayhem levels active for each Playthrough
@@ -489,28 +504,31 @@ class BL3Save(object):
         for data in self.save.game_state_save_data_for_playthrough:
             data.mayhem_level = mayhem
 
-    def copy_game_state_pt(self, from_pt=0, to_pt=1):
+    def copy_game_state_pt(self, from_obj=None, from_pt=0, to_pt=1):
         """
         Copies game state (mostly mayhem level, but also possibly current-map info?
         Though I'd thought that was taken care of with the last active station) from
         one Playthrough to another (zero-indexed playthroughs).  Will refuse to create
         "gaps"; `to_pt` is only allowed to be one higher than the current number of
-        Playthroughs.  Defaults to copying NVHM data to TVHM.
+        Playthroughs.  Defaults to copying NVHM data to TVHM.  This can also be used to
+        copy data from another BL3Save object; pass in `from_obj` to do that.
         """
-        if from_pt > len(self.save.game_state_save_data_for_playthrough)-1:
+        if not from_obj:
+            from_obj = self
+        if from_pt > len(from_obj.save.game_state_save_data_for_playthrough)-1:
             raise Exception('PT {} is not found in mission data'.format(from_pt))
         if to_pt > len(self.save.game_state_save_data_for_playthrough):
             raise Exception('to_pt can be at most {} for this save'.format(len(self.save.game_state_save_data_for_playthrough)))
-        if from_pt == to_pt:
+        if from_obj == self and from_pt == to_pt:
             raise Exception('from_pt and to_pt cannot be the same')
         if from_pt < 0 or to_pt < 0:
             raise Exception('from_pt and to_pt cannot be negative')
 
         if to_pt == len(self.save.game_state_save_data_for_playthrough):
-            self.save.game_state_save_data_for_playthrough.append(self.save.game_state_save_data_for_playthrough[from_pt])
+            self.save.game_state_save_data_for_playthrough.append(from_obj.save.game_state_save_data_for_playthrough[from_pt])
         else:
             del self.save.game_state_save_data_for_playthrough[to_pt]
-            self.save.game_state_save_data_for_playthrough.insert(to_pt, self.save.game_state_save_data_for_playthrough[from_pt])
+            self.save.game_state_save_data_for_playthrough.insert(to_pt, from_obj.save.game_state_save_data_for_playthrough[from_pt])
 
     def get_pt_last_stations(self):
         """
@@ -528,26 +546,29 @@ class BL3Save(object):
             return self.save.last_active_travel_station_for_playthrough[pt]
         return None
 
-    def copy_last_station_pt(self, from_pt=0, to_pt=1):
+    def copy_last_station_pt(self, from_obj=None, from_pt=0, to_pt=1):
         """
         Copies last-station state (ie: current map) from one Playthrough to another
         (zero-indexed playthroughs).  Will refuse to create "gaps"; `to_pt`
         is only allowed to be one higher than the current number of Playthroughs.
-        Defaults to copying NVHM data to TVHM.
+        Defaults to copying NVHM data to TVHM.  This can also be used to copy
+        data from another BL3Save object; pass in `from_obj` to do that.
         """
-        if from_pt > len(self.save.last_active_travel_station_for_playthrough)-1:
+        if not from_obj:
+            from_obj = self
+        if from_pt > len(from_obj.save.last_active_travel_station_for_playthrough)-1:
             raise Exception('PT {} is not found in mission data'.format(from_pt))
         if to_pt > len(self.save.last_active_travel_station_for_playthrough):
             raise Exception('to_pt can be at most {} for this save'.format(len(self.save.last_active_travel_station_for_playthrough)))
-        if from_pt == to_pt:
+        if from_obj == self and from_pt == to_pt:
             raise Exception('from_pt and to_pt cannot be the same')
         if from_pt < 0 or to_pt < 0:
             raise Exception('from_pt and to_pt cannot be negative')
 
         if to_pt == len(self.save.last_active_travel_station_for_playthrough):
-            self.save.last_active_travel_station_for_playthrough.append(self.save.last_active_travel_station_for_playthrough[from_pt])
+            self.save.last_active_travel_station_for_playthrough.append(from_obj.save.last_active_travel_station_for_playthrough[from_pt])
         else:
-            self.save.last_active_travel_station_for_playthrough[to_pt] = self.save.last_active_travel_station_for_playthrough[from_pt]
+            self.save.last_active_travel_station_for_playthrough[to_pt] = from_obj.save.last_active_travel_station_for_playthrough[from_pt]
 
     def get_pt_last_maps(self, eng=False):
         """
@@ -622,27 +643,30 @@ class BL3Save(object):
             return ptlist[pt]
         return None
 
-    def copy_active_ft_stations_pt(self, from_pt=0, to_pt=1):
+    def copy_active_ft_stations_pt(self, from_obj=None, from_pt=0, to_pt=1):
         """
         Copies Fast Travel activation state from one Playthrough to another
         (zero-indexed playthroughs).  Will refuse to create "gaps"; `to_pt`
         is only allowed to be one higher than the current number of Playthroughs.
-        Defaults to copying NVHM data to TVHM.
+        Defaults to copying NVHM data to TVHM.  This can also be used to copy
+        data from another BL3Save object; pass in `from_obj` to do that.
         """
-        if from_pt > len(self.save.active_travel_stations_for_playthrough)-1:
+        if not from_obj:
+            from_obj = self
+        if from_pt > len(from_obj.save.active_travel_stations_for_playthrough)-1:
             raise Exception('PT {} is not found in mission data'.format(from_pt))
         if to_pt > len(self.save.active_travel_stations_for_playthrough):
             raise Exception('to_pt can be at most {} for this save'.format(len(self.save.active_travel_stations_for_playthrough)))
-        if from_pt == to_pt:
+        if from_obj == self and from_pt == to_pt:
             raise Exception('from_pt and to_pt cannot be the same')
         if from_pt < 0 or to_pt < 0:
             raise Exception('from_pt and to_pt cannot be negative')
 
         if to_pt == len(self.save.active_travel_stations_for_playthrough):
-            self.save.active_travel_stations_for_playthrough.append(self.save.active_travel_stations_for_playthrough[from_pt])
+            self.save.active_travel_stations_for_playthrough.append(from_obj.save.active_travel_stations_for_playthrough[from_pt])
         else:
             del self.save.active_travel_stations_for_playthrough[to_pt]
-            self.save.active_travel_stations_for_playthrough.insert(to_pt, self.save.active_travel_stations_for_playthrough[from_pt])
+            self.save.active_travel_stations_for_playthrough.insert(to_pt, from_obj.save.active_travel_stations_for_playthrough[from_pt])
 
     def get_pt_active_mission_lists(self, eng=False):
         """
@@ -699,39 +723,46 @@ class BL3Save(object):
             return counts[pt]
         return None
 
-    def copy_mission_pt(self, from_pt=0, to_pt=1):
+    def copy_mission_pt(self, from_obj=None, from_pt=0, to_pt=1):
         """
         Copies mission state from one Playthrough to another (zero-indexed
         playthroughs).  Will refuse to create "gaps"; `to_pt` is only
         allowed to be one higher than the current number of Playthroughs.
-        Defaults to copying NVHM data to TVHM.
+        Defaults to copying NVHM data to TVHM.  This can also be used to copy
+        data from another BL3Save object; pass in `from_obj` to do that.
         """
-        if from_pt > len(self.save.mission_playthroughs_data)-1:
+        if not from_obj:
+            from_obj = self
+        if from_pt > len(from_obj.save.mission_playthroughs_data)-1:
             raise Exception('PT {} is not found in mission data'.format(from_pt))
         if to_pt > len(self.save.mission_playthroughs_data):
             raise Exception('to_pt can be at most {} for this save'.format(len(self.save.mission_playthroughs_data)))
-        if from_pt == to_pt:
+        if from_obj == self and from_pt == to_pt:
             raise Exception('from_pt and to_pt cannot be the same')
         if from_pt < 0 or to_pt < 0:
             raise Exception('from_pt and to_pt cannot be negative')
 
         if to_pt == len(self.save.mission_playthroughs_data):
-            self.save.mission_playthroughs_data.append(self.save.mission_playthroughs_data[from_pt])
+            self.save.mission_playthroughs_data.append(from_obj.save.mission_playthroughs_data[from_pt])
         else:
             del self.save.mission_playthroughs_data[to_pt]
-            self.save.mission_playthroughs_data.insert(to_pt, self.save.mission_playthroughs_data[from_pt])
+            self.save.mission_playthroughs_data.insert(to_pt, from_obj.save.mission_playthroughs_data[from_pt])
 
-    def copy_playthrough_data(self, from_pt=0, to_pt=1):
+    def copy_playthrough_data(self, from_obj=None, from_pt=0, to_pt=1):
         """
         Copies playthrough-specific data from one playthrough to another (zero-indexed).  Currently
         handles: mission state, active Fast Travels, last station visited, and "game state," which
         includes mayhem mode.  Will refuse to crate "gaps"; `to_pt` is only allowed to be one
         higher than the current number of Playthroughs.  Defaults to copying NVHM to TVHM.
+        This can also be used to copy playthrough data from another BL3Save object; pass in `from_obj`
+        to do that.
         """
-        self.copy_mission_pt(from_pt=from_pt, to_pt=to_pt)
-        self.copy_active_ft_stations_pt(from_pt=from_pt, to_pt=to_pt)
-        self.copy_last_station_pt(from_pt=from_pt, to_pt=to_pt)
-        self.copy_game_state_pt(from_pt=from_pt, to_pt=to_pt)
+        if not from_obj:
+            from_obj = self
+        self.copy_mission_pt(from_obj=from_obj, from_pt=from_pt, to_pt=to_pt)
+        self.copy_active_ft_stations_pt(from_obj=from_obj, from_pt=from_pt, to_pt=to_pt)
+        self.copy_last_station_pt(from_obj=from_obj, from_pt=from_pt, to_pt=to_pt)
+        self.copy_game_state_pt(from_obj=from_obj, from_pt=from_pt, to_pt=to_pt)
 
     def get_items(self):
         """
