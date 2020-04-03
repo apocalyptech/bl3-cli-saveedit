@@ -384,7 +384,7 @@ for vehicle, skins in vehicle_skins.items():
         skin_to_vehicle[skin] = vehicle
 
 # XP
-max_level = 53
+max_level = 57
 required_xp_list = [
     0,          # lvl 1
     358,        # lvl 2
