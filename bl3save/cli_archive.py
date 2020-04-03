@@ -148,6 +148,9 @@ def main():
                 print('</td>', file=idf)
             print('</tr>', file=idf)
 
+        # May as well force the name, while we're at it
+        save.set_char_name("BL3 Savegame Archive")
+
         # Max XP
         save.set_level(bl3save.max_level)
 
@@ -156,6 +159,9 @@ def main():
 
         # Max Ammo
         save.set_max_ammo()
+
+        # Unlock all inventory slots
+        save.unlock_slots()
 
         # Unlock PT2
         # (In the original runthrough which I've already checked in, I'd accidentally set

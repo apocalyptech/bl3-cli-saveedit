@@ -567,7 +567,10 @@ class BL3Save(object):
                 if lower in fts_to_map:
                     mapname = fts_to_map[lower]
                     if eng:
-                        mapname = map_to_eng[mapname]
+                        if mapname in map_to_eng:
+                            mapname = map_to_eng[mapname]
+                        else:
+                            mapname = '(Unknown map: {})'.format(mapname)
                     maps.append(mapname)
                 else:
                     maps.append('(UNKNOWN MAP)')

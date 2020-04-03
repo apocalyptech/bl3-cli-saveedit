@@ -654,7 +654,7 @@ for k, v in list(mission_to_name.items()):
 
 # Map-to-eng
 map_to_eng = {
-        'Archives_P': "Dustbound Archives",
+        'Archive_P': "Dustbound Archives",
         'AtlasHQ_P': "Atlas HQ",
         'Bar_P': "Lodge",
         'Beach_P': "Tazendeer Ruins",
