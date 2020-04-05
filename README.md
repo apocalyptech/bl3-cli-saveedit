@@ -302,6 +302,7 @@ Fast Travel stations:
 
 # TODO
 
+- Import protobufs (so folks can export, edit at will, then re-import)
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
