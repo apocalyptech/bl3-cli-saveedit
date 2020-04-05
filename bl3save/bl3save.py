@@ -23,7 +23,7 @@
 
 # The encryption/decryption stanzas in BL3Save.__init__ and BL3Save.save_to
 # were helpfully provided by Gibbed (rick 'at' gibbed 'dot' us), so many
-# thanks for that!
+# thanks for that!  https://twitter.com/gibbed/status/1246863435868049410?s=19
 #
 # The rest of the savegame format was gleaned from 13xforever/Ilya's
 # "gvas-converter" project: https://github.com/13xforever/gvas-converter
@@ -162,6 +162,8 @@ class BL3Save(object):
     
     Only tested on PC versions.  Thanks to Gibbed for the encryption method and
     the Protobuf definitions!
+
+    https://twitter.com/gibbed/status/1246863435868049410?s=19
 
     All these getters/setters are rather un-Pythonic; should be using
     some decorations for that instead.  Alas!

@@ -293,9 +293,10 @@ Fast Travel stations:
 # Credits
 
 The encryption/decryption stanzas in `BL3Save.__init__` and `BL3Save.save_to`
-were helpfully provided by Gibbed (rick 'at' gibbed 'dot' us), so many
-thanks for that!  The protobuf definitions are also provided by Gibbed, from
-his [Borderlands3Protos](https://github.com/gibbed/Borderlands3Protos) repo,
+were [helpfully provided by Gibbed](https://twitter.com/gibbed/status/1246863435868049410?s=19)
+(rick 'at' gibbed 'dot' us), so many thanks for that!  The protobuf definitions
+are also provided by Gibbed, from his
+[Borderlands3Protos](https://github.com/gibbed/Borderlands3Protos) repo,
 and used with permission.
 
 The rest of the savegame format was gleaned from 13xforever/Ilya's
