@@ -45,13 +45,6 @@ about a specified savefile.  You can see its possible arguments with
 
     bl3-save-info -h
 
-A separate utility is available to let you copy playthrough data (mission
-status, completed missions, current location, mayhem level, etc) from one
-savefile to another.  By default it will transfer all playthroughs, but
-an argument will let you choose just one:
-
-    bl3-save-copy-pt -h
-
 Finally, there's a utility which I'd used to generate my
 [BL3 Savegame Archive Page](http://apocalyptech.com/games/bl-saves/bl3.php).
 This one won't be useful to anyone but me, but you can view its arguments
@@ -71,7 +64,6 @@ you'll have to use a slightly different syntax.  Here are the equivalents:
 
     python -m bl3save.cli_edit -h
     python -m bl3save.cli_info -h
-    python -m bl3save.cli_copy_pt -h
     python -m bl3save.cli_archive -h
 
 # Editor Usage
@@ -286,32 +278,6 @@ than it ordinarily would, such as inventory contents and discovered
 Fast Travel stations:
 
     bl3-save-info -v old.sav
-
-# Playthrough Copying Usage
-
-The `bl3-save-copy-pt` script lets you copy one or more Playthroughs
-from one savegame to another.  This will include all mission data
-(including both active and completed missions), current map info, and
-some other related info.  Note that the resulting files from this util
-haven't been thoroughly tested yet.  Mission-related challenges which
-might ordinarily get unlocked through mission completion might not be
-properly unlocked in the destination file, for instance.
-
-The `-f`/`--from` and `-t`/`--to` arguments are required:
-
-    bl3-save-copy-pt -f from.sav -t to.sav
-
-By default it will ask for confirmation, but you can tell it to
-automatically "clobber"/overwrite the destination file with `-c`/`--clobber`:
-
-    bl3-save-copy-pt -f from.sav -t to.sav -c
-
-By default, this will copy *all* Playthroughs found in the source file.
-To copy just one playthrough instead (to the same playthrough in the
-destination file), use the `-p`/`--playthrough` option, using `1` to
-mean Normal/NVHM and `2` to mean TVHM:
-
-    bl3-save-copy-pt -f from.sav -t to.sav -p 1
 
 # TODO
 
