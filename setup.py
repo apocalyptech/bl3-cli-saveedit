@@ -36,7 +36,7 @@ setup(
             ],
         # https://pypi.python.org/pypi?%3Aaction=list_classifiers
         classifiers=[
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Production/Stable',
             'Environment :: Console',
             'Intended Audience :: End Users/Desktop',
             'License :: OSI Approved :: zlib/libpng License',
