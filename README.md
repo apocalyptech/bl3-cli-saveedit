@@ -52,6 +52,27 @@ as well, if you like:
 
     bl3-process-archive-saves -h
 
+### Notes for People using Windows
+
+This is a command-line utility, which means there's no graphical interface,
+and you'll have to run it from either a Windows `cmd.exe` prompt, or presumably
+running through PowerShell should work, too.  The first step is to
+[install Python](https://www.python.org/downloads/windows/) -- grab what's
+available in the 3.x series (at time of writing, that's either 3.8.2 or
+3.7.7).  When you install, make sure to check the checkbox which says something
+like "add to PATH", so that you can run Python from the commandline directly.
+
+When it's installed, test that you can run it from the commandline.  Open up
+either `cmd.exe` or PowerShell, and make sure that you see something like this
+when you run `python -V`:
+
+    C:\> python -V
+    Python 3.8.2
+
+If that works, you can then run the `pip install bl3-cli-saveedit` command
+as mentioned above, and use the commandline scripts to edit to your heart's
+content.
+
 ### Running from Github
 
 Alternatively, if you want to download or run the Github version of
@@ -310,6 +331,6 @@ provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
 
-**v1.0.0** - *unreleased*
+**v1.0.0** - April 5, 2020
  - Initial version
 
