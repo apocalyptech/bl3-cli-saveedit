@@ -332,6 +332,10 @@ provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
 
+**v1.0.1** - April 5, 2020
+ - Some saves include Eridium as an ammo type, presumably related to the
+   Fabricator.  Fixed a crash in bl3-save-info related to that.
+
 **v1.0.0** - April 5, 2020
  - Initial version
 

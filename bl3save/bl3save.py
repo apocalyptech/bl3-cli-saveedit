@@ -987,6 +987,10 @@ class BL3Save(object):
         """
         to_ret = {}
         for pool in self.save.resource_pools:
+            # In some cases, Eridium can show up as an ammo type.  Related to the
+            # Fabricator, presumably.  Anyway, just ignore it.
+            if 'Eridium' in pool.resource_path:
+                continue
             key = ammoobj_to_ammo[pool.resource_path]
             if eng:
                 key = ammo_to_eng[key]
