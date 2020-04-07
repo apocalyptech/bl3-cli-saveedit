@@ -141,7 +141,7 @@ specify the format using the `-o`/`--output` option, like so:
 - **protobuf** - This will write out the raw, unencrypted Protobuf
   entries contained in the savegame, which might be useful if you
   want to look at them with a Protobuf viewer of some sort (such
-  as [this one](https://protogen.marcgravell.com/decode), or to
+  as [this one](https://protogen.marcgravell.com/decode)), or to
   make hand edits of your own.  Raw protobuf files can be imported
   back into savegames using the separate `bl3-save-import-protobuf`
   command, whose docs you can find near the bottom of this README.
