@@ -244,20 +244,30 @@ class BL3Save(object):
             last = df.read()
             assert(len(last) == 0)
 
-            # Now parse the protobufs
-            self.save = OakSave_pb2.Character()
-            self.save.ParseFromString(data)
+            # Parse protobufs
+            self.import_protobuf(data)
 
-            # Do some data processing so that we can wrap things APIwise
-            # First: Items
-            self.items = [BL3Item(i) for i in self.save.inventory_items]
+    def import_protobuf(self, data):
+        """
+        Given raw protobuf data, load it into ourselves so
+        that we can work with it.  This also sets up a few
+        convenience vars for our later use
+        """
 
-            # Next: Equip slots
-            self.equipslots = {}
-            for e in self.save.equipped_inventory_list:
-                equip = BL3EquipSlot(e)
-                slot = slotobj_to_slot[equip.get_obj_name()]
-                self.equipslots[slot] = equip
+        # Now parse the protobufs
+        self.save = OakSave_pb2.Character()
+        self.save.ParseFromString(data)
+
+        # Do some data processing so that we can wrap things APIwise
+        # First: Items
+        self.items = [BL3Item(i) for i in self.save.inventory_items]
+
+        # Next: Equip slots
+        self.equipslots = {}
+        for e in self.save.equipped_inventory_list:
+            equip = BL3EquipSlot(e)
+            slot = slotobj_to_slot[equip.get_obj_name()]
+            self.equipslots[slot] = equip
 
     def save_to(self, filename):
         """

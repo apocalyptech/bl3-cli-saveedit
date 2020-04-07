@@ -54,6 +54,7 @@ setup(
                 # this can make things a bit weird, and at that point you may as well just
                 # copy the savegame and alter other bits about it.
                 #'bl3-save-copy-pt = bl3save.cli_copy_pt:main',
+                'bl3-save-import-protobuf = bl3save.cli_import_protobuf:main',
                 'bl3-process-archive-saves = bl3save.cli_archive:main',
                 ],
             },

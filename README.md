@@ -45,6 +45,12 @@ about a specified savefile.  You can see its possible arguments with
 
     bl3-save-info -h
 
+If you've got a raw savegame protobuf file that you've hand-edited (or
+otherwise processed) that you'd like to import into an existing savegame,
+you can do that with `bl3-save-import-protobuf`:
+
+    bl3-save-import-protobuf -h
+
 Finally, there's a utility which I'd used to generate my
 [BL3 Savegame Archive Page](http://apocalyptech.com/games/bl-saves/bl3.php).
 This one won't be useful to anyone but me, but you can view its arguments
@@ -85,6 +91,7 @@ you'll have to use a slightly different syntax.  Here are the equivalents:
 
     python -m bl3save.cli_edit -h
     python -m bl3save.cli_info -h
+    python -m bl3save.cli_import_protobuf -h
     python -m bl3save.cli_archive -h
 
 # Editor Usage
@@ -125,7 +132,7 @@ The editor can output files in a few different formats, and you can
 specify the format using the `-o`/`--output` option, like so:
 
     bl3-save-edit old.sav new.sav -o savegame
-    bl3-save-edit old.sav new.protobuf -o protobuf
+    bl3-save-edit old.sav new.pbraw -o protobuf
     bl3-save-edit old.sav new.txt -o items
 
 - **savegame** - This is the default, if you don't specify an output
@@ -134,14 +141,19 @@ specify the format using the `-o`/`--output` option, like so:
 - **protobuf** - This will write out the raw, unencrypted Protobuf
   entries contained in the savegame, which might be useful if you
   want to look at them with a Protobuf viewer of some sort (such
-  as [this one](https://protogen.marcgravell.com/decode)).  Note
-  that the utility does not currently support reading raw protobuf
-  data back in, so this is a write-only operation.
+  as [this one](https://protogen.marcgravell.com/decode), or to
+  make hand edits of your own.  Raw protobuf files can be imported
+  back into savegames using the separate `bl3-save-import-protobuf`
+  command, whose docs you can find near the bottom of this README.
 - **items** - This will output a text file containing item codes
   which can be read back in to other savegames.  It uses a format
   similar to the item codes used by Gibbed's BL2/TPS editors.
   (It will probably be identical to the codes used by Gibbed's BL3
   editor, once that is released, but time will tell on that front.)
+
+Keep in mind that when saving in `items` format, basically all of
+the other CLI arguments are pointless, since the app will only save
+out the items textfile.
 
 ## Modifying the Savegame
 
@@ -290,6 +302,24 @@ any line starting with `BL3(` as an item into the savegame:
 
     bl3-save-edit old.sav new.sav -i items.txt
 
+# Importing Raw Protobufs
+
+If you've saved a savegame in raw protobuf format (using the
+`-o protobuf` option, or otherwise), you may want to re-import it
+into a savegame, perhaps after having edited it by hand.  This can
+be done with the separate utility `bl3-save-import-protobuf`.  This
+requires a `-p`/`--protobuf` argument to specify the file where
+the raw protobuf is stored, and a `-t`/`--to-filename` argument,
+which specifies the filename to import the protobufs into:
+
+    bl3-save-import-protobuf -p edited.pbraw -t old.sav
+
+By default this will prompt for confirmation before actually
+overwriting the file, but you can use the `-c`/`--clobber` option
+to force it to overwrite without asking:
+
+    bl3-save-import-protobuf -p edited.pbraw -t old.sav -c
+
 # Savegame Info Usage
 
 The `bl3-save-info` script is extremely simple, and just dumps a bunch
@@ -331,6 +361,10 @@ All code in this project is licensed under the
 provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
+
+**v1.1.0** - *unreleased*
+ - Added bl3-save-import-protobuf command, to load a raw protobuf file
+   into an existing savegame.
 
 **v1.0.1** - April 5, 2020
  - Some saves include Eridium as an ammo type, presumably related to the
