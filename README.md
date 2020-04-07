@@ -17,6 +17,7 @@ Please keep the following in mind:
   on a commandline in order to use it.
 - It does not provide any mechanisms for creating items/weapons,
   or even editing items/weapons in any useful fashion.
+- This also does *not* support editing the `profile.sav` file.
 - While I have not experienced any data loss with the app,
   **take backups of your savegames before using this**, and
   keep in mind that it could end up corrupting your saves.  If
@@ -362,7 +363,7 @@ provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
 
-**v1.1.0** - *unreleased*
+**v1.1.0** - April 7, 2020
  - Added bl3-save-import-protobuf command, to load a raw protobuf file
    into an existing savegame.
 
