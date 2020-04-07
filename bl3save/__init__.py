@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -472,7 +472,7 @@ required_xp_list = [
 #
 # For most missions, the following find statement will generate this list:
 #
-#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
+#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions Game/PatchDLC/CitizenScience/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
 #
 # Various plot missions, though, from both the main game and DLC1, will need
 # some edits by hand (they use a UIName_*_MissionTitle object instead.)  Also,
@@ -601,6 +601,7 @@ mission_to_name = {
         '/Game/Missions/Side/Zone_4/Desolate/Mission_ItsAlive2': "It's Alive",
         '/Game/PatchDLC/BloodyHarvest/Missions/Side/Seasonal/Mission_Season_01_Intro': "Bloody Harvest: Descent into Heck",
         '/Game/PatchDLC/BloodyHarvest/Missions/Side/Seasonal/Mission_Season_01_Repeatable': "Bloody Harvest: The Rebloodening",
+        '/Game/PatchDLC/CitizenScience/Missions/Mission_CitizenScience_Intro': "Borderlands Science!",
         '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep01_MeetTimothy': "The Handsome Jackpot",
         '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep02_MeetCrad': "Playing with Fire",
         '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep03_Impound': "Winners and Losers",
@@ -619,14 +620,16 @@ mission_to_name = {
         '/Game/PatchDLC/Dandelion/Missions/Side/Mission_DLC1_Side_RagingBot': "Raging Bot",
         '/Game/PatchDLC/Dandelion/Missions/Side/Mission_DLC1_Side_RegainingOnesFeet': "Regaining One's Feet",
         '/Game/PatchDLC/Dandelion/Missions/Side/Mission_DLC1_Side_TooMuchOfAGoodThing': "Too Much Of A Good Thing",
-        '/Game/PatchDLC/Raid1/Missions/Mission_Raid1': "Takedown at the Maliwan Blacksite",
-        '/Game/PatchDLC/Raid1/Missions/Mission_Raid1Intro': "Discovery: Takedown at the Maliwan Blacksite",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP01_DLC2': "The Party Out of Space",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP02_DLC2': "The Shadow Over Cursehaven",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP03_DLC2': "The Case of Wainwright Jakobs",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP04_DLC2': "The Horror in the Woods",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP05_DLC2': "On the Mountain of Mayhem",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP06_DLC2': "The Call of Gythian",
+        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_FrostbiteDragon': "Kill Shiverous the Unscathed",
+        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_MushroomGiant': "Kill Fungal Gorger",
+        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_Shocker': "Kill Voltborn",
+        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_ZealotPilfer': "Kill Amach",
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_Bounty_BusinessAsUsual': "The Proprietor: Rare Vintage",
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_Bounty_DebtCollector': "The Proprietor: Empty Bottles",
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_HappilyEverAfter': "Happily Ever After",
@@ -641,10 +644,8 @@ mission_to_name = {
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_WeSlassPart2': "We Slass! (Part 2)",
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_WeSlassPart3': "We Slass! (Part 3)",
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_WhereIBelong': "Call of the Deep",
-        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_FrostbiteDragon': "Kill Shiverous the Unscathed",
-        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_Shocker': "Kill Voltborn",
-        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_MushroomGiant': "Kill Fungal Gorger",
-        '/Game/PatchDLC/Hibiscus/Missions/Side/RareSpawn/Mission_Async_ZealotPilfer': "Kill Amach",
+        '/Game/PatchDLC/Raid1/Missions/Mission_Raid1': "Takedown at the Maliwan Blacksite",
+        '/Game/PatchDLC/Raid1/Missions/Mission_Raid1Intro': "Discovery: Takedown at the Maliwan Blacksite",
         }
 for k, v in list(mission_to_name.items()):
     lower = k.lower()

@@ -362,6 +362,9 @@ provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
 
+**v1.1.1** - April 7, 2020
+ - Added in Citizen Science mission name.
+
 **v1.1.0** - April 7, 2020
  - Added bl3-save-import-protobuf command, to load a raw protobuf file
    into an existing savegame.
