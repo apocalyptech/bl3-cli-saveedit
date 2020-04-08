@@ -81,6 +81,7 @@ message MissionStatusPlayerSaveGameData {
   optional string active_objective_set_path = 5;
   optional uint32 dlc_package_id = 6;
   optional bool kickoff_played = 7;
+  optional uint32 league_instance = 8;
 }
 message MissionPlaythroughSaveGameData {
   repeated MissionStatusPlayerSaveGameData mission_list = 1;
@@ -128,19 +129,6 @@ message OakCARMenuVehicleConfigSaveData {
   optional int32 color_index_2 = 12;
   optional int32 color_index_3 = 13;
 }
-message ChallengeStatSaveGameData {
-  optional int32 current_stat_value = 1;
-  optional string challenge_stat_path = 2;
-}
-message ChallengeSaveGameData {
-  optional int32 completed_count = 1;
-  optional bool is_active = 2;
-  optional bool currently_completed = 3;
-  optional int32 completed_progress_level = 4;
-  optional int32 progress_counter = 5;
-  repeated ChallengeStatSaveGameData stat_instance_state = 6;
-  optional string challenge_class_path = 7;
-}
 message CustomPlayerColorSaveGameData {
   optional string color_parameter = 1;
   optional Vec3 applied_color = 2;
@@ -151,6 +139,25 @@ message CustomPlayerColorSaveGameData {
 message GuardianRankSaveGameData {
   optional int32 guardian_rank = 1;
   optional int32 guardian_experience = 2;
+}
+message GuardianRankRewardCharacterSaveGameData {
+  optional int32 num_tokens = 1;
+  optional bool is_enabled = 2;
+  optional string reward_data_path = 3;
+}
+message GuardianRankPerkCharacterSaveGameData {
+  optional bool is_enabled = 1;
+  optional string perk_data_path = 2;
+}
+message GuardianRankCharacterSaveGameData {
+  optional int32 guardian_available_tokens = 1;
+  optional int32 guardian_rank = 2;
+  optional int32 guardian_experience = 3;
+  repeated GuardianRankRewardCharacterSaveGameData rank_rewards = 4;
+  repeated GuardianRankPerkCharacterSaveGameData rank_perks = 5;
+  optional int32 guardian_reward_random_seed = 6;
+  optional int64 new_guardian_experience = 7;
+  optional bool is_rank_system_enabled = 8;
 }
 message CrewQuartersDecorationSaveData {
   optional int32 decoration_index = 1;
@@ -288,4 +295,7 @@ message Character {
   repeated RegisteredDownloadableEntitlements registered_downloadable_entitlements = 54;
   repeated PlaythroughActiveFastTravelSaveData active_travel_stations_for_playthrough = 55;
   optional string save_game_guid = 56;
+  optional GuardianRankCharacterSaveGameData guardian_rank_character_data = 57;
+  optional bool optional_objective_reward_fixup_applied = 58;
+  optional bool vehicle_part_rewards_fixup_applied = 59;
 }

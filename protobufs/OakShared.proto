@@ -27,3 +27,20 @@ message RegisteredDownloadableEntitlements {
   repeated int64 entitlement_ids = 2;
   repeated RegisteredDownloadableEntitlement entitlements = 3;
 }
+message ChallengeStatSaveGameData {
+  optional int32 current_stat_value = 1;
+  optional string challenge_stat_path = 2;
+}
+message OakChallengeRewardSaveGameData {
+  optional bool challenge_reward_claimed = 1;
+}
+message ChallengeSaveGameData {
+  optional int32 completed_count = 1;
+  optional bool is_active = 2;
+  optional bool currently_completed = 3;
+  optional int32 completed_progress_level = 4;
+  optional int32 progress_counter = 5;
+  repeated ChallengeStatSaveGameData stat_instance_state = 6;
+  optional string challenge_class_path = 7;
+  repeated OakChallengeRewardSaveGameData challenge_reward_info = 8;
+}

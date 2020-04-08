@@ -68,6 +68,8 @@ message GuardianRankProfileData {
   repeated GuardianRankRewardSaveGameData rank_rewards = 2;
   optional int32 guardian_rank = 3;
   optional int32 guardian_experience = 4;
+  optional int32 guardian_reward_random_seed = 5;
+  optional int64 new_guardian_experience = 6;
 }
 message CrewQuartersDecorationItemSaveGameData {
   optional bool is_new = 1;
@@ -76,6 +78,11 @@ message CrewQuartersDecorationItemSaveGameData {
 message CrewQuartersRoomItemSaveGameData {
   optional bool is_new = 1;
   optional string room_item_asset_path = 2;
+}
+message RecentlyMetPlayer {
+  optional string shift_player_id = 1;
+  optional string first_party_player_id = 2;
+  optional bool show_shift_player_entry = 3;
 }
 message Profile {
   message FriendEncountersEntry {
@@ -190,7 +197,7 @@ message Profile {
   repeated string friend_statuses = 110;
   optional int64 last_whisper_fetch_events_time = 111;
   optional int64 last_whisper_fetch_statuses_time = 112;
-  repeated string recently_met_players = 132;
+  optional uint32 desired_crossplay_state = 113;
   repeated FriendEncountersEntry friend_encounters = 133;
   optional int32 max_friend_encounter_size = 134;
   repeated GameStatSaveGameData profile_stats_data = 135;
@@ -257,4 +264,26 @@ message Profile {
   optional int32 min_time_between_badass_events = 202;
   optional float hud_scale_multiplier = 203;
   optional bool disable_spatial_audio = 204;
+  optional int32 total_playtime_seconds = 205;
+  optional bool moxxis_drink_event_enabled = 206;
+  optional int32 moxxis_drink_event_bits_product_id = 207;
+  repeated ChallengeSaveGameData challenge_data = 208;
+  repeated int32 CitizenScienceLevelProgression = 209;
+  optional bool disable_event_content = 211;
+  optional uint32 desired_friend_sync_state = 212;
+  optional bool needs_shift_first_boot = 213;
+  repeated RecentlyMetPlayer recently_met_players = 214;
+  optional int32 CitizenScienceActiveBoosterIndex = 215;
+  optional float CitizenScienceActiveBoosterRemainingTime = 216;
+  optional float CitizenScienceActiveBoosterTotalTime = 217;
+  optional int32 StreamerPrimaryActiveBoosterIndex = 218;
+  optional float StreamerPrimaryActiveBoosterRemainingTime = 219;
+  optional float StreamerPrimaryActiveBoosterTotalTime = 220;
+  optional int32 StreamerSecondaryActiveBoosterIndex = 221;
+  optional float StreamerSecondaryActiveBoosterRemainingTime = 222;
+  optional float StreamerSecondaryActiveBoosterTotalTime = 223;
+  optional int32 StreamerBoosterTier = 224;
+  optional int32 CitizenScienceCSBucksAmount = 226;
+  optional bool bCitizenScienceHasSeenIntroVideo = 227;
+  optional bool bCitizenScienceTutorialDone = 228;
 }
