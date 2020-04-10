@@ -123,10 +123,6 @@ the `-q`/`--quiet` option:
 
     bl3-save-edit old.sav new.sav -q
 
-Note that even with no edits being performed, the output file will not
-be identical to the original file, due to how Google's protobuf library
-differs from the library used by BL3 itself.
-
 ## Output Formats
 
 The editor can output files in a few different formats, and you can
@@ -361,6 +357,11 @@ All code in this project is licensed under the
 provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
+
+**v1.2.0** - *unreleased*
+ - Updated to Protobuf v3, which is what BL3 itself uses.  Now when we
+   re-save without any edits, the save should be identical to the
+   original savegame.
 
 **v1.1.1** - April 7, 2020
  - Added in Citizen Science mission name.
