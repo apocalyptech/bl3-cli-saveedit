@@ -225,7 +225,7 @@ class BL3Save(object):
                 self.custom_format_data.append((guid, entry))
             self.sg_type = self._read_str(df)
             if debug:
-                print('Savegame type: {}'.format(sg_type))
+                print('Savegame type: {}'.format(self.sg_type))
 
             # Read in the actual data
             remaining_data_len = self._read_int(df)
@@ -257,6 +257,9 @@ class BL3Save(object):
         # Now parse the protobufs
         self.save = OakSave_pb2.Character()
         self.save.ParseFromString(data)
+        assert(self.save.IsInitialized())
+        assert(len(self.save.UnknownFields()) == 0)
+        assert(len(data) == self.save.ByteSize())
 
         # Do some data processing so that we can wrap things APIwise
         # First: Items
