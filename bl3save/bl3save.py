@@ -258,6 +258,16 @@ class BL3Save(object):
         self.save = OakSave_pb2.Character()
         self.save.ParseFromString(data)
 
+        # Some sanity checks, since this is a potentially problematic
+        # operation.
+        assert(self.save.IsInitialized())
+        assert(len(self.save.UnknownFields()) == 0)
+
+        # Not checking on byte size, in case anyone had v2 protobufs
+        # exported and were trying to import them now that we've
+        # otherwise switched to v3.
+        #assert(len(data) == self.save.ByteSize())
+
         # Do some data processing so that we can wrap things APIwise
         # First: Items
         self.items = [BL3Item(i) for i in self.save.inventory_items]
