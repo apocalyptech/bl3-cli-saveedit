@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # vim: set expandtab tabstop=4 shiftwidth=4:
 
 # Copyright (c) 2020 CJ Kucera (cj@apocalyptech.com)
