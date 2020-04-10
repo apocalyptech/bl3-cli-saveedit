@@ -16,9 +16,9 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='OakShared.proto',
   package='OakSave',
-  syntax='proto2',
+  syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0fOakShared.proto\x12\x07OakSave\"\'\n\x04Vec3\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"=\n\x14GameStatSaveGameData\x12\x12\n\nstat_value\x18\x01 \x01(\x05\x12\x11\n\tstat_path\x18\x02 \x01(\t\"T\n\x19InventoryCategorySaveData\x12%\n\x1d\x62\x61se_category_definition_hash\x18\x01 \x01(\r\x12\x10\n\x08quantity\x18\x02 \x01(\x05\">\n\x12OakSDUSaveGameData\x12\x11\n\tsdu_level\x18\x01 \x01(\x05\x12\x15\n\rsdu_data_path\x18\x02 \x01(\t\"c\n!RegisteredDownloadableEntitlement\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08\x63onsumed\x18\x02 \x01(\r\x12\x12\n\nregistered\x18\x03 \x01(\x08\x12\x0c\n\x04seen\x18\x04 \x01(\x08\"\xa6\x01\n\"RegisteredDownloadableEntitlements\x12%\n\x1d\x65ntitlement_source_asset_path\x18\x01 \x01(\t\x12\x17\n\x0f\x65ntitlement_ids\x18\x02 \x03(\x03\x12@\n\x0c\x65ntitlements\x18\x03 \x03(\x0b\x32*.OakSave.RegisteredDownloadableEntitlement\"T\n\x19\x43hallengeStatSaveGameData\x12\x1a\n\x12\x63urrent_stat_value\x18\x01 \x01(\x05\x12\x1b\n\x13\x63hallenge_stat_path\x18\x02 \x01(\t\"B\n\x1eOakChallengeRewardSaveGameData\x12 \n\x18\x63hallenge_reward_claimed\x18\x01 \x01(\x08\"\xc3\x02\n\x15\x43hallengeSaveGameData\x12\x17\n\x0f\x63ompleted_count\x18\x01 \x01(\x05\x12\x11\n\tis_active\x18\x02 \x01(\x08\x12\x1b\n\x13\x63urrently_completed\x18\x03 \x01(\x08\x12 \n\x18\x63ompleted_progress_level\x18\x04 \x01(\x05\x12\x18\n\x10progress_counter\x18\x05 \x01(\x05\x12?\n\x13stat_instance_state\x18\x06 \x03(\x0b\x32\".OakSave.ChallengeStatSaveGameData\x12\x1c\n\x14\x63hallenge_class_path\x18\x07 \x01(\t\x12\x46\n\x15\x63hallenge_reward_info\x18\x08 \x03(\x0b\x32\'.OakSave.OakChallengeRewardSaveGameData'
+  serialized_pb=b'\n\x0fOakShared.proto\x12\x07OakSave\"\'\n\x04Vec3\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"=\n\x14GameStatSaveGameData\x12\x12\n\nstat_value\x18\x01 \x01(\x05\x12\x11\n\tstat_path\x18\x02 \x01(\t\"T\n\x19InventoryCategorySaveData\x12%\n\x1d\x62\x61se_category_definition_hash\x18\x01 \x01(\r\x12\x10\n\x08quantity\x18\x02 \x01(\x05\">\n\x12OakSDUSaveGameData\x12\x11\n\tsdu_level\x18\x01 \x01(\x05\x12\x15\n\rsdu_data_path\x18\x02 \x01(\t\"c\n!RegisteredDownloadableEntitlement\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x10\n\x08\x63onsumed\x18\x02 \x01(\r\x12\x12\n\nregistered\x18\x03 \x01(\x08\x12\x0c\n\x04seen\x18\x04 \x01(\x08\"\xa6\x01\n\"RegisteredDownloadableEntitlements\x12%\n\x1d\x65ntitlement_source_asset_path\x18\x01 \x01(\t\x12\x17\n\x0f\x65ntitlement_ids\x18\x02 \x03(\x03\x12@\n\x0c\x65ntitlements\x18\x03 \x03(\x0b\x32*.OakSave.RegisteredDownloadableEntitlement\"T\n\x19\x43hallengeStatSaveGameData\x12\x1a\n\x12\x63urrent_stat_value\x18\x01 \x01(\x05\x12\x1b\n\x13\x63hallenge_stat_path\x18\x02 \x01(\t\"B\n\x1eOakChallengeRewardSaveGameData\x12 \n\x18\x63hallenge_reward_claimed\x18\x01 \x01(\x08\"\xc3\x02\n\x15\x43hallengeSaveGameData\x12\x17\n\x0f\x63ompleted_count\x18\x01 \x01(\x05\x12\x11\n\tis_active\x18\x02 \x01(\x08\x12\x1b\n\x13\x63urrently_completed\x18\x03 \x01(\x08\x12 \n\x18\x63ompleted_progress_level\x18\x04 \x01(\x05\x12\x18\n\x10progress_counter\x18\x05 \x01(\x05\x12?\n\x13stat_instance_state\x18\x06 \x03(\x0b\x32\".OakSave.ChallengeStatSaveGameData\x12\x1c\n\x14\x63hallenge_class_path\x18\x07 \x01(\t\x12\x46\n\x15\x63hallenge_reward_info\x18\x08 \x03(\x0b\x32\'.OakSave.OakChallengeRewardSaveGameDatab\x06proto3'
 )
 
 
@@ -60,7 +60,7 @@ _VEC3 = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -98,7 +98,7 @@ _GAMESTATSAVEGAMEDATA = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -136,7 +136,7 @@ _INVENTORYCATEGORYSAVEDATA = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -174,7 +174,7 @@ _OAKSDUSAVEGAMEDATA = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -226,7 +226,7 @@ _REGISTEREDDOWNLOADABLEENTITLEMENT = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -271,7 +271,7 @@ _REGISTEREDDOWNLOADABLEENTITLEMENTS = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -309,7 +309,7 @@ _CHALLENGESTATSAVEGAMEDATA = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -340,7 +340,7 @@ _OAKCHALLENGEREWARDSAVEGAMEDATA = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
@@ -420,7 +420,7 @@ _CHALLENGESAVEGAMEDATA = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
