@@ -362,6 +362,10 @@ provided in [COPYING.txt](COPYING.txt).
  - Updated to Protobuf v3, which is what BL3 itself uses.  Now when we
    re-save without any edits, the save should be identical to the
    original savegame.
+ - Item export will now be done without any encryption, so an item will
+   have the exact same item code regardless of where it came from
+   (previously, item codes would change every time the game was saved,
+   so the same item could have very different-looking codes)
 
 **v1.1.1** - April 7, 2020
  - Added in Citizen Science mission name.

@@ -30,6 +30,8 @@
 
 import base64
 import struct
+import random
+import binascii
 import google.protobuf
 from . import *
 from . import OakSave_pb2, OakShared_pb2
@@ -50,6 +52,7 @@ class BL3Item(object):
 
     def __init__(self, protobuf):
         self.protobuf = protobuf
+        (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
 
     @staticmethod
     def create(serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
@@ -77,11 +80,124 @@ class BL3Item(object):
                 weapon_skin_path=skin_path,
                 ))
 
-    def get_serial_number(self):
-        return self.protobuf.item_serial_number
+    @staticmethod
+    def _xor_data(data, seed):
+        """
+        Run some `data` through some XOR-based obfuscation, using the
+        specified `seed`
+        """
 
-    def get_serial_base64(self):
-        return 'BL3({})'.format(base64.b64encode(self.get_serial_number()).decode('latin1'))
+        # If the seed is 0, we basically don't do anything (though
+        # make sure we return the same datatype as below)
+        if seed == 0:
+            return [d for d in data]
+
+        # Because our seed can be negative, we do have to do the
+        # & here, even though it might not seem to make sense to
+        # do so.
+        xor = (seed >> 5) & 0xFFFFFFFF
+        temp = []
+        for i, d in enumerate(data):
+            xor = (xor * 0x10A860C1) % 0xFFFFFFFB
+            temp.append((d ^ xor) & 0xFF)
+        return temp
+
+    @staticmethod
+    def _bogodecrypt(data, seed):
+        """
+        "Decrypts" the given item `data`, using the given `seed`.
+        """
+
+        # First run it through the xor wringer.
+        temp = BL3Item._xor_data(data, seed)
+
+        # Now rotate the data
+        steps = (seed & 0x1F) % len(data)
+        return bytearray(temp[-steps:] + temp[:-steps])
+
+    @staticmethod
+    def _bogoencrypt(data, seed):
+        """
+        "Encrypts" the given `data`, using the given `seed`
+        """
+
+        # Rotate first
+        steps = (seed & 0x1F) % len(data)
+        rotated = bytearray(data[steps:] + data[:steps])
+
+        # Then run through the xor stuff
+        return bytearray(BL3Item._xor_data(rotated, seed))
+
+    @staticmethod
+    def _decrypt_serial(serial):
+        """
+        Decrypts (really just de-obfuscates) the serial number.
+        """
+
+        # Initial byte should always be 3
+        assert(serial[0] == 3)
+
+        # Seed does need to be an unsigned int
+        orig_seed = struct.unpack('>i', serial[1:5])[0]
+
+        # Do the actual "decryption"
+        decrypted = BL3Item._bogodecrypt(serial[5:], orig_seed)
+
+        # Grab the CRC stored in the serial itself
+        orig_checksum = bytearray(decrypted[:2])
+
+        # Compute the checksum ourselves to make sure we've done
+        # everything properly
+        data_to_checksum = serial[:5] + b"\xFF\xFF" + decrypted[2:]
+        computed_crc = binascii.crc32(data_to_checksum)
+        computed_checksum = struct.pack('>H',
+                ((computed_crc >> 16) ^ computed_crc) & 0xFFFF)
+        if orig_checksum != computed_checksum:
+            raise Exception('Checksum in serial ({}) does not match computed checksum ({})'.format(
+                '0x{}'.format(''.join(f'{d:02X}' for d in orig_checksum)),
+                '0x{}'.format(''.join(f'{d:02X}' for d in computed_checksum)),
+                ))
+
+        # Return what we decrypted
+        return (decrypted[2:], orig_seed)
+
+    @staticmethod
+    def _encrypt_serial(data, seed=None):
+        """
+        Given an unencrypted `item_data`, return the binary serial number for
+        the item, optionally with the given `seed`.  If `seed` is not passed in,
+        a random one will be passed in.  Use a `seed` of `0` to not apply any
+        encryption/obfuscation to the data
+        """
+
+        # Pick a random seed if one wasn't given.  Taken from the BL2 CLI editor
+        if seed is None:
+            seed = random.randrange(0x100000000) - 0x80000000
+
+        # Construct our header and find the checksum
+        header = struct.pack('>Bi', 3, seed)
+        crc32 = binascii.crc32(header + b"\xFF\xFF" + data)
+        checksum = struct.pack('>H', ((crc32 >> 16) ^ crc32) & 0xFFFF)
+
+        # Return the freshly-encrypted item
+        return header + BL3Item._bogoencrypt(checksum + data, seed)
+
+    def get_serial_number(self, orig_seed=False):
+        """
+        Returns the binary item serial number.  If `orig_seed` is `True`, the
+        serial number will use the same seed that was used in the savegame.
+        Otherwise, it will use a seed of `0`, which will then be unencrypted.
+        """
+        return BL3Item._encrypt_serial(self.decrypted_serial, 0)
+
+    def get_serial_base64(self, orig_seed=False):
+        """
+        Returns the base64-encoded item serial number.  If `orig_seed` is
+        `True`, the serial number will use the same seed that was used in the
+        savegame.  Otherwise, it will use a seed of `0`, which will then be
+        unencrypted.
+        """
+        return 'BL3({})'.format(base64.b64encode(self.get_serial_number(orig_seed)).decode('latin1'))
 
     def get_pickup_order_idx(self):
         return self.protobuf.pickup_order_index
@@ -91,6 +207,7 @@ class BL3Item(object):
         Overwrites this item with a new one
         """
         self.protobuf.item_serial_number = new_data
+        (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
 
     @staticmethod
     def decode_serial_base64(new_data):
