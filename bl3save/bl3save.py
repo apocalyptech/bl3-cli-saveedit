@@ -58,6 +58,7 @@ class BL3Item(object):
         self.protobuf = protobuf
         self.serial_db = serial_db
         self.parsed = False
+        self.can_parse = True
         (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
 
         # Attributes which get filled in when we parse
@@ -223,13 +224,21 @@ class BL3Item(object):
         to care about actual parts in here.
         """
 
+        if not self.can_parse:
+            return
+
         bits = datalib.ArbitraryBits(self.decrypted_serial)
 
         # First value should always be 128, apparently
         assert(bits.eat(8) == 128)
 
-        # Grab the serial version, and then the rest of the data we care about.
+        # Grab the serial version and check it against the max version we know about
         self._version = bits.eat(7)
+        if self._version > self.serial_db.max_version:
+            self.can_parse = False
+            return
+
+        # Now the rest of the data we care about.
         (self._balance,
                 self._balance_bits,
                 self._balance_idx) = self._get_inv_db_header_part('InventoryBalanceData', bits)
@@ -267,6 +276,9 @@ class BL3Item(object):
         for now.
         """
 
+        if not self.can_parse:
+            return
+
         # Construct the new item data
         bits = datalib.ArbitraryBits()
         bits.append_value(128, 8)
@@ -291,6 +303,8 @@ class BL3Item(object):
         """
         if not self.parsed:
             self._parse_serial()
+            if not self.can_parse:
+                return None
         return self._balance
 
     @property
@@ -300,6 +314,8 @@ class BL3Item(object):
         """
         if not self.parsed:
             self._parse_serial()
+            if not self.can_parse:
+                return None
         return self._balance_short
 
     @property
@@ -309,6 +325,8 @@ class BL3Item(object):
         """
         if not self.parsed:
             self._parse_serial()
+            if not self.can_parse:
+                return None
         return self._level
 
     @level.setter
@@ -322,6 +340,8 @@ class BL3Item(object):
         """
         if not self.parsed:
             self._parse_serial()
+            if not self.can_parse:
+                return None
 
         # Set the level and trigger a re-encode of the serial
         self._level = value
@@ -354,6 +374,7 @@ class BL3Item(object):
         self.protobuf.item_serial_number = new_data
         (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
         self.parsed = False
+        self.can_parse = True
 
     @staticmethod
     def decode_serial_base64(new_data):

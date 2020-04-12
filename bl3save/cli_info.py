@@ -131,7 +131,10 @@ def main():
         else:
             print('Inventory:')
             for item in items:
-                print(' - {} (lvl{}): {}'.format(item.balance_short, item.level, item.get_serial_base64()))
+                if item.balance_short:
+                    print(' - {} (lvl{}): {}'.format(item.balance_short, item.level, item.get_serial_base64()))
+                else:
+                    print(' - unknown item: {}'.format(item.get_serial_base64()))
 
     # Equipped Items
     if args.verbose:
@@ -140,7 +143,10 @@ def main():
             print('Equipped Items:')
             for (slot, item) in items.items():
                 if item:
-                    print(' - {}: {} (lvl{}): {}'.format(slot, item.balance_short, item.level, item.get_serial_base64()))
+                    if item.balance_short:
+                        print(' - {}: {} (lvl{}): {}'.format(slot, item.balance_short, item.level, item.get_serial_base64()))
+                    else:
+                        print(' - {}: unknown item: {}'.format(slot, item.get_serial_base64()))
         else:
             print('No Equipped Items')
 

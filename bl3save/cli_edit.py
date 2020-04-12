@@ -361,7 +361,10 @@ def main():
                     if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
                         (new_item, _) = save.add_new_item_encoded(itemline)
                         if not args.quiet:
-                            print('   + {} (level {})'.format(new_item.balance_short, new_item.level))
+                            if new_item.balance_short:
+                                print('   + {} (level {})'.format(new_item.balance_short, new_item.level))
+                            else:
+                                print('   + unknown item')
                         added_count += 1
             if not args.quiet:
                 print('   - Added Item Count: {}'.format(added_count))
@@ -433,7 +436,10 @@ def main():
     elif args.output == 'items':
         with open(args.output_filename, 'w') as df:
             for item in save.get_items():
-                print('# {} (level {})'.format(item.balance_short, item.level), file=df)
+                if item.balance_short:
+                    print('# {} (level {})'.format(item.balance_short, item.level), file=df)
+                else:
+                    print('# unknown item', file=df)
                 print(item.get_serial_base64(), file=df)
                 print('', file=df)
         if not args.quiet:

@@ -84,6 +84,7 @@ class InventorySerialDB(object):
     def __init__(self):
         self.initialized = False
         self.db = None
+        self._max_version = -1
 
     def _initialize(self):
         """
@@ -96,6 +97,20 @@ class InventorySerialDB(object):
                     ))) as df:
                 self.db = json.load(df)
             self.initialized = True
+
+            # I generally shy away from complex one-liners like this, but eh?
+            self._max_version = max(
+                    [max([v['version'] for v in category['versions']]) for category in self.db.values()]
+                    )
+
+    @property
+    def max_version(self):
+        """
+        Return the max version we can handle
+        """
+        if not self.initialized:
+            self._initialize()
+        return self._max_version
 
     def get_num_bits(self, category, version):
         """
