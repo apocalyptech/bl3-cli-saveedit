@@ -180,3 +180,16 @@ class BalanceToName(object):
         else:
             return None
 
+class DataWrapper(object):
+    """
+    Weird little metaclass which just has an instance of each of our file-backed
+    data objects in here.  This way apps using it can just pass around a single
+    object instance and take what they want, rather than having to carry around
+    multiple.  (For instance, BL3Item needs both InventorySerialDB and
+    BalanceToName, and we instantiate a fair number of those.)
+    """
+
+    def __init__(self):
+        self.serial_db = InventorySerialDB()
+        self.name_db = BalanceToName()
+
