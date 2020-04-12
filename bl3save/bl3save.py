@@ -45,7 +45,10 @@ class BL3Item(object):
     ignoring `development_save_data` entirely since it doesn't seem to
     be present in actual savegames.
 
-    No idea what `pickup_order_index` is.
+    No idea what `pickup_order_index` is, though it might just have
+    something to do with the ordering when you're picking up multiple
+    things at once (in which case it's probably only really useful for
+    things like money and ammo).
 
     All these getters/setters are rather un-Pythonic; should be using
     some decorations for that instead.  Alas!
@@ -60,11 +63,14 @@ class BL3Item(object):
         # Attributes which get filled in when we parse
         self._version = None
         self._balance_bits = None
+        self._balance_idx = None
         self._balance = None
         self._balance_short = None
         self._invdata_bits = None
+        self._invdata_idx = None
         self._invdata = None
         self._manufacturer_bits = None
+        self._manufacturer_idx = None
         self._manufacturer = None
         self._level = None
         self._remaining_data = None
@@ -73,7 +79,6 @@ class BL3Item(object):
     def create(serial_db, serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
         """
         Creates a new item with the specified serial number, pickup_order_idx, and skin_path.
-
         """
 
         # Start constructing flags
@@ -179,7 +184,7 @@ class BL3Item(object):
     @staticmethod
     def _encrypt_serial(data, seed=None):
         """
-        Given an unencrypted `item_data`, return the binary serial number for
+        Given an unencrypted `data`, return the binary serial number for
         the item, optionally with the given `seed`.  If `seed` is not passed in,
         a random one will be passed in.  Use a `seed` of `0` to not apply any
         encryption/obfuscation to the data
@@ -203,13 +208,14 @@ class BL3Item(object):
         containing serial number data, return a tuple containing:
             1) The category value
             2) The number of bits the category takes up
+            3) The numerical index of the value
         This relies on being run during `_parse_serial`, so that `_version` is
         populated in our object.
         """
         num_bits = self.serial_db.get_num_bits(category, self._version)
         part_idx = bits.eat(num_bits)
         part_val = self.serial_db.get_part(category, part_idx)
-        return (part_val, num_bits)
+        return (part_val, num_bits, part_idx)
 
     def _parse_serial(self):
         """
@@ -224,9 +230,15 @@ class BL3Item(object):
 
         # Grab the serial version, and then the rest of the data we care about.
         self._version = bits.eat(7)
-        (self._balance, self._balance_bits) = self._get_inv_db_header_part('InventoryBalanceData', bits)
-        (self._invdata, self._invdata_bits) = self._get_inv_db_header_part('InventoryData', bits)
-        (self._manufacturer, self._manufacturer_bits) = self._get_inv_db_header_part('ManufacturerData', bits)
+        (self._balance,
+                self._balance_bits,
+                self._balance_idx) = self._get_inv_db_header_part('InventoryBalanceData', bits)
+        (self._invdata,
+                self._invdata_bits,
+                self._invdata_idx) = self._get_inv_db_header_part('InventoryData', bits)
+        (self._manufacturer,
+                self._manufacturer_bits,
+                self._manufacturer_idx) = self._get_inv_db_header_part('ManufacturerData', bits)
         self._level = bits.eat(7)
         self._remaining_data = bits.data
 
@@ -241,6 +253,36 @@ class BL3Item(object):
 
         # Mark down that we're parsed, now.
         self.parsed = True
+
+    def _deparse_serial(self):
+        """
+        De-parses a serial; used after we make changes to the data that gets
+        pulled out during `_parse_serial`.  At the moment, that's only going
+        to be item level changes.  Will update the serial in the protobuf as
+        well, and set the object to trigger a re-parse if anything else needs
+        to read more.
+
+        This is all pretty inefficient -- really we should just write over the
+        bits values with the new values, in-place.  But whatever, this'll do
+        for now.
+        """
+
+        # Construct the new item data
+        bits = datalib.ArbitraryBits()
+        bits.append_value(128, 8)
+        bits.append_value(self._version, 7)
+        bits.append_value(self._balance_idx, self._balance_bits)
+        bits.append_value(self._invdata_idx, self._invdata_bits)
+        bits.append_value(self._manufacturer_idx, self._manufacturer_bits)
+        bits.append_value(self._level, 7)
+        bits.append_data(self._remaining_data)
+        new_data = bits.get_data()
+
+        # Encode the new serial (using seed 0; unencrypted)
+        new_serial = BL3Item._encrypt_serial(new_data, 0)
+
+        # Load in the new serial (this will set `parsed` to `False`)
+        self.set_serial_number_data(new_serial)
 
     @property
     def balance(self):
@@ -268,6 +310,22 @@ class BL3Item(object):
         if not self.parsed:
             self._parse_serial()
         return self._level
+
+    @level.setter
+    def level(self, value):
+        """
+        Sets a new level for the item.  This would be a super inefficient way of
+        doing it if we supported doing anything other than changing level -- we're
+        rebuilding the whole serial right now and triggering a re-parse if anything
+        decides to re-read it.  That should be sufficient for our purposes here,
+        though.
+        """
+        if not self.parsed:
+            self._parse_serial()
+
+        # Set the level and trigger a re-encode of the serial
+        self._level = value
+        self._deparse_serial()
 
     def get_serial_number(self, orig_seed=False):
         """
@@ -1077,6 +1135,15 @@ class BL3Save(object):
                 is_favorite=True,
                 )
         self.save.inventory_items.append(new_item.protobuf)
+
+        # The protobuf reference that we append to the protobuf list
+        # ends up *not* being the one that's actually used when we
+        # save, so if we want to be able to alter it later (say, below
+        # when levelling up items), we have to grab a fresh reference
+        # to it.
+        new_item.protobuf = self.save.inventory_items[-1]
+
+        # Now update our internal items list and return
         self.items.append(new_item)
         return (self.items[-1], len(self.items)-1)
 

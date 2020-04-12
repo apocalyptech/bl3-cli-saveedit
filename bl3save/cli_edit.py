@@ -110,6 +110,18 @@ def main():
             help='Set the character to max level ({})'.format(bl3save.max_level),
             )
 
+    itemlevelgroup = parser.add_mutually_exclusive_group()
+
+    itemlevelgroup.add_argument('--items-to-char',
+            dest='items_to_char',
+            action='store_true',
+            help='Set all inventory items to the level of the character')
+
+    itemlevelgroup.add_argument('--item-levels',
+            dest='item_levels',
+            type=int,
+            help='Set all inventory items to the specified level')
+
     parser.add_argument('--mayhem',
             type=int,
             choices=range(5),
@@ -178,6 +190,15 @@ def main():
     if args.level_max:
         args.level = bl3save.max_level
 
+    # Check item level.  The max storeable in the serial number is 127, but the
+    # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
+    # could use `bl3save.max_level` here, too, of course, but in the event that
+    # I don't get this updated in a timely fashion, having it higher would let
+    # this util potentially continue to be able to level up gear.
+    if args.item_levels:
+        if args.item_levels < 1 or args.item_levels > 100:
+            raise argparse.ArgumentTypeError('Valid item level range is 1 through 100')
+
     # Check for overwrite warnings
     if os.path.exists(args.output_filename) and not args.force:
         sys.stdout.write('WARNING: {} already exists.  Overwrite [y/N]? '.format(args.output_filename))
@@ -212,6 +233,8 @@ def main():
         len(args.unlock) > 0,
         args.copy_nvhm,
         args.import_items,
+        args.items_to_char,
+        args.item_levels,
         ])
 
     # Make changes
@@ -337,10 +360,56 @@ def main():
                     itemline = line.strip()
                     if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
                         (new_item, _) = save.add_new_item_encoded(itemline)
-                        print('   + {} (level {})'.format(new_item.balance_short, new_item.level))
+                        if not args.quiet:
+                            print('   + {} (level {})'.format(new_item.balance_short, new_item.level))
                         added_count += 1
             if not args.quiet:
                 print('   - Added Item Count: {}'.format(added_count))
+
+        # Setting item levels.  Keep in mind that we'll want to do this *after*
+        # various of the actions above.  If we've been asked to up the level of
+        # the character, we'll want items to follow suit, and if we've been asked
+        # to change the level of items, we'll want to do it after the item import.
+        if args.items_to_char or args.item_levels:
+            if args.items_to_char:
+                to_level = save.get_level()
+            else:
+                to_level = args.item_levels
+            num_items = len(save.get_items())
+            if not args.quiet:
+                if num_items == 1:
+                    plural = ''
+                else:
+                    plural = 's'
+                print(' - Updating {} item{} to level {}'.format(
+                    num_items,
+                    plural,
+                    to_level,
+                    ))
+            actually_updated = 0
+            for item in save.get_items():
+                if item.level != to_level:
+                    item.level = to_level
+                    actually_updated += 1
+            if not args.quiet:
+                remaining = num_items - actually_updated
+                if actually_updated == 1:
+                    updated_verb = 'was'
+                else:
+                    updated_verb = 'were'
+                if remaining > 0:
+                    if remaining == 1:
+                        remaining_verb = 'was'
+                    else:
+                        remaining_verb = 'were'
+                    remaining_txt = ' ({} {} already at that level)'.format(remaining, remaining_verb)
+                else:
+                    remaining_txt = ''
+                print('   - {} {} updated{}'.format(
+                    actually_updated,
+                    updated_verb,
+                    remaining_txt,
+                    ))
 
         # Copying NVHM state
         if args.copy_nvhm:

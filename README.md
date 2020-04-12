@@ -201,6 +201,20 @@ arguments, respectively:
     bl3-save-edit old.sav new.sav --money 20000000
     bl3-save-edit old.sav new.sav --eridium 10000
 
+### Item Levels
+
+There are two arguments to set item levels.  The first is to set
+all items/weapons in your inventory to match your character's level.
+If you're also changing your character's level at the same time,
+items/weapons will get that new level.  This can be done with
+`--items-to-char`
+
+    bl3-save-edit old.sav new.sav --items-to-char
+
+Alternatively, you can set an explicit level using `--item-levels`
+
+    bl3-save-edit old.sav new.sav --item-levels 57
+
 ### Unlocks
 
 There are a number of things you can unlock with the utility, all
@@ -329,6 +343,9 @@ Fast Travel stations:
 
 # TODO
 
+- Don't allow Fabricator to be imported, if the char already has a
+  Fabricator?  Or maybe just don't allow it to be imported at all, unless
+  an extra flag is specified.
 - Balance-to-english-name mapping.  Not a lot of use for
   non-legendaries/uniques, of course, and only semi-useful for legendary
   artifacts/COMs, but still.
@@ -362,6 +379,12 @@ provided in [COPYING.txt](COPYING.txt).
 # Changelog
 
 **v1.2.0** - *unreleased*
+ - Added ability to change item/weapon levels, using `--items-to-char`
+   or `--item-levels`
+ - Item balance names and levels are now shown where appropriate:
+   - In verbose `bl3-save-info` output
+   - In item export files
+   - While importing items
  - Updated to Protobuf v3, which is what BL3 itself uses.  Now when we
    re-save without any edits, the save should be identical to the
    original savegame.
@@ -369,10 +392,6 @@ provided in [COPYING.txt](COPYING.txt).
    have the exact same item code regardless of where it came from
    (previously, item codes would change every time the game was saved,
    so the same item could have very different-looking codes)
- - Item balance names and levels are now shown where appropriate:
-   - In verbose `bl3-save-info` output
-   - In item export files
-   - While importing items
 
 **v1.1.1** - April 7, 2020
  - Added in Citizen Science mission name.

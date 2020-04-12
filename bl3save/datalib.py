@@ -4,6 +4,7 @@
 import io
 import json
 import lzma
+import struct
 import pkg_resources
 
 class ArbitraryBits(object):
@@ -51,7 +52,7 @@ class ArbitraryBits(object):
         """
         value_data = struct.pack('>I', value)
         value_txt = ''.join([f'{d:08b}' for d in value_data])
-        self.data = value_text[-bits:] + self.data
+        self.data = value_txt[-bits:] + self.data
 
     def append_data(self, new_data):
         """
