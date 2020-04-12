@@ -164,6 +164,11 @@ def main():
             help='Import items from file',
             )
 
+    parser.add_argument('--allow-fabricator',
+            dest='allow_fabricator',
+            action='store_true',
+            help='Allow importing Fabricator when importing items from file')
+
     # Positional args
     parser.add_argument('input_filename',
             help='Input filename',
@@ -359,7 +364,16 @@ def main():
                 for line in df:
                     itemline = line.strip()
                     if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
-                        (new_item, _) = save.add_new_item_encoded(itemline)
+                        new_item = save.create_new_item_encoded(itemline)
+                        if not args.allow_fabricator:
+                            # Report these regardless of args.quiet
+                            if not new_item.balance_short:
+                                print('   - NOTICE: Skipping unknown item import because --allow-fabricator is not set')
+                                continue
+                            if new_item.balance_short.lower() == 'balance_eridian_fabricator':
+                                print('   - NOTICE: Skipping Fabricator import because --allow-fabricator is not set')
+                                continue
+                        save.add_item(new_item)
                         if not args.quiet:
                             if new_item.balance_short:
                                 print('   + {} (level {})'.format(new_item.balance_short, new_item.level))

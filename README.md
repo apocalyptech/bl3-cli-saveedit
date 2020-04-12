@@ -319,6 +319,20 @@ any line starting with `BL3(` as an item into the savegame:
 
     bl3-save-edit old.sav new.sav -i items.txt
 
+Note that by default, the app will not allow Fabricators to be
+imported into a save, since the player doesn't have a good way to
+get rid of them.  You can tell the app to allow importing
+Fabricators anyway with the `--allow-fabricator` option (which has
+no use when not used along with `-i`/`--import-items`)
+
+    bl3-save-edit old.sav new.sav -i items.txt --allow-fabricator
+
+If the utility can't tell what an item is during import (which may
+happen if BL3 has been updated but this editor hasn't been updated
+yet), it will refuse to import the unknown items, unless
+`--allow-fabricator` is specified, since the unknown item could be
+a Fabricator.  Other edits and imports can still happen, however.
+
 # Importing Raw Protobufs
 
 If you've saved a savegame in raw protobuf format (using the
@@ -349,9 +363,6 @@ Fast Travel stations:
 
 # TODO
 
-- Don't allow Fabricator to be imported, if the char already has a
-  Fabricator?  Or maybe just don't allow it to be imported at all, unless
-  an extra flag is specified.
 - Balance-to-english-name mapping.  Not a lot of use for
   non-legendaries/uniques, of course, and only semi-useful for legendary
   artifacts/COMs, but still.
@@ -387,6 +398,8 @@ provided in [COPYING.txt](COPYING.txt).
 **v1.2.0** - *unreleased*
  - Added ability to change item/weapon levels, using `--items-to-char`
    or `--item-levels`
+ - Item Imports will now *not* import Fabricators unless explicitly
+   told to with the `--allow-fabricator` option.
  - Item balance names and levels are now shown where appropriate:
    - In verbose `bl3-save-info` output
    - In item export files

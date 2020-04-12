@@ -1137,26 +1137,13 @@ class BL3Save(object):
             elif slot == COM:
                 self.unlock_char_com_challenge()
 
-    def add_new_item(self, itemdata):
+    def add_item(self, new_item):
         """
-        Adds a new item to our item list.  Returns a tuple containing the new
-        BL3Item object itself, and its new index in our item list.
+        Adds a new `new_item` (BL3Item object) to our item list.  Returns the item's
+        new index in our item list.
         """
-        # Okay, I have no idea what this pickup_order_index attribute is about, but let's
-        # make sure it's unique anyway.  It might be related to ordering when picking
-        # up multiple items at once, which would probably make it more useful for auto-pick-up
-        # items like money and ammo...
-        max_pickup_order = 0
-        for item in self.items:
-            if item.get_pickup_order_idx() > max_pickup_order:
-                max_pickup_order = item.get_pickup_order_idx()
 
-        # Create the item and add it in
-        new_item = BL3Item.create(self.serial_db,
-                serial_number=itemdata,
-                pickup_order_idx=max_pickup_order+1,
-                is_favorite=True,
-                )
+        # Add the item to the protobuf
         self.save.inventory_items.append(new_item.protobuf)
 
         # The protobuf reference that we append to the protobuf list
@@ -1168,15 +1155,54 @@ class BL3Save(object):
 
         # Now update our internal items list and return
         self.items.append(new_item)
-        return (self.items[-1], len(self.items)-1)
+        return len(self.items)-1
 
-    def add_new_item_encoded(self, itemdata):
+    def create_new_item(self, item_serial):
         """
-        Adds a new item to our item list, using the textual representation that we can
-        save to a file (which happens to be base64).  Returns a tuple containing the new
-        BL3Item object itself, and its new index in our item list.
+        Creates a new item from the given binary `item_serial`, which can later
+        be added to our item list.
         """
-        return self.add_new_item(BL3Item.decode_serial_base64(itemdata))
+
+        # Okay, I have no idea what this pickup_order_index attribute is about, but let's
+        # make sure it's unique anyway.  It might be related to ordering when picking
+        # up multiple items at once, which would probably make it more useful for auto-pick-up
+        # items like money and ammo...
+        max_pickup_order = 0
+        for item in self.items:
+            if item.get_pickup_order_idx() > max_pickup_order:
+                max_pickup_order = item.get_pickup_order_idx()
+
+        # Create the item and return it
+        new_item = BL3Item.create(self.serial_db,
+                serial_number=item_serial,
+                pickup_order_idx=max_pickup_order+1,
+                is_favorite=True,
+                )
+        return new_item
+
+    def create_new_item_encoded(self, item_serial_b64):
+        """
+        Creates a new item from the base64-encoded (and "BL3()"-wrapped)
+        `item_serial_b64`, which can later be added to our item list.
+        """
+        return self.create_new_item(BL3Item.decode_serial_base64(item_serial_b64))
+
+    def add_new_item(self, item_serial):
+        """
+        Adds a new item to our item list using the binary `item_serial`.
+        Returns a tuple containing the new BL3Item object itself, and its
+        new index in our item list.
+        """
+        new_item = self.create_new_item(item_serial)
+        return (new_item, self.add_item(new_item))
+
+    def add_new_item_encoded(self, item_serial_b64):
+        """
+        Adds a new item to our item list using the base64-encoded (and
+        "BL3()"-wrapped) `item_serial_b64`.  Returns a tuple containing the
+        new BL3Item object itself, and its new index in our item list.
+        """
+        return self.add_new_item(BL3Item.decode_serial_base64(item_serial_b64))
 
     def overwrite_item_in_slot(self, slot, itemdata):
         """
