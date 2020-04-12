@@ -29,10 +29,10 @@ Please keep the following in mind:
 This editor requires [Python 3](https://www.python.org/), and has been
 tested on 3.7 and 3.8.  It also requires the [protobuf package](https://pypi.org/project/protobuf/).
 
-The easiest way to install this app is via `pip`.  Once Python 3 is
+The easiest way to install this app is via `pip`/`pip3`.  Once Python 3 is
 installed, you should be able to run this to install the app:
 
-    pip install bl3-cli-saveedit
+    pip3 install bl3-cli-saveedit
 
 Once installed, there should be a few new commandline utilities available
 to you.  The main editor is `bl3-save-edit`, and you can see its possible
@@ -61,9 +61,9 @@ as well, if you like:
 
 ### Upgrading
 
-When a new version is available, you can update using `pip` like so:
+When a new version is available, you can update using `pip3` like so:
 
-    pip install --upgrade bl3-cli-saveedit
+    pip3 install --upgrade bl3-cli-saveedit
 
 You can check your current version by running any of the apps with the
 `-V`/`--version` argument:
@@ -75,10 +75,20 @@ You can check your current version by running any of the apps with the
 This is a command-line utility, which means there's no graphical interface,
 and you'll have to run it from either a Windows `cmd.exe` prompt, or presumably
 running through PowerShell should work, too.  The first step is to
-[install Python](https://www.python.org/downloads/windows/) -- grab what's
-available in the 3.x series (at time of writing, that's either 3.8.2 or
-3.7.7).  When you install, make sure to check the checkbox which says something
+install Python:
+
+- If you're on Windows 10, you can apparently just type `python3` into a command
+  prompt to be taken to the Windows store, where you can install Python with
+  just one click.
+- Alternatively, and for folks not on Windows 10, you can
+  [install Python from python.org](https://www.python.org/downloads/windows/).
+  Grab what's available in the 3.x series (at time of writing, that's either
+  3.8.2 or 3.7.7).
+
+When you install, make sure to check the checkbox which says something
 like "add to PATH", so that you can run Python from the commandline directly.
+(That may only show up when installing manually, as opposed to the Windows Store
+method.)
 
 When it's installed, test that you can run it from the commandline.  Open up
 either `cmd.exe` or PowerShell, and make sure that you see something like this
@@ -87,7 +97,7 @@ when you run `python -V`:
     C:\> python -V
     Python 3.8.2
 
-If that works, you can then run the `pip install bl3-cli-saveedit` command
+If that works, you can then run the `pip3 install bl3-cli-saveedit` command
 as mentioned above, and use the commandline scripts to edit to your heart's
 content.
 
@@ -95,7 +105,7 @@ content.
 
 Alternatively, if you want to download or run the Github version of
 the app: clone the repository and then install `protobuf` (you can
-use `pip install -r requirements.txt` to do so, though a `pip install protobuf`
+use `pip3 install -r requirements.txt` to do so, though a `pip3 install protobuf`
 will also work just fine).
 
 You can then run the scripts directly from the Github checkout, though
@@ -108,7 +118,7 @@ you'll have to use a slightly different syntax.  Here are the equivalents:
 
 # Editor Usage
 
-This section will assume that you've installed via `pip` - if you're using
+This section will assume that you've installed via `pip3` - if you're using
 a Github checkout, substitute the commands as appropriate, as per the
 Installation section above.
 
@@ -397,6 +407,9 @@ All code in this project is licensed under the
 provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
+
+**v1.2.2** - April 12, 2020
+ - Updated README with some more specific Windows 10 installation advice.
 
 **v1.2.1** - April 12, 2020
  - Updated Credits section of the README with one more credit that I'd
