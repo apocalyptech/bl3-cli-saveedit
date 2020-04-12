@@ -31,7 +31,10 @@ setup(
             (f'share/{app_name}/item_exports', ['mod_testing_gear.txt']),
             ],
         package_data={
-            'bl3save': ['resources/inventoryserialdb.json.xz'],
+            'bl3save': [
+                'resources/inventoryserialdb.json.xz',
+                'resources/short_name_balance_mapping.json.xz',
+                ],
             },
         install_requires=[
             'protobuf ~= 3.0',

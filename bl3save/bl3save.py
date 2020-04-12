@@ -54,9 +54,10 @@ class BL3Item(object):
     some decorations for that instead.  Alas!
     """
 
-    def __init__(self, protobuf, serial_db):
+    def __init__(self, protobuf, serial_db, name_db):
         self.protobuf = protobuf
         self.serial_db = serial_db
+        self.name_db = name_db
         self.parsed = False
         self.can_parse = True
         (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
@@ -67,6 +68,7 @@ class BL3Item(object):
         self._balance_idx = None
         self._balance = None
         self._balance_short = None
+        self._eng_name = None
         self._invdata_bits = None
         self._invdata_idx = None
         self._invdata = None
@@ -77,7 +79,7 @@ class BL3Item(object):
         self._remaining_data = None
 
     @staticmethod
-    def create(serial_db, serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
+    def create(serial_db, name_db, serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
         """
         Creates a new item with the specified serial number, pickup_order_idx, and skin_path.
         """
@@ -99,7 +101,7 @@ class BL3Item(object):
                 pickup_order_index=pickup_order_idx,
                 flags=flags,
                 weapon_skin_path=skin_path,
-                ), serial_db)
+                ), serial_db, name_db)
 
     @staticmethod
     def _xor_data(data, seed):
@@ -262,6 +264,9 @@ class BL3Item(object):
         # Parse out a "short" balance name, for convenience's sake
         self._balance_short = self._balance.split('.')[-1]
 
+        # If we know of an English name for this balance, use it
+        self._eng_name = self.name_db.get(self._balance_short)
+
         # Mark down that we're parsed, now.
         self.parsed = True
 
@@ -319,6 +324,21 @@ class BL3Item(object):
             if not self.can_parse:
                 return None
         return self._balance_short
+
+    @property
+    def eng_name(self):
+        """
+        Returns an English name for the balance, if possible.  Will default
+        to the "short" balance for this item if not.
+        """
+        if not self.parsed:
+            self._parse_serial()
+            if not self.can_parse:
+                return None
+        if self._eng_name:
+            return self._eng_name
+        else:
+            return self._balance_short
 
     @property
     def level(self):
@@ -472,6 +492,7 @@ class BL3Save(object):
     def __init__(self, filename, debug=False):
         self.filename = filename
         self.serial_db = datalib.InventorySerialDB()
+        self.name_db = datalib.BalanceToName()
         with open(filename, 'rb') as df:
 
             header = df.read(4)
@@ -557,7 +578,7 @@ class BL3Save(object):
 
         # Do some data processing so that we can wrap things APIwise
         # First: Items
-        self.items = [BL3Item(i, self.serial_db) for i in self.save.inventory_items]
+        self.items = [BL3Item(i, self.serial_db, self.name_db) for i in self.save.inventory_items]
 
         # Next: Equip slots
         self.equipslots = {}
@@ -1173,7 +1194,7 @@ class BL3Save(object):
                 max_pickup_order = item.get_pickup_order_idx()
 
         # Create the item and return it
-        new_item = BL3Item.create(self.serial_db,
+        new_item = BL3Item.create(self.serial_db, self.name_db,
                 serial_number=item_serial,
                 pickup_order_idx=max_pickup_order+1,
                 is_favorite=True,

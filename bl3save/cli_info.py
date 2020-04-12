@@ -130,23 +130,29 @@ def main():
             print('Nothing in Inventory')
         else:
             print('Inventory:')
+            to_report = []
             for item in items:
-                if item.balance_short:
-                    print(' - {} (lvl{}): {}'.format(item.balance_short, item.level, item.get_serial_base64()))
+                if item.eng_name:
+                    to_report.append(' - {} (lvl{}): {}'.format(item.eng_name, item.level, item.get_serial_base64()))
                 else:
-                    print(' - unknown item: {}'.format(item.get_serial_base64()))
+                    to_report.append(' - unknown item: {}'.format(item.get_serial_base64()))
+            for line in sorted(to_report):
+                print(line)
 
     # Equipped Items
     if args.verbose:
         items = save.get_equipped_items(True)
         if any(items.values()):
             print('Equipped Items:')
+            to_report = []
             for (slot, item) in items.items():
                 if item:
-                    if item.balance_short:
-                        print(' - {}: {} (lvl{}): {}'.format(slot, item.balance_short, item.level, item.get_serial_base64()))
+                    if item.eng_name:
+                        to_report.append(' - {}: {} (lvl{}): {}'.format(slot, item.eng_name, item.level, item.get_serial_base64()))
                     else:
-                        print(' - {}: unknown item: {}'.format(slot, item.get_serial_base64()))
+                        to_report.append(' - {}: unknown item: {}'.format(slot, item.get_serial_base64()))
+            for line in sorted(to_report):
+                print(line)
         else:
             print('No Equipped Items')
 

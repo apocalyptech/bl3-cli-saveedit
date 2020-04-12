@@ -141,3 +141,42 @@ class InventorySerialDB(object):
             else:
                 return self.db[category]['assets'][index-1]
 
+class BalanceToName(object):
+    """
+    Little wrapper to provide access to a mapping from Balance names (actually
+    just the "short" version of those, without path) to English names that
+    we can report on.
+    """
+
+    def __init__(self):
+        self.initialized = False
+        self.mapping = None
+
+    def _initialize(self):
+        """
+        Actually read in our data.  Not doing this automatically because I
+        only want to do it if we're doing an operation which requires it.
+        """
+        if not self.initialized:
+            with lzma.open(io.BytesIO(pkg_resources.resource_string(
+                    __name__, 'resources/short_name_balance_mapping.json.xz'
+                    ))) as df:
+                self.mapping = json.load(df)
+            self.initialized = True
+
+    def get(self, balance):
+        """
+        Returns an english mapping for the given balance, if we can.
+        """
+        if not self.initialized:
+            self._initialize()
+        if '/' in balance:
+            balance = balance.split('/')[-1]
+        if '.' in balance:
+            balance = balance.split('.')[-1]
+        balance = balance.lower()
+        if balance in self.mapping:
+            return self.mapping[balance]
+        else:
+            return None
+

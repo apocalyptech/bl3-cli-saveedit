@@ -363,16 +363,10 @@ Fast Travel stations:
 
 # TODO
 
-- Balance-to-english-name mapping.  Not a lot of use for
-  non-legendaries/uniques, of course, and only semi-useful for legendary
-  artifacts/COMs, but still.
+- Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
-- Figure out item serial number parsing (or, almost certainly, wait for
-  someone else to figure it out and then take it from there, assuming
-  a FOSS'd project. :)
-  - This'll let us level up items in addition to characters
 - Unit tests?
 
 # Credits
@@ -400,7 +394,7 @@ provided in [COPYING.txt](COPYING.txt).
    or `--item-levels`
  - Item Imports will now *not* import Fabricators unless explicitly
    told to with the `--allow-fabricator` option.
- - Item balance names and levels are now shown where appropriate:
+ - Item names and levels are now shown where appropriate:
    - In verbose `bl3-save-info` output
    - In item export files
    - While importing items

@@ -367,7 +367,7 @@ def main():
                         new_item = save.create_new_item_encoded(itemline)
                         if not args.allow_fabricator:
                             # Report these regardless of args.quiet
-                            if not new_item.balance_short:
+                            if not new_item.eng_name:
                                 print('   - NOTICE: Skipping unknown item import because --allow-fabricator is not set')
                                 continue
                             if new_item.balance_short.lower() == 'balance_eridian_fabricator':
@@ -375,8 +375,8 @@ def main():
                                 continue
                         save.add_item(new_item)
                         if not args.quiet:
-                            if new_item.balance_short:
-                                print('   + {} (level {})'.format(new_item.balance_short, new_item.level))
+                            if new_item.eng_name:
+                                print('   + {} (level {})'.format(new_item.eng_name, new_item.level))
                             else:
                                 print('   + unknown item')
                         added_count += 1
@@ -450,8 +450,8 @@ def main():
     elif args.output == 'items':
         with open(args.output_filename, 'w') as df:
             for item in save.get_items():
-                if item.balance_short:
-                    print('# {} (level {})'.format(item.balance_short, item.level), file=df)
+                if item.eng_name:
+                    print('# {} (level {})'.format(item.eng_name, item.level), file=df)
                 else:
                     print('# unknown item', file=df)
                 print(item.get_serial_base64(), file=df)
