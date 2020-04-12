@@ -34,6 +34,7 @@ import random
 import binascii
 import google.protobuf
 from . import *
+from . import datalib
 from . import OakSave_pb2, OakShared_pb2
 
 MissionState = OakSave_pb2.MissionStatusPlayerSaveGameData.MissionState
@@ -50,12 +51,26 @@ class BL3Item(object):
     some decorations for that instead.  Alas!
     """
 
-    def __init__(self, protobuf):
+    def __init__(self, protobuf, serial_db):
         self.protobuf = protobuf
+        self.serial_db = serial_db
+        self.parsed = False
         (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
 
+        # Attributes which get filled in when we parse
+        self._version = None
+        self._balance_bits = None
+        self._balance = None
+        self._balance_short = None
+        self._invdata_bits = None
+        self._invdata = None
+        self._manufacturer_bits = None
+        self._manufacturer = None
+        self._level = None
+        self._remaining_data = None
+
     @staticmethod
-    def create(serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
+    def create(serial_db, serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
         """
         Creates a new item with the specified serial number, pickup_order_idx, and skin_path.
 
@@ -78,7 +93,7 @@ class BL3Item(object):
                 pickup_order_index=pickup_order_idx,
                 flags=flags,
                 weapon_skin_path=skin_path,
-                ))
+                ), serial_db)
 
     @staticmethod
     def _xor_data(data, seed):
@@ -182,6 +197,78 @@ class BL3Item(object):
         # Return the freshly-encrypted item
         return header + BL3Item._bogoencrypt(checksum + data, seed)
 
+    def _get_inv_db_header_part(self, category, bits):
+        """
+        Given the category name `category`, and the ArbitraryBits object `bits`,
+        containing serial number data, return a tuple containing:
+            1) The category value
+            2) The number of bits the category takes up
+        This relies on being run during `_parse_serial`, so that `_version` is
+        populated in our object.
+        """
+        num_bits = self.serial_db.get_num_bits(category, self._version)
+        part_idx = bits.eat(num_bits)
+        part_val = self.serial_db.get_part(category, part_idx)
+        return (part_val, num_bits)
+
+    def _parse_serial(self):
+        """
+        Parse our serial number, at least up to the level.  We're not going
+        to care about actual parts in here.
+        """
+
+        bits = datalib.ArbitraryBits(self.decrypted_serial)
+
+        # First value should always be 128, apparently
+        assert(bits.eat(8) == 128)
+
+        # Grab the serial version, and then the rest of the data we care about.
+        self._version = bits.eat(7)
+        (self._balance, self._balance_bits) = self._get_inv_db_header_part('InventoryBalanceData', bits)
+        (self._invdata, self._invdata_bits) = self._get_inv_db_header_part('InventoryData', bits)
+        (self._manufacturer, self._manufacturer_bits) = self._get_inv_db_header_part('ManufacturerData', bits)
+        self._level = bits.eat(7)
+        self._remaining_data = bits.data
+
+        # At this point, if we were planning on reading parts, we'd read eat six
+        # more bits to find the number of parts, then read in that many, using a
+        # mapping to get to the correct category.  Then another four bits tells
+        # us how many anointments there are, reading from InventoryGenericPartData
+        # after that.  After anointments, I'm not totally sure what's out there.
+
+        # Parse out a "short" balance name, for convenience's sake
+        self._balance_short = self._balance.split('.')[-1]
+
+        # Mark down that we're parsed, now.
+        self.parsed = True
+
+    @property
+    def balance(self):
+        """
+        Returns the balance for this item
+        """
+        if not self.parsed:
+            self._parse_serial()
+        return self._balance
+
+    @property
+    def balance_short(self):
+        """
+        Returns the "short" balance for this item
+        """
+        if not self.parsed:
+            self._parse_serial()
+        return self._balance_short
+
+    @property
+    def level(self):
+        """
+        Returns the level of this item
+        """
+        if not self.parsed:
+            self._parse_serial()
+        return self._level
+
     def get_serial_number(self, orig_seed=False):
         """
         Returns the binary item serial number.  If `orig_seed` is `True`, the
@@ -208,6 +295,7 @@ class BL3Item(object):
         """
         self.protobuf.item_serial_number = new_data
         (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
+        self.parsed = False
 
     @staticmethod
     def decode_serial_base64(new_data):
@@ -302,6 +390,7 @@ class BL3Save(object):
 
     def __init__(self, filename, debug=False):
         self.filename = filename
+        self.serial_db = datalib.InventorySerialDB()
         with open(filename, 'rb') as df:
 
             header = df.read(4)
@@ -387,7 +476,7 @@ class BL3Save(object):
 
         # Do some data processing so that we can wrap things APIwise
         # First: Items
-        self.items = [BL3Item(i) for i in self.save.inventory_items]
+        self.items = [BL3Item(i, self.serial_db) for i in self.save.inventory_items]
 
         # Next: Equip slots
         self.equipslots = {}
@@ -973,14 +1062,17 @@ class BL3Save(object):
         BL3Item object itself, and its new index in our item list.
         """
         # Okay, I have no idea what this pickup_order_index attribute is about, but let's
-        # make sure it's unique anyway.
+        # make sure it's unique anyway.  It might be related to ordering when picking
+        # up multiple items at once, which would probably make it more useful for auto-pick-up
+        # items like money and ammo...
         max_pickup_order = 0
         for item in self.items:
             if item.get_pickup_order_idx() > max_pickup_order:
                 max_pickup_order = item.get_pickup_order_idx()
 
         # Create the item and add it in
-        new_item = BL3Item.create(serial_number=itemdata,
+        new_item = BL3Item.create(self.serial_db,
+                serial_number=itemdata,
                 pickup_order_idx=max_pickup_order+1,
                 is_favorite=True,
                 )

@@ -15,7 +15,6 @@ setup(
         name=app_name,
         version=__version__,
         packages=find_packages(),
-        include_package_data=True,
         license='zlib/libpng',
         description='Borderlands 3 Savegame Editor',
         long_description=readme(),
@@ -31,6 +30,9 @@ setup(
             # Seems less helpful to package my mod testing gear, but whatever.
             (f'share/{app_name}/item_exports', ['mod_testing_gear.txt']),
             ],
+        package_data={
+            'bl3save': ['resources/inventoryserialdb.json.xz'],
+            },
         install_requires=[
             'protobuf ~= 3.0',
             ],

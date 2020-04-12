@@ -329,6 +329,9 @@ Fast Travel stations:
 
 # TODO
 
+- Balance-to-english-name mapping.  Not a lot of use for
+  non-legendaries/uniques, of course, and only semi-useful for legendary
+  artifacts/COMs, but still.
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
@@ -366,6 +369,10 @@ provided in [COPYING.txt](COPYING.txt).
    have the exact same item code regardless of where it came from
    (previously, item codes would change every time the game was saved,
    so the same item could have very different-looking codes)
+ - Item balance names and levels are now shown where appropriate:
+   - In verbose `bl3-save-info` output
+   - In item export files
+   - While importing items
 
 **v1.1.1** - April 7, 2020
  - Added in Citizen Science mission name.

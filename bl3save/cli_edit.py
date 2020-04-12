@@ -23,8 +23,8 @@
 
 import os
 import sys
-import argparse
 import bl3save
+import argparse
 from bl3save.bl3save import BL3Save
 
 class DictAction(argparse.Action):
@@ -336,7 +336,8 @@ def main():
                 for line in df:
                     itemline = line.strip()
                     if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
-                        save.add_new_item_encoded(itemline)
+                        (new_item, _) = save.add_new_item_encoded(itemline)
+                        print('   + {} (level {})'.format(new_item.balance_short, new_item.level))
                         added_count += 1
             if not args.quiet:
                 print('   - Added Item Count: {}'.format(added_count))
@@ -363,7 +364,9 @@ def main():
     elif args.output == 'items':
         with open(args.output_filename, 'w') as df:
             for item in save.get_items():
+                print('# {} (level {})'.format(item.balance_short, item.level), file=df)
                 print(item.get_serial_base64(), file=df)
+                print('', file=df)
         if not args.quiet:
             print('Wrote {} items (in base64 format) to {}'.format(len(save.get_items()), args.output_filename))
     else:
