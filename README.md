@@ -59,6 +59,12 @@ as well, if you like:
 
     bl3-process-archive-saves -h
 
+### Upgrading
+
+When a new version is available, you can update using `pip` like so:
+
+    pip install --upgrade bl3-cli-saveedit
+
 ### Notes for People using Windows
 
 This is a command-line utility, which means there's no graphical interface,
