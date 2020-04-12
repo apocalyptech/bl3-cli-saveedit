@@ -136,5 +136,8 @@ class InventorySerialDB(object):
         if index < 1:
             return None
         else:
-            return self.db[category]['assets'][index-1]
+            if index > len(self.db[category]['assets']):
+                return None
+            else:
+                return self.db[category]['assets'][index-1]
 

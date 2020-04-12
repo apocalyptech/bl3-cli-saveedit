@@ -216,6 +216,8 @@ class BL3Item(object):
         num_bits = self.serial_db.get_num_bits(category, self._version)
         part_idx = bits.eat(num_bits)
         part_val = self.serial_db.get_part(category, part_idx)
+        if not part_val:
+            part_val = 'unknown'
         return (part_val, num_bits, part_idx)
 
     def _parse_serial(self):
