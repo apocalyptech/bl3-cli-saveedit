@@ -34,6 +34,11 @@ def main():
             description='Process Mod-Testing Borderlands 3 Archive Savegames v{}'.format(bl3save.__version__),
             )
 
+    parser.add_argument('-V', '--version',
+            action='version',
+            version='BL3 CLI SaveEdit v{}'.format(bl3save.__version__),
+            )
+
     group = parser.add_mutually_exclusive_group()
 
     group.add_argument('-f', '--filename',

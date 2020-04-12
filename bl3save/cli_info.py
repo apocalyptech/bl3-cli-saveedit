@@ -33,6 +33,11 @@ def main():
             description='Borderlands 3 Savegame Info Dumper v{}'.format(bl3save.__version__),
             )
 
+    parser.add_argument('-V', '--version',
+            action='version',
+            version='BL3 CLI SaveEdit v{}'.format(bl3save.__version__),
+            )
+
     parser.add_argument('-v', '--verbose',
             action='store_true',
             help='Show all available information',

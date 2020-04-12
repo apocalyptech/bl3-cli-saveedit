@@ -65,6 +65,11 @@ When a new version is available, you can update using `pip` like so:
 
     pip install --upgrade bl3-cli-saveedit
 
+You can check your current version by running any of the apps with the
+`-V`/`--version` argument:
+
+    bl3-save-info --version
+
 ### Notes for People using Windows
 
 This is a command-line utility, which means there's no graphical interface,
@@ -405,6 +410,7 @@ provided in [COPYING.txt](COPYING.txt).
    have the exact same item code regardless of where it came from
    (previously, item codes would change every time the game was saved,
    so the same item could have very different-looking codes)
+ - Added `-V`/`--version` flag to show version number
 
 **v1.1.1** - April 7, 2020
  - Added in Citizen Science mission name.

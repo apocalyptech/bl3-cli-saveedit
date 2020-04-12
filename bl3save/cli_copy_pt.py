@@ -34,6 +34,11 @@ def main():
             description='Copy BL3 Playthrough Data v{}'.format(bl3save.__version__),
             )
 
+    parser.add_argument('-V', '--version',
+            action='version',
+            version='BL3 CLI SaveEdit v{}'.format(bl3save.__version__),
+            )
+
     parser.add_argument('-f', '--from',
             dest='filename_from',
             type=str,

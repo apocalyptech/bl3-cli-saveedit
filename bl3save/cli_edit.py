@@ -70,6 +70,11 @@ def main():
             """
             )
 
+    parser.add_argument('-V', '--version',
+            action='version',
+            version='BL3 CLI SaveEdit v{}'.format(bl3save.__version__),
+            )
+
     parser.add_argument('-o', '--output',
             choices=['savegame', 'protobuf', 'items'],
             default='savegame',

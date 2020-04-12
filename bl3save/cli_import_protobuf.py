@@ -34,6 +34,11 @@ def main():
             description='Import BL3 Savegame Protobuf v{}'.format(bl3save.__version__),
             )
 
+    parser.add_argument('-V', '--version',
+            action='version',
+            version='BL3 CLI SaveEdit v{}'.format(bl3save.__version__),
+            )
+
     parser.add_argument('-p', '--protobuf',
             type=str,
             required=True,
