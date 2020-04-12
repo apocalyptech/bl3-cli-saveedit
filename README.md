@@ -394,7 +394,7 @@ provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
 
-**v1.2.0** - *unreleased*
+**v1.2.0** - April 12, 2020
  - Added ability to change item/weapon levels, using `--items-to-char`
    or `--item-levels`
  - Item Imports will now *not* import Fabricators unless explicitly
