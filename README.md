@@ -386,6 +386,10 @@ and used with permission.
 The rest of the savegame format was gleaned from 13xforever/Ilya's
 `gvas-converter` project: https://github.com/13xforever/gvas-converter
 
+Many thanks also to Baysix, who endured an awful lot of basic questions about
+pulling apart item serial numbers.  Without their help, we wouldn't have
+item level editing (or nice item names in the output)!
+
 # License
 
 All code in this project is licensed under the
@@ -393,6 +397,10 @@ All code in this project is licensed under the
 provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
+
+**v1.2.1** - April 12, 2020
+ - Updated Credits section of the README with one more credit that I'd
+   wanted to put in but forgot. :)
 
 **v1.2.0** - April 12, 2020
  - Added ability to change item/weapon levels, using `--items-to-char`
