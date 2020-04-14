@@ -76,7 +76,7 @@ def main():
             )
 
     parser.add_argument('-o', '--output',
-            choices=['savegame', 'protobuf', 'items'],
+            choices=['savegame', 'protobuf', 'json', 'items'],
             default='savegame',
             help='Output file format',
             )
@@ -452,6 +452,10 @@ def main():
         save.save_protobuf_to(args.output_filename)
         if not args.quiet:
             print('Wrote protobuf to {}'.format(args.output_filename))
+    elif args.output == 'json':
+        save.save_json_to(args.output_filename)
+        if not args.quiet:
+            print('Wrote JSON to {}'.format(args.output_filename))
     elif args.output == 'items':
         with open(args.output_filename, 'w') as df:
             for item in save.get_items():

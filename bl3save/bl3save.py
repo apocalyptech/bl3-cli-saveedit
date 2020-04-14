@@ -33,6 +33,7 @@ import struct
 import random
 import binascii
 import google.protobuf
+import google.protobuf.json_format
 from . import *
 from . import datalib
 from . import OakSave_pb2, OakShared_pb2
@@ -587,6 +588,15 @@ class BL3Save(object):
             slot = slotobj_to_slot[equip.get_obj_name()]
             self.equipslots[slot] = equip
 
+    def import_json(self, json_str):
+        """
+        Given JSON data, convert to protobuf and load it into ourselves so
+        that we can work with it.  This also sets up a few convenience vars
+        for our later use
+        """
+        message = google.protobuf.json_format.Parse(json_str, OakSave_pb2.Character())
+        self.import_protobuf(message.SerializeToString())
+
     def save_to(self, filename):
         """
         Saves ourselves to a new filename
@@ -631,6 +641,16 @@ class BL3Save(object):
         """
         with open(filename, 'wb') as df:
             df.write(self.save.SerializeToString())
+
+    def save_json_to(self, filename):
+        """
+        Saves a JSON version of our protobuf to the specfied filename
+        """
+        with open(filename, 'w') as df:
+            df.write(google.protobuf.json_format.MessageToJson(self.save,
+                including_default_value_fields=True,
+                preserving_proto_field_name=True,
+                ))
 
     def _read_int(self, df):
         return struct.unpack('<I', df.read(4))[0]

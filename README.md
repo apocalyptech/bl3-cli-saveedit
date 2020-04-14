@@ -151,6 +151,7 @@ specify the format using the `-o`/`--output` option, like so:
 
     bl3-save-edit old.sav new.sav -o savegame
     bl3-save-edit old.sav new.pbraw -o protobuf
+    bl3-save-edit old.sav new.json -o json
     bl3-save-edit old.sav new.txt -o items
 
 - **savegame** - This is the default, if you don't specify an output
@@ -163,6 +164,11 @@ specify the format using the `-o`/`--output` option, like so:
   make hand edits of your own.  Raw protobuf files can be imported
   back into savegames using the separate `bl3-save-import-protobuf`
   command, whose docs you can find near the bottom of this README.
+- **json** - Alternatively, this will write out the raw protobufs
+  as encoded into JSON.  Like the protobuf output, you should be
+  able to edit this by hand and then re-import using the
+  `bl3-save-import-json` utility.  **NOTE:** JSON import is not
+  super well-tested yet, so keep backups!
 - **items** - This will output a text file containing item codes
   which can be read back in to other savegames.  It uses a format
   similar to the item codes used by Gibbed's BL2/TPS editors.
@@ -366,6 +372,27 @@ to force it to overwrite without asking:
 
     bl3-save-import-protobuf -p edited.pbraw -t old.sav -c
 
+# Importing JSON
+
+If you saved a savegame in JSON format (using the `-o json` option),
+you may want to re-import it into a savegame, perhaps after having
+edited it by hand.  This can be done with the separate utility
+`bl3-save-import-json`.  This requires a `-j`/`--json` argument to
+specify the file where the JSON is stored, and a `-t`/`--to-filename`
+argument, which specifies the filename to import the JSON into:
+
+    bl3-save-import-json -j edited.json -t old.sav
+
+By default this will prompt for confirmation before actually
+overwriting the file, but you can use the `-c`/`--clobber` option
+to force it to overwrite without asking:
+
+    bl3-save-import-json -j edited.json -t old.sav -c
+
+**NOTE:** Importing from JSON isn't super well tested, though I
+haven't found any problems yet.  Definitely keep backups if you're
+planning on using this, though.  Let me know if anything breaks!
+
 # Savegame Info Usage
 
 The `bl3-save-info` script is extremely simple, and just dumps a bunch
@@ -407,6 +434,10 @@ All code in this project is licensed under the
 provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
+
+**v1.3.0** - April 14, 2020
+ - Added `json` output type, to export the protobuf as encoded into JSON
+ - Added `bl3-save-import-json` utility, to load JSON into a savegame
 
 **v1.2.2** - April 12, 2020
  - Updated README with some more specific Windows 10 installation advice.
