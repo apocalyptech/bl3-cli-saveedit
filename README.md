@@ -52,6 +52,12 @@ you can do that with `bl3-save-import-protobuf`:
 
     bl3-save-import-protobuf -h
 
+Alternatively, if you've got a savegame exported as JSON that you'd like
+to import into an existing savegame, you can do that with
+`bl3-save-import-json`:
+
+    bl3-save-import-json -h
+
 Finally, there's a utility which I'd used to generate my
 [BL3 Savegame Archive Page](http://apocalyptech.com/games/bl-saves/bl3.php).
 This one won't be useful to anyone but me, but you can view its arguments
@@ -114,6 +120,7 @@ you'll have to use a slightly different syntax.  Here are the equivalents:
     python -m bl3save.cli_edit -h
     python -m bl3save.cli_info -h
     python -m bl3save.cli_import_protobuf -h
+    python -m bl3save.cli_import_json -h
     python -m bl3save.cli_archive -h
 
 # Editor Usage
@@ -434,6 +441,9 @@ All code in this project is licensed under the
 provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
+
+**v1.3.1** - April 14, 2020
+ - Bah, forgot a few more README tweaks about the JSON export/import
 
 **v1.3.0** - April 14, 2020
  - Added `json` output type, to export the protobuf as encoded into JSON
