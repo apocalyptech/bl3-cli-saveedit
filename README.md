@@ -16,7 +16,7 @@ Please keep the following in mind:
 - This app does not have any graphical interface.  You must be
   on a commandline in order to use it.
 - It does not provide any mechanisms for creating items/weapons,
-  or even editing items/weapons in any useful fashion.
+  or editing items/weapons, apart from changing their levels.
 - This also does *not* support editing the `profile.sav` file.
 - While I have not experienced any data loss with the app,
   **take backups of your savegames before using this**, and
@@ -441,6 +441,8 @@ All code in this project is licensed under the
 provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
+
+**v1.4.0** - *unreleased*
 
 **v1.3.1** - April 14, 2020
  - Bah, forgot a few more README tweaks about the JSON export/import
