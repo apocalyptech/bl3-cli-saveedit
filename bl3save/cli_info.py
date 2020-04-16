@@ -43,6 +43,11 @@ def main():
             help='Show all available information',
             )
 
+    parser.add_argument('--all-challenges',
+            dest='all_challenges',
+            action='store_true',
+            help='Show all challenges')
+
     parser.add_argument('filename',
             help='Filename to process',
             )
@@ -179,6 +184,17 @@ def main():
     print('Challenges we care about:')
     for challenge, status in save.get_interesting_challenges(True).items():
         print(' - {}: {}'.format(challenge, status))
+
+    # "raw" Challenges
+    if args.all_challenges:
+        print('All Challenges:')
+        for challenge in save.get_all_challenges_raw():
+            print(' - {} (Completed: {}, Counter: {}, Progress: {})'.format(
+                challenge.challenge_class_path,
+                challenge.currently_completed,
+                challenge.progress_counter,
+                challenge.completed_progress_level,
+                ))
 
     # Vehicle unlocks
     print('Unlocked Vehicle Parts:')

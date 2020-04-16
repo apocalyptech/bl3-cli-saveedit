@@ -73,7 +73,7 @@ def main():
 
     # Load the from file and do a quick sanity check
     save_from = BL3Save(args.filename_from)
-    total_from_playthroughs = save_from.get_max_playthrough_with_data()
+    total_from_playthroughs = save_from.get_max_playthrough_with_data() + 1
     if args.playthrough > 0 and total_from_playthroughs < args.playthrough:
         raise Exception('{} does not have Playthrough {} data'.format(args.filename_from, args.playthrough))
 
@@ -90,7 +90,7 @@ def main():
     # gets a third playthrough.
     save_to = BL3Save(args.filename_to)
     if args.playthrough > 0:
-        total_to_playthroughs = save_to.get_max_playthrough_with_data()
+        total_to_playthroughs = save_to.get_max_playthrough_with_data() + 1
         if total_to_playthroughs == 1:
             plural = ''
         else:

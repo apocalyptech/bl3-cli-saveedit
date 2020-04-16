@@ -814,8 +814,8 @@ class BL3Save(object):
 
     def get_max_playthrough_with_data(self):
         """
-        Returns the maximum playthrough for which we have actual data in
-        the savegame.  Even if TVHM is unlocked, for instance, we may
+        Returns the maximum playthrough (zero-indexed) for which we have actual
+        data in the savegame.  Even if TVHM is unlocked, for instance, we may
         only have NVHM data in the savefile.
         """
         # Really I don't think that any of these numbers will ever be
@@ -825,7 +825,7 @@ class BL3Save(object):
                 len(self.save.active_travel_stations_for_playthrough),
                 len(self.save.last_active_travel_station_for_playthrough),
                 len(self.save.game_state_save_data_for_playthrough),
-                )
+                )-1
 
     def get_pt_mayhem_levels(self):
         """
@@ -880,6 +880,19 @@ class BL3Save(object):
             del self.save.game_state_save_data_for_playthrough[to_pt]
             self.save.game_state_save_data_for_playthrough.insert(to_pt, from_obj.save.game_state_save_data_for_playthrough[from_pt])
 
+    def clear_game_state_pt(self, playthrough):
+        """
+        Clears out all game state data from the given `playthrough` (zero-indexed).  The
+        `playthrough` given must be the *last* one in the list.
+        """
+        if playthrough < 0:
+            raise Exception('playthrough cannot be negative')
+        if (len(self.save.game_state_save_data_for_playthrough)-1) != playthrough:
+            raise Exception('playthrough must be {} for this save'.format(
+                len(self.save.game_state_save_data_for_playthrough)-1,
+                ))
+        self.save.game_state_save_data_for_playthrough.pop()
+
     def get_pt_last_stations(self):
         """
         Returns a list of the object names of the last station (fast travel,
@@ -919,6 +932,19 @@ class BL3Save(object):
             self.save.last_active_travel_station_for_playthrough.append(from_obj.save.last_active_travel_station_for_playthrough[from_pt])
         else:
             self.save.last_active_travel_station_for_playthrough[to_pt] = from_obj.save.last_active_travel_station_for_playthrough[from_pt]
+
+    def clear_last_station_pt(self, playthrough):
+        """
+        Clears out all Last Station Visited data from the given `playthrough` (zero-indexed).  The
+        `playthrough` given must be the *last* one in the list.
+        """
+        if playthrough < 0:
+            raise Exception('playthrough cannot be negative')
+        if (len(self.save.last_active_travel_station_for_playthrough)-1) != playthrough:
+            raise Exception('playthrough must be {} for this save'.format(
+                len(self.save.last_active_travel_station_for_playthrough)-1,
+                ))
+        self.save.last_active_travel_station_for_playthrough.pop()
 
     def get_pt_last_maps(self, eng=False):
         """
@@ -1018,6 +1044,19 @@ class BL3Save(object):
             del self.save.active_travel_stations_for_playthrough[to_pt]
             self.save.active_travel_stations_for_playthrough.insert(to_pt, from_obj.save.active_travel_stations_for_playthrough[from_pt])
 
+    def clear_active_ft_stations_pt(self, playthrough):
+        """
+        Clears out all active Fast Travel data from the given `playthrough` (zero-indexed).  The
+        `playthrough` given must be the *last* one in the list.
+        """
+        if playthrough < 0:
+            raise Exception('playthrough cannot be negative')
+        if (len(self.save.active_travel_stations_for_playthrough)-1) != playthrough:
+            raise Exception('playthrough must be {} for this save'.format(
+                len(self.save.active_travel_stations_for_playthrough)-1,
+                ))
+        self.save.active_travel_stations_for_playthrough.pop()
+
     def get_pt_active_mission_lists(self, eng=False):
         """
         Returns a list of active missions for each Playthrough.  Missions will
@@ -1098,6 +1137,19 @@ class BL3Save(object):
             del self.save.mission_playthroughs_data[to_pt]
             self.save.mission_playthroughs_data.insert(to_pt, from_obj.save.mission_playthroughs_data[from_pt])
 
+    def clear_mission_pt(self, playthrough):
+        """
+        Clears out all mission data from the given `playthrough` (zero-indexed).  The
+        `playthrough` given must be the *last* one in the list.
+        """
+        if playthrough < 0:
+            raise Exception('playthrough cannot be negative')
+        if (len(self.save.mission_playthroughs_data)-1) != playthrough:
+            raise Exception('playthrough must be {} for this save'.format(
+                len(self.save.mission_playthroughs_data)-1,
+                ))
+        self.save.mission_playthroughs_data.pop()
+
     def copy_playthrough_data(self, from_obj=None, from_pt=0, to_pt=1):
         """
         Copies playthrough-specific data from one playthrough to another (zero-indexed).  Currently
@@ -1113,6 +1165,27 @@ class BL3Save(object):
         self.copy_active_ft_stations_pt(from_obj=from_obj, from_pt=from_pt, to_pt=to_pt)
         self.copy_last_station_pt(from_obj=from_obj, from_pt=from_pt, to_pt=to_pt)
         self.copy_game_state_pt(from_obj=from_obj, from_pt=from_pt, to_pt=to_pt)
+
+    def clear_playthrough_data(self, playthrough):
+        """
+        Clears out all data from the given `playthrough` (zero-indexed), including any higher
+        playthroughs.  This is completely untested for clearing NVHM data, but is used by
+        the cli_edit to clear out THVM.  This supports clearing higher levels just because my
+        original scripts to generate my BL3 Save Archive accidentally unlocked an extra
+        playthrough higher than it intended to, so this will allow me to "clear TVHM" while
+        also getting rid of that higher playthrough data.
+
+        It's permissible to pass a `playthrough` higher than the max that we have data for,
+        since THVM can be technically unlocked without actually having THVM data in the save
+        file.
+        """
+        max_pt = self.get_max_playthrough_with_data()
+        if playthrough <= max_pt:
+            for pt in range(max_pt, playthrough-1, -1):
+                self.clear_mission_pt(pt)
+                self.clear_active_ft_stations_pt(pt)
+                self.clear_last_station_pt(pt)
+                self.clear_game_state_pt(pt)
 
     def get_items(self):
         """
@@ -1403,6 +1476,12 @@ class BL3Save(object):
             if pool.resource_path in ammoobj_to_ammo:
                 ammo_key = ammoobj_to_ammo[pool.resource_path]
                 pool.amount = ammo_to_max[ammo_key]
+
+    def get_all_challenges_raw(self):
+        """
+        Returns the savegame's list of all challenges, as the actual protobuf objects.
+        """
+        return sorted(self.save.challenge_data, key=lambda chal: chal.challenge_class_path)
 
     def get_interesting_challenges(self, eng=False):
         """

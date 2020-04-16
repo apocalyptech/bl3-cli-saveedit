@@ -338,6 +338,20 @@ the exact same game state as in Normal.
 
     bl3-save-edit old.sav new.sav --copy-nvhm
 
+### "Un-Finish" NVHM
+
+Alternatively, you can use the `--unfinish-nvhm` argument to
+completely discard all TVHM data, and set the game state so that
+NVHM was never finished.  Note that this does *not* reset any
+mission status, so if you've already legitimately finished NVHM
+in the savegame, you won't be able to re-unlock it in-game (though
+`--unlock tvhm` or `--copy-nvhm` could still be used to unlock).
+This is primarily useful just if you wanted to undo a `--copy-nvhm`
+run, or for myself when testing things out using saves from my
+[BL3 Savegame Archive](http://apocalyptech.com/games/bl-saves/bl3.php).
+
+    bl3-save-edit old.sav new.sav --unfinish-nvhm
+
 ### Import Items
 
 The `-i`/`--import-items` option will let you import items into
@@ -410,6 +424,13 @@ Fast Travel stations:
 
     bl3-save-info -v old.sav
 
+You can also pass in the `--all-challenges` option, if you want to see
+the state of all challenges in your savegame.  Note that BL3 uses
+challenges to keep track of a lot of info in the savegames, and this
+list will be over 1.5k items long!
+
+    bl3-save-info --all-challenges old.sav
+
 # TODO
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
@@ -443,6 +464,10 @@ provided in [COPYING.txt](COPYING.txt).
 # Changelog
 
 **v1.4.0** - *unreleased*
+ - Added `--all-challenges` option to `bl3-save-info`, to list all challenges
+   in the save file and their statuses (note: this will be over 1.5k items!)
+ - Added `--unfinish-nvhm` option to `bl3-save-edit`, to completely clear out
+   any TVHM data and pretend that NVHM was never finished.
 
 **v1.3.1** - April 14, 2020
  - Bah, forgot a few more README tweaks about the JSON export/import

@@ -157,10 +157,18 @@ def main():
             help='Game features to unlock',
             )
 
-    parser.add_argument('--copy-nvhm',
+    tvhmgroup = parser.add_mutually_exclusive_group()
+
+    tvhmgroup.add_argument('--copy-nvhm',
             dest='copy_nvhm',
             action='store_true',
             help='Copies NVHM/Normal state to TVHM',
+            )
+
+    tvhmgroup.add_argument('--unfinish-nvhm',
+            dest='unfinish_nvhm',
+            action='store_true',
+            help='"Un-finishes" the game: remove all TVHM data and set Playthrough 1 to Not Completed',
             )
 
     parser.add_argument('-i', '--import-items',
@@ -195,6 +203,10 @@ def main():
         args.unlock['gunslots'] = True
         args.unlock['artifactslot'] = True
         args.unlock['comslot'] = True
+
+    # Make sure we're not trying to clear and unlock THVM at the same time
+    if 'tvhm' in args.unlock and args.unfinish_nvhm:
+        raise argparse.ArgumentTypeError('Cannot both unlock TVHM and un-finish NVHM')
 
     # Set max level arg
     if args.level_max:
@@ -245,6 +257,7 @@ def main():
         args.import_items,
         args.items_to_char,
         args.item_levels,
+        args.unfinish_nvhm,
         ])
 
     # Make changes
@@ -438,6 +451,12 @@ def main():
             if not args.quiet:
                 print(' - Copying NVHM state to TVHM')
             save.copy_playthrough_data()
+        elif args.unfinish_nvhm:
+            if not args.quiet:
+                print(' - Un-finishing NVHM state entirely')
+            # ... or clearing TVHM state entirely.
+            save.set_playthroughs_completed(0)
+            save.clear_playthrough_data(1)
 
         # Newline at the end of all this.
         if not args.quiet:
