@@ -227,6 +227,10 @@ playthroughs found in the game.
 
     bl3-save-edit old.sav new.sav --mayhem 4
 
+Note that in order to have Anointments drop while playing in Normal
+mode, your savegame does need to have THVM unlocked, so see the `--unlock`
+docs below for how to do that.
+
 ### Currency (Money and Eridium)
 
 Money and Eridium can be set with the `--money` and `--eridium`
