@@ -422,16 +422,37 @@ planning on using this, though.  Let me know if anything breaks!
 
 The `bl3-save-info` script is extremely simple, and just dumps a bunch
 of information about the specified savegame to the console.  If you
-specify the `-v`/`--verbose` option, it'll output a little more info
+specify the `-v`/`--verbose` option, it'll output a bunch more info
 than it ordinarily would, such as inventory contents and discovered
 Fast Travel stations:
 
     bl3-save-info -v old.sav
 
-You can also pass in the `--all-challenges` option, if you want to see
-the state of all challenges in your savegame.  Note that BL3 uses
-challenges to keep track of a lot of info in the savegames, and this
-list will be over 1.5k items long!
+Instead of doing a global "verbose" option, you can instead choose
+to output just some of the extra information:
+
+### Items/Inventory
+
+The `-i`/`--items` argument will output your inventory, including item
+codes which could be put in a text file for later import:
+
+    bl3-save-info -i old.sav
+
+### Fast Travel Stations
+
+The `--fast-travel` argument will output a list of all unlocked
+Fast Travel stations, per playthrough.  These are reported as the raw
+object name in the game, so you may have to use a
+[level name reference](https://github.com/BLCM/BLCMods/wiki/Level-Name-Reference#borderlands-3)
+to get a feel for what is what.
+
+### Challenges
+
+The `--all-challenges` argument will output the state of all challenges
+in your savegame.  Note that BL3 uses challenges to keep track of a
+lot of info in the savegames, and this list will be over 1.5k items
+long!  As with the fast travel stations, these will be reported as the
+raw object names.
 
     bl3-save-info --all-challenges old.sav
 
@@ -468,10 +489,16 @@ provided in [COPYING.txt](COPYING.txt).
 # Changelog
 
 **v1.4.0** - *unreleased*
- - Added `--all-challenges` option to `bl3-save-info`, to list all challenges
-   in the save file and their statuses (note: this will be over 1.5k items!)
+ - Display changes for `bl3-save-info` - introduced individual arguments to
+   show more detailed information as-requested, instead of only having a
+   global `-v`/`--verbose` option:
+   - Added `-i`/`--items` argument, to show inventory information
+   - Added `--fast-travel` argument, to show unlocked fast travel stations
+   - Added `--all-challenges` argument, to list all challenges in the save file
+     and their statuses (note: this will be over 1.5k items!)
+   - `-v`/`--verbose` now implies the three options above.
  - Added `--unfinish-nvhm` option to `bl3-save-edit`, to completely clear out
-   any TVHM data and pretend that NVHM was never finished.
+ any TVHM data and pretend that NVHM was never finished.
 
 **v1.3.1** - April 14, 2020
  - Bah, forgot a few more README tweaks about the JSON export/import

@@ -43,10 +43,20 @@ def main():
             help='Show all available information',
             )
 
+    parser.add_argument('-i', '--items',
+            action='store_true',
+            help='Show inventory items',
+            )
+
     parser.add_argument('--all-challenges',
             dest='all_challenges',
             action='store_true',
             help='Show all challenges')
+
+    parser.add_argument('--fast-travel',
+            dest='fast_travel',
+            action='store_true',
+            help='Show all unlocked Fast Travel stations')
 
     parser.add_argument('filename',
             help='Filename to process',
@@ -103,7 +113,7 @@ def main():
             print(' - In Map: {}'.format(mapname))
 
         # FT Stations
-        if args.verbose:
+        if args.verbose or args.fast_travel:
             if stations is not None:
                 if len(stations) == 0:
                     print(' - No Active FT Stations')
@@ -134,7 +144,7 @@ def main():
             ))
 
     # Inventory
-    if args.verbose:
+    if args.verbose or args.items:
         items = save.get_items()
         if len(items) == 0:
             print('Nothing in Inventory')
@@ -150,7 +160,7 @@ def main():
                 print(line)
 
     # Equipped Items
-    if args.verbose:
+    if args.verbose or args.items:
         items = save.get_equipped_items(True)
         if any(items.values()):
             print('Equipped Items:')
@@ -186,7 +196,7 @@ def main():
         print(' - {}: {}'.format(challenge, status))
 
     # "raw" Challenges
-    if args.all_challenges:
+    if args.verbose or args.all_challenges:
         print('All Challenges:')
         for challenge in save.get_all_challenges_raw():
             print(' - {} (Completed: {}, Counter: {}, Progress: {})'.format(
