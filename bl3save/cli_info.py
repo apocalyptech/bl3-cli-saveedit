@@ -116,9 +116,9 @@ def main():
         if args.verbose or args.fast_travel:
             if stations is not None:
                 if len(stations) == 0:
-                    print(' - No Active FT Stations')
+                    print(' - No Active Fast Travel Stations')
                 else:
-                    print(' - Active FT Stations:'.format(pt+1))
+                    print(' - Active Fast Travel Stations:'.format(pt+1))
                     for station in stations:
                         print('   - {}'.format(station))
 

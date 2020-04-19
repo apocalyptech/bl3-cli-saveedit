@@ -446,6 +446,8 @@ object name in the game, so you may have to use a
 [level name reference](https://github.com/BLCM/BLCMods/wiki/Level-Name-Reference#borderlands-3)
 to get a feel for what is what.
 
+    bl3-save-info --fast-travel old.sav
+
 ### Challenges
 
 The `--all-challenges` argument will output the state of all challenges
