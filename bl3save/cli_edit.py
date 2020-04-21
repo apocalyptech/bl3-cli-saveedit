@@ -60,9 +60,9 @@ def main():
             epilog="""
                 The default output type of "savegame" will output theoretically-valid
                 savegames which can be loaded into BL3.  The output type "protobuf"
-                will save out the extracted, decrypted protobufs.  These protobufs
-                CANNOT be read back into the file using this editor, so that's a
-                write-only operation.  The output type "items" will output a text
+                will save out the extracted, decrypted protobufs.  The output
+                type "json" will output a JSON-encoded version of the protobufs
+                in question.  The output type "items" will output a text
                 file containing base64-encoded representations of the user's
                 inventory.  These can be read back in using the -i/--import-items
                 option.  Note that these are NOT the same as the item strings used

@@ -31,11 +31,21 @@
 import base64
 import struct
 import google.protobuf
+import google.protobuf.json_format
 from . import *
 from . import OakProfile_pb2, OakShared_pb2
 
 class BL3Profile(object):
     """
+    Wrapper around the protobuf object for a BL3 profile file.
+
+    Only tested on PC versions.  Thanks to Gibbed for the encryption method and
+    the Protobuf definitions!
+
+    https://gist.github.com/gibbed/b6a93f74c575ce99b42c3b629ac1856a
+
+    All these getters/setters are rather un-Pythonic; should be using
+    some decorations for that instead.  Alas!
     """
 
     _prefix_magic = bytearray([
@@ -61,7 +71,7 @@ class BL3Profile(object):
 
             self.sg_version = self._read_int(df)
             if debug:
-                print('Savegame version: {}'.format(self.sg_version))
+                print('Profile version: {}'.format(self.sg_version))
             self.pkg_version = self._read_int(df)
             if debug:
                 print('Package version: {}'.format(self.pkg_version))
@@ -94,7 +104,7 @@ class BL3Profile(object):
                 self.custom_format_data.append((guid, entry))
             self.sg_type = self._read_str(df)
             if debug:
-                print('Savegame type: {}'.format(sg_type))
+                print('Profile type: {}'.format(sg_type))
 
             # Read in the actual data
             remaining_data_len = self._read_int(df)
@@ -126,6 +136,70 @@ class BL3Profile(object):
         # Now parse the protobufs
         self.prof = OakProfile_pb2.Profile()
         self.prof.ParseFromString(data)
+
+    def import_json(self, json_str):
+        """
+        Given JSON data, convert to protobuf and load it into ourselves so
+        that we can work with it.  This also sets up a few convenience vars
+        for our later use
+        """
+        message = google.protobuf.json_format.Parse(json_str, OakProfile_pb2.Profile())
+        self.import_protobuf(message.SerializeToString())
+
+    def save_to(self, filename):
+        """
+        Saves ourselves to a new filename
+        """
+        with open(filename, 'wb') as df:
+
+            # Header info
+            df.write(b'GVAS')
+            self._write_int(df, self.sg_version)
+            self._write_int(df, self.pkg_version)
+            self._write_short(df, self.engine_major)
+            self._write_short(df, self.engine_minor)
+            self._write_short(df, self.engine_patch)
+            self._write_int(df, self.engine_build)
+            self._write_str(df, self.build_id)
+            self._write_int(df, self.fmt_version)
+            self._write_int(df, len(self.custom_format_data))
+            for guid, entry in self.custom_format_data:
+                self._write_guid(df, guid)
+                self._write_int(df, entry)
+            self._write_str(df, self.sg_type)
+
+            # Turn our parsed protobuf back into data
+            data = bytearray(self.prof.SerializeToString())
+
+            # Encrypt
+            for i in range(len(data)):
+                if i < 32:
+                    b = self._prefix_magic[i]
+                else:
+                    b = data[i - 32]
+                b ^= self._xor_magic[i % 32]
+                data[i] ^= b
+
+            # Write out to the file
+            self._write_int(df, len(data))
+            df.write(data)
+
+    def save_protobuf_to(self, filename):
+        """
+        Saves the raw protobufs to the specified filename
+        """
+        with open(filename, 'wb') as df:
+            df.write(self.prof.SerializeToString())
+
+    def save_json_to(self, filename):
+        """
+        Saves a JSON version of our protobuf to the specfied filename
+        """
+        with open(filename, 'w') as df:
+            df.write(google.protobuf.json_format.MessageToJson(self.prof,
+                including_default_value_fields=True,
+                preserving_proto_field_name=True,
+                ))
 
     def _read_int(self, df):
         return struct.unpack('<I', df.read(4))[0]

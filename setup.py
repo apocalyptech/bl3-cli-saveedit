@@ -62,6 +62,12 @@ setup(
                 'bl3-save-import-protobuf = bl3save.cli_import_protobuf:main',
                 'bl3-save-import-json = bl3save.cli_import_json:main',
                 'bl3-process-archive-saves = bl3save.cli_archive:main',
+
+                # Technically I do have a couple of profile-related scripts now.
+                # Keeping them commented for the time being, though.
+                #'bl3-profile-edit = bl3save.cli_prof_edit:main',
+                #'bl3-profile-import-protobuf = bl3save.cli_prof_import_protobuf:main',
+                #'bl3-profile-import-json = bl3save.cli_prof_import_json:main',
                 ],
             },
         )
