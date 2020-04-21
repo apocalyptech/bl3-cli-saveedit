@@ -1057,17 +1057,17 @@ class BL3Save(object):
                 ))
         self.save.active_travel_stations_for_playthrough.pop()
 
-    def get_pt_active_mission_lists(self, eng=False):
+    def get_pt_mission_lists(self, mission_status, eng=False):
         """
-        Returns a list of active missions for each Playthrough.  Missions will
-        be in their object name by default, or their English names if `eng` is
-        `True`.
+        Returns a list of missions in the given `mission_status`, for each
+        Playthrough.  Missions will be in their object name by default, or
+        their English names if `eng` is `True`.
         """
         to_ret = []
         for pt in self.save.mission_playthroughs_data:
             active_missions = []
             for mission in pt.mission_list:
-                if mission.status == MissionState.MS_Active:
+                if mission.status == mission_status:
                     mission_name = mission.mission_class_path
                     if eng:
                         if mission_name.lower() in mission_to_name:
@@ -1078,28 +1078,56 @@ class BL3Save(object):
             to_ret.append(active_missions)
         return to_ret
 
-    def get_pt_active_mission_list(self, pt, eng=False):
+    def get_pt_active_mission_lists(self, eng=False):
         """
-        Returns a list of active mission object names for the given
+        Returns a list of active missions for each Playthrough.  Missions will
+        be in their object name by default, or their English names if `eng` is
+        `True`.
+        """
+        return self.get_pt_mission_lists(MissionState.MS_Active, eng)
+
+    def get_pt_completed_mission_lists(self, eng=False):
+        """
+        Returns a list of completed missions for each Playthrough.  Missions will
+        be in their object name by default, or their English names if `eng` is
+        `True`.
+        """
+        return self.get_pt_mission_lists(MissionState.MS_Complete, eng)
+
+    def get_pt_mission_list(self, pt, mission_status, eng=False):
+        """
+        Returns a list of missions in the given `mission_status`, for the given
         Playthrough (zero-indexed).  Missions will be in their object name
         by default, or their English names if `eng` is `True`
         """
-        missions = self.get_pt_active_mission_lists(eng=eng)
+        missions = self.get_pt_mission_lists(mission_status, eng=eng)
         if len(missions) > pt:
             return missions[pt]
         return None
+
+    def get_pt_active_mission_list(self, pt, eng=False):
+        """
+        Returns a list of active missions for the given Playthrough (zero-indexed).
+        Missions will be in their object name by default, or their English names
+        if `eng` is `True`
+        """
+        return self.get_pt_mission_list(pt, MissionState.MS_Active, eng)
+
+    def get_pt_completed_mission_list(self, pt, eng=False):
+        """
+        Returns a list of completed missions for the given Playthrough (zero-indexed).
+        Missions will be in their object name by default, or their English names
+        if `eng` is `True`
+        """
+        return self.get_pt_mission_list(pt, MissionState.MS_Complete, eng)
 
     def get_pt_completed_mission_counts(self):
         """
         Returns a count of completed missions for each Playthrough.
         """
         to_ret = []
-        for pt in self.save.mission_playthroughs_data:
-            mission_count = 0
-            for mission in pt.mission_list:
-                if mission.status == MissionState.MS_Complete:
-                    mission_count += 1
-            to_ret.append(mission_count)
+        for missions in self.get_pt_completed_mission_lists():
+            to_ret.append(len(missions))
         return to_ret
 
     def get_pt_completed_mission_count(self, pt):
