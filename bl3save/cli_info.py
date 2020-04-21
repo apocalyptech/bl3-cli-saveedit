@@ -48,6 +48,11 @@ def main():
             help='Show inventory items',
             )
 
+    parser.add_argument('--all-missions',
+            dest='all_missions',
+            action='store_true',
+            help='Show all missions')
+
     parser.add_argument('--all-challenges',
             dest='all_challenges',
             action='store_true',
@@ -94,12 +99,12 @@ def main():
     print('Playthroughs Completed: {}'.format(save.get_playthroughs_completed()))
 
     # Playthrough-specific Data
-    for pt, (mayhem, mapname, stations, missions, mission_count) in enumerate(itertools.zip_longest(
+    for pt, (mayhem, mapname, stations, active_missions, completed_missions) in enumerate(itertools.zip_longest(
             save.get_pt_mayhem_levels(),
             save.get_pt_last_maps(True),
             save.get_pt_active_ft_station_lists(),
             save.get_pt_active_mission_lists(True),
-            save.get_pt_completed_mission_counts(),
+            save.get_pt_completed_mission_lists(True),
             )):
 
         print('Playthrough {} Info:'.format(pt+1))
@@ -123,17 +128,37 @@ def main():
                         print('   - {}'.format(station))
 
         # Missions
-        if missions is not None:
-            if len(missions) == 0:
+        if active_missions is not None:
+            if len(active_missions) == 0:
                 print(' - No Active Missions')
             else:
                 print(' - Active Missions:')
-                for mission in sorted(missions):
+                for mission in sorted(active_missions):
                     print('   - {}'.format(mission))
 
         # Completed mission count
-        if mission_count is not None:
-            print(' - Missions completed: {}'.format(mission_count))
+        if completed_missions is not None:
+            print(' - Missions completed: {}'.format(len(completed_missions)))
+
+            # Show all missions if need be
+            if args.verbose or args.all_missions:
+                for mission in sorted(completed_missions):
+                    print('   - {}'.format(mission))
+
+            # "Important" missions - I'm torn as to whether or not this kind of thing
+            # should be in bl3save.py itself, or at least some constants in __init__.py
+            mission_set = set(completed_missions)
+            importants = []
+            if 'Divine Retribution' in mission_set:
+                importants.append('Main Game')
+            if 'All Bets Off' in mission_set:
+                importants.append('DLC1 - Moxxi\'s Heist of the Handsome Jackpot')
+            if 'The Call of Gythian' in mission_set:
+                importants.append('DLC2 - Guns, Love, and Tentacles')
+            if len(importants) > 0:
+                print(' - Mission Milestones:')
+                for important in importants:
+                    print('   - Finished: {}'.format(important))
 
     # Inventory Slots that we care about
     print('Unlockable Inventory Slots:')

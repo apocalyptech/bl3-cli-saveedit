@@ -458,6 +458,14 @@ raw object names.
 
     bl3-save-info --all-challenges old.sav
 
+### Missions
+
+The `--all-missions` argument will output all of the missions that the
+character has completed, in addition to the active missions which are
+always shown.
+
+    bl3-save-info --all-missions old.sav
+
 # TODO
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
@@ -498,7 +506,11 @@ provided in [COPYING.txt](COPYING.txt).
    - Added `--fast-travel` argument, to show unlocked fast travel stations
    - Added `--all-challenges` argument, to list all challenges in the save file
      and their statuses (note: this will be over 1.5k items!)
-   - `-v`/`--verbose` now implies the three options above.
+   - Added `--all-missions` argument, to list all completed missions in addition
+     to active ones
+   - `-v`/`--verbose` now implies the four options above.
+ - `bl3-save-info` will now also report on whether the savegame has finished the
+   main game or any of the DLCs.
  - Added `--unfinish-nvhm` option to `bl3-save-edit`, to completely clear out
  any TVHM data and pretend that NVHM was never finished.
 
