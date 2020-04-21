@@ -249,3 +249,48 @@ class BL3Profile(object):
     def _write_guid(self, df, value):
         df.write(value)
 
+    def get_sdus(self, eng=False):
+        """
+        Returns a dict containing the SDU type and the number purchased.  The SDU
+        type key will be a constant by default, or an English label if `eng` is `True`
+        """
+        to_ret = {}
+        for psdu in self.prof.profile_sdu_list:
+            key = psduobj_to_psdu[psdu.sdu_data_path]
+            if eng:
+                key = psdu_to_eng[key]
+            to_ret[key] = psdu.sdu_level
+        return to_ret
+
+    def get_sdu(self, sdu):
+        """
+        Returns the number of SDUs purchased for the specified type
+        """
+        sdus = self.get_sdus()
+        if sdu in sdus:
+            return sdus[sdu]
+        return 0
+
+    def set_max_sdus(self, sdulist=None):
+        """
+        Sets the specified SDUs (or all SDUs that we know about) to be at the max level
+        """
+        if sdulist is None:
+            all_sdus = set(psdu_to_eng.keys())
+        else:
+            all_sdus = set(sdulist)
+
+        # Set all existing SDUs to max
+        for psdu in self.prof.profile_sdu_list:
+            sdu_key = psduobj_to_psdu[psdu.sdu_data_path]
+            if sdu_key in all_sdus:
+                all_sdus.remove(sdu_key)
+                psdu.sdu_level = psdu_to_max[sdu_key]
+
+        # If we're missing any, add them.
+        for psdu in all_sdus:
+            self.prof.profile_sdu_list.append(OakShared_pb2.OakSDUSaveGameData(
+                sdu_data_path=psdu_to_psduobj[psdu],
+                sdu_level=psdu_to_max[psdu],
+                ))
+

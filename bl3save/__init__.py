@@ -122,6 +122,22 @@ sdu_to_max = {
         SDU_HEAVY: 8,
         }
 
+# Profile SDUs
+(PSDU_LOSTLOOT, PSDU_BANK) = range(2)
+psdu_to_eng = {
+        PSDU_LOSTLOOT: 'Lost Loot',
+        PSDU_BANK: 'Bank',
+        }
+psduobj_to_psdu = {
+        '/Game/Pickups/SDU/SDU_LostLoot.SDU_LostLoot': PSDU_LOSTLOOT,
+        '/Game/Pickups/SDU/SDU_Bank.SDU_Bank': PSDU_BANK,
+        }
+psdu_to_psduobj = {v: k for k, v in psduobj_to_psdu.items()}
+psdu_to_max = {
+        PSDU_LOSTLOOT: 8,
+        PSDU_BANK: 18,
+        }
+
 # Ammo
 (AMMO_AR, AMMO_GRENADE, AMMO_HEAVY, AMMO_PISTOL, AMMO_SMG, AMMO_SHOTGUN, AMMO_SNIPER) = range(7)
 ammo_to_eng = {

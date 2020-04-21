@@ -86,6 +86,17 @@ def main():
             action='store_true',
             help='Supress all non-essential output')
 
+    # Now the actual arguments
+    unlock_choices = [
+            'lostloot', 'bank',
+            ]
+    parser.add_argument('--unlock',
+            action=DictAction,
+            choices=unlock_choices + ['all'],
+            default={},
+            help='Game features to unlock',
+            )
+
     # Positional args
     parser.add_argument('input_filename',
             help='Input filename',
@@ -97,6 +108,10 @@ def main():
 
     # Parse args
     args = parser.parse_args()
+
+    # Expand any of our "all" unlock actions
+    if 'all' in args.unlock:
+        args.unlock = {k: True for k in unlock_choices}
 
     # Check for overwrite warnings
     if os.path.exists(args.output_filename) and not args.force:
@@ -117,6 +132,7 @@ def main():
 
     # Check to see if we have any changes to make
     have_changes = any([
+        len(args.unlock) > 0,
         ])
 
     # Make changes
@@ -125,6 +141,23 @@ def main():
         if not args.quiet:
             print('Making requested changes...')
             print('')
+
+        # Unlocks
+        if len(args.unlock) > 0:
+            if not args.quiet:
+                print(' - Processing Unlocks:')
+
+            # Lost Loot
+            if 'lostloot' in args.unlock:
+                if not args.quiet:
+                    print('   - Lost Loot SDUs')
+                profile.set_max_sdus([bl3save.PSDU_LOSTLOOT])
+
+            # Bank
+            if 'bank' in args.unlock:
+                if not args.quiet:
+                    print('   - Bank SDUs')
+                profile.set_max_sdus([bl3save.PSDU_BANK])
 
         # Newline at the end of all this.
         if not args.quiet:
