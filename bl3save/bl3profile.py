@@ -621,3 +621,43 @@ class BL3Profile(object):
         del self.prof.unlocked_crew_quarters_decorations[:]
         del self.prof.unlocked_inventory_customization_parts[:]
 
+    def alphabetize_cosmetics(self):
+        """
+        Room Decorations, Trinkets, and Weapon Skins just show up in the UI in the
+        same order that they were unlocked, which can be annoying.  This will make
+        all of those alphabetized so that they show up in a nice ordered list.
+        """
+
+        # First, decorations
+        cur_decos = {}
+        for d in self.prof.unlocked_crew_quarters_decorations:
+            cur_decos[d.decoration_item_asset_path] = d.is_new
+        new_order = []
+        for name, obj_path in sorted(profile_roomdeco_eng_to_obj.items()):
+            if obj_path in cur_decos:
+                new_order.append((obj_path, cur_decos[obj_path]))
+        del self.prof.unlocked_crew_quarters_decorations[:]
+        for obj_path, is_new in new_order:
+            self.prof.unlocked_crew_quarters_decorations.append(OakProfile_pb2.CrewQuartersDecorationItemSaveGameData(
+                is_new=is_new,
+                decoration_item_asset_path=obj_path,
+                ))
+
+        # Then, weapon skins and trinkets
+        cur_custs = {}
+        for c in self.prof.unlocked_inventory_customization_parts:
+            cur_custs[c.customization_part_hash] = c.is_new
+        new_order = []
+        for name, hashval in sorted(profile_weaponskins_eng_to_hash.items()):
+            if hashval in cur_custs:
+                new_order.append((hashval, cur_custs[hashval]))
+        for name, hashval in sorted(profile_weapontrinkets_eng_to_hash.items()):
+            if hashval in cur_custs:
+                new_order.append((hashval, cur_custs[hashval]))
+        del self.prof.unlocked_inventory_customization_parts[:]
+        for hashval, is_new in new_order:
+            self.prof.unlocked_inventory_customization_parts.append(OakProfile_pb2.OakInventoryCustomizationPartInfo(
+                customization_part_hash=hashval,
+                is_new=is_new,
+                ))
+

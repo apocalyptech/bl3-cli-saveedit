@@ -123,6 +123,12 @@ def main():
             help='Remove all unlocked customizations',
             )
 
+    parser.add_argument('--alpha',
+            dest='alpha',
+            action='store_true',
+            help='Alphabetize unlocked room decorations, trinkets, and weapon skins',
+            )
+
     unlock_choices = [
             'lostloot', 'bank',
             'skins', 'heads',
@@ -197,6 +203,7 @@ def main():
         args.import_items,
         args.item_levels,
         args.clear_customizations,
+        args.alpha,
         ])
 
     # Make changes
@@ -269,6 +276,12 @@ def main():
                 if not args.quiet:
                     print('   - Weapon Trinkets')
                 profile.unlock_weapon_trinkets()
+
+        # Customization Alphabetization
+        if args.alpha:
+            if not args.quiet:
+                print(' - Alphabetizing Room Decorations, Trinkets, and Weapon Skins')
+            profile.alphabetize_cosmetics()
 
         # Import Items
         if args.import_items:
