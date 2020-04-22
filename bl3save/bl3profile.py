@@ -33,6 +33,7 @@ import struct
 import google.protobuf
 import google.protobuf.json_format
 from . import *
+from . import datalib
 from . import OakProfile_pb2, OakShared_pb2
 
 class BL3Profile(object):
@@ -64,6 +65,7 @@ class BL3Profile(object):
 
     def __init__(self, filename, debug=False):
         self.filename = filename
+        self.datawrapper = datalib.DataWrapper()
         with open(filename, 'rb') as df:
 
             header = df.read(4)
@@ -293,4 +295,43 @@ class BL3Profile(object):
                 sdu_data_path=psdu_to_psduobj[psdu],
                 sdu_level=psdu_to_max[psdu],
                 ))
+
+    def create_new_item(self, item_serial):
+        """
+        Creates a new item (as a BL3Serial object) from the given binary `item_serial`,
+        which can later be added to our item list.
+        """
+
+        # Create the item and return it
+        return datalib.BL3Serial(item_serial, self.datawrapper)
+
+    def create_new_item_encoded(self, item_serial_b64):
+        """
+        Creates a new item (as a BL3Serial object) from the base64-encoded (and
+        "BL3()"-wrapped) `item_serial_b64`, which can later be added to our item
+        list.
+        """
+        return self.create_new_item(datalib.BL3Serial.decode_serial_base64(item_serial_b64))
+
+    def get_lostloot_items(self):
+        """
+        Returns a list of this profile's Lost Loot items, as BL3Serial objects.
+        """
+        return [datalib.BL3Serial(s, self.datawrapper) for s in self.prof.lost_loot_inventory_list]
+
+    def get_bank_items(self):
+        """
+        Returns a list of this profile's bank items, as BL3Serial objects.
+        """
+        return [datalib.BL3Serial(s, self.datawrapper) for s in self.prof.bank_inventory_list]
+
+    def add_bank_item(self, item_serial):
+        """
+        Adds a new item to our item list using `item_serial`, which should either
+        be a `BL3Serial` object or a raw-data serial number.
+        """
+        if type(item_serial) == datalib.BL3Serial:
+            self.prof.bank_inventory_list.append(item_serial.get_serial_number())
+        else:
+            self.prof.bank_inventory_list.append(item_serial)
 

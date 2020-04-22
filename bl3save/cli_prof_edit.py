@@ -25,6 +25,7 @@ import os
 import sys
 import bl3save
 import argparse
+from . import datalib
 from bl3save.bl3profile import BL3Profile
 
 class DictAction(argparse.Action):
@@ -62,7 +63,11 @@ def main():
                 profile which can be loaded into BL3.  The output type "protobuf"
                 will save out the extracted, decrypted protobufs.  The output
                 type "json" will output a JSON-encoded version of the protobufs
-                in question.
+                in question.  The output type "items" will output a text file
+                containing base64-encoded representations of items in the user's
+                bank.  These can be read back in using the -i/--import-items
+                option.  Note that these are NOT the same as the item strings used
+                by the BL3 Memory Editor.
             """
             )
 
@@ -72,7 +77,7 @@ def main():
             )
 
     parser.add_argument('-o', '--output',
-            choices=['profile', 'protobuf', 'json'],
+            choices=['profile', 'protobuf', 'json', 'items'],
             default='profile',
             help='Output file format',
             )
@@ -87,6 +92,19 @@ def main():
             help='Supress all non-essential output')
 
     # Now the actual arguments
+
+    parser.add_argument('-i', '--import-items',
+            dest='import_items',
+            type=str,
+            help='Import items from file',
+            )
+
+    parser.add_argument('--allow-fabricator',
+            dest='allow_fabricator',
+            action='store_true',
+            help='Allow importing Fabricator when importing items from file',
+            )
+
     unlock_choices = [
             'lostloot', 'bank',
             ]
@@ -133,6 +151,7 @@ def main():
     # Check to see if we have any changes to make
     have_changes = any([
         len(args.unlock) > 0,
+        args.import_items,
         ])
 
     # Make changes
@@ -159,6 +178,34 @@ def main():
                     print('   - Bank SDUs')
                 profile.set_max_sdus([bl3save.PSDU_BANK])
 
+        # Import Items
+        if args.import_items:
+            if not args.quiet:
+                print(' - Importing items from {}'.format(args.import_items))
+            added_count = 0
+            with open(args.import_items) as df:
+                for line in df:
+                    itemline = line.strip()
+                    if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
+                        new_item = profile.create_new_item_encoded(itemline)
+                        if not args.allow_fabricator:
+                            # Report these regardless of args.quiet
+                            if not new_item.eng_name:
+                                print('   - NOTICE: Skipping unknown item import because --allow-fabricator is not set')
+                                continue
+                            if new_item.balance_short.lower() == 'balance_eridian_fabricator':
+                                print('   - NOTICE: Skipping Fabricator import because --allow-fabricator is not set')
+                                continue
+                        profile.add_bank_item(new_item)
+                        if not args.quiet:
+                            if new_item.eng_name:
+                                print('   + {} (level {})'.format(new_item.eng_name, new_item.level))
+                            else:
+                                print('   + unknown item')
+                        added_count += 1
+            if not args.quiet:
+                print('   - Added Item Count: {}'.format(added_count))
+
         # Newline at the end of all this.
         if not args.quiet:
             print('')
@@ -176,6 +223,17 @@ def main():
         profile.save_json_to(args.output_filename)
         if not args.quiet:
             print('Wrote JSON to {}'.format(args.output_filename))
+    elif args.output == 'items':
+        with open(args.output_filename, 'w') as df:
+            for item in profile.get_bank_items():
+                if item.eng_name:
+                    print('# {} (level {})'.format(item.eng_name, item.level), file=df)
+                else:
+                    print('# unknown item', file=df)
+                print(item.get_serial_base64(), file=df)
+                print('', file=df)
+        if not args.quiet:
+            print('Wrote {} items (in base64 format) to {}'.format(len(profile.get_bank_items()), args.output_filename))
     else:
         # Not sure how we'd ever get here
         raise Exception('Invalid output format specified: {}'.format(args.output))

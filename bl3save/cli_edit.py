@@ -180,7 +180,8 @@ def main():
     parser.add_argument('--allow-fabricator',
             dest='allow_fabricator',
             action='store_true',
-            help='Allow importing Fabricator when importing items from file')
+            help='Allow importing Fabricator when importing items from file',
+            )
 
     # Positional args
     parser.add_argument('input_filename',

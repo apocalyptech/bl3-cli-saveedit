@@ -43,6 +43,11 @@ def main():
             help='Show all available information',
             )
 
+    parser.add_argument('-i', '--items',
+            action='store_true',
+            help='Show inventory items',
+            )
+
     parser.add_argument('filename',
             help='Filename to process',
             )
@@ -60,6 +65,32 @@ def main():
         print('SDUs:')
         for sdu, count in sdus.items():
             print(' - {}: {}'.format(sdu, count))
+
+    # Bank Items
+    bank_items = prof.get_bank_items()
+    print('Items in bank: {}'.format(len(bank_items)))
+    if args.verbose or args.items:
+        to_report = []
+        for item in bank_items:
+            if item.eng_name:
+                to_report.append(' - {} (lvl{}): {}'.format(item.eng_name, item.level, item.get_serial_base64()))
+            else:
+                to_report.append(' - unknown item: {}'.format(item.get_serial_base64()))
+        for line in sorted(to_report):
+            print(line)
+
+    # Lost Loot Items
+    lostloot_items = prof.get_lostloot_items()
+    print('Items in Lost Loot machine: {}'.format(len(lostloot_items)))
+    if args.verbose or args.items:
+        to_report = []
+        for item in lostloot_items:
+            if item.eng_name:
+                to_report.append(' - {} (lvl{}): {}'.format(item.eng_name, item.level, item.get_serial_base64()))
+            else:
+                to_report.append(' - unknown item: {}'.format(item.get_serial_base64()))
+        for line in sorted(to_report):
+            print(line)
 
 if __name__ == '__main__':
     main()
