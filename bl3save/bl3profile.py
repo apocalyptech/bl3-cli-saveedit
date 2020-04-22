@@ -36,6 +36,75 @@ from . import *
 from . import datalib
 from . import OakProfile_pb2, OakShared_pb2
 
+class BL3ProfItem(object):
+    """
+    Pretty thin wrapper around the serial number for an item.  Mostly
+    just so we can keep track of what index it is in the profile.
+    """
+
+    def __init__(self, serial_number, container, index, datawrapper):
+        self.container = container
+        self.index = index
+        self.datawrapper = datawrapper
+        self.serial = datalib.BL3Serial(serial_number, datawrapper)
+
+    @staticmethod
+    def create(serial_number, container, datawrapper):
+        """
+        Creates a new item with the specified serial number, in the specified
+        `container`
+        """
+        return BL3ProfItem(serial_number, container, -1, datawrapper)
+
+    def get_serial_number(self, orig_seed=False):
+        """
+        Returns the binary item serial number.  If `orig_seed` is `True`, the
+        serial number will use the same seed that was used in the savegame.
+        Otherwise, it will use a seed of `0`, which will then be unencrypted.
+        """
+        return self.serial.get_serial_number(orig_seed)
+
+    def get_serial_base64(self, orig_seed=False):
+        """
+        Returns the base64-encoded item serial number.  If `orig_seed` is
+        `True`, the serial number will use the same seed that was used in the
+        savegame.  Otherwise, it will use a seed of `0`, which will then be
+        unencrypted.
+        """
+        return self.serial.get_serial_base64(orig_seed)
+
+    @property
+    def eng_name(self):
+        """
+        Returns the English name of this item, as best we can tell
+        """
+        return self.serial.eng_name
+
+    @property
+    def balance_short(self):
+        """
+        Returns the 'short' balance name for the item, if possible.  This is
+        generally what'd be useful to a user without being a long full-object
+        name.
+        """
+        return self.serial.balance_short
+
+    @property
+    def level(self):
+        """
+        Returns the level of this item
+        """
+        return self.serial.level
+
+    @level.setter
+    def level(self, new_level):
+        """
+        Sets the level of this item
+        """
+        self.serial.level = new_level
+        if self.index >= 0:
+            self.container[self.index] = self.serial.serial
+
 class BL3Profile(object):
     """
     Wrapper around the protobuf object for a BL3 profile file.
@@ -298,16 +367,16 @@ class BL3Profile(object):
 
     def create_new_item(self, item_serial):
         """
-        Creates a new item (as a BL3Serial object) from the given binary `item_serial`,
-        which can later be added to our item list.
+        Creates a new item (as a BL3ProfItem object) from the given binary `item_serial`,
+        which can later be added to our item bank list.
         """
 
         # Create the item and return it
-        return datalib.BL3Serial(item_serial, self.datawrapper)
+        return BL3ProfItem.create(item_serial, self.prof.bank_inventory_list, self.datawrapper)
 
     def create_new_item_encoded(self, item_serial_b64):
         """
-        Creates a new item (as a BL3Serial object) from the base64-encoded (and
+        Creates a new item (as a BL3ProfItem object) from the base64-encoded (and
         "BL3()"-wrapped) `item_serial_b64`, which can later be added to our item
         list.
         """
@@ -315,23 +384,33 @@ class BL3Profile(object):
 
     def get_lostloot_items(self):
         """
-        Returns a list of this profile's Lost Loot items, as BL3Serial objects.
+        Returns a list of this profile's Lost Loot items, as BL3ProfItem objects.
         """
-        return [datalib.BL3Serial(s, self.datawrapper) for s in self.prof.lost_loot_inventory_list]
+        return [BL3ProfItem(s, self.prof.lost_loot_inventory_list, idx, self.datawrapper) for idx, s in enumerate(self.prof.lost_loot_inventory_list)]
 
     def get_bank_items(self):
         """
-        Returns a list of this profile's bank items, as BL3Serial objects.
+        Returns a list of this profile's bank items, as BL3ProfItem objects.
         """
-        return [datalib.BL3Serial(s, self.datawrapper) for s in self.prof.bank_inventory_list]
+        return [BL3ProfItem(s, self.prof.bank_inventory_list, idx, self.datawrapper) for idx, s in enumerate(self.prof.bank_inventory_list)]
 
     def add_bank_item(self, item_serial):
         """
         Adds a new item to our item list using `item_serial`, which should either
-        be a `BL3Serial` object or a raw-data serial number.
+        be a `BL3ProfItem` object or a raw-data serial number.
         """
-        if type(item_serial) == datalib.BL3Serial:
+        if type(item_serial) == BL3ProfItem:
             self.prof.bank_inventory_list.append(item_serial.get_serial_number())
         else:
             self.prof.bank_inventory_list.append(item_serial)
+
+    def set_bank_item(self, index, item_serial):
+        """
+        Overwrites the `index`th bank item slot with the given `item_serial`, which
+        should either be a `BL3ProfItem` object or a raw-data serial number.
+        """
+        if type(item_serial) == BL3ProfItem:
+            self.prof.bank_inventory_list[index] = item_serial.get_serial_number()
+        else:
+            self.prof.bank_inventory_list[index] = item_serial
 

@@ -93,6 +93,18 @@ def main():
 
     # Now the actual arguments
 
+    itemlevelgroup = parser.add_mutually_exclusive_group()
+
+    itemlevelgroup.add_argument('--item-levels-max',
+            dest='item_levels_max',
+            action='store_true',
+            help='Set all bank items to max level')
+
+    itemlevelgroup.add_argument('--item-levels',
+            dest='item_levels',
+            type=int,
+            help='Set all bank items to the specified level')
+
     parser.add_argument('-i', '--import-items',
             dest='import_items',
             type=str,
@@ -131,6 +143,19 @@ def main():
     if 'all' in args.unlock:
         args.unlock = {k: True for k in unlock_choices}
 
+    # Set max item level arg
+    if args.item_levels_max:
+        args.item_levels = bl3save.max_level
+
+    # Check item level.  The max storeable in the serial number is 127, but the
+    # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
+    # could use `bl3save.max_level` here, too, of course, but in the event that
+    # I don't get this updated in a timely fashion, having it higher would let
+    # this util potentially continue to be able to level up gear.
+    if args.item_levels:
+        if args.item_levels < 1 or args.item_levels > 100:
+            raise argparse.ArgumentTypeError('Valid item level range is 1 through 100')
+
     # Check for overwrite warnings
     if os.path.exists(args.output_filename) and not args.force:
         sys.stdout.write('WARNING: {} already exists.  Overwrite [y/N]? '.format(args.output_filename))
@@ -152,6 +177,7 @@ def main():
     have_changes = any([
         len(args.unlock) > 0,
         args.import_items,
+        args.item_levels,
         ])
 
     # Make changes
@@ -205,6 +231,47 @@ def main():
                         added_count += 1
             if not args.quiet:
                 print('   - Added Item Count: {}'.format(added_count))
+
+        # Setting item levels.  Keep in mind that we'll want to do this *after*
+        # various of the actions above.  If we've been asked to change the level
+        # of items, we'll want to do it after the item import.
+        if args.item_levels:
+            num_items = len(profile.get_bank_items())
+            if not args.quiet:
+                if num_items == 1:
+                    plural = ''
+                else:
+                    plural = 's'
+                print(' - Updating {} item{} to level {}'.format(
+                    num_items,
+                    plural,
+                    args.item_levels,
+                    ))
+            actually_updated = 0
+            for idx, item in enumerate(profile.get_bank_items()):
+                if item.level != args.item_levels:
+                    item.level = args.item_levels
+                    profile.set_bank_item(idx, item)
+                    actually_updated += 1
+            if not args.quiet:
+                remaining = num_items - actually_updated
+                if actually_updated == 1:
+                    updated_verb = 'was'
+                else:
+                    updated_verb = 'were'
+                if remaining > 0:
+                    if remaining == 1:
+                        remaining_verb = 'was'
+                    else:
+                        remaining_verb = 'were'
+                    remaining_txt = ' ({} {} already at that level)'.format(remaining, remaining_verb)
+                else:
+                    remaining_txt = ''
+                print('   - {} {} updated{}'.format(
+                    actually_updated,
+                    updated_verb,
+                    remaining_txt,
+                    ))
 
         # Newline at the end of all this.
         if not args.quiet:
