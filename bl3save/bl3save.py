@@ -28,10 +28,7 @@
 # The rest of the savegame format was gleaned from 13xforever/Ilya's
 # "gvas-converter" project: https://github.com/13xforever/gvas-converter
 
-import base64
 import struct
-import random
-import binascii
 import google.protobuf
 import google.protobuf.json_format
 from . import *
@@ -58,27 +55,7 @@ class BL3Item(object):
     def __init__(self, protobuf, datawrapper):
         self.protobuf = protobuf
         self.datawrapper = datawrapper
-        self.serial_db = datawrapper.serial_db
-        self.name_db = datawrapper.name_db
-        self.parsed = False
-        self.can_parse = True
-        (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
-
-        # Attributes which get filled in when we parse
-        self._version = None
-        self._balance_bits = None
-        self._balance_idx = None
-        self._balance = None
-        self._balance_short = None
-        self._eng_name = None
-        self._invdata_bits = None
-        self._invdata_idx = None
-        self._invdata = None
-        self._manufacturer_bits = None
-        self._manufacturer_idx = None
-        self._manufacturer = None
-        self._level = None
-        self._remaining_data = None
+        self.serial = datalib.BL3Serial(self.protobuf.item_serial_number, datawrapper)
 
     @staticmethod
     def create(datawrapper, serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
@@ -105,289 +82,6 @@ class BL3Item(object):
                 weapon_skin_path=skin_path,
                 ), datawrapper)
 
-    @staticmethod
-    def _xor_data(data, seed):
-        """
-        Run some `data` through some XOR-based obfuscation, using the
-        specified `seed`
-        """
-
-        # If the seed is 0, we basically don't do anything (though
-        # make sure we return the same datatype as below)
-        if seed == 0:
-            return [d for d in data]
-
-        # Because our seed can be negative, we do have to do the
-        # & here, even though it might not seem to make sense to
-        # do so.
-        xor = (seed >> 5) & 0xFFFFFFFF
-        temp = []
-        for i, d in enumerate(data):
-            xor = (xor * 0x10A860C1) % 0xFFFFFFFB
-            temp.append((d ^ xor) & 0xFF)
-        return temp
-
-    @staticmethod
-    def _bogodecrypt(data, seed):
-        """
-        "Decrypts" the given item `data`, using the given `seed`.
-        """
-
-        # First run it through the xor wringer.
-        temp = BL3Item._xor_data(data, seed)
-
-        # Now rotate the data
-        steps = (seed & 0x1F) % len(data)
-        return bytearray(temp[-steps:] + temp[:-steps])
-
-    @staticmethod
-    def _bogoencrypt(data, seed):
-        """
-        "Encrypts" the given `data`, using the given `seed`
-        """
-
-        # Rotate first
-        steps = (seed & 0x1F) % len(data)
-        rotated = bytearray(data[steps:] + data[:steps])
-
-        # Then run through the xor stuff
-        return bytearray(BL3Item._xor_data(rotated, seed))
-
-    @staticmethod
-    def _decrypt_serial(serial):
-        """
-        Decrypts (really just de-obfuscates) the serial number.
-        """
-
-        # Initial byte should always be 3
-        assert(serial[0] == 3)
-
-        # Seed does need to be an unsigned int
-        orig_seed = struct.unpack('>i', serial[1:5])[0]
-
-        # Do the actual "decryption"
-        decrypted = BL3Item._bogodecrypt(serial[5:], orig_seed)
-
-        # Grab the CRC stored in the serial itself
-        orig_checksum = bytearray(decrypted[:2])
-
-        # Compute the checksum ourselves to make sure we've done
-        # everything properly
-        data_to_checksum = serial[:5] + b"\xFF\xFF" + decrypted[2:]
-        computed_crc = binascii.crc32(data_to_checksum)
-        computed_checksum = struct.pack('>H',
-                ((computed_crc >> 16) ^ computed_crc) & 0xFFFF)
-        if orig_checksum != computed_checksum:
-            raise Exception('Checksum in serial ({}) does not match computed checksum ({})'.format(
-                '0x{}'.format(''.join(f'{d:02X}' for d in orig_checksum)),
-                '0x{}'.format(''.join(f'{d:02X}' for d in computed_checksum)),
-                ))
-
-        # Return what we decrypted
-        return (decrypted[2:], orig_seed)
-
-    @staticmethod
-    def _encrypt_serial(data, seed=None):
-        """
-        Given an unencrypted `data`, return the binary serial number for
-        the item, optionally with the given `seed`.  If `seed` is not passed in,
-        a random one will be passed in.  Use a `seed` of `0` to not apply any
-        encryption/obfuscation to the data
-        """
-
-        # Pick a random seed if one wasn't given.  Taken from the BL2 CLI editor
-        if seed is None:
-            seed = random.randrange(0x100000000) - 0x80000000
-
-        # Construct our header and find the checksum
-        header = struct.pack('>Bi', 3, seed)
-        crc32 = binascii.crc32(header + b"\xFF\xFF" + data)
-        checksum = struct.pack('>H', ((crc32 >> 16) ^ crc32) & 0xFFFF)
-
-        # Return the freshly-encrypted item
-        return header + BL3Item._bogoencrypt(checksum + data, seed)
-
-    def _get_inv_db_header_part(self, category, bits):
-        """
-        Given the category name `category`, and the ArbitraryBits object `bits`,
-        containing serial number data, return a tuple containing:
-            1) The category value
-            2) The number of bits the category takes up
-            3) The numerical index of the value
-        This relies on being run during `_parse_serial`, so that `_version` is
-        populated in our object.
-        """
-        num_bits = self.serial_db.get_num_bits(category, self._version)
-        part_idx = bits.eat(num_bits)
-        part_val = self.serial_db.get_part(category, part_idx)
-        if not part_val:
-            part_val = 'unknown'
-        return (part_val, num_bits, part_idx)
-
-    def _parse_serial(self):
-        """
-        Parse our serial number, at least up to the level.  We're not going
-        to care about actual parts in here.
-        """
-
-        if not self.can_parse:
-            return
-
-        bits = datalib.ArbitraryBits(self.decrypted_serial)
-
-        # First value should always be 128, apparently
-        assert(bits.eat(8) == 128)
-
-        # Grab the serial version and check it against the max version we know about
-        self._version = bits.eat(7)
-        if self._version > self.serial_db.max_version:
-            self.can_parse = False
-            return
-
-        # Now the rest of the data we care about.
-        (self._balance,
-                self._balance_bits,
-                self._balance_idx) = self._get_inv_db_header_part('InventoryBalanceData', bits)
-        (self._invdata,
-                self._invdata_bits,
-                self._invdata_idx) = self._get_inv_db_header_part('InventoryData', bits)
-        (self._manufacturer,
-                self._manufacturer_bits,
-                self._manufacturer_idx) = self._get_inv_db_header_part('ManufacturerData', bits)
-        self._level = bits.eat(7)
-        self._remaining_data = bits.data
-
-        # At this point, if we were planning on reading parts, we'd read eat six
-        # more bits to find the number of parts, then read in that many, using a
-        # mapping to get to the correct category.  Then another four bits tells
-        # us how many anointments there are, reading from InventoryGenericPartData
-        # after that.  After anointments, I'm not totally sure what's out there.
-
-        # Parse out a "short" balance name, for convenience's sake
-        self._balance_short = self._balance.split('.')[-1]
-
-        # If we know of an English name for this balance, use it
-        self._eng_name = self.name_db.get(self._balance_short)
-
-        # Mark down that we're parsed, now.
-        self.parsed = True
-
-    def _deparse_serial(self):
-        """
-        De-parses a serial; used after we make changes to the data that gets
-        pulled out during `_parse_serial`.  At the moment, that's only going
-        to be item level changes.  Will update the serial in the protobuf as
-        well, and set the object to trigger a re-parse if anything else needs
-        to read more.
-
-        This is all pretty inefficient -- really we should just write over the
-        bits values with the new values, in-place.  But whatever, this'll do
-        for now.
-        """
-
-        if not self.can_parse:
-            return
-
-        # Construct the new item data
-        bits = datalib.ArbitraryBits()
-        bits.append_value(128, 8)
-        bits.append_value(self._version, 7)
-        bits.append_value(self._balance_idx, self._balance_bits)
-        bits.append_value(self._invdata_idx, self._invdata_bits)
-        bits.append_value(self._manufacturer_idx, self._manufacturer_bits)
-        bits.append_value(self._level, 7)
-        bits.append_data(self._remaining_data)
-        new_data = bits.get_data()
-
-        # Encode the new serial (using seed 0; unencrypted)
-        new_serial = BL3Item._encrypt_serial(new_data, 0)
-
-        # Load in the new serial (this will set `parsed` to `False`)
-        self.set_serial_number_data(new_serial)
-
-    @property
-    def balance(self):
-        """
-        Returns the balance for this item
-        """
-        if not self.parsed:
-            self._parse_serial()
-            if not self.can_parse:
-                return None
-        return self._balance
-
-    @property
-    def balance_short(self):
-        """
-        Returns the "short" balance for this item
-        """
-        if not self.parsed:
-            self._parse_serial()
-            if not self.can_parse:
-                return None
-        return self._balance_short
-
-    @property
-    def eng_name(self):
-        """
-        Returns an English name for the balance, if possible.  Will default
-        to the "short" balance for this item if not.
-        """
-        if not self.parsed:
-            self._parse_serial()
-            if not self.can_parse:
-                return None
-        if self._eng_name:
-            return self._eng_name
-        else:
-            return self._balance_short
-
-    @property
-    def level(self):
-        """
-        Returns the level of this item
-        """
-        if not self.parsed:
-            self._parse_serial()
-            if not self.can_parse:
-                return None
-        return self._level
-
-    @level.setter
-    def level(self, value):
-        """
-        Sets a new level for the item.  This would be a super inefficient way of
-        doing it if we supported doing anything other than changing level -- we're
-        rebuilding the whole serial right now and triggering a re-parse if anything
-        decides to re-read it.  That should be sufficient for our purposes here,
-        though.
-        """
-        if not self.parsed:
-            self._parse_serial()
-            if not self.can_parse:
-                return None
-
-        # Set the level and trigger a re-encode of the serial
-        self._level = value
-        self._deparse_serial()
-
-    def get_serial_number(self, orig_seed=False):
-        """
-        Returns the binary item serial number.  If `orig_seed` is `True`, the
-        serial number will use the same seed that was used in the savegame.
-        Otherwise, it will use a seed of `0`, which will then be unencrypted.
-        """
-        return BL3Item._encrypt_serial(self.decrypted_serial, 0)
-
-    def get_serial_base64(self, orig_seed=False):
-        """
-        Returns the base64-encoded item serial number.  If `orig_seed` is
-        `True`, the serial number will use the same seed that was used in the
-        savegame.  Otherwise, it will use a seed of `0`, which will then be
-        unencrypted.
-        """
-        return 'BL3({})'.format(base64.b64encode(self.get_serial_number(orig_seed)).decode('latin1'))
-
     def get_pickup_order_idx(self):
         return self.protobuf.pickup_order_index
 
@@ -396,19 +90,55 @@ class BL3Item(object):
         Overwrites this item with a new one
         """
         self.protobuf.item_serial_number = new_data
-        (self.decrypted_serial, self.orig_seed) = BL3Item._decrypt_serial(self.protobuf.item_serial_number)
-        self.parsed = False
-        self.can_parse = True
+        self.serial.set_serial(new_data)
 
-    @staticmethod
-    def decode_serial_base64(new_data):
+    def get_serial_number(self, orig_seed=False):
         """
-        Overwrites this item with a new one, from a base64 encoding
+        Returns the binary item serial number.  If `orig_seed` is `True`, the
+        serial number will use the same seed that was used in the savegame.
+        Otherwise, it will use a seed of `0`, which will then be unencrypted.
         """
-        if not new_data.lower().startswith('bl3(') or not new_data.endswith(')'):
-            raise Exception('Unknown item format: {}'.format(new_data))
-        encoded = new_data[4:-1]
-        return base64.b64decode(encoded)
+        return self.serial.get_serial_number(orig_seed)
+
+    def get_serial_base64(self, orig_seed=False):
+        """
+        Returns the base64-encoded item serial number.  If `orig_seed` is
+        `True`, the serial number will use the same seed that was used in the
+        savegame.  Otherwise, it will use a seed of `0`, which will then be
+        unencrypted.
+        """
+        return self.serial.get_serial_base64(orig_seed)
+
+    @property
+    def eng_name(self):
+        """
+        Returns the English name of this item, as best we can tell
+        """
+        return self.serial.eng_name
+
+    @property
+    def balance_short(self):
+        """
+        Returns the 'short' balance name for the item, if possible.  This is
+        generally what'd be useful to a user without being a long full-object
+        name.
+        """
+        return self.serial.balance_short
+
+    @property
+    def level(self):
+        """
+        Returns the level of this item
+        """
+        return self.serial.level
+
+    @level.setter
+    def level(self, new_level):
+        """
+        Sets the level of this item
+        """
+        self.serial.level = new_level
+        self.protobuf.item_serial_number = self.serial.serial
 
 class BL3EquipSlot(object):
     """
@@ -1327,7 +1057,7 @@ class BL3Save(object):
         Creates a new item from the base64-encoded (and "BL3()"-wrapped)
         `item_serial_b64`, which can later be added to our item list.
         """
-        return self.create_new_item(BL3Item.decode_serial_base64(item_serial_b64))
+        return self.create_new_item(datalib.BL3Serial.decode_serial_base64(item_serial_b64))
 
     def add_new_item(self, item_serial):
         """
@@ -1344,7 +1074,7 @@ class BL3Save(object):
         "BL3()"-wrapped) `item_serial_b64`.  Returns a tuple containing the
         new BL3Item object itself, and its new index in our item list.
         """
-        return self.add_new_item(BL3Item.decode_serial_base64(item_serial_b64))
+        return self.add_new_item(datalib.BL3Serial.decode_serial_base64(item_serial_b64))
 
     def overwrite_item_in_slot(self, slot, itemdata):
         """
