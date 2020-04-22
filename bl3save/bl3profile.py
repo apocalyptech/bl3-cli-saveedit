@@ -414,3 +414,210 @@ class BL3Profile(object):
         else:
             self.prof.bank_inventory_list[index] = item_serial
 
+    def get_cur_customizations(self, cust_set):
+        """
+        Returns a set of the currently-unlocked customizations which live in the
+        given `cust_set`.  (A variety of customization types all live in the same
+        data structure in the savegame, which is why we have this layer.)
+        """
+        to_ret = set()
+        for cust in self.prof.unlocked_customizations:
+            if cust.customization_asset_path in cust_set:
+                to_ret.add(cust.customization_asset_path)
+        return to_ret
+
+    def get_cur_weapon_customizations(self, cust_set):
+        """
+        Returns a set of the currently-unlocked weapon customizations which
+        live in the given `cust_set`, composed of their in-game hashes.  (Both
+        trinkets and weapon skins live in the same data structure, which is why
+        we have this layer.)
+        """
+        to_ret = set()
+        for cust in self.prof.unlocked_inventory_customization_parts:
+            if cust.customization_part_hash in cust_set:
+                to_ret.add(cust.customization_part_hash)
+        return to_ret
+
+    def unlock_customization_set(self, cust_set):
+        """
+        Unlocks the given set of customizations in the main customization
+        area.
+        """
+        current_custs = self.get_cur_customizations(cust_set)
+        missing = cust_set - current_custs
+        for cust in missing:
+            self.prof.unlocked_customizations.append(OakProfile_pb2.OakCustomizationSaveGameData(
+                is_new=True,
+                customization_asset_path=cust,
+                ))
+
+    def unlock_weapon_customization_set(self, cust_dict):
+        """
+        Unlocks the given set of weapon customizations, given a `cust_dict` whose
+        keys are the customization hashes.
+        """
+        current_custs = self.get_cur_weapon_customizations(cust_dict)
+        missing = set(cust_dict.keys()) - current_custs
+        for cust in missing:
+            self.prof.unlocked_inventory_customization_parts.append(OakProfile_pb2.OakInventoryCustomizationPartInfo(
+                customization_part_hash=cust,
+                is_new=True,
+                ))
+
+    def get_char_skins_total(self):
+        """
+        Returns the total number of skins that are possible to unlock
+        """
+        return len(profile_skins)
+
+    def get_char_skins(self):
+        """
+        Returns a set of the current character skins which are unlocked.
+        """
+        return self.get_cur_customizations(profile_skins)
+
+    def unlock_char_skins(self):
+        """
+        Unlocks all character skins
+        """
+        self.unlock_customization_set(profile_skins)
+
+    def get_char_heads_total(self):
+        """
+        Returns the total number of heads that are possible to unlock
+        """
+        return len(profile_heads)
+
+    def get_char_heads(self):
+        """
+        Returns a set of the current character heads which are unlocked.
+        """
+        return self.get_cur_customizations(profile_heads)
+
+    def unlock_char_heads(self):
+        """
+        Unlocks all character heads
+        """
+        self.unlock_customization_set(profile_heads)
+
+    def get_echo_themes_total(self):
+        """
+        Returns the total number of ECHO themes that are possible to unlock
+        """
+        return len(profile_echothemes)
+
+    def get_echo_themes(self):
+        """
+        Returns a set of the current ECHO themes which are unlocked.
+        """
+        return self.get_cur_customizations(profile_echothemes)
+
+    def unlock_echo_themes(self):
+        """
+        Unlocks all ECHO Themes
+        """
+        self.unlock_customization_set(profile_echothemes)
+
+    def get_emotes_total(self):
+        """
+        Returns the total number of emotes that are possible to unlock
+        """
+        return len(profile_emotes)
+
+    def get_emotes(self):
+        """
+        Returns a set of the current emotes which are unlocked.
+        """
+        return self.get_cur_customizations(profile_emotes)
+
+    def unlock_emotes(self):
+        """
+        Unlocks all emotes
+        """
+        self.unlock_customization_set(profile_emotes)
+
+    def get_room_decos_total(self):
+        """
+        Returns the total number of room decorations that are possible to unlock
+        """
+        return len(profile_roomdeco_obj_to_eng)
+
+    def get_room_decos(self):
+        """
+        Returns a set of the current room decorations which are unlocked.
+        """
+        return set([d.decoration_item_asset_path for d in self.prof.unlocked_crew_quarters_decorations])
+
+    def unlock_room_decos(self):
+        """
+        Unlocks all room decorations
+        """
+        current_custs = self.get_room_decos()
+        missing = set(profile_roomdeco_obj_to_eng.keys()) - current_custs
+        for cust in missing:
+            self.prof.unlocked_crew_quarters_decorations.append(OakProfile_pb2.CrewQuartersDecorationItemSaveGameData(
+                is_new=True,
+                decoration_item_asset_path=cust,
+                ))
+
+    def get_weapon_skins_total(self):
+        """
+        Returns the total number of weapon skins that are possible to unlock
+        """
+        return len(profile_weaponskins_obj_to_eng)
+
+    def get_weapon_skins(self, eng=False):
+        """
+        Returns a set of the current weapon skins which are unlocked.  By default
+        these will be the hashes used in the save file, but if `eng` is `True`, they
+        will be the english names of the skins.
+        """
+        if eng:
+            return set([
+                profile_weaponskins_hash_to_eng[h] for h in self.get_weapon_skins()
+                ])
+        else:
+            return self.get_cur_weapon_customizations(profile_weaponskins_hash_to_eng)
+
+    def unlock_weapon_skins(self):
+        """
+        Unlocks all weapon skins
+        """
+        self.unlock_weapon_customization_set(profile_weaponskins_hash_to_eng)
+
+    def get_weapon_trinkets_total(self):
+        """
+        Returns the total number of weapon trinkets that are possible to unlock
+        """
+        return len(profile_weapontrinkets_obj_to_eng)
+
+    def get_weapon_trinkets(self, eng=False):
+        """
+        Returns a set of the current weapon trinkets which are unlocked.  By default
+        these will be the hashes used in the save file, but if `eng` is `True`, they
+        will be the english names of the trinkets, if possible.
+        """
+        if eng:
+            return set([
+                profile_weapontrinkets_hash_to_eng[h] for h in self.get_weapon_trinkets()
+                ])
+        else:
+            return self.get_cur_weapon_customizations(profile_weapontrinkets_hash_to_eng)
+
+    def unlock_weapon_trinkets(self):
+        """
+        Unlocks all weapon trinkets
+        """
+        self.unlock_weapon_customization_set(profile_weapontrinkets_hash_to_eng)
+
+    def clear_all_customizations(self):
+        """
+        Removes all unlocked customizations.
+        """
+        # It didn't seem worth coding these individually, since multiple customization
+        # types exist for most of these.  Whatever.
+        del self.prof.unlocked_customizations[:]
+        del self.prof.unlocked_crew_quarters_decorations[:]
+        del self.prof.unlocked_inventory_customization_parts[:]
+

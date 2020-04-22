@@ -117,8 +117,18 @@ def main():
             help='Allow importing Fabricator when importing items from file',
             )
 
+    parser.add_argument('--clear-customizations',
+            dest='clear_customizations',
+            action='store_true',
+            help='Remove all unlocked customizations',
+            )
+
     unlock_choices = [
             'lostloot', 'bank',
+            'skins', 'heads',
+            'echothemes', 'emotes', 'decos',
+            'weaponskins', 'trinkets',
+            'customizations',
             ]
     parser.add_argument('--unlock',
             action=DictAction,
@@ -142,6 +152,14 @@ def main():
     # Expand any of our "all" unlock actions
     if 'all' in args.unlock:
         args.unlock = {k: True for k in unlock_choices}
+    elif 'customizations' in args.unlock:
+        args.unlock['skins'] = True
+        args.unlock['heads'] = True
+        args.unlock['echothemes'] = True
+        args.unlock['emotes'] = True
+        args.unlock['decos'] = True
+        args.unlock['weaponskins'] = True
+        args.unlock['trinkets'] = True
 
     # Set max item level arg
     if args.item_levels_max:
@@ -178,6 +196,7 @@ def main():
         len(args.unlock) > 0,
         args.import_items,
         args.item_levels,
+        args.clear_customizations,
         ])
 
     # Make changes
@@ -186,6 +205,11 @@ def main():
         if not args.quiet:
             print('Making requested changes...')
             print('')
+
+        # Clear Customizations (do this *before* explicit customization unlocks)
+        if args.clear_customizations:
+            print(' - Clearing all customizations')
+            profile.clear_all_customizations()
 
         # Unlocks
         if len(args.unlock) > 0:
@@ -203,6 +227,48 @@ def main():
                 if not args.quiet:
                     print('   - Bank SDUs')
                 profile.set_max_sdus([bl3save.PSDU_BANK])
+
+            # Skins
+            if 'skins' in args.unlock:
+                if not args.quiet:
+                    print('   - Character Skins')
+                profile.unlock_char_skins()
+
+            # Heads
+            if 'heads' in args.unlock:
+                if not args.quiet:
+                    print('   - Character Heads')
+                profile.unlock_char_heads()
+
+            # ECHO Themes
+            if 'echothemes' in args.unlock:
+                if not args.quiet:
+                    print('   - ECHO Themes')
+                profile.unlock_echo_themes()
+
+            # Emotes
+            if 'emotes' in args.unlock:
+                if not args.quiet:
+                    print('   - Emotes')
+                profile.unlock_emotes()
+
+            # Room Decorations
+            if 'decos' in args.unlock:
+                if not args.quiet:
+                    print('   - Room Decorations')
+                profile.unlock_room_decos()
+
+            # Weapon Skins
+            if 'weaponskins' in args.unlock:
+                if not args.quiet:
+                    print('   - Weapon Skins')
+                profile.unlock_weapon_skins()
+
+            # Weapon Trinkets
+            if 'trinkets' in args.unlock:
+                if not args.quiet:
+                    print('   - Weapon Trinkets')
+                profile.unlock_weapon_trinkets()
 
         # Import Items
         if args.import_items:

@@ -92,5 +92,16 @@ def main():
         for line in sorted(to_report):
             print(line)
 
+    # Various customizations
+    for (label, current, maxcount) in [
+            ('Character Skins', prof.get_char_skins(), prof.get_char_skins_total()),
+            ('Character Heads', prof.get_char_heads(), prof.get_char_heads_total()),
+            ('ECHO Themes', prof.get_echo_themes(), prof.get_echo_themes_total()),
+            ('Emotes', prof.get_emotes(), prof.get_emotes_total()),
+            ('Weapon Skins', prof.get_weapon_skins(), prof.get_weapon_skins_total()),
+            ('Weapon Trinkets', prof.get_weapon_trinkets(), prof.get_weapon_trinkets_total()),
+            ]:
+        print('{} Unlocked: {}/{}'.format(label, len(current), maxcount))
+
 if __name__ == '__main__':
     main()
