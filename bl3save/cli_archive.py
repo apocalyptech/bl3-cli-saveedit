@@ -183,6 +183,11 @@ def main():
         save.overwrite_item_in_slot(bl3save.WEAPON1, craders)
         save.overwrite_item_in_slot(bl3save.SHIELD, transformer)
 
+        # Bring testing gear up to our max level, while we're at it.
+        for item in save.get_items():
+            if item.level != bl3save.max_level:
+                item.level = bl3save.max_level
+
         # Write out
         save.save_to(output_filename)
         files_written += 1
