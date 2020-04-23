@@ -162,11 +162,11 @@ ammo_to_ammoobj = {v: k for k, v in ammoobj_to_ammo.items()}
 ammo_to_max = {
         AMMO_AR: 1400,
         AMMO_GRENADE: 11,
-        AMMO_HEAVY: 36,
+        AMMO_HEAVY: 51,
         AMMO_PISTOL: 1000,
         AMMO_SMG: 1800,
         AMMO_SHOTGUN: 240,
-        AMMO_SNIPER: 144,
+        AMMO_SNIPER: 204,
         }
 
 # Challenges
