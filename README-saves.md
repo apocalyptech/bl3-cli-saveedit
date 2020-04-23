@@ -147,7 +147,7 @@ game, so this will be the only way of changing Mayhem mode until that
 point in the game.  This will set the Mayhem level for all
 playthroughs found in the game.
 
-    bl3-save-edit old.sav new.sav --mayhem 4
+    bl3-save-edit old.sav new.sav --mayhem 10
 
 Note that in order to have Anointments drop while playing in Normal
 mode, your savegame does need to have THVM unlocked, so see the `--unlock`
