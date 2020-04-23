@@ -250,7 +250,7 @@ options at once, without having to specify each one individually:
 
     bl3-save-edit old.sav new.sav --unlock all
 
-## Copy NVHM State to THVM
+## Copy NVHM State to TVHM
 
 The `--copy-nvhm` argument can be used to copy mission status,
 unlocked Fast Travels, Mayhem Mode, and Last Map Visited from Normal
