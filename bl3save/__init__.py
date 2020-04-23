@@ -112,14 +112,14 @@ sduobj_to_sdu = {
         }
 sdu_to_sduobj = {v: k for k, v in sduobj_to_sdu.items()}
 sdu_to_max = {
-        SDU_BACKPACK: 8,
+        SDU_BACKPACK: 13,
         SDU_AR: 8,
         SDU_PISTOL: 8,
-        SDU_SNIPER: 8,
+        SDU_SNIPER: 13,
         SDU_SHOTGUN: 8,
         SDU_GRENADE: 8,
         SDU_SMG: 8,
-        SDU_HEAVY: 8,
+        SDU_HEAVY: 13,
         }
 
 # Profile SDUs
@@ -135,7 +135,7 @@ psduobj_to_psdu = {
 psdu_to_psduobj = {v: k for k, v in psduobj_to_psdu.items()}
 psdu_to_max = {
         PSDU_LOSTLOOT: 8,
-        PSDU_BANK: 18,
+        PSDU_BANK: 23,
         }
 
 # Ammo
