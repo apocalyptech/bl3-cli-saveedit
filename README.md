@@ -167,6 +167,7 @@ FOr instructions on using the Profile portions of the editor, see
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Perhaps an option to zero out Guardian Rank in both saves and profiles.
+- Report the total number of available SDUs, when viewing info, not just the count
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
