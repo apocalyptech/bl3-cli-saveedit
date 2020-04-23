@@ -164,6 +164,11 @@ using the `customizations` unlock:
 
     bl3-profile-edit profile.sav newprofile.sav --unlock customizations
 
+**Note:** DLC-locked customizations, such as the Gold Pack, or any
+customization specific to a story DLC, will remain unavailable even
+if unlocked via this utility.  If you later purchase the DLC in question,
+though, the relevant cosmetics should show up as available immediately.
+
 ### All Unlocks at Once
 
 You can also use `all` to unlock all the various `--unlock`
