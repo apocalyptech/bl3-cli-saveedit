@@ -29,6 +29,7 @@ Please keep the following in mind:
   - [Upgrading](#upgrading)
   - [Notes for People Using Windows](#notes-for-people-using-windows)
   - [Running from Github](#running-from-github)
+  - [Finding Savegames](#finding-savegames)
 - [Editor Usage](#editor-usage)
 - [TODO](#todo)
 - [Credits](#credits)
@@ -140,6 +141,19 @@ would run:
 
 The equivalents for each of the commands are listed in their individual
 README files, linked below.
+
+### Finding Savegames
+
+This app doesn't actually know *where* your savegames or profiles are located.
+When you give it a filename, it'll expect that the file lives in your "current"
+directory, unless the filename includes all its path information.  When launching
+a `cmd.exe` on Windows, for instance, you'll probably start out in your home
+directory (`C:\Users\username`), but your savegames will actually live in a
+directory more like `C:\Users\username\My Documents\My Games\Borderlands 3\Saved\SaveGames\<numbers>\`.
+The easiest way to run the utilities is to just use `cd` to go into the dir
+where your saves are (or otherwise launch your commandline in the directory you
+want).  Otherwise, you could copy the save into your main user dir (and then
+copy back after editing), or even specify the full paths with the filenames.
 
 # Editor Usage
 

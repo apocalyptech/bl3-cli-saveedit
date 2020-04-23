@@ -68,6 +68,11 @@ the `-q`/`--quiet` option:
 
     bl3-save-edit old.sav new.sav -q
 
+Note that currently, the app will refuse to overwrite the same file that
+you're editing.  You'll need to move/rename the `new.sav` over the
+original, if you want it to replace your current save.  Be sure to keep
+backups!
+
 # Output Formats
 
 The editor can output files in a few different formats, and you can

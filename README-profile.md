@@ -54,6 +54,11 @@ the `-q`/`--quiet` option:
 
     bl3-profile-edit profile.sav newprofile.sav -q
 
+Note that currently, the app will refuse to overwrite the same file that
+you're editing.  You'll need to move/rename the `newprofile.sav` over the
+original, if you want it to replace your current profile.  Be sure to keep
+backups!
+
 # Output Formats
 
 The editor can output files in a few different formats, and you can
