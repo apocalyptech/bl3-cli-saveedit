@@ -14,7 +14,25 @@ commands will be:
     python -m bl3save.cli_prof_import_protobuf -h
     python -m bl3save.cli_prof_import_json -h
 
-## Basic Operation
+# Table of Contents
+
+- [Basic Operation](#basic-operation)
+- [Output Formats](#output-formats)
+- [Modifying the Profile](#modifying-the-profile)
+  - [Bank Item Levels](#bank-item-levels)
+  - [Alphabetize Customizations](#alphabetize-customizations)
+  - [Clear Customizations](#clear-customizations)
+  - [Unlocks](#unlocks)
+    - [Lost Loot and Bank Capacity](#lost-loot-and-bank-capacity)
+    - [Customizations](#customizations)
+    - [All Unlocks at Once](#all-unlocks-at-once)
+  - [Import Bank Items](#import-bank-items)
+- [Importing Raw Protobufs](#importing-raw-protobufs)
+- [Importing JSON](#importing-json)
+- [Profile Info Usage](#profile-info-usage)
+  - [Items/Inventory](#itemsinventory)
+
+# Basic Operation
 
 At its most basic, you can run the editor with only an input and output
 file, and it will simply load and then re-encode the profile.  For
@@ -36,7 +54,7 @@ the `-q`/`--quiet` option:
 
     bl3-profile-edit profile.sav newprofile.sav -q
 
-## Output Formats
+# Output Formats
 
 The editor can output files in a few different formats, and you can
 specify the format using the `-o`/`--output` option, like so:
@@ -72,13 +90,13 @@ Keep in mind that when saving in `items` format, basically all of
 the other CLI arguments are pointless, since the app will only save
 out the items textfile.
 
-## Modifying the Profile
+# Modifying the Profile
 
 Here's a list of all the edits you can make to the profile.  You
 can specify as many of these as you want on the commandline, to
 process multiple changes at once.
 
-### Bank Item Levels
+## Bank Item Levels
 
 There are two arguments to set item levels for gear that's stored in
 your bank.  The first is to set all items/weapons in the bank to the
@@ -90,7 +108,7 @@ Alternatively, you can set an explicit level using `--item-levels`
 
     bl3-profile-edit profile.sav newprofile.sav --item-levels 57
 
-### Alphabetize Customizations
+## Alphabetize Customizations
 
 Room Decorations, Weapon Trinkets, and Weapon Skins show up in the game
 in the order in which they were picked up, generally, which makes it
@@ -100,7 +118,7 @@ have a nice ordered list to choose from:
 
     bl3-profile-edit profile.sav newprofile.sav --alpha
 
-### Clear Customizations
+## Clear Customizations
 
 If for some reason you'd like to clear your profile of all found
 customizations, you can do so with `--clear-customizations`.  (This was
@@ -108,7 +126,7 @@ honestly mostly just useful to myself when testing the app.)
 
     bl3-profile-edit profile.sav newprofile.sav --clear-customizations
 
-### Unlocks
+## Unlocks
 
 There are a number of things you can unlock with the utility, all
 specified using the `--unlock` argument.  You can specify this
@@ -117,7 +135,7 @@ at once, like so:
 
     bl3-profile-edit profile.sav newprofile.sav --unlock lostloot --unlock bank
 
-#### Lost Loot and Bank Capacity
+### Lost Loot and Bank Capacity
 
 The `lostloot` and `bank` unlocks will give you the maximum number
 of SDUs for the Lost Loot machine and Bank, respectively:
@@ -125,7 +143,7 @@ of SDUs for the Lost Loot machine and Bank, respectively:
     bl3-profile-edit profile.sav newprofile.sav --unlock lostloot
     bl3-profile-edit profile.sav newprofile.sav --unlock bank
 
-#### Customizations
+### Customizations
 
 You can specify various types of cosmetics to unlock individually,
 which will give you all known customizations of that type.  (Note that
@@ -146,14 +164,14 @@ using the `customizations` unlock:
 
     bl3-profile-edit profile.sav newprofile.sav --unlock customizations
 
-#### All Unlocks at Once
+### All Unlocks at Once
 
 You can also use `all` to unlock all the various `--unlock`
 options at once, without having to specify each one individually:
 
     bl3-profile-edit profile.sav newprofile.sav --unlock all
 
-### Import Bank Items
+## Import Bank Items
 
 The `-i`/`--import-items` option will let you import items into
 your bank, of the sort you can export using `-o items`.  Simply
@@ -228,7 +246,7 @@ Instead of doing a global "verbose" option, you can instead choose
 to output just some of the extra information, though at the moment there's
 only one extra option, so the two are identical:
 
-### Items/Inventory
+## Items/Inventory
 
 The `-i`/`--items` argument will output your bank and Lost Loot machine
 contents, including item codes which could be put in a text file for

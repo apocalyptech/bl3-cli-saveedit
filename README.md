@@ -23,6 +23,18 @@ Please keep the following in mind:
   you do encounter any data loss problems, please contact me
   and I'll try to at least fix whatever bug caused it.
 
+# Table of Contents
+
+- [Installation](#installation)
+  - [Upgrading](#upgrading)
+  - [Notes for People Using Windows](#notes-for-people-using-windows)
+  - [Running from Github](#running-from-github)
+- [Editor Usage](#editor-usage)
+- [TODO](#todo)
+- [Credits](#credits)
+- [License](#license)
+- [Changelog](#changelog)
+
 # Installation
 
 This editor requires [Python 3](https://www.python.org/), and has been
@@ -83,7 +95,7 @@ You can check your current version by running any of the apps with the
 
     bl3-save-info --version
 
-### Notes for People using Windows
+### Notes for People Using Windows
 
 This is a command-line utility, which means there's no graphical interface,
 and you'll have to run it from either a Windows `cmd.exe` prompt, or presumably
