@@ -180,7 +180,8 @@ were [helpfully provided by Gibbed](https://twitter.com/gibbed/status/1246863435
 (rick 'at' gibbed 'dot' us), so many thanks for that!  The protobuf definitions
 are also provided by Gibbed, from his
 [Borderlands3Protos](https://github.com/gibbed/Borderlands3Protos) repo,
-and used with permission.
+and used with permission.  Gibbed also kindly provided the exact hashing
+mechanism used to work with weapon skins and trinkets.
 
 The rest of the savegame format was gleaned from 13xforever/Ilya's
 `gvas-converter` project: https://github.com/13xforever/gvas-converter
@@ -188,6 +189,9 @@ The rest of the savegame format was gleaned from 13xforever/Ilya's
 Many thanks also to Baysix, who endured an awful lot of basic questions about
 pulling apart item serial numbers.  Without their help, we wouldn't have
 item level editing (or nice item names in the output)!
+
+Basically what I'm saying is that anything remotely "hard" in here is all thanks
+to lots of other folks.  I'm just pasting together all their stuff.  Thanks, all!
 
 # License
 
@@ -197,10 +201,12 @@ provided in [COPYING.txt](COPYING.txt).
 
 # Changelog
 
-**v1.4.0** - *unreleased*
+**v1.4.0** - April 23, 2020
  - Updated for the Cartels + Mayhem 2.0 patch:
    - Update item/weapon handling to understand new serial number versions
+   - Added in new cosmetic unlocks
    - Mayhem level can now be set as high as 10
+   - Extra SDU levels added
    - Fixed a bug related to viewing vehicle unlocks, thanks to new game data
  - Introduction of profile editing utilities, via `bl3-profile-edit`,
    `bl3-profile-info`, `bl3-profile-import-json`, and `bl3-profile-import-protobuf`.
