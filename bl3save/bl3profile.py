@@ -636,6 +636,11 @@ class BL3Profile(object):
         for name, obj_path in sorted(profile_roomdeco_eng_to_obj.items()):
             if obj_path in cur_decos:
                 new_order.append((obj_path, cur_decos[obj_path]))
+                del cur_decos[obj_path]
+        # Don't forget to add any in that we don't actually know about.  At the end is fine.
+        for obj_path, is_new in cur_decos.items():
+            new_order.append((obj_path, is_new))
+        # Now do the rearranging
         del self.prof.unlocked_crew_quarters_decorations[:]
         for obj_path, is_new in new_order:
             self.prof.unlocked_crew_quarters_decorations.append(OakProfile_pb2.CrewQuartersDecorationItemSaveGameData(
@@ -651,9 +656,14 @@ class BL3Profile(object):
         for name, hashval in sorted(profile_weaponskins_eng_to_hash.items()):
             if hashval in cur_custs:
                 new_order.append((hashval, cur_custs[hashval]))
+                del cur_custs[hashval]
         for name, hashval in sorted(profile_weapontrinkets_eng_to_hash.items()):
             if hashval in cur_custs:
                 new_order.append((hashval, cur_custs[hashval]))
+                del cur_custs[hashval]
+        # Don't forget to add any in that we don't actually know about.  At the end is fine.
+        for hashval, is_new in cur_custs.items():
+            new_order.append((hashval, is_new))
         del self.prof.unlocked_inventory_customization_parts[:]
         for hashval, is_new in new_order:
             self.prof.unlocked_inventory_customization_parts.append(OakProfile_pb2.OakInventoryCustomizationPartInfo(

@@ -98,6 +98,7 @@ def main():
             ('Character Heads', prof.get_char_heads(), prof.get_char_heads_total()),
             ('ECHO Themes', prof.get_echo_themes(), prof.get_echo_themes_total()),
             ('Emotes', prof.get_emotes(), prof.get_emotes_total()),
+            ('Room Decorations', prof.get_room_decos(), prof.get_room_decos_total()),
             ('Weapon Skins', prof.get_weapon_skins(), prof.get_weapon_skins_total()),
             ('Weapon Trinkets', prof.get_weapon_trinkets(), prof.get_weapon_trinkets_total()),
             ]:
