@@ -270,6 +270,7 @@ message Profile {
   int32 moxxis_drink_event_bits_product_id = 207;
   repeated ChallengeSaveGameData challenge_data = 208;
   repeated int32 CitizenScienceLevelProgression = 209;
+  bool default_dead_zone_inner_updated = 210;
   bool disable_event_content = 211;
   uint32 desired_friend_sync_state = 212;
   bool needs_shift_first_boot = 213;

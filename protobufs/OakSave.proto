@@ -188,6 +188,7 @@ message MapIDData {
 message GameStateSaveData {
   MapIDData last_traveled_map_id = 1;
   int32 mayhem_level = 2;
+  int32 mayhem_random_seed = 3;
 }
 message ChallengeCategoryProgressSaveData {
   bytes category_progress = 1;
