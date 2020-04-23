@@ -1,7 +1,7 @@
-# Borderlands 3 Commandline Savegame Editor
+# Borderlands 3 Commandline Savegame/Profile Editor
 
 This project is a commandline Python-based Borderlands 3 Savegame
-Editor.  It's a companion to the very similar
+and Profile Editor.  It's a companion to the very similar
 [CLI editor for BL2/TPS](https://github.com/apocalyptech/borderlands2),
 and provides some very similar functionality.  It can be used
 to level up your characters, unlock Mayhem modes early in the

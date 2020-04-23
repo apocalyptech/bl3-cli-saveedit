@@ -1,4 +1,4 @@
-# Borderlands 3 Commandline Savegame Editor - Profile Editing Reference
+# Borderlands 3 Commandline Profile Editor - Profile Editing Reference
 
 This is the documentation for the profile editing portions of the
 BL3 CLI Savegame Editor.  For general app information, installation,
