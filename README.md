@@ -200,6 +200,7 @@ provided in [COPYING.txt](COPYING.txt).
  - Updated for the Cartels + Mayhem 2.0 patch:
    - Update item/weapon handling to understand new serial number versions
    - Mayhem level can now be set as high as 10
+   - Fixed a bug related to viewing vehicle unlocks, thanks to new game data
  - Introduction of profile editing utilities, via `bl3-profile-edit`,
    `bl3-profile-info`, `bl3-profile-import-json`, and `bl3-profile-import-protobuf`.
    The following functionality is supported:

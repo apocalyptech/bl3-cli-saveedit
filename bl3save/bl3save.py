@@ -1318,13 +1318,18 @@ class BL3Save(object):
         """
         to_ret = {}
         for v in self.save.vehicles_unlocked_data:
-            key = chassis_to_vehicle[v.asset_path]
-            if eng:
-                key = vehicle_to_eng[key]
-            if key in to_ret:
-                to_ret[key] += 1
-            else:
-                to_ret[key] = 1
+            # Some DLC3 "vehicles" are already showing up in saves, at least this one:
+            # /Geranium/Vehicles/Horse/Design/WT_Horse_Biobeast.WT_Horse_Biobeast
+            # So check for that and don't try to load if we don't know about the
+            # vehicle type.
+            if v.asset_path in chassis_to_vehicle:
+                key = chassis_to_vehicle[v.asset_path]
+                if eng:
+                    key = vehicle_to_eng[key]
+                if key in to_ret:
+                    to_ret[key] += 1
+                else:
+                    to_ret[key] = 1
         return to_ret
 
     def get_vehicle_chassis_count(self, vehicle_type):
