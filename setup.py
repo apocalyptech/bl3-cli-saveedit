@@ -24,7 +24,7 @@ setup(
         author_email='cj@apocalyptech.com',
         data_files=[
             # I always like these to be installed along with the apps
-            (f'share/{app_name}', ['COPYING.txt', 'README.md']),
+            (f'share/{app_name}', ['COPYING.txt', 'README.md', 'README-saves.md', 'README-profile.md']),
             # Seems helpful to bundle the Protobuf definitions (via Gibbed) in here
             (f'share/{app_name}/protobufs', [os.path.join('protobufs', f) for f in sorted(os.listdir('protobufs'))]),
             # Seems less helpful to package my mod testing gear, but whatever.
