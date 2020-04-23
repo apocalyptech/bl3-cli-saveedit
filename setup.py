@@ -53,21 +53,23 @@ setup(
             ],
         entry_points={
             'console_scripts': [
+
+                # Savegame-related scripts
                 'bl3-save-edit = bl3save.cli_edit:main',
                 'bl3-save-info = bl3save.cli_info:main',
+                'bl3-save-import-protobuf = bl3save.cli_import_protobuf:main',
+                'bl3-save-import-json = bl3save.cli_import_json:main',
+                'bl3-process-archive-saves = bl3save.cli_archive:main',
                 # Actually, gonna omit this one.  Without transferring a lot of other data,
                 # this can make things a bit weird, and at that point you may as well just
                 # copy the savegame and alter other bits about it.
                 #'bl3-save-copy-pt = bl3save.cli_copy_pt:main',
-                'bl3-save-import-protobuf = bl3save.cli_import_protobuf:main',
-                'bl3-save-import-json = bl3save.cli_import_json:main',
-                'bl3-process-archive-saves = bl3save.cli_archive:main',
 
-                # Technically I do have a couple of profile-related scripts now.
-                # Keeping them commented for the time being, though.
-                #'bl3-profile-edit = bl3save.cli_prof_edit:main',
-                #'bl3-profile-import-protobuf = bl3save.cli_prof_import_protobuf:main',
-                #'bl3-profile-import-json = bl3save.cli_prof_import_json:main',
+                # Profile-related scripts
+                'bl3-profile-edit = bl3save.cli_prof_edit:main',
+                'bl3-profile-info = bl3save.cli_prof_info:main',
+                'bl3-profile-import-protobuf = bl3save.cli_prof_import_protobuf:main',
+                'bl3-profile-import-json = bl3save.cli_prof_import_json:main',
                 ],
             },
         )
