@@ -34,6 +34,7 @@ Please keep the following in mind:
 - [TODO](#todo)
 - [Credits](#credits)
 - [License](#license)
+- [Other Utilities](#other-utilities)
 - [Changelog](#changelog)
 
 # Installation
@@ -198,6 +199,19 @@ to lots of other folks.  I'm just pasting together all their stuff.  Thanks, all
 All code in this project is licensed under the
 [zlib/libpng license](https://opensource.org/licenses/Zlib).  A copy is
 provided in [COPYING.txt](COPYING.txt).
+
+# Other Utilities
+
+Various BL3 Savegame/Profile editors have been popping up, ever since Gibbed
+released the encryption details.  Here's a few which could be more to your
+liking, if you didn't want to use this one for whatever reason:
+
+- [Baysix's Web-Based Editor](http://www.bl3editor.com) - Just web-based for
+  now; sourcecode release is still forthcoming.
+- [Raptor's CLI Tools](https://github.com/cfi2017/bl3-save) - These are written
+  in [Go](https://golang.org/)
+- [FromDarkHell's Profile Editor](https://github.com/FromDarkHell/BL3ProfileEditor) -
+  Written in C#, has EXE downloads for ease of use on Windows
 
 # Changelog
 
