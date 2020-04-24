@@ -209,9 +209,10 @@ liking, if you didn't want to use this one for whatever reason:
 - [Baysix's Web-Based Editor](http://www.bl3editor.com) - Just web-based for
   now; sourcecode release is still forthcoming.
 - [Raptor's CLI Tools](https://github.com/cfi2017/bl3-save) - These are written
-  in [Go](https://golang.org/)
+  in [Go](https://golang.org/), and the project has easy downloads for Windows,
+  Mac, and Linux (in addition to the sourcecode).
 - [FromDarkHell's Profile Editor](https://github.com/FromDarkHell/BL3ProfileEditor) -
-  Written in C#, has EXE downloads for ease of use on Windows
+  Written in C#, has EXE downloads for ease of use on Windows.
 
 # Changelog
 
