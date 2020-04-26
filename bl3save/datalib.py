@@ -10,6 +10,8 @@ import random
 import binascii
 import pkg_resources
 
+from . import *
+
 class ArbitraryBits(object):
     """
     Ridiculous little object to deal with variable-bit-length packed data that
@@ -90,7 +92,21 @@ class BL3Serial(object):
         self.datawrapper = datawrapper
         self.serial_db = datawrapper.serial_db
         self.name_db = datawrapper.name_db
+        self.invkey_db = datawrapper.invkey_db
         self.set_serial(serial)
+
+    def set_serial(self, serial):
+        """
+        Sets our serial number
+        """
+
+        self.serial = serial
+        (self.decrypted_serial, self.orig_seed) = BL3Serial._decrypt_serial(serial)
+        self.parsed = False
+        self.parts_parsed = False
+        self.can_parse = True
+        self.can_parse_parts = True
+        self.changed_parts = False
 
         # Attributes which get filled in when we parse
         self._version = None
@@ -108,15 +124,14 @@ class BL3Serial(object):
         self._level = None
         self._remaining_data = None
 
-    def set_serial(self, serial):
-        """
-        Sets our serial number
-        """
-
-        self.serial = serial
-        (self.decrypted_serial, self.orig_seed) = BL3Serial._decrypt_serial(serial)
-        self.parsed = False
-        self.can_parse = True
+        # Additional data that gets filled in if we can parse parts
+        self._part_invkey = None
+        self._part_bits = None
+        self._parts = None
+        self._generic_bits = None
+        self._generic_parts = None
+        self._additional_data = None
+        self._num_customs = None
 
     @staticmethod
     def _xor_data(data, seed):
@@ -237,6 +252,28 @@ class BL3Serial(object):
             part_val = 'unknown'
         return (part_val, num_bits, part_idx)
 
+    def _get_inv_db_header_part_repeated(self, category, bits, count_bits):
+        """
+        Given the category name `category` and the ArbitraryBits object `bits`,
+        containing serial number data, and `count_bits`, which specifies the
+        number of bits which make up the count of parts to read, returns a
+        tuple containing:
+            1) The number of bits each part in the category takes up
+            2) A list containing tuples with the following:
+                1) The part name
+                2) The numerical index of the part
+        """
+        num_bits = self.serial_db.get_num_bits(category, self._version)
+        parts = []
+        num_parts = bits.eat(count_bits)
+        for _ in range(num_parts):
+            part_idx = bits.eat(num_bits)
+            part_val = self.serial_db.get_part(category, part_idx)
+            if not part_val:
+                part_val = 'unknown'
+            parts.append((part_val, part_idx))
+        return (num_bits, parts)
+
     def _parse_serial(self):
         """
         Parse our serial number, at least up to the level.  We're not going
@@ -255,6 +292,7 @@ class BL3Serial(object):
         self._version = bits.eat(7)
         if self._version > self.serial_db.max_version:
             self.can_parse = False
+            self.can_parse_parts = False
             return
 
         # Now the rest of the data we care about.
@@ -268,13 +306,6 @@ class BL3Serial(object):
                 self._manufacturer_bits,
                 self._manufacturer_idx) = self._get_inv_db_header_part('ManufacturerData', bits)
         self._level = bits.eat(7)
-        self._remaining_data = bits.data
-
-        # At this point, if we were planning on reading parts, we'd read eat six
-        # more bits to find the number of parts, then read in that many, using a
-        # mapping to get to the correct category.  Then another four bits tells
-        # us how many anointments there are, reading from InventoryGenericPartData
-        # after that.  After anointments, I'm not totally sure what's out there.
 
         # Parse out a "short" balance name, for convenience's sake
         self._balance_short = self._balance.split('.')[-1]
@@ -282,8 +313,63 @@ class BL3Serial(object):
         # If we know of an English name for this balance, use it
         self._eng_name = self.name_db.get(self._balance_short)
 
-        # Mark down that we're parsed, now.
+        # Mark down that we've parsed the basic info (we have enough to level up
+        # gear at this point)
         self.parsed = True
+
+        # Make a note of our remaining data - if we re-save without any parts
+        # changes, we can just use this rather than reconstructing the whole
+        # serial.
+        self._remaining_data = bits.data
+
+        # Now let's see if we can parse parts
+        self._part_invkey = self.invkey_db.get(self._balance)
+        if self._part_invkey is None:
+            self.can_parse_parts = False
+        else:
+
+            # Let's assume at first that we're going to correctly parse all this
+            self.parts_parsed = True
+
+            # Read parts
+            (self._part_bits, self._parts) = self._get_inv_db_header_part_repeated(
+                    self._part_invkey, bits, 6)
+
+            # Read generics (anointments+mayhem)
+            (self._generic_bits, self._generic_parts) = self._get_inv_db_header_part_repeated(
+                    'InventoryGenericPartData', bits, 4)
+
+            # Read additional data (no idea for the most part; some item "wear"
+            # is in here, we think.  Maybe other stuff, too?)
+            additional_count = bits.eat(8)
+            self._additional_data = []
+            for _ in range(additional_count):
+                self._additional_data.append(bits.eat(8))
+
+            # Read in "customization" parts; this presumably used to be
+            # trinkets+weaponskins, but was removed at some point.  If we
+            # have anything but 0 in here, we're going to force `can_parse_parts`
+            # to false, 'cause we don't know how many bits these things
+            # might take if they're present.
+            self._num_customs = bits.eat(4)
+            if self._num_customs != 0:
+                self.parts_parsed = False
+                self.can_parse_parts = False
+
+            # And read in our remaining data.  If there's more than 7 bits
+            # left, we've done something wrong, because it should only be
+            # zero-padding after all the "real" data is in place.
+            if len(bits.data) > 7:
+                self.parts_parsed = False
+                self.can_parse_parts = False
+            elif '1' in bits.data:
+                # This is supposed to only be zero-padding at the moment, if
+                # we see something else, abort
+                self.parts_parsed = False
+                self.can_parse_parts = False
+            else:
+                # Okay, we're good!  Don't bother saving the remaining 0 bits.
+                pass
 
     def _deparse_serial(self):
         """
@@ -301,7 +387,18 @@ class BL3Serial(object):
         if not self.can_parse:
             return
 
-        # Construct the new item data
+        if self.changed_parts:
+            # If we changed any parts, re-save using the latest serial version,
+            # which means that we'll have to figure out new bit lengths for
+            # everything.
+            self._version = self.serial_db.max_version
+            self._balance_bits = self.serial_db.get_num_bits('InventoryBalanceData', self._version)
+            self._invdata_bits = self.serial_db.get_num_bits('InventoryData', self._version)
+            self._manufacturer_bits = self.serial_db.get_num_bits('ManufacturerData', self._version)
+            self._part_bits = self.serial_db.get_num_bits(self._part_invkey, self._version)
+            self._generic_bits = self.serial_db.get_num_bits('InventoryGenericPartData', self._version)
+
+        # Construct a new header
         bits = ArbitraryBits()
         bits.append_value(128, 8)
         bits.append_value(self._version, 7)
@@ -309,7 +406,31 @@ class BL3Serial(object):
         bits.append_value(self._invdata_idx, self._invdata_bits)
         bits.append_value(self._manufacturer_idx, self._manufacturer_bits)
         bits.append_value(self._level, 7)
-        bits.append_data(self._remaining_data)
+
+        if self.changed_parts:
+            # If we've changed parts, just write out everything again.  First parts
+            bits.append_value(len(self._parts), 6)
+            for (part_val, part_idx) in self._parts:
+                bits.append_value(part_idx, self._part_bits)
+
+            # Then generics
+            bits.append_value(len(self._generic_parts), 4)
+            for (part_val, part_idx) in self._generic_parts:
+                bits.append_value(part_idx, self._generic_bits)
+
+            # Then additional data
+            bits.append_value(len(self._additional_data), 8)
+            for value in self._additional_data:
+                bits.append_value(value, 8)
+
+            # Then our number of customs (should always be zero)
+            bits.append_value(self._num_customs, 4)
+
+        else:
+            # Otherwise, we can re-use our original remaining data
+            bits.append_data(self._remaining_data)
+
+        # Read the serial back out of our structure
         new_data = bits.get_data()
 
         # Encode the new serial (using seed 0; unencrypted)
@@ -415,6 +536,48 @@ class BL3Serial(object):
         encoded = new_data[4:-1]
         return base64.b64decode(encoded)
 
+    @property
+    def mayhem_level(self):
+        """
+        Returns the current Mayhem level of the item, with `0` signifying
+        that there is no Mayhem level present, and `None` signifying that
+        the Mayhem level could not be parsed (due to being unable to parse the
+        item parts)
+        """
+        if not self.parsed or not self.parts_parsed:
+            self._parse_serial()
+            if not self.can_parse or not self.can_parse_parts:
+                return None
+        # Given the presence of item editors, there could possibly be more
+        # than one Mayhem part present in a serial (though they don't seem
+        # to stack at all, so doing so would be pointless).  We'll just
+        # abort processing as soon as we find one, which I suspect is likely
+        # what the game does, too.
+        for part_name, part_idx in self._generic_parts:
+            if part_name.lower() in mayhem_part_lower_to_lvl:
+                return mayhem_part_lower_to_lvl[part_name.lower()]
+        return 0
+
+    def get_level_eng(self):
+        """
+        Returns an English representation of our level, including Mayhem level,
+        suitable for reporting to a user.
+        """
+        # First, regular level
+        level = self.level
+        if level is None:
+            return 'unknown lvl'
+        to_ret = 'lvl{}'.format(level)
+
+        # Then Mayhem
+        mayhem_level = self.mayhem_level
+        if mayhem_level is None:
+            return '{}, mayhem unknown'.format(to_ret)
+        elif mayhem_level > 0:
+            return '{}, mayhem {}'.format(to_ret, mayhem_level)
+        else:
+            return to_ret
+
 class InventorySerialDB(object):
     """
     Little wrapper to provide access to our inventory serial number DB
@@ -519,6 +682,42 @@ class BalanceToName(object):
         else:
             return None
 
+class BalanceToInvKey(object):
+    """
+    Little wrapper to provide access to a mapping from Balance names to
+    the inventory key that we'd need to use to read its parts out.
+    """
+
+    def __init__(self):
+        self.initialized = False
+        self.mapping = None
+
+    def _initialize(self):
+        """
+        Actually read in our data.  Not doing this automatically because I
+        only want to do it if we're doing an operation which requires it.
+        """
+        if not self.initialized:
+            with lzma.open(io.BytesIO(pkg_resources.resource_string(
+                    __name__, 'resources/balance_to_inv_key.json.xz'
+                    ))) as df:
+                self.mapping = json.load(df)
+            self.initialized = True
+
+    def get(self, balance):
+        """
+        Returns the inventory key for the given balance, if we can.
+        """
+        if not self.initialized:
+            self._initialize()
+        if '.' not in balance:
+            balance = '{}.{}'.format(balance, balance.split('/')[-1])
+        balance = balance.lower()
+        if balance in self.mapping:
+            return self.mapping[balance]
+        else:
+            return None
+
 class DataWrapper(object):
     """
     Weird little metaclass which just has an instance of each of our file-backed
@@ -531,4 +730,5 @@ class DataWrapper(object):
     def __init__(self):
         self.serial_db = InventorySerialDB()
         self.name_db = BalanceToName()
+        self.invkey_db = BalanceToInvKey()
 

@@ -105,6 +105,21 @@ class BL3ProfItem(object):
         if self.index >= 0:
             self.container[self.index] = self.serial.serial
 
+    @property
+    def mayhem_level(self):
+        """
+        Returns the mayhem level of this item.  `None` means we couldn't
+        parse the mayhem level, `0` means there is no Mayhem part.
+        """
+        return self.serial.mayhem_level
+
+    def get_level_eng(self):
+        """
+        Returns an English representation of our level, including Mayhem level,
+        suitable for reporting to a user.
+        """
+        return self.serial.get_level_eng()
+
 class BL3Profile(object):
     """
     Wrapper around the protobuf object for a BL3 profile file.

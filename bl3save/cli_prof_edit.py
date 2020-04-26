@@ -304,7 +304,7 @@ def main():
                         profile.add_bank_item(new_item)
                         if not args.quiet:
                             if new_item.eng_name:
-                                print('   + {} (level {})'.format(new_item.eng_name, new_item.level))
+                                print('   + {} ({})'.format(new_item.eng_name, new_item.get_level_eng()))
                             else:
                                 print('   + unknown item')
                         added_count += 1
@@ -373,7 +373,7 @@ def main():
         with open(args.output_filename, 'w') as df:
             for item in profile.get_bank_items():
                 if item.eng_name:
-                    print('# {} (level {})'.format(item.eng_name, item.level), file=df)
+                    print('# {} ({})'.format(item.eng_name, item.get_level_eng()), file=df)
                 else:
                     print('# unknown item', file=df)
                 print(item.get_serial_base64(), file=df)

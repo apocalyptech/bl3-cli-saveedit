@@ -73,7 +73,7 @@ def main():
         to_report = []
         for item in bank_items:
             if item.eng_name:
-                to_report.append(' - {} (lvl{}): {}'.format(item.eng_name, item.level, item.get_serial_base64()))
+                to_report.append(' - {} ({}): {}'.format(item.eng_name, item.get_level_eng(), item.get_serial_base64()))
             else:
                 to_report.append(' - unknown item: {}'.format(item.get_serial_base64()))
         for line in sorted(to_report):
@@ -86,7 +86,7 @@ def main():
         to_report = []
         for item in lostloot_items:
             if item.eng_name:
-                to_report.append(' - {} (lvl{}): {}'.format(item.eng_name, item.level, item.get_serial_base64()))
+                to_report.append(' - {} ({}): {}'.format(item.eng_name, item.get_level_eng(), item.get_serial_base64()))
             else:
                 to_report.append(' - unknown item: {}'.format(item.get_serial_base64()))
         for line in sorted(to_report):

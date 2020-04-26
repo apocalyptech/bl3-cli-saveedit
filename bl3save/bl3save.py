@@ -140,6 +140,21 @@ class BL3Item(object):
         self.serial.level = new_level
         self.protobuf.item_serial_number = self.serial.serial
 
+    @property
+    def mayhem_level(self):
+        """
+        Returns the mayhem level of this item.  `None` means we couldn't
+        parse the mayhem level, `0` means there is no Mayhem part.
+        """
+        return self.serial.mayhem_level
+
+    def get_level_eng(self):
+        """
+        Returns an English representation of our level, including Mayhem level,
+        suitable for reporting to a user.
+        """
+        return self.serial.get_level_eng()
+
 class BL3EquipSlot(object):
     """
     Real simple wrapper for a BL3 equipment slot.

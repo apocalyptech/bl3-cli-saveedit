@@ -178,7 +178,7 @@ def main():
             to_report = []
             for item in items:
                 if item.eng_name:
-                    to_report.append(' - {} (lvl{}): {}'.format(item.eng_name, item.level, item.get_serial_base64()))
+                    to_report.append(' - {} ({}): {}'.format(item.eng_name, item.get_level_eng(), item.get_serial_base64()))
                 else:
                     to_report.append(' - unknown item: {}'.format(item.get_serial_base64()))
             for line in sorted(to_report):
@@ -193,7 +193,7 @@ def main():
             for (slot, item) in items.items():
                 if item:
                     if item.eng_name:
-                        to_report.append(' - {}: {} (lvl{}): {}'.format(slot, item.eng_name, item.level, item.get_serial_base64()))
+                        to_report.append(' - {}: {} ({}): {}'.format(slot, item.eng_name, item.get_level_eng(), item.get_serial_base64()))
                     else:
                         to_report.append(' - {}: unknown item: {}'.format(slot, item.get_serial_base64()))
             for line in sorted(to_report):
