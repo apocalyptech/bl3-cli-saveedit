@@ -214,7 +214,8 @@ liking, if you didn't want to use this one for whatever reason:
 - [FromDarkHell's Profile Editor](https://github.com/FromDarkHell/BL3ProfileEditor) -
   Written in C#, has EXE downloads for ease of use on Windows.
 - [sandsmark's borderlands3-save-editor](https://github.com/sandsmark/borderlands3-save-editor) -
-  Written in C++ with Qt for GUI.  Is still in development.
+  Written in C++ with Qt for GUI.  Is still in development.  Native downloads
+  for Windows, but should compile fine on other platforms.
 
 # Changelog
 
