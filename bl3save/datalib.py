@@ -385,14 +385,14 @@ class BL3Serial(object):
     def _deparse_serial(self):
         """
         De-parses a serial; used after we make changes to the data that gets
-        pulled out during `_parse_serial`.  At the moment, that's only going
-        to be item level changes.  Will update the serial in the protobuf as
-        well, and set the object to trigger a re-parse if anything else needs
-        to read more.
-
-        This is all pretty inefficient -- really we should just write over the
-        bits values with the new values, in-place.  But whatever, this'll do
-        for now.
+        pulled out during `_parse_serial`.  At the moment, that's both level
+        changes and mayhem level changes.  Will call out to the superclass's
+        `_update_superclass_serial` to propagate the serial change to whatever
+        containing structure needs it, and set the object to trigger a
+        re-parse if anything else needs to read more.  That's probably overkill
+        and makes this technically quite inefficient, especially when making
+        multiple edits to the same item, but given the scale of processing,
+        we'll probably be fine.
         """
 
         if not self.can_parse:
@@ -448,6 +448,9 @@ class BL3Serial(object):
         new_serial = BL3Serial._encrypt_serial(new_data, 0)
 
         # Load in the new serial (this will set `parsed` to `False`)
+        # It bothers me that I've just done an `_encrypt_serial` in the
+        # previous statement, when this call to `set_serial` will just
+        # turn right around and decrypt it again.  Alas.
         self.set_serial(new_serial)
 
     @property
