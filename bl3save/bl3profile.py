@@ -362,16 +362,6 @@ class BL3Profile(object):
         else:
             self.prof.bank_inventory_list.append(item_serial)
 
-    def set_bank_item(self, index, item_serial):
-        """
-        Overwrites the `index`th bank item slot with the given `item_serial`, which
-        should either be a `BL3ProfItem` object or a raw-data serial number.
-        """
-        if type(item_serial) == BL3ProfItem:
-            self.prof.bank_inventory_list[index] = item_serial.get_serial_number()
-        else:
-            self.prof.bank_inventory_list[index] = item_serial
-
     def get_cur_customizations(self, cust_set):
         """
         Returns a set of the currently-unlocked customizations which live in the

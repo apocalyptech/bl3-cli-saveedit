@@ -274,7 +274,6 @@ def main():
         if args.item_levels:
             cli_common.update_item_levels(profile.get_bank_items(),
                     args.item_levels,
-                    profile.set_bank_item,
                     quiet=args.quiet,
                     )
 
