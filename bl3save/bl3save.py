@@ -1113,6 +1113,25 @@ class BL3Save(object):
             to_ret[key] = sdu.sdu_level
         return to_ret
 
+    def get_sdus_with_max(self, eng=False):
+        """
+        Returns a dict whose keys are the SDU type, and the values are tuples with
+        two values:
+            1. The number of that SDU type purchased
+            2. The maximum number of SDUs available for that type
+        The SDU type key will be a constant by default, or an English label if
+        `eng` is `True`.  This is just a convenience function suitable for
+        giving more information to users.
+        """
+        to_ret = {}
+        for sdu in self.save.sdu_list:
+            key = sduobj_to_sdu[sdu.sdu_data_path]
+            max_sdus = sdu_to_max[key]
+            if eng:
+                key = sdu_to_eng[key]
+            to_ret[key] = (sdu.sdu_level, max_sdus)
+        return to_ret
+
     def get_sdu(self, sdu):
         """
         Returns the number of SDUs purchased for the specified type

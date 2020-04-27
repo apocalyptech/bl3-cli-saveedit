@@ -58,13 +58,13 @@ def main():
     prof = BL3Profile(args.filename)
 
     # SDUs
-    sdus = prof.get_sdus(True)
+    sdus = prof.get_sdus_with_max(True)
     if len(sdus) == 0:
         print('No SDUs Purchased')
     else:
         print('SDUs:')
-        for sdu, count in sdus.items():
-            print(' - {}: {}'.format(sdu, count))
+        for sdu, (count, max_sdus) in sdus.items():
+            print(' - {}: {}/{}'.format(sdu, count, max_sdus))
 
     # Bank Items
     bank_items = prof.get_bank_items()
