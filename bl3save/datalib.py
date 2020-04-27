@@ -558,6 +558,58 @@ class BL3Serial(object):
                 return mayhem_part_lower_to_lvl[part_name.lower()]
         return 0
 
+    def can_have_mayhem(self):
+        """
+        Returns `True` if this is an item type which can have a mayhem level,
+        or `False` otherwise.  Will also return `False` if we're unable to
+        parse parts for the item.
+        """
+        if not self.parsed or not self.parts_parsed:
+            self._parse_serial()
+            if not self.can_parse or not self.can_parse_parts:
+                return False
+        return self._invdata.lower() in mayhem_invdata_lower_types
+
+    @mayhem_level.setter
+    def mayhem_level(self, value):
+        """
+        Sets the given mayhem level on the item.  Returns `True` if we were
+        able to do so, or `False` if not.
+        """
+        # The call to `can_have_mayhem` will parse the serial if possible,
+        # so we'll be all set.
+        if not self.can_have_mayhem():
+            return False
+
+        # Don't forget to set this
+        self.changed_parts = True
+
+        # First grab a list of any non-Mayhem parts (should just be anoints)
+        new_parts = []
+        for idx, (part_name, part_idx) in enumerate(self._generic_parts):
+            if part_name.lower() not in mayhem_part_lower_to_lvl:
+                new_parts.append((part_name, part_idx))
+
+        # Now add our new one in
+        if value > 0:
+            new_mayhem_part = self.serial_db.get_part_index(
+                    'InventoryGenericPartData',
+                    mayhem_lvl_to_part[value],
+                    )
+            if new_mayhem_part is None:
+                return False
+            else:
+                new_parts.append((mayhem_lvl_to_part[value], new_mayhem_part))
+
+        # Aaaand assign our list of generic parts back
+        self._generic_parts = new_parts
+
+        # Re-serialize
+        self._deparse_serial()
+
+        # return!
+        return True
+
     def get_level_eng(self):
         """
         Returns an English representation of our level, including Mayhem level,
@@ -587,6 +639,7 @@ class InventorySerialDB(object):
         self.initialized = False
         self.db = None
         self._max_version = -1
+        self.part_cache = {}
 
     def _initialize(self):
         """
@@ -642,6 +695,23 @@ class InventorySerialDB(object):
                 return None
             else:
                 return self.db[category]['assets'][index-1]
+
+    def get_part_index(self, category, part_name):
+        """
+        Find the correct index to use for the given `part_name`, inside the given
+        `category`.  Will return `None` if the part cannot be found.
+        """
+        if category not in self.part_cache:
+            self.part_cache[category] = {}
+        if part_name not in self.part_cache[category]:
+            for idx, asset_part_name in enumerate(self.db[category]['assets']):
+                if part_name == asset_part_name:
+                    self.part_cache[category][part_name] = idx+1
+                    return idx
+        if part_name in self.part_cache[category]:
+            return self.part_cache[category][part_name]
+        else:
+            return None
 
 class BalanceToName(object):
     """

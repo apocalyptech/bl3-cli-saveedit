@@ -113,6 +113,24 @@ class BL3ProfItem(object):
         """
         return self.serial.mayhem_level
 
+    def can_have_mayhem(self):
+        """
+        Returns `True` if this is an item type which can have a mayhem level,
+        or `False` otherwise.  Will also return `False` if we're unable to
+        parse parts for the item.
+        """
+        return self.serial.can_have_mayhem()
+
+    @mayhem_level.setter
+    def mayhem_level(self, value):
+        """
+        Sets the given mayhem level on the item.  Returns `True` if we were
+        able to do so, or `False` if not.
+        """
+        self.serial.mayhem_level = value
+        if self.index >= 0:
+            self.container[self.index] = self.serial.serial
+
     def get_level_eng(self):
         """
         Returns an English representation of our level, including Mayhem level,

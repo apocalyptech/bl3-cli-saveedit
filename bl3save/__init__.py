@@ -1167,6 +1167,45 @@ mayhem_part_to_lvl = {
         }
 mayhem_part_lower_to_lvl = {k.lower(): v for k, v in mayhem_part_to_lvl.items()}
 mayhem_lvl_to_part = {v: k for k, v in mayhem_part_to_lvl.items()}
+mayhem_max = max(mayhem_part_to_lvl.values())
+
+# InvData types which can accept Mayhem parts
+# (may have to be more clever about this if non-guns start accepting *different* Mayhem parts)
+mayhem_invdata_types = set([
+    '/Game/Gear/Weapons/AssaultRifles/Atlas/_Shared/_Design/WT_AR_ATL.WT_AR_ATL',
+    '/Game/Gear/Weapons/AssaultRifles/ChildrenOfTheVault/_Shared/_Design/WT_AR_COV.WT_AR_COV',
+    '/Game/Gear/Weapons/AssaultRifles/Dahl/_Shared/_Design/WT_AR_DAL.WT_AR_DAL',
+    '/Game/Gear/Weapons/AssaultRifles/Jakobs/_Shared/_Design/WT_AR_JAK.WT_AR_JAK',
+    '/Game/Gear/Weapons/AssaultRifles/Torgue/_Shared/_Design/WT_AR_TOR.WT_AR_TOR',
+    '/Game/Gear/Weapons/AssaultRifles/Vladof/_Shared/_Design/WT_AR_VLA.WT_AR_VLA',
+    '/Game/Gear/Weapons/HeavyWeapons/ATL/_Shared/_Design/WT_HW_ATL.WT_HW_ATL',
+    '/Game/Gear/Weapons/HeavyWeapons/ChildrenOfTheVault/_Shared/_Design/WT_HW_COV.WT_HW_COV',
+    '/Game/Gear/Weapons/HeavyWeapons/Torgue/_Shared/_Design/WT_HW_TOR.WT_HW_TOR',
+    '/Game/Gear/Weapons/HeavyWeapons/Vladof/_Shared/_Design/WT_HW_VLA.WT_HW_VLA',
+    '/Game/Gear/Weapons/Pistols/Atlas/_Shared/_Design/WT_PS_ATL.WT_PS_ATL',
+    '/Game/Gear/Weapons/Pistols/ChildrenOfTheVault/_Shared/_Design/WT_PS_COV.WT_PS_COV',
+    '/Game/Gear/Weapons/Pistols/Dahl/_Shared/_Design/WT_PS_DAL.WT_PS_DAL',
+    '/Game/Gear/Weapons/Pistols/Jakobs/_Shared/_Design/WT_PS_JAK.WT_PS_JAK',
+    '/Game/Gear/Weapons/Pistols/Maliwan/_Shared/_Design/WT_PS_MAL.WT_PS_MAL',
+    '/Game/Gear/Weapons/Pistols/Tediore/Shared/_Design/WT_PS_TED.WT_PS_TED',
+    '/Game/Gear/Weapons/Pistols/Torgue/_Shared/_Design/WT_PS_TOR.WT_PS_TOR',
+    '/Game/Gear/Weapons/Pistols/Vladof/_Shared/_Design/WT_PS_VLA.WT_PS_VLA',
+    '/Game/Gear/Weapons/SMGs/Dahl/_Shared/_Design/WT_SM_DAL.WT_SM_DAL',
+    '/Game/Gear/Weapons/SMGs/Hyperion/_Shared/_Design/WT_SM_HYP.WT_SM_HYP',
+    '/Game/Gear/Weapons/SMGs/Maliwan/_Shared/_Design/WT_SM_MAL.WT_SM_MAL',
+    '/Game/Gear/Weapons/SMGs/Tediore/_Shared/_Design/WT_SM_TED.WT_SM_TED',
+    '/Game/Gear/Weapons/Shotguns/Hyperion/_Shared/_Design/WT_SG_HYP.WT_SG_HYP',
+    '/Game/Gear/Weapons/Shotguns/Jakobs/_Shared/_Design/WT_SG_JAK.WT_SG_JAK',
+    '/Game/Gear/Weapons/Shotguns/Maliwan/_Shared/_Design/WT_SG_MAL.WT_SG_MAL',
+    '/Game/Gear/Weapons/Shotguns/Tediore/_Shared/_Design/WT_SG_TED.WT_SG_TED',
+    '/Game/Gear/Weapons/Shotguns/Torgue/_Shared/_Design/WT_SG_TOR.WT_SG_TOR',
+    '/Game/Gear/Weapons/SniperRifles/Dahl/_Shared/_Design/WT_SR_DAL.WT_SR_DAL',
+    '/Game/Gear/Weapons/SniperRifles/Hyperion/_Shared/_Design/WT_SR_HYP.WT_SR_HYP',
+    '/Game/Gear/Weapons/SniperRifles/Jakobs/_Shared/_Design/WT_SR_JAK.WT_SR_JAK',
+    '/Game/Gear/Weapons/SniperRifles/Maliwan/Shared/_Design/WT_SR_MAL.WT_SR_MAL',
+    '/Game/Gear/Weapons/SniperRifles/Vladof/_Shared/_Design/WT_SR_VLA.WT_SR_VLA',
+    ])
+mayhem_invdata_lower_types = set([t.lower() for t in mayhem_invdata_types])
 
 # Mission names
 #

@@ -127,6 +127,19 @@ def main():
             type=int,
             help='Set all inventory items to the specified level')
 
+    itemmayhemgroup = parser.add_mutually_exclusive_group()
+
+    itemmayhemgroup.add_argument('--item-mayhem-max',
+            dest='item_mayhem_max',
+            action='store_true',
+            help='Set all inventory items to the maximum Mayhem level ({})'.format(bl3save.mayhem_max))
+
+    itemmayhemgroup.add_argument('--item-mayhem-level',
+            dest='item_mayhem_level',
+            type=int,
+            choices=range(bl3save.mayhem_max+1),
+            help='Set all inventory items to the specified Mayhem level (0 to remove)')
+
     parser.add_argument('--mayhem',
             type=int,
             choices=range(11),
@@ -213,6 +226,10 @@ def main():
     if args.level_max:
         args.level = bl3save.max_level
 
+    # Set max mayhem arg
+    if args.item_mayhem_max:
+        args.item_mayhem_level = bl3save.mayhem_max
+
     # Check item level.  The max storeable in the serial number is 127, but the
     # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
     # could use `bl3save.max_level` here, too, of course, but in the event that
@@ -259,6 +276,7 @@ def main():
         args.items_to_char,
         args.item_levels,
         args.unfinish_nvhm,
+        args.item_mayhem_level,
         ])
 
     # Make changes
@@ -445,6 +463,56 @@ def main():
                     actually_updated,
                     updated_verb,
                     remaining_txt,
+                    ))
+
+        # Item Mayhem level
+        if args.item_mayhem_level is not None:
+            num_items = len(save.get_items())
+            if not args.quiet:
+                if num_items == 1:
+                    plural = ''
+                else:
+                    plural = 's'
+                print(' - Updating {} item{} to mayhem level {}'.format(
+                    num_items,
+                    plural,
+                    args.item_mayhem_level,
+                    ))
+            actually_updated = 0
+            not_possible = 0
+            for item in save.get_items():
+                if item.mayhem_level is None or not item.can_have_mayhem():
+                    not_possible += 1
+                elif item.mayhem_level != args.item_mayhem_level:
+                    item.mayhem_level = args.item_mayhem_level
+                    actually_updated += 1
+            if not args.quiet:
+                remaining = num_items - actually_updated - not_possible
+                if actually_updated == 1:
+                    updated_verb = 'was'
+                else:
+                    updated_verb = 'were'
+                if remaining > 0:
+                    if remaining == 1:
+                        remaining_verb = 'was'
+                    else:
+                        remaining_verb = 'were'
+                    remaining_txt = ' ({} {} already at that level)'.format(remaining, remaining_verb)
+                else:
+                    remaining_txt = ''
+                if not_possible > 0:
+                    if not_possible == 1:
+                        not_possible_verb = 'was'
+                    else:
+                        not_possible_verb = 'were'
+                    not_possible_txt = ' ({} {} unable to be levelled)'.format(not_possible, not_possible_verb)
+                else:
+                    not_possible_txt = ''
+                print('   - {} {} updated{}{}'.format(
+                    actually_updated,
+                    updated_verb,
+                    remaining_txt,
+                    not_possible_txt
                     ))
 
         # Copying NVHM state
