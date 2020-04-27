@@ -28,30 +28,6 @@ import argparse
 from . import cli_common
 from bl3save.bl3save import BL3Save
 
-class DictAction(argparse.Action):
-    """
-    Custom argparse action to put list-like arguments into
-    a dict (where the value will be True) rather than a list.
-    This is probably implemented fairly shoddily.
-    """
-    def __init__(self, option_strings, dest, nargs=None, **kwargs):
-        """
-        Constructor, taken right from https://docs.python.org/2.7/library/argparse.html#action
-        """
-        if nargs is not None:
-            raise ValueError('nargs is not allowed')
-        super(DictAction, self).__init__(option_strings, dest, **kwargs)
-
-    def __call__(self, parser, namespace, values, option_string=None):
-        """
-        Actually setting a value.  Forces the attr into a dict if it isn't already.
-        """
-        arg_value = getattr(namespace, self.dest)
-        if not isinstance(arg_value, dict):
-            arg_value = {}
-        arg_value[values] = True
-        setattr(namespace, self.dest, arg_value)
-
 def main():
 
     # Set up args
@@ -165,7 +141,7 @@ def main():
             'vehicles', 'vehicleskins',
             ]
     parser.add_argument('--unlock',
-            action=DictAction,
+            action=cli_common.DictAction,
             choices=unlock_choices + ['all'],
             default={},
             help='Game features to unlock',
