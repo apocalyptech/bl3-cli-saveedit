@@ -100,7 +100,7 @@ def update_item_levels(items, to_level, quiet=False):
             to_level,
             ))
     actually_updated = 0
-    for idx, item in enumerate(items):
+    for item in items:
         if item.level != to_level:
             item.level = to_level
             actually_updated += 1
@@ -122,5 +122,58 @@ def update_item_levels(items, to_level, quiet=False):
             actually_updated,
             updated_verb,
             remaining_txt,
+            ))
+
+def update_item_mayhem_levels(items, to_level, quiet=False):
+    """
+    Given a list of `items`, update their mayhem level to `level`.  If
+    `quiet` is `True`, only errors will be printed.
+    """
+    num_items = len(items)
+    if not quiet:
+        if num_items == 1:
+            plural = ''
+        else:
+            plural = 's'
+        print(' - Updating {} item{} to mayhem level {}'.format(
+            num_items,
+            plural,
+            to_level,
+            ))
+    actually_updated = 0
+    not_possible = 0
+    for item in items:
+        if item.mayhem_level is None or not item.can_have_mayhem():
+            not_possible += 1
+        elif item.mayhem_level != to_level:
+            item.mayhem_level = to_level
+            actually_updated += 1
+    if not quiet:
+        remaining = num_items - actually_updated - not_possible
+        if actually_updated == 1:
+            updated_verb = 'was'
+        else:
+            updated_verb = 'were'
+        if remaining > 0:
+            if remaining == 1:
+                remaining_verb = 'was'
+            else:
+                remaining_verb = 'were'
+            remaining_txt = ' ({} {} already at that level)'.format(remaining, remaining_verb)
+        else:
+            remaining_txt = ''
+        if not_possible > 0:
+            if not_possible == 1:
+                not_possible_verb = 'was'
+            else:
+                not_possible_verb = 'were'
+            not_possible_txt = ' ({} {} unable to be levelled)'.format(not_possible, not_possible_verb)
+        else:
+            not_possible_txt = ''
+        print('   - {} {} updated{}{}'.format(
+            actually_updated,
+            updated_verb,
+            remaining_txt,
+            not_possible_txt
             ))
 

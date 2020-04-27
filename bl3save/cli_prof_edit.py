@@ -81,6 +81,19 @@ def main():
             type=int,
             help='Set all bank items to the specified level')
 
+    itemmayhemgroup = parser.add_mutually_exclusive_group()
+
+    itemmayhemgroup.add_argument('--item-mayhem-max',
+            dest='item_mayhem_max',
+            action='store_true',
+            help='Set all inventory items to the maximum Mayhem level ({})'.format(bl3save.mayhem_max))
+
+    itemmayhemgroup.add_argument('--item-mayhem-level',
+            dest='item_mayhem_level',
+            type=int,
+            choices=range(bl3save.mayhem_max+1),
+            help='Set all inventory items to the specified Mayhem level (0 to remove)')
+
     parser.add_argument('-i', '--import-items',
             dest='import_items',
             type=str,
@@ -147,6 +160,10 @@ def main():
     if args.item_levels_max:
         args.item_levels = bl3save.max_level
 
+    # Set max mayhem arg
+    if args.item_mayhem_max:
+        args.item_mayhem_level = bl3save.mayhem_max
+
     # Check item level.  The max storeable in the serial number is 127, but the
     # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
     # could use `bl3save.max_level` here, too, of course, but in the event that
@@ -180,6 +197,7 @@ def main():
         args.item_levels,
         args.clear_customizations,
         args.alpha,
+        args.item_mayhem_level,
         ])
 
     # Make changes
@@ -274,6 +292,13 @@ def main():
         if args.item_levels:
             cli_common.update_item_levels(profile.get_bank_items(),
                     args.item_levels,
+                    quiet=args.quiet,
+                    )
+
+        # Item Mayhem level
+        if args.item_mayhem_level is not None:
+            cli_common.update_item_mayhem_levels(profile.get_bank_items(),
+                    args.item_mayhem_level,
                     quiet=args.quiet,
                     )
 
