@@ -47,6 +47,22 @@ class DictAction(argparse.Action):
         arg_value[values] = True
         setattr(namespace, self.dest, arg_value)
 
+def export_items(items, export_file, quiet=False):
+    """
+    Exports the given `items` to the given text `export_file`.  If `quiet` is
+    `False`, only errors will be printed.
+    """
+    with open(export_file, 'w') as df:
+        for item in items:
+            if item.eng_name:
+                print('# {} ({})'.format(item.eng_name, item.get_level_eng()), file=df)
+            else:
+                print('# unknown item', file=df)
+            print(item.get_serial_base64(), file=df)
+            print('', file=df)
+    if not quiet:
+        print('Wrote {} items (in base64 format) to {}'.format(len(items), export_file))
+
 def import_items(import_file, item_create_func, item_add_func, allow_fabricator=False, quiet=False):
     """
     Imports items from `import_file`.  `item_create_func` should point to

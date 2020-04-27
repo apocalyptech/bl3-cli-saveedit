@@ -453,16 +453,11 @@ def main():
         if not args.quiet:
             print('Wrote JSON to {}'.format(args.output_filename))
     elif args.output == 'items':
-        with open(args.output_filename, 'w') as df:
-            for item in save.get_items():
-                if item.eng_name:
-                    print('# {} ({})'.format(item.eng_name, item.get_level_eng()), file=df)
-                else:
-                    print('# unknown item', file=df)
-                print(item.get_serial_base64(), file=df)
-                print('', file=df)
-        if not args.quiet:
-            print('Wrote {} items (in base64 format) to {}'.format(len(save.get_items()), args.output_filename))
+        cli_common.export_items(
+                save.get_items(),
+                args.output_filename,
+                quiet=args.quiet,
+                )
     else:
         # Not sure how we'd ever get here
         raise Exception('Invalid output format specified: {}'.format(args.output))
