@@ -386,9 +386,9 @@ class BL3Serial(object):
         """
         De-parses a serial; used after we make changes to the data that gets
         pulled out during `_parse_serial`.  At the moment, that's both level
-        changes and mayhem level changes.  Will call out to the superclass's
-        `_update_superclass_serial` to propagate the serial change to whatever
-        containing structure needs it, and set the object to trigger a
+        changes and mayhem level changes.  Will end up calling out to the
+        superclass's `_update_superclass_serial` to propagate the serial change
+        to whatever containing structure needs it, and set the object to trigger a
         re-parse if anything else needs to read more.  That's probably overkill
         and makes this technically quite inefficient, especially when making
         multiple edits to the same item, but given the scale of processing,
@@ -401,7 +401,10 @@ class BL3Serial(object):
         if self.changed_parts:
             # If we changed any parts, re-save using the latest serial version,
             # which means that we'll have to figure out new bit lengths for
-            # everything.
+            # everything.  I'm not doing this *all* the time because I like
+            # changing as little as possible when doing these edits, and this
+            # way we can do stuff like change the level of an item without
+            # having to re-encode its parts.
             self._version = self.serial_db.max_version
             self._balance_bits = self.serial_db.get_num_bits('InventoryBalanceData', self._version)
             self._invdata_bits = self.serial_db.get_num_bits('InventoryData', self._version)
@@ -417,6 +420,9 @@ class BL3Serial(object):
         bits.append_value(self._invdata_idx, self._invdata_bits)
         bits.append_value(self._manufacturer_idx, self._manufacturer_bits)
         bits.append_value(self._level, 7)
+
+        # Arguably we should *always* re-encode parts, if we're able to, just so this
+        # function is less complex.  For now I'm keeping it like this, though.
 
         if self.changed_parts:
             # If we've changed parts, just write out everything again.  First parts
@@ -635,7 +641,7 @@ class BL3Serial(object):
         level = self.level
         if level is None:
             return 'unknown lvl'
-        to_ret = 'lvl{}'.format(level)
+        to_ret = 'level {}'.format(level)
 
         # Then Mayhem
         mayhem_level = self.mayhem_level
