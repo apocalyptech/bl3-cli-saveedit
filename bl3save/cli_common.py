@@ -83,3 +83,49 @@ def import_items(import_file, item_create_func, item_add_func, allow_fabricator=
     if not quiet:
         print('   - Added Item Count: {}'.format(added_count))
 
+def update_item_levels(items, to_level, index_update_func=None, quiet=False):
+    """
+    Given a list of `items`, update their base level to `level`.  Optionally, for
+    Profile editing support, pass in `index_update_func` to specify a function
+    to call to update an item serial based on its index in a list.  (Save item
+    editing doesn't need that.)  If `quiet` is `True`, only errors will be
+    printed.
+    """
+    num_items = len(items)
+    if not quiet:
+        if num_items == 1:
+            plural = ''
+        else:
+            plural = 's'
+        print(' - Updating {} item{} to level {}'.format(
+            num_items,
+            plural,
+            to_level,
+            ))
+    actually_updated = 0
+    for idx, item in enumerate(items):
+        if item.level != to_level:
+            item.level = to_level
+            if index_update_func:
+                index_update_func(idx, item)
+            actually_updated += 1
+    if not quiet:
+        remaining = num_items - actually_updated
+        if actually_updated == 1:
+            updated_verb = 'was'
+        else:
+            updated_verb = 'were'
+        if remaining > 0:
+            if remaining == 1:
+                remaining_verb = 'was'
+            else:
+                remaining_verb = 'were'
+            remaining_txt = ' ({} {} already at that level)'.format(remaining, remaining_verb)
+        else:
+            remaining_txt = ''
+        print('   - {} {} updated{}'.format(
+            actually_updated,
+            updated_verb,
+            remaining_txt,
+            ))
+

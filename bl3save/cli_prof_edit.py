@@ -272,42 +272,11 @@ def main():
         # various of the actions above.  If we've been asked to change the level
         # of items, we'll want to do it after the item import.
         if args.item_levels:
-            num_items = len(profile.get_bank_items())
-            if not args.quiet:
-                if num_items == 1:
-                    plural = ''
-                else:
-                    plural = 's'
-                print(' - Updating {} item{} to level {}'.format(
-                    num_items,
-                    plural,
+            cli_common.update_item_levels(profile.get_bank_items(),
                     args.item_levels,
-                    ))
-            actually_updated = 0
-            for idx, item in enumerate(profile.get_bank_items()):
-                if item.level != args.item_levels:
-                    item.level = args.item_levels
-                    profile.set_bank_item(idx, item)
-                    actually_updated += 1
-            if not args.quiet:
-                remaining = num_items - actually_updated
-                if actually_updated == 1:
-                    updated_verb = 'was'
-                else:
-                    updated_verb = 'were'
-                if remaining > 0:
-                    if remaining == 1:
-                        remaining_verb = 'was'
-                    else:
-                        remaining_verb = 'were'
-                    remaining_txt = ' ({} {} already at that level)'.format(remaining, remaining_verb)
-                else:
-                    remaining_txt = ''
-                print('   - {} {} updated{}'.format(
-                    actually_updated,
-                    updated_verb,
-                    remaining_txt,
-                    ))
+                    profile.set_bank_item,
+                    quiet=args.quiet,
+                    )
 
         # Newline at the end of all this.
         if not args.quiet:

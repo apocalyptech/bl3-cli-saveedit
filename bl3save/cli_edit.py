@@ -411,41 +411,10 @@ def main():
                 to_level = save.get_level()
             else:
                 to_level = args.item_levels
-            num_items = len(save.get_items())
-            if not args.quiet:
-                if num_items == 1:
-                    plural = ''
-                else:
-                    plural = 's'
-                print(' - Updating {} item{} to level {}'.format(
-                    num_items,
-                    plural,
+            cli_common.update_item_levels(save.get_items(),
                     to_level,
-                    ))
-            actually_updated = 0
-            for item in save.get_items():
-                if item.level != to_level:
-                    item.level = to_level
-                    actually_updated += 1
-            if not args.quiet:
-                remaining = num_items - actually_updated
-                if actually_updated == 1:
-                    updated_verb = 'was'
-                else:
-                    updated_verb = 'were'
-                if remaining > 0:
-                    if remaining == 1:
-                        remaining_verb = 'was'
-                    else:
-                        remaining_verb = 'were'
-                    remaining_txt = ' ({} {} already at that level)'.format(remaining, remaining_verb)
-                else:
-                    remaining_txt = ''
-                print('   - {} {} updated{}'.format(
-                    actually_updated,
-                    updated_verb,
-                    remaining_txt,
-                    ))
+                    quiet=args.quiet,
+                    )
 
         # Item Mayhem level
         if args.item_mayhem_level is not None:
