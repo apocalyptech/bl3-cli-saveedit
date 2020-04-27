@@ -197,7 +197,7 @@ def main():
         args.item_levels,
         args.clear_customizations,
         args.alpha,
-        args.item_mayhem_levels,
+        args.item_mayhem_levels is not None,
         ])
 
     # Make changes

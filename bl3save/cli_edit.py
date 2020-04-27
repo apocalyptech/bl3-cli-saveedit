@@ -253,7 +253,7 @@ def main():
         args.items_to_char,
         args.item_levels,
         args.unfinish_nvhm,
-        args.item_mayhem_levels,
+        args.item_mayhem_levels is not None,
         ])
 
     # Make changes
