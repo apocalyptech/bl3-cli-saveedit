@@ -36,7 +36,7 @@ from . import *
 from . import datalib
 from . import OakProfile_pb2, OakShared_pb2
 
-class BL3ProfItem(object):
+class BL3ProfItem(datlib.BL3Serial):
     """
     Pretty thin wrapper around the serial number for an item.  Mostly
     just so we can keep track of what index it is in the profile.
@@ -45,8 +45,7 @@ class BL3ProfItem(object):
     def __init__(self, serial_number, container, index, datawrapper):
         self.container = container
         self.index = index
-        self.datawrapper = datawrapper
-        self.serial = datalib.BL3Serial(serial_number, datawrapper)
+        super().__init__(serial_number, datawrapper)
 
     @staticmethod
     def create(serial_number, container, datawrapper):
@@ -56,87 +55,13 @@ class BL3ProfItem(object):
         """
         return BL3ProfItem(serial_number, container, -1, datawrapper)
 
-    def get_serial_number(self, orig_seed=False):
+    def _update_superclass_serial(self):
         """
-        Returns the binary item serial number.  If `orig_seed` is `True`, the
-        serial number will use the same seed that was used in the savegame.
-        Otherwise, it will use a seed of `0`, which will then be unencrypted.
+        Action to take when our serial number gets updated.  In this case,
+        overwriting our position in the containing list.
         """
-        return self.serial.get_serial_number(orig_seed)
-
-    def get_serial_base64(self, orig_seed=False):
-        """
-        Returns the base64-encoded item serial number.  If `orig_seed` is
-        `True`, the serial number will use the same seed that was used in the
-        savegame.  Otherwise, it will use a seed of `0`, which will then be
-        unencrypted.
-        """
-        return self.serial.get_serial_base64(orig_seed)
-
-    @property
-    def eng_name(self):
-        """
-        Returns the English name of this item, as best we can tell
-        """
-        return self.serial.eng_name
-
-    @property
-    def balance_short(self):
-        """
-        Returns the 'short' balance name for the item, if possible.  This is
-        generally what'd be useful to a user without being a long full-object
-        name.
-        """
-        return self.serial.balance_short
-
-    @property
-    def level(self):
-        """
-        Returns the level of this item
-        """
-        return self.serial.level
-
-    @level.setter
-    def level(self, new_level):
-        """
-        Sets the level of this item
-        """
-        self.serial.level = new_level
         if self.index >= 0:
-            self.container[self.index] = self.serial.serial
-
-    @property
-    def mayhem_level(self):
-        """
-        Returns the mayhem level of this item.  `None` means we couldn't
-        parse the mayhem level, `0` means there is no Mayhem part.
-        """
-        return self.serial.mayhem_level
-
-    def can_have_mayhem(self):
-        """
-        Returns `True` if this is an item type which can have a mayhem level,
-        or `False` otherwise.  Will also return `False` if we're unable to
-        parse parts for the item.
-        """
-        return self.serial.can_have_mayhem()
-
-    @mayhem_level.setter
-    def mayhem_level(self, value):
-        """
-        Sets the given mayhem level on the item.  Returns `True` if we were
-        able to do so, or `False` if not.
-        """
-        self.serial.mayhem_level = value
-        if self.index >= 0:
-            self.container[self.index] = self.serial.serial
-
-    def get_level_eng(self):
-        """
-        Returns an English representation of our level, including Mayhem level,
-        suitable for reporting to a user.
-        """
-        return self.serial.get_level_eng()
+            self.container[self.index] = self.serial
 
 class BL3Profile(object):
     """

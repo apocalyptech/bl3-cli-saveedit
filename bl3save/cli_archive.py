@@ -187,6 +187,8 @@ def main():
         for item in save.get_items():
             if item.level != bl3save.max_level:
                 item.level = bl3save.max_level
+            if item.mayhem_level != bl3save.mayhem_max:
+                item.mayhem_level = bl3save.mayhem_max
 
         # Write out
         save.save_to(output_filename)

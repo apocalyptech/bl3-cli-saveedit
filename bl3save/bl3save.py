@@ -37,7 +37,7 @@ from . import OakSave_pb2, OakShared_pb2
 
 MissionState = OakSave_pb2.MissionStatusPlayerSaveGameData.MissionState
 
-class BL3Item(object):
+class BL3Item(datalib.BL3Serial):
     """
     Pretty thin wrapper around the protobuf object for an item.  We're
     ignoring `development_save_data` entirely since it doesn't seem to
@@ -47,15 +47,11 @@ class BL3Item(object):
     something to do with the ordering when you're picking up multiple
     things at once (in which case it's probably only really useful for
     things like money and ammo).
-
-    All these getters/setters are rather un-Pythonic; should be using
-    some decorations for that instead.  Alas!
     """
 
     def __init__(self, protobuf, datawrapper):
         self.protobuf = protobuf
-        self.datawrapper = datawrapper
-        self.serial = datalib.BL3Serial(self.protobuf.item_serial_number, datawrapper)
+        super().__init__(self.protobuf.item_serial_number, datawrapper)
 
     @staticmethod
     def create(datawrapper, serial_number, pickup_order_idx, skin_path='', is_seen=True, is_favorite=False, is_trash=False):
@@ -85,92 +81,12 @@ class BL3Item(object):
     def get_pickup_order_idx(self):
         return self.protobuf.pickup_order_index
 
-    def set_serial_number_data(self, new_data):
+    def _update_superclass_serial(self):
         """
-        Overwrites this item with a new one
+        Action to take when our serial number gets updated.  In this case,
+        setting the serial back into the protobuf.
         """
-        self.protobuf.item_serial_number = new_data
-        self.serial.set_serial(new_data)
-
-    def get_serial_number(self, orig_seed=False):
-        """
-        Returns the binary item serial number.  If `orig_seed` is `True`, the
-        serial number will use the same seed that was used in the savegame.
-        Otherwise, it will use a seed of `0`, which will then be unencrypted.
-        """
-        return self.serial.get_serial_number(orig_seed)
-
-    def get_serial_base64(self, orig_seed=False):
-        """
-        Returns the base64-encoded item serial number.  If `orig_seed` is
-        `True`, the serial number will use the same seed that was used in the
-        savegame.  Otherwise, it will use a seed of `0`, which will then be
-        unencrypted.
-        """
-        return self.serial.get_serial_base64(orig_seed)
-
-    @property
-    def eng_name(self):
-        """
-        Returns the English name of this item, as best we can tell
-        """
-        return self.serial.eng_name
-
-    @property
-    def balance_short(self):
-        """
-        Returns the 'short' balance name for the item, if possible.  This is
-        generally what'd be useful to a user without being a long full-object
-        name.
-        """
-        return self.serial.balance_short
-
-    @property
-    def level(self):
-        """
-        Returns the level of this item
-        """
-        return self.serial.level
-
-    @level.setter
-    def level(self, new_level):
-        """
-        Sets the level of this item
-        """
-        self.serial.level = new_level
-        self.protobuf.item_serial_number = self.serial.serial
-
-    @property
-    def mayhem_level(self):
-        """
-        Returns the mayhem level of this item.  `None` means we couldn't
-        parse the mayhem level, `0` means there is no Mayhem part.
-        """
-        return self.serial.mayhem_level
-
-    def can_have_mayhem(self):
-        """
-        Returns `True` if this is an item type which can have a mayhem level,
-        or `False` otherwise.  Will also return `False` if we're unable to
-        parse parts for the item.
-        """
-        return self.serial.can_have_mayhem()
-
-    @mayhem_level.setter
-    def mayhem_level(self, value):
-        """
-        Sets the given mayhem level on the item.  Returns `True` if we were
-        able to do so, or `False` if not.
-        """
-        self.serial.mayhem_level = value
-        self.protobuf.item_serial_number = self.serial.serial
-
-    def get_level_eng(self):
-        """
-        Returns an English representation of our level, including Mayhem level,
-        suitable for reporting to a user.
-        """
-        return self.serial.get_level_eng()
+        self.protobuf.item_serial_number = self.serial
 
 class BL3EquipSlot(object):
     """
@@ -1115,7 +1031,7 @@ class BL3Save(object):
         """
         item = self.get_equipped_item_slot(slot)
         if item:
-            item.set_serial_number_data(itemdata)
+            item.set_serial(itemdata)
         else:
             # Now create a new item
             (new_item, new_index) = self.add_new_item(itemdata)

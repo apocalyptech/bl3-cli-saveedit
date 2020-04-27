@@ -95,6 +95,14 @@ class BL3Serial(object):
         self.invkey_db = datawrapper.invkey_db
         self.set_serial(serial)
 
+    def _update_superclass_serial(self):
+        """
+        To be implemented by any superclass which wraps this serial number in
+        a larger object (such as a savegame item structure or profile array).
+        The serial itself will be available in `self.serial`.
+        """
+        pass
+
     def set_serial(self, serial):
         """
         Sets our serial number
@@ -132,6 +140,9 @@ class BL3Serial(object):
         self._generic_parts = None
         self._additional_data = None
         self._num_customs = None
+
+        # Call out to any superclass procedures here
+        self._update_superclass_serial()
 
     @staticmethod
     def _xor_data(data, seed):
@@ -504,6 +515,7 @@ class BL3Serial(object):
         # Set the level and trigger a re-encode of the serial
         self._level = value
         self._deparse_serial()
+        self._update_superclass_serial()
 
     def get_serial_number(self, orig_seed=False):
         """
@@ -606,6 +618,7 @@ class BL3Serial(object):
 
         # Re-serialize
         self._deparse_serial()
+        self._update_superclass_serial()
 
         # return!
         return True
@@ -707,7 +720,7 @@ class InventorySerialDB(object):
             for idx, asset_part_name in enumerate(self.db[category]['assets']):
                 if part_name == asset_part_name:
                     self.part_cache[category][part_name] = idx+1
-                    return idx
+                    return idx+1
         if part_name in self.part_cache[category]:
             return self.part_cache[category][part_name]
         else:
