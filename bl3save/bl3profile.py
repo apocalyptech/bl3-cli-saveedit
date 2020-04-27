@@ -36,7 +36,7 @@ from . import *
 from . import datalib
 from . import OakProfile_pb2, OakShared_pb2
 
-class BL3ProfItem(datlib.BL3Serial):
+class BL3ProfItem(datalib.BL3Serial):
     """
     Pretty thin wrapper around the serial number for an item.  Mostly
     just so we can keep track of what index it is in the profile.

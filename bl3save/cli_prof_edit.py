@@ -25,32 +25,8 @@ import os
 import sys
 import bl3save
 import argparse
-from . import datalib
+from . import cli_common
 from bl3save.bl3profile import BL3Profile
-
-class DictAction(argparse.Action):
-    """
-    Custom argparse action to put list-like arguments into
-    a dict (where the value will be True) rather than a list.
-    This is probably implemented fairly shoddily.
-    """
-    def __init__(self, option_strings, dest, nargs=None, **kwargs):
-        """
-        Constructor, taken right from https://docs.python.org/2.7/library/argparse.html#action
-        """
-        if nargs is not None:
-            raise ValueError('nargs is not allowed')
-        super(DictAction, self).__init__(option_strings, dest, **kwargs)
-
-    def __call__(self, parser, namespace, values, option_string=None):
-        """
-        Actually setting a value.  Forces the attr into a dict if it isn't already.
-        """
-        arg_value = getattr(namespace, self.dest)
-        if not isinstance(arg_value, dict):
-            arg_value = {}
-        arg_value[values] = True
-        setattr(namespace, self.dest, arg_value)
 
 def main():
 
@@ -137,7 +113,7 @@ def main():
             'customizations',
             ]
     parser.add_argument('--unlock',
-            action=DictAction,
+            action=cli_common.DictAction,
             choices=unlock_choices + ['all'],
             default={},
             help='Game features to unlock',
@@ -285,31 +261,12 @@ def main():
 
         # Import Items
         if args.import_items:
-            if not args.quiet:
-                print(' - Importing items from {}'.format(args.import_items))
-            added_count = 0
-            with open(args.import_items) as df:
-                for line in df:
-                    itemline = line.strip()
-                    if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
-                        new_item = profile.create_new_item_encoded(itemline)
-                        if not args.allow_fabricator:
-                            # Report these regardless of args.quiet
-                            if not new_item.eng_name:
-                                print('   - NOTICE: Skipping unknown item import because --allow-fabricator is not set')
-                                continue
-                            if new_item.balance_short.lower() == 'balance_eridian_fabricator':
-                                print('   - NOTICE: Skipping Fabricator import because --allow-fabricator is not set')
-                                continue
-                        profile.add_bank_item(new_item)
-                        if not args.quiet:
-                            if new_item.eng_name:
-                                print('   + {} ({})'.format(new_item.eng_name, new_item.get_level_eng()))
-                            else:
-                                print('   + unknown item')
-                        added_count += 1
-            if not args.quiet:
-                print('   - Added Item Count: {}'.format(added_count))
+            cli_common.import_items(args.import_items,
+                    profile.create_new_item_encoded,
+                    profile.add_bank_item,
+                    allow_fabricator=args.allow_fabricator,
+                    quiet=args.quiet,
+                    )
 
         # Setting item levels.  Keep in mind that we'll want to do this *after*
         # various of the actions above.  If we've been asked to change the level

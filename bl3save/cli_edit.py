@@ -25,6 +25,7 @@ import os
 import sys
 import bl3save
 import argparse
+from . import cli_common
 from bl3save.bl3save import BL3Save
 
 class DictAction(argparse.Action):
@@ -394,31 +395,12 @@ def main():
 
         # Import Items
         if args.import_items:
-            if not args.quiet:
-                print(' - Importing items from {}'.format(args.import_items))
-            added_count = 0
-            with open(args.import_items) as df:
-                for line in df:
-                    itemline = line.strip()
-                    if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
-                        new_item = save.create_new_item_encoded(itemline)
-                        if not args.allow_fabricator:
-                            # Report these regardless of args.quiet
-                            if not new_item.eng_name:
-                                print('   - NOTICE: Skipping unknown item import because --allow-fabricator is not set')
-                                continue
-                            if new_item.balance_short.lower() == 'balance_eridian_fabricator':
-                                print('   - NOTICE: Skipping Fabricator import because --allow-fabricator is not set')
-                                continue
-                        save.add_item(new_item)
-                        if not args.quiet:
-                            if new_item.eng_name:
-                                print('   + {} ({})'.format(new_item.eng_name, new_item.get_level_eng()))
-                            else:
-                                print('   + unknown item')
-                        added_count += 1
-            if not args.quiet:
-                print('   - Added Item Count: {}'.format(added_count))
+            cli_common.import_items(args.import_items,
+                    save.create_new_item_encoded,
+                    save.add_item,
+                    allow_fabricator=args.allow_fabricator,
+                    quiet=args.quiet,
+                    )
 
         # Setting item levels.  Keep in mind that we'll want to do this *after*
         # various of the actions above.  If we've been asked to up the level of
