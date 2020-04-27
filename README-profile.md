@@ -20,6 +20,7 @@ commands will be:
 - [Output Formats](#output-formats)
 - [Modifying the Profile](#modifying-the-profile)
   - [Bank Item Levels](#bank-item-levels)
+  - [Bank Item Mayhem Levels](#bank-item-mayhem-levels)
   - [Alphabetize Customizations](#alphabetize-customizations)
   - [Clear Customizations](#clear-customizations)
   - [Unlocks](#unlocks)
@@ -112,6 +113,24 @@ max level in the game.  This can be done with `--item-levels-max`
 Alternatively, you can set an explicit level using `--item-levels`
 
     bl3-profile-edit profile.sav newprofile.sav --item-levels 57
+
+## Bank Item Mayhem Levels
+
+There are two arguments to set bank item mayhem levels.  The first is
+to set all weapons to the maximum mayhem level, which is currently 10,
+using `--item-mayhem-max`.  Note that currently only weapons can
+have Mayhem applied; other items will end up generating a message
+like `<num> were unable to be levelled`.
+
+    bl3-profile-edit profile.sav newprofile.sav --item-mayhem-max
+
+Alternatively, you can specify a specific Mayhem level with
+`--item-mayhem-levels`:
+
+    bl3-profile-edit profile.sav newprofile.sav --item-mayhem-levels 5
+
+To remove Mayhem levels from weapons entirely, specify `0` for
+`--item-mayhem-levels`.
 
 ## Alphabetize Customizations
 

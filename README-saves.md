@@ -26,6 +26,7 @@ commands will be:
   - [Mayhem Level](#mayhem-level)
   - [Currency (Money and Eridium)](#currency-money-and-eridium)
   - [Item Levels](#item-levels)
+  - [Item Mayhem Levels](#item-mayhem-levels)
   - [Unlocks](#unlocks)
     - [Ammo/Backpack Unlocks](#ammobackpack-unlocks)
     - [Eridian Resonator](#eridian-resonator)
@@ -174,6 +175,24 @@ items/weapons will get that new level.  This can be done with
 Alternatively, you can set an explicit level using `--item-levels`
 
     bl3-save-edit old.sav new.sav --item-levels 57
+
+## Item Mayhem Levels
+
+There are two arguments to set item mayhem levels.  The first is
+to set all weapons to the maximum mayhem level, which is currently 10,
+using `--item-mayhem-max`.  Note that currently only weapons can
+have Mayhem applied; other items will end up generating a message
+like `<num> were unable to be levelled`.
+
+    bl3-save-edit old.sav new.sav --item-mayhem-max
+
+Alternatively, you can specify a specific Mayhem level with
+`--item-mayhem-levels`:
+
+    bl3-save-edit old.sav new.sav --item-mayhem-levels 5
+
+To remove Mayhem levels from weapons entirely, specify `0` for
+`--item-mayhem-levels`.
 
 ## Unlocks
 

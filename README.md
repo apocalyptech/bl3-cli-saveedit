@@ -219,6 +219,15 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.4.1** - *unreleased*
+ - Added ability to alter Mayhem level for items, both in savegames and profile.
+   `--item-mayhem-max` will set items to the max Mayhem level (`10`), or
+   `--item-mayhem-levels <num>` will set a specific level (`0` to remove Mayhem
+   from items entirely).
+ - Item level reports when viewing contents or exporting items will include
+   the Mayhem levels
+ - Various internal code reorganization
+
 **v1.4.0** - April 23, 2020
  - Updated for the Cartels + Mayhem 2.0 patch:
    - Update item/weapon handling to understand new serial number versions
