@@ -218,7 +218,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.4.1** - *unreleased*
+**v1.5.0** - April 28, 2020
  - Added ability to alter Mayhem level for items, both in savegames and profile.
    `--item-mayhem-max` will set items to the max Mayhem level (`10`), or
    `--item-mayhem-levels <num>` will set a specific level (`0` to remove Mayhem
