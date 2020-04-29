@@ -173,6 +173,11 @@ def main():
         # this to 2.  Whoops!  Doesn't seem to matter, so whatever.)
         save.set_playthroughs_completed(1)
 
+        # Remove our bogus third playthrough, if we're processing a file which happens
+        # to still have that (thanks to our faux pas, above)
+        if save.get_max_playthrough_with_data() > 1:
+            save.clear_playthrough_data(2)
+
         # Copy mission/FT/location/mayhem status from PT1 to PT2
         save.copy_playthrough_data()
 

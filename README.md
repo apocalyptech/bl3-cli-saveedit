@@ -218,6 +218,11 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.5.1** - *unreleased*
+ - Updated `bl3-process-archive-saves` to clear out some 3rd-playthrough data
+   which earlier versions had accidentally introduced *(only really of interest
+   to myself)*
+
 **v1.5.0** - April 28, 2020
  - Added ability to alter Mayhem level for items, both in savegames and profile.
    `--item-mayhem-max` will set items to the max Mayhem level (`10`), or
