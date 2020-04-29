@@ -219,6 +219,8 @@ liking, if you didn't want to use this one for whatever reason:
 # Changelog
 
 **v1.5.1** - *unreleased*
+ - Fixed alphabetization of COV Buzzaxe room decoration.  In the game data it looks
+   like it's called "Psycho Buzzaxe," but the actual in-game label; is COV Buzzaxe.
  - Updated `bl3-process-archive-saves` to clear out some 3rd-playthrough data
    which earlier versions had accidentally introduced *(only really of interest
    to myself)*

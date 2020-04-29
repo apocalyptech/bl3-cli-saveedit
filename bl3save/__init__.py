@@ -888,7 +888,7 @@ profile_roomdeco_obj_to_eng = {
         '/Game/Pickups/RoomDecoration/RoomDecoration_48.RoomDecoration_48': "COV Hammer",
         '/Game/Pickups/RoomDecoration/RoomDecoration_49.RoomDecoration_49': "COV Cleaver",
         '/Game/Pickups/RoomDecoration/RoomDecoration_5.RoomDecoration_5': "Moxxxi's Bar",
-        '/Game/Pickups/RoomDecoration/RoomDecoration_50.RoomDecoration_50': "Psycho Buzzaxe",
+        '/Game/Pickups/RoomDecoration/RoomDecoration_50.RoomDecoration_50': "COV Buzzaxe",
         '/Game/Pickups/RoomDecoration/RoomDecoration_51.RoomDecoration_51': "COV Engine Club",
         '/Game/Pickups/RoomDecoration/RoomDecoration_52.RoomDecoration_52': "Neon Heart",
         '/Game/Pickups/RoomDecoration/RoomDecoration_55.RoomDecoration_55': "Neon Lips",
