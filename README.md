@@ -166,6 +166,14 @@ FOr instructions on using the Profile portions of the editor, see
 
 # TODO
 
+- An edit-in-place option would probably not be a terrible idea.  Also
+  should possibly "standardize" the behavior of the JSON/Protobuf imports,
+  which are the only cases where the utils *expect* to overwrite an existing
+  file.
+- Additionally, there's probably no reason why the JSON/Protobuf imports
+  can't just *create* brand new files, rather than requiring you to overwrite
+  an existing one.  Perhaps that should actually be the *default* way those
+  things operate?
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Perhaps an option to zero out Guardian Rank in both saves and profiles.
 - Something a bit more Enum-like for various things in `__init__.py`; I

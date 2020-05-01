@@ -241,6 +241,13 @@ to force it to overwrite without asking:
 
     bl3-profile-import-protobuf -p edited.pbraw -t profile.sav -c
 
+**NOTE:** This (and the JSON import) is the one place where these
+utilities *expect* to overwrite the file you're giving it.  In the
+above examples, it requires an existing `old.sav` file, and the
+savefile contents will be written directly into that file.  This
+option does *not* currently create a brand-new valid savegame for
+you.
+
 # Importing JSON
 
 If you saved a profile in JSON format (using the `-o json` option),
@@ -258,9 +265,12 @@ to force it to overwrite without asking:
 
     bl3-profile-import-json -j edited.json -t profile.sav -c
 
-**NOTE:** Importing from JSON isn't super well tested, though I
-haven't found any problems yet.  Definitely keep backups if you're
-planning on using this, though.  Let me know if anything breaks!
+**NOTE:** This (and the protobuf import) is the one place where these
+utilities *expect* to overwrite the file you're giving it.  In the
+above examples, it requires an existing `old.sav` file, and the
+savefile contents will be written directly into that file.  This
+option does *not* currently create a brand-new valid savegame for
+you.
 
 # Profile Info Usage
 
