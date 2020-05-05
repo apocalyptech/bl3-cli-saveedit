@@ -243,7 +243,10 @@ class BL3Save(object):
 
         # Now parse the protobufs
         self.save = OakSave_pb2.Character()
-        self.save.ParseFromString(data)
+        try:
+            self.save.ParseFromString(data)
+        except google.protobuf.message.DecodeError as e:
+            raise Exception('Unable to parse savegame (did you pass a profile, instead?): {}'.format(e)) from None
 
         # Some sanity checks, since this is a potentially problematic
         # operation.

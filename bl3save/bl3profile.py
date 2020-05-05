@@ -164,7 +164,10 @@ class BL3Profile(object):
 
         # Now parse the protobufs
         self.prof = OakProfile_pb2.Profile()
-        self.prof.ParseFromString(data)
+        try:
+            self.prof.ParseFromString(data)
+        except google.protobuf.message.DecodeError as e:
+            raise Exception('Unable to parse profile (did you pass a savegame, instead?): {}'.format(e)) from None
 
     def import_json(self, json_str):
         """
