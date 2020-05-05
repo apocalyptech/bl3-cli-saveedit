@@ -175,7 +175,11 @@ def main():
 
     # Check for overwrite warnings
     if os.path.exists(args.output_filename) and not args.force:
-        sys.stdout.write('WARNING: {} already exists.  Overwrite [y/N]? '.format(args.output_filename))
+        if args.output_filename == args.input_filename:
+            confirm_msg = 'Really overwrite {} with specified changes (no backup will be made)'.format(args.output_filename)
+        else:
+            confirm_msg = '{} already exists.  Overwrite'.format(args.output_filename)
+        sys.stdout.write('WARNING: {} [y/N]? '.format(confirm_msg))
         sys.stdout.flush()
         response = sys.stdin.readline().strip().lower()
         if len(response) == 0 or response[0] != 'y':
