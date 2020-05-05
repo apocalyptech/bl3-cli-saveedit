@@ -176,6 +176,9 @@ FOr instructions on using the Profile portions of the editor, see
   things operate?
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Perhaps an option to zero out Guardian Rank in both saves and profiles.
+- If we fail to read a savefile or profile, might be nice to check if it's
+  the other of profile-or-savefile, and give a more helpful message in those
+  cases.
 - Something a bit more Enum-like for various things in `__init__.py`; I
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
