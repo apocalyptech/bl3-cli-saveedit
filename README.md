@@ -231,7 +231,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 **v1.5.1** - *unreleased*
  - Fixed alphabetization of COV Buzzaxe room decoration.  In the game data it looks
-   like it's called "Psycho Buzzaxe," but the actual in-game label; is COV Buzzaxe.
+   like it's called "Psycho Buzzaxe," but the actual in-game label is COV Buzzaxe.
  - Fixed name displays for "regular" (non-E-Tech, non-Legendary) Maliwan snipers and
    Tediore pistols.
  - Updated item name mapping to distinguish between the blue-rarity mission reward
