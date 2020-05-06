@@ -2,6 +2,7 @@ Things to check before releasing:
 
     * version in bl3save/__init__.py
     * Finalized Changelog entries (update the release date!)
+    * CHECK THE TODO LIST, PRUNE IF NECESSARY
 
 To build:
 
