@@ -14,8 +14,10 @@ Please keep the following in mind:
 
 - This app does not have any graphical interface.  You must be
   on a commandline in order to use it.
-- It does not provide any mechanisms for creating items/weapons,
-  or editing items/weapons, apart from changing their levels.
+- The app has only very limited item-editing capability at the
+  moment, which is restricted to:
+  - Item Levels can be changed
+  - Mayhem Level can be set on items
 - It does not offer any direct ability to alter Guardian Rank status.
 - While I have not experienced any data loss with the app,
   **take backups of your savegames before using this**, and
