@@ -223,6 +223,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.5.2** - *unreleased*
+ - Updated item name mapping to include the COM Balances used by Trials bosses, for
+   their dedicated COM drops.
+
 **v1.5.1** - May 5, 2020
  - Fixed alphabetization of COV Buzzaxe room decoration.  In the game data it looks
    like it's called "Psycho Buzzaxe," but the actual in-game label is COV Buzzaxe.
