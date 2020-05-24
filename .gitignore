@@ -1,6 +1,7 @@
 *.sav
 *.pbraw
 *.json
+*.csv
 *.html
 step
 __pycache__

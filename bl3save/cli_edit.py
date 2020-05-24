@@ -58,6 +58,11 @@ def main():
             help='Output file format',
             )
 
+    parser.add_argument('--csv',
+            action='store_true',
+            help='When importing or exporting items, use CSV files',
+            )
+
     parser.add_argument('-f', '--force',
             action='store_true',
             help='Force output file to overwrite',
@@ -378,6 +383,7 @@ def main():
             cli_common.import_items(args.import_items,
                     save.create_new_item_encoded,
                     save.add_item,
+                    file_csv=args.csv,
                     allow_fabricator=args.allow_fabricator,
                     quiet=args.quiet,
                     )
@@ -433,11 +439,18 @@ def main():
         if not args.quiet:
             print('Wrote JSON to {}'.format(args.output_filename))
     elif args.output == 'items':
-        cli_common.export_items(
-                save.get_items(),
-                args.output_filename,
-                quiet=args.quiet,
-                )
+        if args.csv:
+            cli_common.export_items_csv(
+                    save.get_items(),
+                    args.output_filename,
+                    quiet=args.quiet,
+                    )
+        else:
+            cli_common.export_items(
+                    save.get_items(),
+                    args.output_filename,
+                    quiet=args.quiet,
+                    )
     else:
         # Not sure how we'd ever get here
         raise Exception('Invalid output format specified: {}'.format(args.output))

@@ -21,6 +21,7 @@
 # 
 # 3. This notice may not be removed or altered from any source distribution.
 
+import csv
 import argparse
 
 class DictAction(argparse.Action):
@@ -63,12 +64,34 @@ def export_items(items, export_file, quiet=False):
     if not quiet:
         print('Wrote {} items (in base64 format) to {}'.format(len(items), export_file))
 
-def import_items(import_file, item_create_func, item_add_func, allow_fabricator=False, quiet=False):
+def export_items_csv(items, export_file, quiet=False):
+    """
+    Exports the given `items` to the given CSV `export_file`.  The first column
+    will be the English item name, and the second will be the code.  If `quiet` is
+    `False`, only errors will be printed.
+    """
+    with open(export_file, 'w') as df:
+        writer = csv.writer(df)
+        for item in items:
+            if item.eng_name:
+                name_label = '{} ({})'.format(item.eng_name, item.get_level_eng())
+            else:
+                name_label = 'unknown item'
+            writer.writerow([
+                name_label,
+                item.get_serial_base64(),
+                ])
+    if not quiet:
+        print('Wrote {} items (in base64 format) to CSV file {}'.format(len(items), export_file))
+
+def import_items(import_file, item_create_func, item_add_func, file_csv=False, allow_fabricator=False, quiet=False):
     """
     Imports items from `import_file`.  `item_create_func` should point to
     a function used to create the item appropriately, and `item_add_func`
     should point to a function used to actually add the item into the
-    appropriate container.  If `allow_fabricator` is `False` (the default),
+    appropriate container.  If `file_csv` is `True`, we will process the file
+    as if it's a CSV, otherwise we'll process as if it's a "regular"
+    text file.  If `allow_fabricator` is `False` (the default),
     this routine will refuse to import Fabricators, or any item which
     can't be decoded (in case it's a Fabricator).  If `quiet` is `True`,
     only error/warning output will be shown.
@@ -76,26 +99,56 @@ def import_items(import_file, item_create_func, item_add_func, allow_fabricator=
     if not quiet:
         print(' - Importing items from {}'.format(import_file))
     added_count = 0
-    with open(import_file) as df:
-        for line in df:
-            itemline = line.strip()
-            if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
-                new_item = item_create_func(itemline)
-                if not allow_fabricator:
-                    # Report these regardless of `quiet`
-                    if not new_item.eng_name:
-                        print('   - NOTICE: Skipping unknown item import because --allow-fabricator is not set')
-                        continue
-                    if new_item.balance_short.lower() == 'balance_eridian_fabricator':
-                        print('   - NOTICE: Skipping Fabricator import because --allow-fabricator is not set')
-                        continue
-                item_add_func(new_item)
-                if not quiet:
-                    if new_item.eng_name:
-                        print('   + {} ({})'.format(new_item.eng_name, new_item.get_level_eng()))
-                    else:
-                        print('   + unknown item')
-                added_count += 1
+
+    # Process the file to find serials
+    looks_like_csv = False
+    serial_list = []
+    if file_csv:
+        # For CSV files, we'll look for serial numbers in literally any cell
+        # of the CSV
+        with open(import_file) as df:
+            reader = csv.reader(df)
+            for row in reader:
+                for cell in row:
+                    cell = cell.strip()
+                    if cell.lower().startswith('bl3(') and cell.endswith(')'):
+                        serial_list.append(cell)
+    else:
+        # For text files, we need the entire line to *just* be a valid serial.
+        with open(import_file) as df:
+            for line in df:
+                itemline = line.strip()
+                if itemline.lower().startswith('bl3(') and itemline.endswith(')'):
+                    serial_list.append(itemline)
+                # Also, check to see if we might be a CSV after all, for reporting
+                # purposes.
+                if len(serial_list) == 0 and not looks_like_csv:
+                    if ',bl3(' in itemline.lower():
+                        looks_like_csv = True
+
+    # If we didn't add any items, and the file looked like it might've been a CSV
+    # (while being processed as a text file), report that to the user, just in case.
+    if not file_csv and looks_like_csv:
+        print('   - NOTICE: File looked like a CSV file, try adding --csv to the arguments')
+
+    # Now loop through the serials and see if we should add them
+    for serial in serial_list:
+        new_item = item_create_func(serial)
+        if not allow_fabricator:
+            # Report these regardless of `quiet`
+            if not new_item.eng_name:
+                print('   - NOTICE: Skipping unknown item import because --allow-fabricator is not set')
+                continue
+            if new_item.balance_short.lower() == 'balance_eridian_fabricator':
+                print('   - NOTICE: Skipping Fabricator import because --allow-fabricator is not set')
+                continue
+        item_add_func(new_item)
+        if not quiet:
+            if new_item.eng_name:
+                print('   + {} ({})'.format(new_item.eng_name, new_item.get_level_eng()))
+            else:
+                print('   + unknown item')
+        added_count += 1
     if not quiet:
         print('   - Added Item Count: {}'.format(added_count))
 

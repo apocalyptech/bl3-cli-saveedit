@@ -226,6 +226,9 @@ liking, if you didn't want to use this one for whatever reason:
 **v1.5.2** - *unreleased*
  - Updated item name mapping to include the COM Balances used by Trials bosses, for
    their dedicated COM drops.
+ - Add in the `--csv` option to allow importing/exporting items into CSV files,
+   instead of just text files (which is the default without `--csv`).  Has no effect
+   except on item imports/exports.
 
 **v1.5.1** - May 5, 2020
  - Fixed alphabetization of COV Buzzaxe room decoration.  In the game data it looks
