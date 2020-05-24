@@ -223,7 +223,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.5.2** - *unreleased*
+**v1.5.2** - May 23, 2020
  - Updated item name mapping to include the COM Balances used by Trials bosses, for
    their dedicated COM drops.
  - Add in the `--csv` option to allow importing/exporting items into CSV files,

@@ -227,7 +227,7 @@ yet), it will refuse to import the unknown items, unless
 a Fabricator.  Other edits and imports can still happen, however.
 
 If you have items saved in a CSV file (such as one exported using
-`-o items --csv`, you can add the `--csv` argument to import items
+`-o items --csv`), you can add the `--csv` argument to import items
 from the CSV:
 
     bl3-profile-edit profile.sav newprofile.sav -i items.csv --csv
