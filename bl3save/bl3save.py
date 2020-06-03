@@ -28,6 +28,7 @@
 # The rest of the savegame format was gleaned from 13xforever/Ilya's
 # "gvas-converter" project: https://github.com/13xforever/gvas-converter
 
+import uuid
 import struct
 import google.protobuf
 import google.protobuf.json_format
@@ -1437,4 +1438,16 @@ class BL3Save(object):
         vehicle types if a type is not specified
         """
         return self._unlock_vehicle_parts(vehicle_skins)
+
+    def get_savegame_guid(self):
+        """
+        Returns the savegame GUID
+        """
+        return self.save.save_game_guid
+
+    def randomize_guid(self):
+        """
+        Randomizes our savegame GUID, in case anything takes that into account.
+        """
+        self.save.save_game_guid = uuid.uuid4().hex.upper()
 

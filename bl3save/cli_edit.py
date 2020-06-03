@@ -84,6 +84,12 @@ def main():
             help='Set the save game slot ID (possibly not actually ever needed)',
             )
 
+    parser.add_argument('--randomize-guid',
+            dest='randomize_guid',
+            action='store_true',
+            help='Randomize the savegame GUID',
+            )
+
     levelgroup = parser.add_mutually_exclusive_group()
 
     levelgroup.add_argument('--level',
@@ -252,6 +258,7 @@ def main():
     have_changes = any([
         args.name,
         args.save_game_id is not None,
+        args.randomize_guid,
         args.level is not None,
         args.mayhem is not None,
         args.money is not None,
@@ -284,6 +291,13 @@ def main():
                 print(' - Setting Savegame ID to: {}'.format(args.save_game_id))
             save.set_savegame_id(args.save_game_id)
 
+        # Savegame GUID
+        if args.randomize_guid:
+            if not args.quiet:
+                print(' - Randomizing savegame GUID')
+            save.randomize_guid()
+
+        # Mayhem Level
         if args.mayhem is not None:
             if not args.quiet:
                 print(' - Setting Mayhem Level to: {}'.format(args.mayhem))

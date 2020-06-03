@@ -78,6 +78,9 @@ def main():
     # Savegame ID
     print('Savegame ID: {}'.format(save.get_savegame_id()))
 
+    # Savegame GUID
+    print('Savegame GUID: {}'.format(save.get_savegame_guid()))
+
     # Pet Names
     petnames = save.get_pet_names(True)
     if len(petnames) > 0:

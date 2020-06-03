@@ -223,6 +223,9 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.5.3** - *unreleased*
+ - Added `--randomize-guid` option to `bl3-cli-saveedit`
+
 **v1.5.2** - May 23, 2020
  - Updated item name mapping to include the COM Balances used by Trials bosses, for
    their dedicated COM drops.

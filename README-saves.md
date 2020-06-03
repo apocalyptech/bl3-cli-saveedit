@@ -22,6 +22,7 @@ commands will be:
 - [Modifying the Savegame](#modifying-the-savegame)
   - [Character Name](#character-name)
   - [Save Game ID](#save-game-id)
+  - [Save Game GUID](#save-game-guid)
   - [Character Level](#character-level)
   - [Mayhem Level](#mayhem-level)
   - [Currency (Money and Eridium)](#currency-money-and-eridium)
@@ -132,6 +133,19 @@ itself sets the savegame ID to match the filename of the savegame, if
 interpreted as a hex value (so `10.sav` would have an ID of `16`).
 
     bl3-save-edit old.sav new.sav --save-game-id 2
+
+## Save Game GUID
+
+This is another identifier I suspect isn't actually important at all,
+but there's an internal GUID which can be used to identify savegames
+uniquely.  The `--randomize-guid` option will randomize this value,
+so if you're copying a character or something you can ensure that the
+value is different between them.  As I say, I have no idea if that's
+ever actually important (I've copied characters many times without
+randomizing this value, and they've worked fine) but here's the
+option anyway:
+
+    bl3-save-edit old.sav new.sav --randomize-guid
 
 ## Character Level
 
