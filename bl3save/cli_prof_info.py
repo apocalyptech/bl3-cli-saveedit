@@ -57,6 +57,9 @@ def main():
     # Load the profile
     prof = BL3Profile(args.filename)
 
+    # Golden Keys
+    print('Golden Keys: {}'.format(prof.get_golden_keys()))
+
     # SDUs
     sdus = prof.get_sdus_with_max(True)
     if len(sdus) == 0:

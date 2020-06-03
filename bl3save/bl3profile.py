@@ -641,3 +641,27 @@ class BL3Profile(object):
                 is_new=is_new,
                 ))
 
+    def get_golden_keys(self):
+        """
+        Returns the number of golden keys stored on this profile
+        """
+        for cat in self.prof.bank_inventory_category_list:
+            if cat.base_category_definition_hash == goldenkey_hash:
+                return cat.quantity
+        return 0
+
+    def set_golden_keys(self, num_keys):
+        """
+        Sets the number of golden keys to `num_keys`
+        """
+        for cat in self.prof.bank_inventory_category_list:
+            if cat.base_category_definition_hash == goldenkey_hash:
+                cat.quantity = num_keys
+                return
+
+        # If we got here, apparently this profile hasn't seen golden keys at all
+        self.prof.bank_inventory_category_list.append(OakShared_pb2.InventoryCategorySaveData(
+            base_category_definition_hash=goldenkey_hash,
+            quantity=num_keys
+            ))
+

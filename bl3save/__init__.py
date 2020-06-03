@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.5.3'
+__version__ = '1.6.0'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -947,23 +947,32 @@ _weapon_cust_crc32_table = [
         0x89B8FD09, 0x8D79E0BE, 0x803AC667, 0x84FBDBD0, 0x9ABC8BD5, 0x9E7D9662, 0x933EB0BB, 0x97FFAD0C,
         0xAFB010B1, 0xAB710D06, 0xA6322BDF, 0xA2F33668, 0xBCB4666D, 0xB8757BDA, 0xB5365D03, 0xB1F740B4,
         ]
-def weapon_cust_path_to_hash(obj_to_eng):
+
+def inventory_path_hash(object_path):
     """
-    Computes the hashes used in the profile, for weapon customizations (skins+trinkets).  No
-    idea why they didn't just use object paths like they do for everything else in the profile
-    and saves, but whatever.  Many thanks to Gibbed, yet again, for this!
+    Computes the hashes used in the profile for weapon customizations and the golden key
+    count.  Possibly used for other things, too.  Many thanks to Gibbed, yet again, for this!
     """
     global _weapon_cust_crc32_table
+    if '.' not in object_path:
+        object_path = '{}.{}'.format(object_path, object_path.split('/')[-1])
+
+    # TODO: Gibbed was under the impression that these were checksummed in
+    # UTF-16, but the hashes all match for me when using latin1/utf-8.
+    object_full = object_path.upper().encode('latin1')
+    crc32 = 0
+    for char in object_full:
+        crc32 = (_weapon_cust_crc32_table[(crc32 ^ (char >> 0)) & 0xFF] ^ (crc32 >> 8)) & 0xFFFFFFFF
+        crc32 = (_weapon_cust_crc32_table[(crc32 ^ (char >> 8)) & 0xFF] ^ (crc32 >> 8)) & 0xFFFFFFFF
+    return crc32
+
+def weapon_cust_paths_to_hash(obj_to_eng):
+    """
+    Computes the hashes used in the profile, for weapon customizations (skins+trinkets).
+    """
     to_ret = {}
     for (object_path, eng) in obj_to_eng.items():
-        # TODO: Gibbed was under the impression that these were checksummed in
-        # UTF-16, but the hashes all match for me when using latin1/utf-8.
-        object_full = object_path.upper().encode('latin1')
-        crc32 = 0
-        for char in object_full:
-            crc32 = (_weapon_cust_crc32_table[(crc32 ^ (char >> 0)) & 0xFF] ^ (crc32 >> 8)) & 0xFFFFFFFF
-            crc32 = (_weapon_cust_crc32_table[(crc32 ^ (char >> 8)) & 0xFF] ^ (crc32 >> 8)) & 0xFFFFFFFF
-        to_ret[crc32] = eng
+        to_ret[inventory_path_hash(object_path)] = eng
     return to_ret
 
 # Profile customizations - Weapon Skins
@@ -995,7 +1004,7 @@ profile_weaponskins_obj_to_eng = {
         '/Game/Gear/WeaponSkins/_Design/SkinParts/WeaponSkin_9.WeaponSkin_9': "Leather and Regret",
         '/Game/PatchDLC/BloodyHarvest/Gear/Weapons/WeaponSkins/WeaponSkin_BloodyHarvest_01.WeaponSkin_BloodyHarvest_01': "Ghoul Metal Grey",
         }
-profile_weaponskins_hash_to_eng = weapon_cust_path_to_hash(profile_weaponskins_obj_to_eng)
+profile_weaponskins_hash_to_eng = weapon_cust_paths_to_hash(profile_weaponskins_obj_to_eng)
 profile_weaponskins_eng_to_hash = {v: k for k, v in profile_weaponskins_hash_to_eng.items()}
 
 # Profile customizations - Weapon Trinkets
@@ -1064,8 +1073,12 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_02_Necrocookmicon.Trinket_Hibiscus_02_Necrocookmicon': "Nibblenomicon",
         '/Game/PatchDLC/Steam/Gear/WeaponTrinkets/WeaponTrinket_SteamPunk.WeaponTrinket_SteamPunk': "Vapor Hoodlum",
         }
-profile_weapontrinkets_hash_to_eng = weapon_cust_path_to_hash(profile_weapontrinkets_obj_to_eng)
+profile_weapontrinkets_hash_to_eng = weapon_cust_paths_to_hash(profile_weapontrinkets_obj_to_eng)
 profile_weapontrinkets_eng_to_hash = {v: k for k, v in profile_weapontrinkets_hash_to_eng.items()}
+
+# Golden Keys
+goldenkey_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCategory_GoldenKey'
+goldenkey_hash = inventory_path_hash(goldenkey_category)
 
 # XP
 max_level = 57

@@ -19,6 +19,7 @@ commands will be:
 - [Basic Operation](#basic-operation)
 - [Output Formats](#output-formats)
 - [Modifying the Profile](#modifying-the-profile)
+  - [Golden Keys](#golden-keys)
   - [Bank Item Levels](#bank-item-levels)
   - [Bank Item Mayhem Levels](#bank-item-mayhem-levels)
   - [Alphabetize Customizations](#alphabetize-customizations)
@@ -104,6 +105,13 @@ out the items textfile.
 Here's a list of all the edits you can make to the profile.  You
 can specify as many of these as you want on the commandline, to
 process multiple changes at once.
+
+## Golden Keys
+
+The number of Golden Keys stored in the profile can be set using
+the `--golden-keys` argument:
+
+    bl3-profile-edit profile.sav newprofile.sav --golden-keys 150
 
 ## Bank Item Levels
 

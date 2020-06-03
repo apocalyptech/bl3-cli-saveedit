@@ -74,6 +74,12 @@ def main():
 
     # Now the actual arguments
 
+    parser.add_argument('--golden-keys',
+            dest='golden_keys',
+            type=int,
+            help='Number of Golden Keys in the profile',
+            )
+
     itemlevelgroup = parser.add_mutually_exclusive_group()
 
     itemlevelgroup.add_argument('--item-levels-max',
@@ -169,6 +175,10 @@ def main():
     if args.item_mayhem_max:
         args.item_mayhem_levels = bl3save.mayhem_max
 
+    # Check golden key count; don't let it be below zero
+    if args.golden_keys is not None and args.golden_keys < 0:
+        raise argparse.ArgumentTypeError('Golden keys cannot be negative')
+
     # Check item level.  The max storeable in the serial number is 127, but the
     # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
     # could use `bl3save.max_level` here, too, of course, but in the event that
@@ -201,6 +211,7 @@ def main():
 
     # Check to see if we have any changes to make
     have_changes = any([
+        args.golden_keys is not None,
         len(args.unlock) > 0,
         args.import_items,
         args.item_levels,
@@ -215,6 +226,11 @@ def main():
         if not args.quiet:
             print('Making requested changes...')
             print('')
+
+        # Golden Keys
+        if args.golden_keys is not None:
+            print(' - Setting Golden Key count to {}'.format(args.golden_keys))
+            profile.set_golden_keys(args.golden_keys)
 
         # Clear Customizations (do this *before* explicit customization unlocks)
         if args.clear_customizations:
