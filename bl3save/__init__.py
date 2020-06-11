@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.6.0'
+__version__ = '1.6.0b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1224,7 +1224,7 @@ mayhem_invdata_lower_types = set([t.lower() for t in mayhem_invdata_types])
 #
 # For most missions, the following find statement will generate this list:
 #
-#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions Game/PatchDLC/CitizenScience/Missions Game/PatchDLC/Event2/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
+#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions Game/PatchDLC/CitizenScience/Missions Game/PatchDLC/Event2/Missions Game/PatchDLC/Takedown2/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
 #
 # Various plot missions, though, from both the main game and DLC1, will need
 # some edits by hand (they use a UIName_*_MissionTitle object instead.)  Also,
@@ -1401,6 +1401,8 @@ mission_to_name = {
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_WhereIBelong': "Call of the Deep",
         '/Game/PatchDLC/Raid1/Missions/Mission_Raid1': "Takedown at the Maliwan Blacksite",
         '/Game/PatchDLC/Raid1/Missions/Mission_Raid1Intro': "Discovery: Takedown at the Maliwan Blacksite",
+        '/Game/PatchDLC/Takedown2/Missions/Side/Mission_Takedown2': "Takedown at the Guardian Breach",
+        '/Game/PatchDLC/Takedown2/Missions/Side/Mission_Takedown2_Intro': "Discovery: Takedown at the Guardian Breach",
         }
 for k, v in list(mission_to_name.items()):
     lower = k.lower()
