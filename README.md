@@ -224,6 +224,7 @@ liking, if you didn't want to use this one for whatever reason:
 # Changelog
 
 **v1.6.0** - *unreleased*
+ - Updated for extra content introduced by Guardian Takedown
  - Added `--golden-keys` option to `bl3-profile-edit`, to set available Golden Keys
  - Added `--randomize-guid` option to `bl3-save-edit`
 
