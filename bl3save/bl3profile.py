@@ -603,7 +603,7 @@ class BL3Profile(object):
         for d in self.prof.unlocked_crew_quarters_decorations:
             cur_decos[d.decoration_item_asset_path] = d.is_new
         new_order = []
-        for name, obj_path in sorted(profile_roomdeco_eng_to_obj.items()):
+        for name, obj_path in sorted(profile_roomdeco_eng_to_obj.items(), key=lambda i: i[0].casefold()):
             if obj_path in cur_decos:
                 new_order.append((obj_path, cur_decos[obj_path]))
                 del cur_decos[obj_path]
@@ -623,11 +623,11 @@ class BL3Profile(object):
         for c in self.prof.unlocked_inventory_customization_parts:
             cur_custs[c.customization_part_hash] = c.is_new
         new_order = []
-        for name, hashval in sorted(profile_weaponskins_eng_to_hash.items()):
+        for name, hashval in sorted(profile_weaponskins_eng_to_hash.items(), key=lambda i: i[0].casefold()):
             if hashval in cur_custs:
                 new_order.append((hashval, cur_custs[hashval]))
                 del cur_custs[hashval]
-        for name, hashval in sorted(profile_weapontrinkets_eng_to_hash.items()):
+        for name, hashval in sorted(profile_weapontrinkets_eng_to_hash.items(), key=lambda i: i[0].casefold()):
             if hashval in cur_custs:
                 new_order.append((hashval, cur_custs[hashval]))
                 del cur_custs[hashval]

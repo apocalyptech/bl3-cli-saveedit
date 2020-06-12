@@ -223,6 +223,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.6.1** - *unreleased*
+ - Updated room decoration/trinket/weaponskin alphabetization to ignore case (so
+   "Casino Banner" sorts before "COV Bat," for instance).
+
 **v1.6.0** - June 11, 2020
  - Updated for extra content introduced by Takedown at the Guardian Breach
  - Added `--golden-keys` option to `bl3-profile-edit`, to set available Golden Keys
