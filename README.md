@@ -223,7 +223,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.6.1** - *unreleased*
+**v1.6.1** - June 13, 2020
  - Updated room decoration/trinket/weaponskin alphabetization to ignore case (so
    "Casino Banner" sorts before "COV Bat," for instance).
  - Counts of unlocked cosmetic items in `bl3-profile-info` will now include the
