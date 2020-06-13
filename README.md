@@ -226,6 +226,9 @@ liking, if you didn't want to use this one for whatever reason:
 **v1.6.1** - *unreleased*
  - Updated room decoration/trinket/weaponskin alphabetization to ignore case (so
    "Casino Banner" sorts before "COV Bat," for instance).
+ - Counts of unlocked cosmetic items in `bl3-profile-info` will now include the
+   "default" cosmetics which are always unlocked, so those counts match the numbers
+   in-game.
 
 **v1.6.0** - June 11, 2020
  - Updated for extra content introduced by Takedown at the Guardian Breach

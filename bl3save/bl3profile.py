@@ -437,15 +437,17 @@ class BL3Profile(object):
 
     def get_char_skins_total(self):
         """
-        Returns the total number of skins that are possible to unlock
+        Returns the total number of skins that are possible to unlock.  Includes the
+        skins that are unlocked by default (just one per char).
         """
-        return len(profile_skins)
+        return len(profile_skins) + len(profile_skins_defaults)
 
     def get_char_skins(self):
         """
-        Returns a set of the current character skins which are unlocked.
+        Returns a set of the current character skins which are unlocked.  Includes the
+        skins that are unlocked by default (just one per char).
         """
-        return self.get_cur_customizations(profile_skins)
+        return self.get_cur_customizations(profile_skins) | profile_skins_defaults
 
     def unlock_char_skins(self):
         """
@@ -455,15 +457,17 @@ class BL3Profile(object):
 
     def get_char_heads_total(self):
         """
-        Returns the total number of heads that are possible to unlock
+        Returns the total number of heads that are possible to unlock.  Includes the
+        heads that are unlocked by default (just one per char).
         """
-        return len(profile_heads)
+        return len(profile_heads) + len(profile_heads_defaults)
 
     def get_char_heads(self):
         """
-        Returns a set of the current character heads which are unlocked.
+        Returns a set of the current character heads which are unlocked.  Includes the
+        heads that are unlocked by default (just one per char).
         """
-        return self.get_cur_customizations(profile_heads)
+        return self.get_cur_customizations(profile_heads) | profile_heads_defaults
 
     def unlock_char_heads(self):
         """
@@ -473,15 +477,17 @@ class BL3Profile(object):
 
     def get_echo_themes_total(self):
         """
-        Returns the total number of ECHO themes that are possible to unlock
+        Returns the total number of ECHO themes that are possible to unlock.  Includes
+        the ECHO theme that is unlocked by default.
         """
-        return len(profile_echothemes)
+        return len(profile_echothemes) + len(profile_echothemes_defaults)
 
     def get_echo_themes(self):
         """
-        Returns a set of the current ECHO themes which are unlocked.
+        Returns a set of the current ECHO themes which are unlocked.  Includes the
+        ECHO theme that is unlocked by default.
         """
-        return self.get_cur_customizations(profile_echothemes)
+        return self.get_cur_customizations(profile_echothemes) | profile_echothemes_defaults
 
     def unlock_echo_themes(self):
         """
@@ -491,15 +497,17 @@ class BL3Profile(object):
 
     def get_emotes_total(self):
         """
-        Returns the total number of emotes that are possible to unlock
+        Returns the total number of emotes that are possible to unlock.  Includes the
+        emotes that are unlocked by default (four per char).
         """
-        return len(profile_emotes)
+        return len(profile_emotes) + len(profile_emotes_defaults)
 
     def get_emotes(self):
         """
-        Returns a set of the current emotes which are unlocked.
+        Returns a set of the current emotes which are unlocked.  Includes the emotes
+        that are unlocked by default (four per char).
         """
-        return self.get_cur_customizations(profile_emotes)
+        return self.get_cur_customizations(profile_emotes) | profile_emotes_defaults
 
     def unlock_emotes(self):
         """
@@ -509,7 +517,7 @@ class BL3Profile(object):
 
     def get_room_decos_total(self):
         """
-        Returns the total number of room decorations that are possible to unlock
+        Returns the total number of room decorations that are possible to unlock.
         """
         return len(profile_roomdeco_obj_to_eng)
 

@@ -600,7 +600,12 @@ profile_skins = set([
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_8.CustomSkin_Siren_8',
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_9.CustomSkin_Siren_9',
     ])
-profile_skins_defaults = 4
+profile_skins_defaults = set([
+    '/Game/PlayerCharacters/_Customizations/Beastmaster/Skins/CustomSkin_Beastmaster_Default.CustomSkin_Beastmaster_Default',
+    '/Game/PlayerCharacters/_Customizations/Gunner/Skins/CustomSkin_Gunner_Default.CustomSkin_Gunner_Default',
+    '/Game/PlayerCharacters/_Customizations/Operative/Skins/CustomSkin_Operative_Default.CustomSkin_Operative_Default',
+    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_Default.CustomSkin_Siren_Default',
+    ])
 
 # Profile customizations - Heads
 profile_heads = set([
@@ -737,7 +742,12 @@ profile_heads = set([
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Heads/CustomHead_Siren_8.CustomHead_Siren_8',
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Heads/CustomHead_Siren_9.CustomHead_Siren_9',
     ])
-profile_heads_defaults = 4
+profile_heads_defaults = set([
+    '/Game/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_Default.CustomHead_Beastmaster_Default',
+    '/Game/PlayerCharacters/_Customizations/Gunner/Heads/CustomHead_Gunner_Default.CustomHead_Gunner_Default',
+    '/Game/PlayerCharacters/_Customizations/Operative/Heads/CustomHead_Operative_Default.CustomHead_Operative_Default',
+    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Heads/CustomHead_Siren_Default.CustomHead_Siren_Default',
+    ])
 
 # Profile customizations - ECHO themes
 profile_echothemes = set([
@@ -789,7 +799,9 @@ profile_echothemes = set([
     '/Game/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_34.ECHOTheme_34',
     '/Game/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_35.ECHOTheme_35',
     ])
-profile_echothemes_defaults = 1
+profile_echothemes_defaults = set([
+    '/Game/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_Default.ECHOTheme_Default',
+    ])
 
 # Profile customizations - Emotes
 profile_emotes = set([
@@ -834,7 +846,24 @@ profile_emotes = set([
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Emotes/CustomEmote_Siren_11_ChickenDance.CustomEmote_Siren_11_ChickenDance',
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Emotes/CustomEmote_Siren_12_Death.CustomEmote_Siren_12_Death',
     ])
-profile_emotes_defaults = 16
+profile_emotes_defaults = set([
+    '/Game/PlayerCharacters/_Customizations/Beastmaster/Emotes/CustomEmote_Beastmaster_01_Wave.CustomEmote_Beastmaster_01_Wave',
+    '/Game/PlayerCharacters/_Customizations/Beastmaster/Emotes/CustomEmote_Beastmaster_02_Cheer.CustomEmote_Beastmaster_02_Cheer',
+    '/Game/PlayerCharacters/_Customizations/Beastmaster/Emotes/CustomEmote_Beastmaster_03_Point.CustomEmote_Beastmaster_03_Point',
+    '/Game/PlayerCharacters/_Customizations/Beastmaster/Emotes/CustomEmote_Beastmaster_04_Laugh.CustomEmote_Beastmaster_04_Laugh',
+    '/Game/PlayerCharacters/_Customizations/Gunner/Emotes/CustomEmote_Gunner_01_Wave.CustomEmote_Gunner_01_Wave',
+    '/Game/PlayerCharacters/_Customizations/Gunner/Emotes/CustomEmote_Gunner_02_Cheer.CustomEmote_Gunner_02_Cheer',
+    '/Game/PlayerCharacters/_Customizations/Gunner/Emotes/CustomEmote_Gunner_03_Point.CustomEmote_Gunner_03_Point',
+    '/Game/PlayerCharacters/_Customizations/Gunner/Emotes/CustomEmote_Gunner_04_Laugh.CustomEmote_Gunner_04_Laugh',
+    '/Game/PlayerCharacters/_Customizations/Operative/Emotes/CustomEmote_Operative_01_Wave.CustomEmote_Operative_01_Wave',
+    '/Game/PlayerCharacters/_Customizations/Operative/Emotes/CustomEmote_Operative_02_Cheer.CustomEmote_Operative_02_Cheer',
+    '/Game/PlayerCharacters/_Customizations/Operative/Emotes/CustomEmote_Operative_03_Point.CustomEmote_Operative_03_Point',
+    '/Game/PlayerCharacters/_Customizations/Operative/Emotes/CustomEmote_Operative_04_Laugh.CustomEmote_Operative_04_Laugh',
+    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Emotes/CustomEmote_Siren_01_Wave.CustomEmote_Siren_01_Wave',
+    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Emotes/CustomEmote_Siren_02_Cheer.CustomEmote_Siren_02_Cheer',
+    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Emotes/CustomEmote_Siren_03_Point.CustomEmote_Siren_03_Point',
+    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Emotes/CustomEmote_Siren_04_Laugh.CustomEmote_Siren_04_Laugh',
+    ])
 
 # Profile customizations - Room Decorations
 # We're handling these a bit differently so that our util can re-order them in
