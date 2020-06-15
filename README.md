@@ -168,6 +168,8 @@ FOr instructions on using the Profile portions of the editor, see
 
 # TODO
 
+- Add function to "complete" Takedown missions, for characters you don't intend
+  to go through there but want to get rid of those exclamation points.
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Perhaps an option to zero out Guardian Rank in both saves and profiles.
 - If we fail to read a savefile or profile, might be nice to *actually* check
