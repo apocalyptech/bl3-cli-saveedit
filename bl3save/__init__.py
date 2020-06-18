@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.6.1'
+__version__ = '1.7.0b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1203,6 +1203,7 @@ required_xp_list = [
     12345393,    # lvl 79
     12787955,    # lvl 80
 ]
+max_supported_level = len(required_xp_list)
 
 # Mayhem parts
 mayhem_part_to_lvl = {

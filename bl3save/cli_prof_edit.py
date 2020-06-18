@@ -187,6 +187,11 @@ def main():
     if args.item_levels:
         if args.item_levels < 1 or args.item_levels > 100:
             raise argparse.ArgumentTypeError('Valid item level range is 1 through 100')
+        if args.item_levels > bl3save.max_level:
+            print('WARNING: Setting item levels to {}, when {} is the currently-known max'.format(
+                args.item_levels,
+                bl3save.max_level,
+                ))
 
     # Check for overwrite warnings
     if os.path.exists(args.output_filename) and not args.force:

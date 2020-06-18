@@ -467,8 +467,12 @@ class BL3Save(object):
         """
         if level > len(required_xp_list):
             raise Exception('Unknown level {}'.format(level))
-        if level > max_level:
-            raise Exception('Maximum level is {}'.format(max_level))
+        # Rather than checking against `max_level`, we're going to set the
+        # max to 80 (which is the highest XP value I'm 100% sure of).  That
+        # way folks would be able to pre-level a char, even if this editor's
+        # not been updated after a level cap increase.
+        if level > max_supported_level:
+            raise Exception('Maximum level is {}'.format(max_supported_level))
         if level < 1:
             raise Exception('Level must be at least 1')
         
