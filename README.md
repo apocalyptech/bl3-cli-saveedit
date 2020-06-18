@@ -161,10 +161,10 @@ copy back after editing), or even specify the full paths with the filenames.
 # Editor Usage
 
 For instructions on using the Savegame portions of the editor, see
-[README-saves.md](README-saves.md).
+[README-saves.md](https://github.com/apocalyptech/bl3-cli-saveedit/blob/master/README-saves.md).
 
 FOr instructions on using the Profile portions of the editor, see
-[README-profile.md](README-profile.md).
+[README-profile.md](https://github.com/apocalyptech/bl3-cli-saveedit/blob/master/README-profile.md).
 
 # TODO
 
@@ -227,7 +227,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.7.0** - **unreleased**
+**v1.7.0** - *unreleased*
  - Allow setting character/item levels higher than the currently-known max, in case
    users want to pre-level their saves ahead of level cap increases (and in case
    they don't want to wait for an official update of this app)
