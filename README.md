@@ -227,7 +227,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.7.0** - *unreleased*
+**v1.6.2** - June 18, 2020
  - Allow setting character/item levels higher than the currently-known max, in case
    users want to pre-level their saves ahead of level cap increases (and in case
    they don't want to wait for an official update of this app)
