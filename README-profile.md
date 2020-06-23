@@ -20,6 +20,8 @@ commands will be:
 - [Output Formats](#output-formats)
 - [Modifying the Profile](#modifying-the-profile)
   - [Golden Keys](#golden-keys)
+  - [Clear Guardian Rank](#clear-guardian-rank)
+  - [Guardian Rank Tokens](#guardian-rank-tokens)
   - [Bank Item Levels](#bank-item-levels)
   - [Bank Item Mayhem Levels](#bank-item-mayhem-levels)
   - [Alphabetize Customizations](#alphabetize-customizations)
@@ -112,6 +114,35 @@ The number of Golden Keys stored in the profile can be set using
 the `--golden-keys` argument:
 
     bl3-profile-edit profile.sav newprofile.sav --golden-keys 150
+
+## Clear Guardian Rank
+
+Guardian rank can be completely cleared from a profile using the
+`--zero-guardian-rank` argument.  This might be useful if your
+profile's Guardian Rank got "infected" with Guardian Rank from
+someone else's save, from back before Gearbox fixed that particular
+bug.  There's probably not much call for it nowadays, but here it
+is, just in case.
+
+    bl3-profile-edit profile.sav newprofile.sav --zero-guardian-rank
+
+I believe that the profile might "inherit" the Guardian Rank from
+the first savegame loaded, if the Guardian Rank is populated inside
+the savegame and the profile's GR is zero.  I haven't tested that,
+though.
+
+## Guardian Rank Tokens
+
+The number of available Guardian Rank tokens can be set using the
+`--guardian-rank-tokens` argument:
+
+    bl3-profile-edit profile.sav newprofile.sav --guardian-rank-tokens 10
+
+Note that in order to make sure that changes to Guardian Rank
+attributes are fully applied, you should zero out the Guardian Rank
+on your savefiles after making this kind of change to the profile's
+GR.  (This can be done with the save editor's `--zero-guardian-rank`
+argument.)
 
 ## Bank Item Levels
 

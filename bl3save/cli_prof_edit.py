@@ -80,6 +80,18 @@ def main():
             help='Number of Golden Keys in the profile',
             )
 
+    parser.add_argument('--zero-guardian-rank',
+            dest='zero_guardian_rank',
+            action='store_true',
+            help='Zero out profile Guardian Rank',
+            )
+
+    parser.add_argument('--guardian-rank-tokens',
+            dest='guardian_rank_tokens',
+            type=int,
+            help="Number of available Guardian Rank tokens",
+            )
+
     itemlevelgroup = parser.add_mutually_exclusive_group()
 
     itemlevelgroup.add_argument('--item-levels-max',
@@ -217,6 +229,8 @@ def main():
     # Check to see if we have any changes to make
     have_changes = any([
         args.golden_keys is not None,
+        args.zero_guardian_rank,
+        args.guardian_rank_tokens is not None,
         len(args.unlock) > 0,
         args.import_items,
         args.item_levels,
@@ -224,6 +238,9 @@ def main():
         args.alpha,
         args.item_mayhem_levels is not None,
         ])
+
+    # Alert about Guardian Rank stuff
+    guardian_rank_alert = False
 
     # Make changes
     if have_changes:
@@ -234,12 +251,27 @@ def main():
 
         # Golden Keys
         if args.golden_keys is not None:
-            print(' - Setting Golden Key count to {}'.format(args.golden_keys))
+            if not args.quiet:
+                print(' - Setting Golden Key count to {}'.format(args.golden_keys))
             profile.set_golden_keys(args.golden_keys)
+
+        # Zeroing Guardian Rank
+        if args.zero_guardian_rank:
+            if not args.quiet:
+                print(' - Zeroing Guardian Rank')
+            profile.zero_guardian_rank()
+
+        # Setting Guardian Rank tokens
+        if args.guardian_rank_tokens is not None:
+            if not args.quiet:
+                print(' - Setting available Guardian Rank tokens to {}'.format(args.guardian_rank_tokens))
+            profile.set_guardian_rank_tokens(args.guardian_rank_tokens)
+            guardian_rank_alert = True
 
         # Clear Customizations (do this *before* explicit customization unlocks)
         if args.clear_customizations:
-            print(' - Clearing all customizations')
+            if not args.quiet:
+                print(' - Clearing all customizations')
             profile.clear_all_customizations()
 
         # Unlocks
@@ -332,6 +364,12 @@ def main():
                     args.item_mayhem_levels,
                     quiet=args.quiet,
                     )
+
+        # Guardian Rank Alert
+        if not args.quiet and guardian_rank_alert:
+            print(' - NOTE: Make sure to zero out your savegame Guardian Ranks, if making')
+            print('   changes to Guardian Rank in your profile, otherwise the changes might')
+            print('   not take effect properly.')
 
         # Newline at the end of all this.
         if not args.quiet:

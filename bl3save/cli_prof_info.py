@@ -60,6 +60,10 @@ def main():
     # Golden Keys
     print('Golden Keys: {}'.format(prof.get_golden_keys()))
 
+    # Guardian Rank
+    print('Guardian Rank: {}'.format(prof.get_guardian_rank()))
+    print('Available GR Tokens: {}'.format(prof.get_guardian_rank_tokens()))
+
     # SDUs
     sdus = prof.get_sdus_with_max(True)
     if len(sdus) == 0:

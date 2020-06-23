@@ -173,7 +173,7 @@ FOr instructions on using the Profile portions of the editor, see
 - Convert my "archive" app to use `BL3()` style IDs instead of some raw bytestrings,
   when setting starting gear.
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
-- Perhaps an option to zero out Guardian Rank in both saves and profiles.
+- Allow users to do the cube thing in Desolation's Edge again?
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
   those cases.
@@ -226,6 +226,10 @@ liking, if you didn't want to use this one for whatever reason:
   for Windows, but should compile fine on other platforms.
 
 # Changelog
+
+**v1.7.0** - *unreleased*
+ - Added `--zero-guardian-rank` for both saves and profiles
+ - Added `--guardian-rank-tokens` for profiles
 
 **v1.6.2** - June 18, 2020
  - Allow setting character/item levels higher than the currently-known max, in case

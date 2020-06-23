@@ -93,6 +93,7 @@ def main():
     # XP/Level
     print('XP: {}'.format(save.get_xp()))
     print('Level: {}'.format(save.get_level()))
+    print('Guardian Rank: {}'.format(save.get_guardian_rank()))
 
     # Currencies
     print('Money: {}'.format(save.get_money()))

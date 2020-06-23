@@ -673,3 +673,34 @@ class BL3Profile(object):
             quantity=num_keys
             ))
 
+    def get_guardian_rank(self):
+        """
+        Gets our current guardian rank
+        """
+        return self.prof.guardian_rank.guardian_rank
+
+    def get_guardian_rank_tokens(self):
+        """
+        Gets our available guardian rank token count
+        """
+        return self.prof.guardian_rank.available_tokens
+
+    def set_guardian_rank_tokens(self, tokens):
+        """
+        Sets our available guardian rank token count
+        """
+        self.prof.guardian_rank.available_tokens = tokens
+
+    def zero_guardian_rank(self):
+        """
+        Reset's this profile's Guardian Rank to zero.
+        """
+        # Leaving `guardian_reward_random_seed` alone, I guess?
+        # `guardian_experience` is an old value that's no longer used; the real new
+        # var is `new_guardian_experience`.
+        self.prof.guardian_rank.available_tokens = 0
+        del self.prof.guardian_rank.rank_rewards[:]
+        self.prof.guardian_rank.guardian_rank = 0
+        self.prof.guardian_rank.guardian_experience = 0
+        self.prof.guardian_rank.new_guardian_experience = 0
+

@@ -1455,3 +1455,25 @@ class BL3Save(object):
         """
         self.save.save_game_guid = uuid.uuid4().hex.upper()
 
+    def get_guardian_rank(self):
+        """
+        Gets our current guardian rank
+        """
+        return self.save.guardian_rank_character_data.guardian_rank
+
+    def zero_guardian_rank(self):
+        """
+        Resets this save's Guardian Rank to zero (it will then inherit the profile's Guardian
+        Rank when it's next brought into the game)
+        """
+        # Leaving `guardian_reward_random_seed` alone, I guess?
+        # `guardian_experience` is an old value that's no longer used; the real new
+        # var is `new_guardian_experience`.
+        self.save.guardian_rank_character_data.guardian_available_tokens = 0
+        self.save.guardian_rank_character_data.guardian_rank = 0
+        self.save.guardian_rank_character_data.guardian_experience = 0
+        del self.save.guardian_rank_character_data.rank_rewards[:]
+        del self.save.guardian_rank_character_data.rank_perks[:]
+        self.save.guardian_rank_character_data.new_guardian_experience = 0
+        self.save.guardian_rank_character_data.is_rank_system_enabled = False
+

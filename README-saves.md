@@ -23,6 +23,7 @@ commands will be:
   - [Character Name](#character-name)
   - [Save Game ID](#save-game-id)
   - [Save Game GUID](#save-game-guid)
+  - [Guardian Rank](#guardian-rank)
   - [Character Level](#character-level)
   - [Mayhem Level](#mayhem-level)
   - [Currency (Money and Eridium)](#currency-money-and-eridium)
@@ -146,6 +147,17 @@ randomizing this value, and they've worked fine) but here's the
 option anyway:
 
     bl3-save-edit old.sav new.sav --randomize-guid
+
+## Guardian Rank
+
+Guardian Rank can be zeroed out using the `--zero-guardian-rank`
+argument.  This is useful when a savegame gets out of sync from your
+profile, such as if you download a savegame from the internet, or if
+you're making changes to values in your profile.  After zeroing out
+the Guardian Rank in a savegame, the next time the character is loaded
+into the game, it will inherit the main profile's Guardian Rank.
+
+    bl3-save-edit old.sav new.sav --zero-guardian-rank
 
 ## Character Level
 
