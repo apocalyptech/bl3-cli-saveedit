@@ -168,8 +168,6 @@ FOr instructions on using the Profile portions of the editor, see
 
 # TODO
 
-- Add function to "complete" Takedown missions, for characters you don't intend
-  to go through there but want to get rid of those exclamation points.
 - Convert my "archive" app to use `BL3()` style IDs instead of some raw bytestrings,
   when setting starting gear.
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
@@ -232,6 +230,8 @@ liking, if you didn't want to use this one for whatever reason:
    - For only profiles, added `--min-guardian-rank`, `--guardian-rank-rewards`, and
      `--guardian-rank-tokens`
  - Added `--unlock cubepuzzle` to reset the Eridian Cube puzzle in Desolation's Edge
+ - Added `--clear-takedowns` to get rid of the Takedown mission-pickup notifications
+   for chars you never intend to do Takedowns with.
 
 **v1.6.2** - June 18, 2020
  - Allow setting character/item levels higher than the currently-known max, in case

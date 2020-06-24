@@ -27,6 +27,7 @@ commands will be:
   - [Character Level](#character-level)
   - [Mayhem Level](#mayhem-level)
   - [Currency (Money and Eridium)](#currency-money-and-eridium)
+  - [Takedown Discovery Missions](#takedown-discovery-missions)
   - [Item Levels](#item-levels)
   - [Item Mayhem Levels](#item-mayhem-levels)
   - [Unlocks](#unlocks)
@@ -191,6 +192,25 @@ arguments, respectively:
 
     bl3-save-edit old.sav new.sav --money 20000000
     bl3-save-edit old.sav new.sav --eridium 10000
+
+## Takedown Discovery Missions
+
+You can clear out the two Takedown Discovery missions using the
+`--clear-takedowns` argument, if you have a character who you don't
+ever plan to do Takedowns with, but want those mission-pickup notifications
+gone, without going through the hassle of travelling to the Takedown
+maps yourself:
+
+    bl3-save-edit old.sav new.sav --clear-takedowns
+
+Note that if you decide to do the Takedowns later, you'll have to pilot
+Sanctuary over to their pickup points before they'll appear in your
+Fast Travel menu; this argument doesn't unlock the Fast Travel locations
+itself.
+
+Obviously it doesn't take long to just do the Discovery missions yourself;
+you can always just fail out of the Takedown itself by fast-travelling out
+of the map, but this option would save you a minute or two, anyway.
 
 ## Item Levels
 

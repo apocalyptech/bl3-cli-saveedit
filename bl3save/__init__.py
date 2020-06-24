@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.7.0b3'
+__version__ = '1.7.0b4'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1284,6 +1284,16 @@ guardian_rank_rewards = set([
 
 # Eridian Cube Puzzle stat
 cube_puzzle_stat = '/Game/PlayerCharacters/_Shared/_Design/Stats/GameSystem/Stat_GameSystem_BeachCubeSolved.Stat_GameSystem_BeachCubeSolved'
+
+# Takedown Discovery missions
+takedown_missions = {
+        '/Game/PatchDLC/Raid1/Missions/Mission_Raid1Intro.Mission_Raid1Intro_C': (
+            '/Game/PatchDLC/Raid1/Missions/Mission_Raid1Intro.Set_MissionEnd_ObjectiveSet',
+            [1, 0, 0, 1, 0]),
+        '/Game/PatchDLC/Takedown2/Missions/Side/Mission_Takedown2_Intro.Mission_Takedown2_Intro_C': (
+            '/Game/PatchDLC/Takedown2/Missions/Side/Mission_Takedown2_Intro.Set_MissionEnd_ObjectiveSet',
+            [1, 0, 0, 1, 0]),
+        }
 
 # Mission names
 #

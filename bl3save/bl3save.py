@@ -1498,3 +1498,36 @@ class BL3Save(object):
                 chal.completed_progress_level = 0
                 chal.stat_instance_state[0].current_stat_value = 0
 
+    def clear_takedown_discovery(self):
+        """
+        Marks the Takedown Discovery missions as completed, for all currently-available
+        playthroughs, so you can not be bothered with them on chars you don't intend to
+        take into a Takedown.
+        """
+        for pt in self.save.mission_playthroughs_data:
+            # First, complete the missions if they're already present
+            mission_seen = set()
+            for mission in pt.mission_list:
+                if mission.mission_class_path in takedown_missions:
+                    (_, objectives) = takedown_missions[mission.mission_class_path]
+                    mission_seen.add(mission.mission_class_path)
+                    mission.status = MissionState.MS_Complete
+                    del mission.objectives_progress[:]
+                    mission.objectives_progress.extend(objectives)
+                    mission.kickoff_played = True
+                    mission.has_been_viewed_in_log = True
+
+            # Now, if we didn't find one of 'em, inject it
+            for mission_path, (objectiveset, objectives) in takedown_missions.items():
+                if mission_path not in mission_seen:
+                    pt.mission_list.append(OakSave_pb2.MissionStatusPlayerSaveGameData(
+                        status=MissionState.MS_Complete,
+                        objectives_progress=objectives,
+                        mission_class_path=mission_path,
+                        active_objective_set_path=objectiveset,
+                        kickoff_played=True,
+                        has_been_viewed_in_log=True,
+                        dlc_package_id=0,
+                        league_instance=0,
+                        ))
+

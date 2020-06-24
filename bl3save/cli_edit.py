@@ -150,6 +150,12 @@ def main():
             help='Set Eridium value',
             )
 
+    parser.add_argument('--clear-takedowns',
+            dest='clear_takedowns',
+            action='store_true',
+            help='Clears out the Takedown Discovery missions so they don\'t clutter your UI',
+            )
+
     unlock_choices = [
             'ammo', 'backpack',
             'analyzer', 'resonator',
@@ -285,6 +291,7 @@ def main():
         args.mayhem is not None,
         args.money is not None,
         args.eridium is not None,
+        args.clear_takedowns,
         len(args.unlock) > 0,
         args.copy_nvhm,
         args.import_items,
@@ -352,6 +359,12 @@ def main():
             if not args.quiet:
                 print(' - Setting Eridium to: {}'.format(args.eridium))
             save.set_eridium(args.eridium)
+
+        # Clearing Takedown Discovery
+        if args.clear_takedowns:
+            if not args.quiet:
+                print(' - Clearing Takedown Discovery missions')
+            save.clear_takedown_discovery()
 
         # Unlocks
         if len(args.unlock) > 0:
