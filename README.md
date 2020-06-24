@@ -168,8 +168,6 @@ FOr instructions on using the Profile portions of the editor, see
 
 # TODO
 
-- Convert my "archive" app to use `BL3()` style IDs instead of some raw bytestrings,
-  when setting starting gear.
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
@@ -232,6 +230,7 @@ liking, if you didn't want to use this one for whatever reason:
  - Added `--unlock cubepuzzle` to reset the Eridian Cube puzzle in Desolation's Edge
  - Added `--clear-takedowns` to get rid of the Takedown mission-pickup notifications
    for chars you never intend to do Takedowns with.
+ - Updated `bl3-process-archive-saves` to wipe out Guardian Rank entirely
 
 **v1.6.2** - June 18, 2020
  - Allow setting character/item levels higher than the currently-known max, in case

@@ -1056,6 +1056,14 @@ class BL3Save(object):
                 self.save.equipped_inventory_list.append(equipslot.protobuf)
                 self.equipslots[slot] = equipslot
 
+    def overwrite_item_in_slot_encoded(self, slot, item_serial_b64):
+        """
+        Given a base64 (and "BL3()"-wrapped) `item_serial_b64`, overwrite
+        whatever item is in the given `slot`.  Will create a new item object
+        if the slot is empty.
+        """
+        self.overwrite_item_in_slot(slot, datalib.BL3Serial.decode_serial_base64(item_serial_b64))
+
     def get_currency(self, currency_type):
         """
         Returns the amount of currency of the given type

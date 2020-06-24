@@ -182,11 +182,12 @@ def main():
         save.copy_playthrough_data()
 
         # Inventory - force our testing gear
-        # Gear data just taken from my modtest char.  Level 53.
-        craders = b'\x03\xf9\x1e\xaa\x0f\xf21\xe2\xc0\x89\xd8\xb0O\x9f\xdbY\x0c*\x1bs\xae\xc5\xe1!\x0c~\x0bd\x03\xd6\x83V\xb6\x1cm\xa2\x99\xa0\x90'
-        transformer = b'\x036"\x86"\xf8\xe8\xdae\x1ac\xe6\xf2,7;W\xea\xc2g\xfd\x93'
-        save.overwrite_item_in_slot(bl3save.WEAPON1, craders)
-        save.overwrite_item_in_slot(bl3save.SHIELD, transformer)
+        # Gear data just taken from my modtest char.  Level 57 Mayhem 10, though
+        # they'll get upgraded if needed, below.
+        craders = 'BL3(AwAAAADHQ4C6yJOBkHsckEekyWhISinQpbNyysgdQgAAAAAAADIgAA==)'
+        transformer = 'BL3(AwAAAACSdIC2t9hAkysShLxMKkMEAA==)'
+        save.overwrite_item_in_slot_encoded(bl3save.WEAPON1, craders)
+        save.overwrite_item_in_slot_encoded(bl3save.SHIELD, transformer)
 
         # Bring testing gear up to our max level, while we're at it.
         for item in save.get_items():
@@ -194,6 +195,9 @@ def main():
                 item.level = bl3save.max_level
             if item.mayhem_level != bl3save.mayhem_max:
                 item.mayhem_level = bl3save.mayhem_max
+
+        # Wipe guardian rank
+        save.zero_guardian_rank()
 
         # Write out
         save.save_to(output_filename)
