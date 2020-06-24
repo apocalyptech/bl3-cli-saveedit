@@ -1481,6 +1481,7 @@ class BL3Save(object):
         """
         Unlocks the Eridian Cube puzzle in Desolation's Edge, so it can be redeemed again.
         """
+        # First up, in the game stats (I think this is actually unnecessary, but eh)
         found_idx = None
         for idx, stat in enumerate(self.save.game_stats_data):
             if stat.stat_path == cube_puzzle_stat:
@@ -1488,4 +1489,12 @@ class BL3Save(object):
                 break
         if found_idx is not None:
             del self.save.game_stats_data[found_idx]
+
+        # Now in the challenges list (this is what *actually* works)
+        for chal in self.save.challenge_data:
+            if len(chal.stat_instance_state) > 0 and chal.stat_instance_state[0].challenge_stat_path == cube_puzzle_stat:
+                chal.completed_count = 0
+                chal.currently_completed = False
+                chal.completed_progress_level = 0
+                chal.stat_instance_state[0].current_stat_value = 0
 
