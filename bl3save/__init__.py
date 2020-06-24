@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.7.0b1'
+__version__ = '1.7.0b2'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1259,6 +1259,28 @@ mayhem_invdata_types = set([
     '/Game/Gear/Weapons/SniperRifles/Vladof/_Shared/_Design/WT_SR_VLA.WT_SR_VLA',
     ])
 mayhem_invdata_lower_types = set([t.lower() for t in mayhem_invdata_types])
+
+# Guardian Rank Rewards
+guardian_rank_rewards = set([
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_Accuracy.GuardianReward_Accuracy',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_ActionSkillCooldown.GuardianReward_ActionSkillCooldown',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_CriticalDamage.GuardianReward_CriticalDamage',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_FFYLDuration.GuardianReward_FFYLDuration',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_FFYLMovementSpeed.GuardianReward_FFYLMovementSpeed',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_GrenadeDamage.GuardianReward_GrenadeDamage',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_GunDamage.GuardianReward_GunDamage',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_GunFireRate.GuardianReward_GunFireRate',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_MaxHealth.GuardianReward_MaxHealth',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_MeleeDamage.GuardianReward_MeleeDamage',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_RarityRate.GuardianReward_RarityRate',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_RecoilReduction.GuardianReward_RecoilReduction',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_ReloadSpeed.GuardianReward_ReloadSpeed',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_ShieldCapacity.GuardianReward_ShieldCapacity',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_ShieldRechargeDelay.GuardianReward_ShieldRechargeDelay',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_ShieldRechargeRate.GuardianReward_ShieldRechargeRate',
+    '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_VehicleDamage.GuardianReward_VehicleDamage',
+    '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_ElementalDamage.GuardianReward_ElementalDamage',
+    ])
 
 # Mission names
 #

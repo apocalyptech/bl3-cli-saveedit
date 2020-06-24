@@ -20,8 +20,11 @@ commands will be:
 - [Output Formats](#output-formats)
 - [Modifying the Profile](#modifying-the-profile)
   - [Golden Keys](#golden-keys)
-  - [Clear Guardian Rank](#clear-guardian-rank)
-  - [Guardian Rank Tokens](#guardian-rank-tokens)
+  - [Guardian Rank](#guardian-rank)
+    - [Zeroing Guardian Rank](#zeroing-guardian-rank)
+    - [Minimizing Guardian Rank](#minimizing-guardian-rank)
+    - [Guardian Rank Rewards](#guardian-rank-rewards)
+    - [Guardian Rank Tokens](#guardian-rank-tokens)
   - [Bank Item Levels](#bank-item-levels)
   - [Bank Item Mayhem Levels](#bank-item-mayhem-levels)
   - [Alphabetize Customizations](#alphabetize-customizations)
@@ -115,34 +118,68 @@ the `--golden-keys` argument:
 
     bl3-profile-edit profile.sav newprofile.sav --golden-keys 150
 
-## Clear Guardian Rank
+## Guardian Rank
+
+There are a number of functions available for managing Guardian Rank
+in profiles.  Remember in all cases that if Guardian Rank in a profile
+is zeroed out, it will "inherit" the Guardian Rank from the first
+savegame that's loaded.  Likewise, a zeroed-out GR in a savegame will
+inherit the current GR from the profile.  When editing the profile
+Guardian Rank, it might be prudent to zero out all your savegames
+using the save editor's `--zero-guardian-rank` afterwards, to make
+sure that everything stays in sync.
+
+### Zeroing Guardian Rank
 
 Guardian rank can be completely cleared from a profile using the
 `--zero-guardian-rank` argument.  This might be useful if your
 profile's Guardian Rank got "infected" with Guardian Rank from
 someone else's save, from back before Gearbox fixed that particular
-bug.  There's probably not much call for it nowadays, but here it
-is, just in case.
+bug, and you wanted to clear it out.  Remember that the profile will
+probably "inherit" the GR from the first-loaded savegame, so make sure
+that the save has what you want first.  The `--min-guardian-rank`
+option below might be better, if you're looking to start from scratch.
+
+Anyway, there's probably not much call for it nowadays, but here it is,
+just in case.
 
     bl3-profile-edit profile.sav newprofile.sav --zero-guardian-rank
 
-I believe that the profile might "inherit" the Guardian Rank from
-the first savegame loaded, if the Guardian Rank is populated inside
-the savegame and the profile's GR is zero.  I haven't tested that,
-though.
+### Minimizing Guardian Rank
 
-## Guardian Rank Tokens
+This is a "safer" version of `--zero-guardian-rank` which starts you
+off with 18 Guardian Rank, with one point in each of the Guardian Rank
+Rewards.  This will prevent the profile from picking up the GR status
+from the first savegame that it loads.  So if you're looking to reset your
+GR and start over from scratch, this is probably the better of the two
+options.  The argument is called `--min-guardian-rank`:
+
+    bl3-profile-edit profile.sav newprofile.sav --min-guardian-rank
+
+### Guardian Rank Rewards
+
+To set the specified investment in Guardian Rank Rewards, across all
+eighteen rewards, use the `--guardian-rank-rewards` argument.  The value
+you use should be the number of times you want each reward to be
+"redeemed."  For example, to put everything at about 14%:
+
+    bl3-profile-edit profile.sav newprofile.sav --guardian-rank-rewards 40
+
+Specifying `1` for the value is nearly identical to using `--min-guardian-rank`,
+except that this argument doesn't clear out the Guardian XP reported by
+the game, or the available token count.  This argument will also update your
+main Guardian Rank number to be an appropriate value, given the number of
+rewards and available tokens.
+
+### Guardian Rank Tokens
 
 The number of available Guardian Rank tokens can be set using the
 `--guardian-rank-tokens` argument:
 
     bl3-profile-edit profile.sav newprofile.sav --guardian-rank-tokens 10
 
-Note that in order to make sure that changes to Guardian Rank
-attributes are fully applied, you should zero out the Guardian Rank
-on your savefiles after making this kind of change to the profile's
-GR.  (This can be done with the save editor's `--zero-guardian-rank`
-argument.)
+This argument will also update your main Guardian Rank number to be an
+appropriate value, given the number of rewards and available tokens.
 
 ## Bank Item Levels
 

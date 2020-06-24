@@ -228,8 +228,10 @@ liking, if you didn't want to use this one for whatever reason:
 # Changelog
 
 **v1.7.0** - *unreleased*
- - Added `--zero-guardian-rank` for both saves and profiles
- - Added `--guardian-rank-tokens` for profiles
+ - Added various Guardian Rank processing
+   - For savegames and profiles, added `--zero-guardian-rank`
+   - For only profiles, added `--min-guardian-rank`, `--guardian-rank-rewards`, and
+     `--guardian-rank-tokens`
 
 **v1.6.2** - June 18, 2020
  - Allow setting character/item levels higher than the currently-known max, in case

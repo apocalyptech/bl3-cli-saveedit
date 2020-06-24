@@ -673,6 +673,31 @@ class BL3Profile(object):
             quantity=num_keys
             ))
 
+    def fixup_guardian_rank(self, force=True):
+        """
+        Fixes Guardian Rank, based on the redeemed rewards and available tokens.
+        When `force` is `True` (the default), it will always set the value it
+        thinks is right.  When `force` is `False`, though, it will only *raise*
+        the GR if need be, but not lower it.  Returns the new Guardian Rank
+        if it was changed, or `None` otherwise.
+        """
+        min_guardian_rank_level = sum([r.num_tokens for r in self.prof.guardian_rank.rank_rewards])
+        min_guardian_rank_level += self.prof.guardian_rank.available_tokens
+
+        # Figure out if we should set the value or not
+        set_value = False
+        if force and self.prof.guardian_rank.guardian_rank != min_guardian_rank_level:
+            set_value = True
+        elif not force and self.prof.guardian_rank.guardian_rank < min_guardian_rank_level:
+            set_value = True
+
+        # Now do it (or not)
+        if set_value:
+            self.prof.guardian_rank.guardian_rank = min_guardian_rank_level
+            return min_guardian_rank_level
+        else:
+            return None
+
     def get_guardian_rank(self):
         """
         Gets our current guardian rank
@@ -687,13 +712,16 @@ class BL3Profile(object):
 
     def set_guardian_rank_tokens(self, tokens):
         """
-        Sets our available guardian rank token count
+        Sets our available guardian rank token count.  Will increase the profile's
+        Guardian Rank to suit, if needed, and will return the new Guardian Rank
+        if that was required (or `None` otherwise).
         """
         self.prof.guardian_rank.available_tokens = tokens
+        return self.fixup_guardian_rank(force=False)
 
     def zero_guardian_rank(self):
         """
-        Reset's this profile's Guardian Rank to zero.
+        Resets this profile's Guardian Rank to zero.
         """
         # Leaving `guardian_reward_random_seed` alone, I guess?
         # `guardian_experience` is an old value that's no longer used; the real new
@@ -703,4 +731,45 @@ class BL3Profile(object):
         self.prof.guardian_rank.guardian_rank = 0
         self.prof.guardian_rank.guardian_experience = 0
         self.prof.guardian_rank.new_guardian_experience = 0
+
+    def set_guardian_rank_reward_levels(self, points, force=True):
+        """
+        Sets the given number of `points` in each of the guardian rank rewards.
+        Will also raise our Guardian Rank level upwards if appropriate.  If
+        `force` is `True`, we will set the given level regardless of the current
+        values.  If it is `False`, we will only *increase* the reward level,
+        never decrease.  Returns the new `guardian_rank` level, if it is
+        changed (or `None` otherwise).
+        """
+
+        # Set any existing records appropriately
+        rewards_to_set = set(list(guardian_rank_rewards))
+        for reward in self.prof.guardian_rank.rank_rewards:
+            if reward.reward_data_path in rewards_to_set:
+                rewards_to_set.remove(reward.reward_data_path)
+                if force or reward.num_tokens < points:
+                    reward.num_tokens = points
+
+        # If we're missing any, add them.
+        for reward in rewards_to_set:
+            self.prof.guardian_rank.rank_rewards.append(OakProfile_pb2.GuardianRankRewardSaveGameData(
+                num_tokens=points,
+                reward_data_path=reward,
+                ))
+
+        # Now fix up Guardian Rank level, if needed
+        return self.fixup_guardian_rank()
+
+    def min_guardian_rank(self):
+        """
+        Sets our guardian rank to the lowest level possible such that we won't get
+        overwritten by savegames that get loaded (as opposed to `zero_guardian_rank()`).
+        Namely, 18 Guardian Rank, and a single point in each Reward.  Will return the
+        new guardian rank.
+        """
+        self.prof.guardian_rank.guardian_rank = 0
+        self.prof.guardian_rank.available_tokens = 0
+        self.prof.guardian_rank.guardian_experience = 0
+        self.prof.guardian_rank.new_guardian_experience = 0
+        return self.set_guardian_rank_reward_levels(1, force=True)
 

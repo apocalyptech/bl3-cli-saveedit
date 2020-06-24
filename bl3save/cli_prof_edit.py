@@ -80,10 +80,26 @@ def main():
             help='Number of Golden Keys in the profile',
             )
 
+    # Arguably we could be using a mutually-exclusive group for many of these
+    # GR options, but I can see some potential value in specifying more than
+    # one, so I'm not bothering.
+
     parser.add_argument('--zero-guardian-rank',
             dest='zero_guardian_rank',
             action='store_true',
             help='Zero out profile Guardian Rank',
+            )
+
+    parser.add_argument('--min-guardian-rank',
+            dest='min_guardian_rank',
+            action='store_true',
+            help='Set Guardian Rank to minimum required to prevent overwriting by saves',
+            )
+
+    parser.add_argument('--guardian-rank-rewards',
+            dest='guardian_rank_rewards',
+            type=int,
+            help='Set Guardian Rank rewards to the specified number of tokens each',
             )
 
     parser.add_argument('--guardian-rank-tokens',
@@ -230,6 +246,8 @@ def main():
     have_changes = any([
         args.golden_keys is not None,
         args.zero_guardian_rank,
+        args.min_guardian_rank,
+        args.guardian_rank_rewards is not None,
         args.guardian_rank_tokens is not None,
         len(args.unlock) > 0,
         args.import_items,
@@ -259,13 +277,42 @@ def main():
         if args.zero_guardian_rank:
             if not args.quiet:
                 print(' - Zeroing Guardian Rank')
+                if not args.min_guardian_rank \
+                        and args.guardian_rank_rewards is None \
+                        and args.guardian_rank_tokens is None:
+                    print('   NOTE: A profile with a zeroed Guardian Rank will probably have its')
+                    print('   Guardian Rank info populated from the first savegame loaded by the game')
             profile.zero_guardian_rank()
+
+        # Setting Guardian rank to Minimum
+        if args.min_guardian_rank:
+            if not args.quiet:
+                print(' - Setting Guardian Rank to minimum (to prevent overwriting by savefiles)')
+            new_gr = profile.min_guardian_rank()
+            if new_gr is not None and not args.quiet:
+                print('   - Guardian Rank set to {}'.format(new_gr))
+            guardian_rank_alert = True
+
+        # Setting arbitrary Guardian Rank rewards
+        if args.guardian_rank_rewards is not None:
+            if not args.quiet:
+                if args.guardian_rank_rewards == 1:
+                    plural = ''
+                else:
+                    plural = 's'
+                print(' - Setting Guardian Rank rewards to {} point{}'.format(args.guardian_rank_rewards, plural))
+            new_gr = profile.set_guardian_rank_reward_levels(args.guardian_rank_rewards, force=True)
+            if new_gr is not None and not args.quiet:
+                print('   - Also set Guardian Rank level to {}'.format(new_gr))
+            guardian_rank_alert = True
 
         # Setting Guardian Rank tokens
         if args.guardian_rank_tokens is not None:
             if not args.quiet:
                 print(' - Setting available Guardian Rank tokens to {}'.format(args.guardian_rank_tokens))
-            profile.set_guardian_rank_tokens(args.guardian_rank_tokens)
+            new_gr = profile.set_guardian_rank_tokens(args.guardian_rank_tokens)
+            if new_gr is not None and not args.quiet:
+                print('   - Also set Guardian Rank level to {}'.format(new_gr))
             guardian_rank_alert = True
 
         # Clear Customizations (do this *before* explicit customization unlocks)
