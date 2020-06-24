@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.7.0b2'
+__version__ = '1.7.0b3'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1281,6 +1281,9 @@ guardian_rank_rewards = set([
     '/Game/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_VehicleDamage.GuardianReward_VehicleDamage',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Shared/_Design/GuardianRank/GuardianReward_ElementalDamage.GuardianReward_ElementalDamage',
     ])
+
+# Eridian Cube Puzzle stat
+cube_puzzle_stat = '/Game/PlayerCharacters/_Shared/_Design/Stats/GameSystem/Stat_GameSystem_BeachCubeSolved.Stat_GameSystem_BeachCubeSolved'
 
 # Mission names
 #

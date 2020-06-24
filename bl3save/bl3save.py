@@ -1477,3 +1477,15 @@ class BL3Save(object):
         self.save.guardian_rank_character_data.new_guardian_experience = 0
         self.save.guardian_rank_character_data.is_rank_system_enabled = False
 
+    def unlock_cube_puzzle(self):
+        """
+        Unlocks the Eridian Cube puzzle in Desolation's Edge, so it can be redeemed again.
+        """
+        found_idx = None
+        for idx, stat in enumerate(self.save.game_stats_data):
+            if stat.stat_path == cube_puzzle_stat:
+                found_idx = idx
+                break
+        if found_idx is not None:
+            del self.save.game_stats_data[found_idx]
+

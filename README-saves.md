@@ -37,6 +37,7 @@ commands will be:
     - [Vehicles](#vehicles)
     - [Vehicle Skins](#vehicle-skins)
     - [TVHM](#tvhm)
+    - [Eridian Cube Puzzle](#eridian-cube-puzzle)
     - [All Unlocks at Once](#all-unlocks-at-once)
   - [Copy NVHM State to TVHM](#copy-nvhm-state-to-tvhm)
   - ["Un-Finish" NVHM](#un-finish-nvhm)
@@ -295,6 +296,14 @@ vehicle types.
 You can use the `tvhm` unlock to unlock TVHM mode early:
 
     bl3-save-edit old.sav new.sav --unlock tvhm
+
+### Eridian Cube Puzzle
+
+The Eridian Cube puzzle in Desolation's Edge (on Nekrotafeyo) is
+ordinarily only doable once per savegame.  The `cubepuzzle`
+unlock will let you complete it more than once:
+
+    bl3-save-edit old.sav new.sav --unlock cubepuzzle
 
 ### All Unlocks at Once
 

@@ -156,6 +156,7 @@ def main():
             'gunslots', 'artifactslot', 'comslot', 'allslots',
             'tvhm',
             'vehicles', 'vehicleskins',
+            'cubepuzzle',
             ]
     parser.add_argument('--unlock',
             action=cli_common.DictAction,
@@ -418,6 +419,12 @@ def main():
                 if not args.quiet:
                     print('   - TVHM')
                 save.set_playthroughs_completed(1)
+
+            # Eridian Cube puzzle
+            if 'cubepuzzle' in args.unlock:
+                if not args.quiet:
+                    print('   - Eridian Cube Puzzle')
+                save.unlock_cube_puzzle()
 
         # Import Items
         if args.import_items:
