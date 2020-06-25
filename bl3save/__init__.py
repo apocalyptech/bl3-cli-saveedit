@@ -1299,7 +1299,7 @@ takedown_missions = {
 #
 # For most missions, the following find statement will generate this list:
 #
-#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions Game/PatchDLC/CitizenScience/Missions Game/PatchDLC/Event2/Missions Game/PatchDLC/Takedown2/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
+#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions Game/PatchDLC/CitizenScience/Missions Game/PatchDLC/Event2/Missions Game/PatchDLC/Takedown2/Missions Game/PatchDLC/Geranium/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
 #
 # Various plot missions, though, from both the main game and DLC1, will need
 # some edits by hand (they use a UIName_*_MissionTitle object instead.)  Also,
@@ -1450,6 +1450,22 @@ mission_to_name = {
         '/Game/PatchDLC/Event2/Missions/Side/MauriceSide/Mission_Maurice': "Claw and Order",
         '/Game/PatchDLC/Event2/Missions/Side/Seasonal/Mission_Season_02_Intro': "Revenge of the Cartels: Ultraviolet Nights",
         '/Game/PatchDLC/Event2/Missions/Side/Seasonal/Mission_Season_02_Repeatable': "Revenge of the Cartels II: The Revengening",
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep01_WestlandWelcome': "Blood From A Stone",
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep02_Bathhouse': "The Name of the Law",
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep03_ObsidianForest': "Off the Rails",
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep04_Facility': "Where It All Started",
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep05_Crater': "Riding to Ruin",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_AnimalControl': "Lost and Found",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_BloodAndBeans': "Of Blood and Beans",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_DirtyDeeds': "Dirty Deeds",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_Dueling': "The Quick and the Quickerer",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_GhostStories': "The Meatman Prophecy",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_LoveBarsNone': "The Dandy and Damsel",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_MoneyBackGuarantee': "Money Back Guarantee",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_RustlerBaby': "Devil Rustlers",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_SaurdewValley': "Saurdew Valley",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_SnakeOil': "Miracle Elixir Fixer",
+        '/Game/PatchDLC/Geranium/Missions/Side/Mission_TheLegendOfMcSmugger': "The Legend of McSmugger",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP01_DLC2': "The Party Out of Space",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP02_DLC2': "The Shadow Over Cursehaven",
         '/Game/PatchDLC/Hibiscus/Missions/Plot/EP03_DLC2': "The Case of Wainwright Jakobs",
