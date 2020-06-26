@@ -1120,7 +1120,7 @@ goldenkey_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCa
 goldenkey_hash = inventory_path_hash(goldenkey_category)
 
 # XP
-max_level = 57
+max_level = 60
 required_xp_list = [
     0,          # lvl 1
     358,        # lvl 2
