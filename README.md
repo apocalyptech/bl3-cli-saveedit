@@ -227,6 +227,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.7.1** - *unreleased*
+ - Added three more DLC3 room decorations that I'd missed orginally, for the profile
+   editor's cosmetic-unlock ability
+
 **v1.7.0** - June 26, 2020
  - Updated for DLC3 (Bounty of Blood) content
    - Jetbeast vehicle unlocks are forthcoming, until I can actually test them out.

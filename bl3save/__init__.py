@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.7.0'
+__version__ = '1.7.1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -927,6 +927,9 @@ profile_roomdeco_obj_to_eng = {
         '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_5.RoomDecoration_Geranium_5': "Ruiner Tapestry",
         '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_6.RoomDecoration_Geranium_6': "Rampage of the Gorgonoth Poster",
         '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_7.RoomDecoration_Geranium_7': "Seven Smugglers Poster",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_IO_1.RoomDecoration_Geranium_IO_1': "Old Guitar",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_IO_2.RoomDecoration_Geranium_IO_2': "Chemistry Set",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_IO_3.RoomDecoration_Geranium_IO_3': "Core Lamp",
         '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_KeyToCity.RoomDecoration_KeyToCity': "Key to the City",
         '/Game/PatchDLC/Hibiscus/Customizations/RoomDeco/RoomDeco_DLC2_1.RoomDeco_DLC2_1': "Lunatic Shield",
         '/Game/PatchDLC/Hibiscus/Customizations/RoomDeco/RoomDeco_DLC2_2.RoomDeco_DLC2_2': "Private Eye",
