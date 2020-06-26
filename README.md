@@ -223,6 +223,7 @@ liking, if you didn't want to use this one for whatever reason:
 # Changelog
 
 **v1.7.0** - *unreleased*
+ - Updated for DLC3 (Bounty of Blood) content
  - Added various Guardian Rank processing
    - For savegames and profiles, added `--zero-guardian-rank`
    - For only profiles, added `--min-guardian-rank`, `--guardian-rank-rewards`, and
@@ -230,6 +231,9 @@ liking, if you didn't want to use this one for whatever reason:
  - Added `--unlock cubepuzzle` to reset the Eridian Cube puzzle in Desolation's Edge
  - Added `--clear-takedowns` to get rid of the Takedown mission-pickup notifications
    for chars you never intend to do Takedowns with.
+ - Item name processing will now recognize the specific legendary artifact balances
+   added by the Maliwan Takedown update (they're functionally identical to the world-
+   drop versions)
  - Updated `bl3-process-archive-saves` to wipe out Guardian Rank entirely
 
 **v1.6.2** - June 18, 2020
