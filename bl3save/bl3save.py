@@ -1333,6 +1333,7 @@ class BL3Save(object):
         if vehicle_type:
             types = [vehicle_type]
         else:
+            #types = [OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST]
             types = [OUTRUNNER, TECHNICAL, CYCLONE]
 
         # Construct a set of all currently-unlocked chassis types
@@ -1426,6 +1427,7 @@ class BL3Save(object):
         if vehicle_type:
             types = [vehicle_type]
         else:
+            #types = [OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST]
             types = [OUTRUNNER, TECHNICAL, CYCLONE]
 
         # Construct a set of all currently-unlocked chassis types

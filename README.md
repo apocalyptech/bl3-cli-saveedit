@@ -168,6 +168,7 @@ FOr instructions on using the Profile portions of the editor, see
 
 # TODO
 
+- Add in Jetbeast vehicle unlocks
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
