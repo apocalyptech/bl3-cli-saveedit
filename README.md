@@ -169,6 +169,10 @@ FOr instructions on using the Profile portions of the editor, see
 # TODO
 
 - Add in Jetbeast vehicle unlocks
+- DLC3 added two weapon trinkets which are technically redeemable in-game, but
+  which get stripped from the profile on load.  If those ever get fixed, we'll
+  want to add them in here.  (There's also an obviously-unfinished weapon skin
+  which does the same thing, FWIW.)
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
