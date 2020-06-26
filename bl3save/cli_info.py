@@ -159,6 +159,8 @@ def main():
                 importants.append('DLC1 - Moxxi\'s Heist of the Handsome Jackpot')
             if 'The Call of Gythian' in mission_set:
                 importants.append('DLC2 - Guns, Love, and Tentacles')
+            if 'Riding to Ruin' in mission_set:
+                importants.append('DLC3 - Bounty of Blood')
             if len(importants) > 0:
                 print(' - Mission Milestones:')
                 for important in importants:
