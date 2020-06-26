@@ -427,6 +427,10 @@ profile_skins = set([
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Gunner_50.CustomSkin_Gunner_50',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Operative_50.CustomSkin_Operative_50',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Siren_50.CustomSkin_Siren_50',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerSkin/CustomSkin_Beastmaster_DLC3_1.CustomSkin_Beastmaster_DLC3_1',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerSkin/CustomSkin_Gunner_DLC3_1.CustomSkin_Gunner_DLC3_1',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerSkin/CustomSkin_Operative_DLC3_1.CustomSkin_Operative_DLC3_1',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerSkin/CustomSkin_Siren_DLC3_1.CustomSkin_Siren_DLC3_1',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomSkin_Beastmaster_DLC2_01.CustomSkin_Beastmaster_DLC2_01',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomSkin_Gunner_DLC2_01.CustomSkin_Gunner_DLC2_01',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomSkin_Operative__DLC2_01.CustomSkin_Operative__DLC2_01',
@@ -641,6 +645,10 @@ profile_heads = set([
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomHead_Gunner_Twitch.CustomHead_Gunner_Twitch',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomHead_Operative_Twitch.CustomHead_Operative_Twitch',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomHead_Siren_Twitch.CustomHead_Siren_Twitch',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerHead/CustomHead38/CustomHead_Beastmaster_38.CustomHead_Beastmaster_38',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerHead/CustomHead38/CustomHead_Gunner_38.CustomHead_Gunner_38',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerHead/CustomHead38/CustomHead_Operative_38.CustomHead_Operative_38',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerHead/CustomHead38/CustomHead_Siren_38.CustomHead_Siren_38',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomHead_Beastmaster_DLC2_01.CustomHead_Beastmaster_DLC2_01',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomHead_Gunner_DLC2_01.CustomHead_Gunner_DLC2_01',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomHead_Operative_DLC2_01.CustomHead_Operative_DLC2_01',
@@ -759,6 +767,10 @@ profile_echothemes = set([
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_66.ECHOTheme_66',
     '/Game/PatchDLC/Event2/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_44.ECHOTheme_44',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/ECHODevice/EchoTheme_Valentines_01.EchoTheme_Valentines_01',
+    '/Game/PatchDLC/Geranium/Customizations/EchoTheme/ECHOTheme_73.ECHOTheme_73',
+    '/Game/PatchDLC/Geranium/Customizations/EchoTheme/ECHOTheme_74.ECHOTheme_74',
+    '/Game/PatchDLC/Geranium/Customizations/EchoTheme/ECHOTheme_75.ECHOTheme_75',
+    '/Game/PatchDLC/Geranium/Customizations/EchoTheme/ECHOTheme_76.ECHOTheme_76',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_DLC2_01.ECHOTheme_DLC2_01',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_DLC2_02.ECHOTheme_DLC2_02',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_DLC2_03.ECHOTheme_DLC2_03',
@@ -813,6 +825,14 @@ profile_emotes = set([
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/Emotes/Operative/CustomEmote_Operative_14_MakeItRain.CustomEmote_Operative_14_MakeItRain',
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/Emotes/SirenBrawler/CustomEmote_Siren_13_HandsomeJack.CustomEmote_Siren_13_HandsomeJack',
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/Emotes/SirenBrawler/CustomEmote_Siren_14_MakeItRain.CustomEmote_Siren_14_MakeItRain',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Beastmaster_DLC3_1.CustomEmote_Beastmaster_DLC3_1',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Beastmaster_DLC3_2.CustomEmote_Beastmaster_DLC3_2',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Gunner_DLC3_1.CustomEmote_Gunner_DLC3_1',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Gunner_DLC3_2.CustomEmote_Gunner_DLC3_2',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Operative_DLC3_1.CustomEmote_Operative_DLC3_1',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Operative_DLC3_2.CustomEmote_Operative_DLC3_2',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Siren_DLC3_1.CustomEmote_Siren_DLC3_1',
+    '/Game/PatchDLC/Geranium/Customizations/PlayerEmote/CustomEmote_Siren_DLC3_2.CustomEmote_Siren_DLC3_2',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/Emotes/Beastmaster/CustomEmote_Beastmaster_15.CustomEmote_Beastmaster_15',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/Emotes/Beastmaster/CustomEmote_Beastmaster_16.CustomEmote_Beastmaster_16',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/Emotes/Gunner/CustomEmote_Gunner_15.CustomEmote_Gunner_15',
@@ -876,6 +896,13 @@ profile_roomdeco_obj_to_eng = {
         '/Game/PatchDLC/Dandelion/Customizations/RoomDeco/RoomDeco_DLC1_5.RoomDeco_DLC1_5': "Jack Plaque",
         '/Game/PatchDLC/Dandelion/Customizations/RoomDeco/RoomDeco_DLC1_6.RoomDeco_DLC1_6': "Jack Hologram",
         '/Game/PatchDLC/Event2/Pickups/RoomDecoration/RoomDecoration_Event2_3.RoomDecoration_Event2_3': 'Framed Firewall',
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_2.RoomDecoration_Geranium_2': "Bellik Trophy",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_3.RoomDecoration_Geranium_3': "High Noon Clock",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_4.RoomDecoration_Geranium_4': "Saloon Sign",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_5.RoomDecoration_Geranium_5': "Ruiner Tapestry",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_6.RoomDecoration_Geranium_6': "Rampage of the Gorgonoth Poster",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_Geranium_7.RoomDecoration_Geranium_7': "Seven Smugglers Poster",
+        '/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDecoration_KeyToCity.RoomDecoration_KeyToCity': "Key to the City",
         '/Game/PatchDLC/Hibiscus/Customizations/RoomDeco/RoomDeco_DLC2_1.RoomDeco_DLC2_1': "Lunatic Shield",
         '/Game/PatchDLC/Hibiscus/Customizations/RoomDeco/RoomDeco_DLC2_2.RoomDeco_DLC2_2': "Private Eye",
         '/Game/PatchDLC/Hibiscus/Customizations/RoomDeco/RoomDeco_DLC2_3.RoomDeco_DLC2_3': "The Lodge Poster",
@@ -947,6 +974,8 @@ profile_roomdeco_obj_to_eng = {
         '/Game/Pickups/RoomDecoration/RoomDecoration_7.RoomDecoration_7': "Troy Graffiti",
         '/Game/Pickups/RoomDecoration/RoomDecoration_8.RoomDecoration_8': "Tyreen Graffiti",
         '/Game/Pickups/RoomDecoration/RoomDecoration_9.RoomDecoration_9': "Dynasty Diner",
+        # Not including this one 'cause it's bugged - won't even show up, even if unlocked.
+        #'/Game/PatchDLC/Geranium/Customizations/RoomDeco/RoomDeco_DLC3_1.RoomDeco_DLC3_1': "DLC3 RoomDeco",
         }
 profile_roomdeco_eng_to_obj = {v: k for k, v in profile_roomdeco_obj_to_eng.items()}
 
@@ -1042,6 +1071,8 @@ profile_weaponskins_obj_to_eng = {
         '/Game/Gear/WeaponSkins/_Design/SkinParts/WeaponSkin_8.WeaponSkin_8': "Gun-fetti",
         '/Game/Gear/WeaponSkins/_Design/SkinParts/WeaponSkin_9.WeaponSkin_9': "Leather and Regret",
         '/Game/PatchDLC/BloodyHarvest/Gear/Weapons/WeaponSkins/WeaponSkin_BloodyHarvest_01.WeaponSkin_BloodyHarvest_01': "Ghoul Metal Grey",
+        # Not including this one because it's bugged (will get removed on profile load) and is also quite obviously unfinished
+        #'/Game/PatchDLC/Geranium/Customizations/WeaponSkin/WeaponSkin_DLC3_1.WeaponSkin_DLC3_1': "DLC3 WeaponSkin",
         }
 profile_weaponskins_hash_to_eng = weapon_cust_paths_to_hash(profile_weaponskins_obj_to_eng)
 profile_weaponskins_eng_to_hash = {v: k for k, v in profile_weaponskins_hash_to_eng.items()}
@@ -1111,6 +1142,9 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_01_Squidly.Trinket_Hibiscus_01_Squidly': "Tactical Tentacle",
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_02_Necrocookmicon.Trinket_Hibiscus_02_Necrocookmicon': "Nibblenomicon",
         '/Game/PatchDLC/Steam/Gear/WeaponTrinkets/WeaponTrinket_SteamPunk.WeaponTrinket_SteamPunk': "Vapor Hoodlum",
+        # Not including these two, since they're currently bugged and get removed on profile load.
+        #'/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_1.WeaponTrinket_DLC3_1': "Devil Tooth",
+        #'/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_2.WeaponTrinket_DLC3_2': "Battle Driver",
         }
 profile_weapontrinkets_hash_to_eng = weapon_cust_paths_to_hash(profile_weapontrinkets_obj_to_eng)
 profile_weapontrinkets_eng_to_hash = {v: k for k, v in profile_weapontrinkets_hash_to_eng.items()}
