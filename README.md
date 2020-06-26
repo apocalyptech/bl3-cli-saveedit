@@ -223,8 +223,9 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.7.0** - *unreleased*
+**v1.7.0** - June 26, 2020
  - Updated for DLC3 (Bounty of Blood) content
+   - Jetbeast vehicle unlocks are forthcoming, until I can actually test them out.
  - Added various Guardian Rank processing
    - For savegames and profiles, added `--zero-guardian-rank`
    - For only profiles, added `--min-guardian-rank`, `--guardian-rank-rewards`, and
