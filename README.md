@@ -168,7 +168,6 @@ FOr instructions on using the Profile portions of the editor, see
 
 # TODO
 
-- Add in Jetbeast vehicle unlocks
 - DLC3 added two weapon trinkets which are technically redeemable in-game, but
   which get stripped from the profile on load.  If those ever get fixed, we'll
   want to add them in here.  (There's also an obviously-unfinished weapon skin
@@ -230,6 +229,7 @@ liking, if you didn't want to use this one for whatever reason:
 **v1.7.1** - *unreleased*
  - Added three more DLC3 room decorations that I'd missed orginally, for the profile
    editor's cosmetic-unlock ability
+ - Added Jetbeast unlocks (both parts and skins)
 
 **v1.7.0** - June 26, 2020
  - Updated for DLC3 (Bounty of Blood) content

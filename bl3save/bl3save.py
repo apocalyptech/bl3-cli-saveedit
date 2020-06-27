@@ -1333,8 +1333,7 @@ class BL3Save(object):
         if vehicle_type:
             types = [vehicle_type]
         else:
-            #types = [OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST]
-            types = [OUTRUNNER, TECHNICAL, CYCLONE]
+            types = [OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST]
 
         # Construct a set of all currently-unlocked chassis types
         cur_unlocks = set([v.asset_path for v in self.save.vehicles_unlocked_data])
@@ -1427,8 +1426,7 @@ class BL3Save(object):
         if vehicle_type:
             types = [vehicle_type]
         else:
-            #types = [OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST]
-            types = [OUTRUNNER, TECHNICAL, CYCLONE]
+            types = [OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST]
 
         # Construct a set of all currently-unlocked chassis types
         cur_parts = set(self.save.vehicle_parts_unlocked)

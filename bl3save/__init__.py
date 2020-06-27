@@ -218,13 +218,12 @@ challenge_to_challengeobj = {v: k for k, v in challengeobj_to_challenge.items()}
 # Vehicle info.  We're not doing as much object-to-english mapping stuff here, 'cause
 # I don't care enough to code it into the editor.  Just doing some more general
 # "unlock all" type activity.
-#(OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST) = range(4)
-(OUTRUNNER, TECHNICAL, CYCLONE) = range(3)
+(OUTRUNNER, TECHNICAL, CYCLONE, JETBEAST) = range(4)
 vehicle_to_eng = {
         OUTRUNNER: 'Outrunner',
         TECHNICAL: 'Technical',
         CYCLONE: 'Cyclone',
-        #JETBEAST: 'Jetbeast',
+        JETBEAST: 'Jetbeast',
         }
 vehicle_chassis = {
         OUTRUNNER: set([
@@ -245,12 +244,12 @@ vehicle_chassis = {
             '/Game/Vehicles/Revolver/Design/WT_Revolver_MonoWheel.WT_Revolver_MonoWheel',
             '/Game/Vehicles/Revolver/Design/WT_Revolver_WIdeWheel.WT_Revolver_WIdeWheel',
             ]),
-        #JETBEAST: set([
-        #    '/Geranium/Vehicles/Horse/Design/WT_Horse_Base.WT_Horse_Base',
-        #    '/Geranium/Vehicles/Horse/Design/WT_Horse_Biobeast.WT_Horse_Biobeast',
-        #    '/Geranium/Vehicles/Horse/Design/WT_Horse_Predator.WT_Horse_Predator',
-        #    '/Geranium/Vehicles/Horse/Design/WT_Horse_Tyrant.WT_Horse_Tyrant',
-        #    ]),
+        JETBEAST: set([
+            '/Geranium/Vehicles/Horse/Design/WT_Horse_Base.WT_Horse_Base',
+            '/Geranium/Vehicles/Horse/Design/WT_Horse_Biobeast.WT_Horse_Biobeast',
+            '/Geranium/Vehicles/Horse/Design/WT_Horse_Predator.WT_Horse_Predator',
+            '/Geranium/Vehicles/Horse/Design/WT_Horse_Tyrant.WT_Horse_Tyrant',
+            ]),
         }
 chassis_to_vehicle = {}
 for vehicle, chassislist in vehicle_chassis.items():
@@ -296,15 +295,15 @@ vehicle_parts = {
             '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MechanicalLauncher/RevolverMachineGun/VehiclePart_WeaponDriver_RevolverMachineGun_Native.VehiclePart_WeaponDriver_RevolverMachineGun_Native',
             '/Game/Vehicles/VehicleWeapons/DriverWeapons/Type_MechanicalLauncher/SawBladeLancer/VehiclePart_WeaponDriver_SawBladeLauncher_Native.VehiclePart_WeaponDriver_SawBladeLauncher_Native',
             ]),
-        #JETBEAST: set([
-        #    '/Geranium/Vehicles/Horse/Design/Parts/CoreMod/SingleEngine/VehiclePart_SingleBooster_Horse.VehiclePart_SingleBooster_Horse',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/CoreMod/TwinEngine/VehiclePart_TwinEngine_Horse.VehiclePart_TwinEngine_Horse',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Armor/VehiclePart_Horse_Armor_SoftSaddleBags.VehiclePart_Horse_Armor_SoftSaddleBags',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Armor/VehiclePart_Horse_Armor_HardSaddleBags.VehiclePart_Horse_Armor_HardSaddleBags',
-        #    '/Geranium/Vehicles/VehicleWeapons/Type_Cannon/VehiclePart_WeaponDriver_Horse_Cannon.VehiclePart_WeaponDriver_Horse_Cannon',
-        #    '/Geranium/Vehicles/VehicleWeapons/Type_DualMachineGun/VehiclePart_WeaponDriver_Horse_DualMachineGun.VehiclePart_WeaponDriver_Horse_DualMachineGun',
-        #    '/Geranium/Vehicles/VehicleWeapons/Type_Mortar/VehiclePart_Weapon_Horse_Mortar.VehiclePart_Weapon_Horse_Mortar',
-        #    ]),
+        JETBEAST: set([
+            '/Geranium/Vehicles/Horse/Design/Parts/CoreMod/SingleEngine/VehiclePart_SingleBooster_Horse.VehiclePart_SingleBooster_Horse',
+            '/Geranium/Vehicles/Horse/Design/Parts/CoreMod/TwinEngine/VehiclePart_TwinEngine_Horse.VehiclePart_TwinEngine_Horse',
+            '/Geranium/Vehicles/Horse/Design/Parts/Armor/VehiclePart_Horse_Armor_SoftSaddleBags.VehiclePart_Horse_Armor_SoftSaddleBags',
+            '/Geranium/Vehicles/Horse/Design/Parts/Armor/VehiclePart_Horse_Armor_HardSaddleBags.VehiclePart_Horse_Armor_HardSaddleBags',
+            '/Geranium/Vehicles/VehicleWeapons/Type_Cannon/VehiclePart_WeaponDriver_Horse_Cannon.VehiclePart_WeaponDriver_Horse_Cannon',
+            '/Geranium/Vehicles/VehicleWeapons/Type_DualMachineGun/VehiclePart_WeaponDriver_Horse_DualMachineGun.VehiclePart_WeaponDriver_Horse_DualMachineGun',
+            '/Geranium/Vehicles/VehicleWeapons/Type_Mortar/VehiclePart_Weapon_Horse_Mortar.VehiclePart_Weapon_Horse_Mortar',
+            ]),
         }
 part_to_vehicle = {}
 for vehicle, parts in vehicle_parts.items():
@@ -410,14 +409,14 @@ vehicle_skins = {
             '/Game/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Vladof.VehiclePart_Mat_VehiclePart_Revolver_Vladof',
             '/Game/PatchDLC/Hibiscus/Vehicles/Revolver/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Revolver_Fish.VehiclePart_Mat_VehiclePart_Revolver_Fish',
             ]),
-        #JETBEAST: set([
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Default.VehiclePart_Mat_VehiclePart_Horse_Default',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin1.VehiclePart_Mat_VehiclePart_Horse_Skin1',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin2.VehiclePart_Mat_VehiclePart_Horse_Skin2',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin3.VehiclePart_Mat_VehiclePart_Horse_Skin3',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin4.VehiclePart_Mat_VehiclePart_Horse_Skin4',
-        #    '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin5.VehiclePart_Mat_VehiclePart_Horse_Skin5',
-        #    ]),
+        JETBEAST: set([
+            '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Default.VehiclePart_Mat_VehiclePart_Horse_Default',
+            '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin1.VehiclePart_Mat_VehiclePart_Horse_Skin1',
+            '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin2.VehiclePart_Mat_VehiclePart_Horse_Skin2',
+            '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin3.VehiclePart_Mat_VehiclePart_Horse_Skin3',
+            '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin4.VehiclePart_Mat_VehiclePart_Horse_Skin4',
+            '/Geranium/Vehicles/Horse/Design/Parts/Materials/VehiclePart_Mat_VehiclePart_Horse_Skin5.VehiclePart_Mat_VehiclePart_Horse_Skin5',
+            ]),
         }
 skin_to_vehicle = {}
 for vehicle, skins in vehicle_skins.items():
