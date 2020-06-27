@@ -245,7 +245,8 @@ vehicle_chassis = {
             '/Game/Vehicles/Revolver/Design/WT_Revolver_WIdeWheel.WT_Revolver_WIdeWheel',
             ]),
         JETBEAST: set([
-            '/Geranium/Vehicles/Horse/Design/WT_Horse_Base.WT_Horse_Base',
+            # This one's technically in the saves, but is there by default and isn't available on its own.
+            #'/Geranium/Vehicles/Horse/Design/WT_Horse_Base.WT_Horse_Base',
             '/Geranium/Vehicles/Horse/Design/WT_Horse_Biobeast.WT_Horse_Biobeast',
             '/Geranium/Vehicles/Horse/Design/WT_Horse_Predator.WT_Horse_Predator',
             '/Geranium/Vehicles/Horse/Design/WT_Horse_Tyrant.WT_Horse_Tyrant',
