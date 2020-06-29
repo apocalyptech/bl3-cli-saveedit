@@ -252,6 +252,14 @@ vehicle_chassis = {
             '/Geranium/Vehicles/Horse/Design/WT_Horse_Tyrant.WT_Horse_Tyrant',
             ]),
         }
+# Chassis types to *not* unlock.  Added for DLC3 since the game is apparently hardcoded to
+# unlock the main Jetbeast type, and will do so even if we've already unlocked it, which
+# makes it show up in the list twice.  This doesn't actually seem to cause any problems, but
+# it bothers me, so an `excluders` for unlocking it is.
+jetbeast_main_chassis = '/Geranium/Vehicles/Horse/Design/WT_Horse_Biobeast.WT_Horse_Biobeast'
+chassis_excluders = set([
+    jetbeast_main_chassis,
+    ])
 chassis_to_vehicle = {}
 for vehicle, chassislist in vehicle_chassis.items():
     for chassis in chassislist:

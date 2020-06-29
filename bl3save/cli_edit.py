@@ -420,6 +420,8 @@ def main():
                     print('   - Vehicles (and parts)')
                 save.unlock_vehicle_chassis()
                 save.unlock_vehicle_parts()
+                if not args.quiet and not save.has_vehicle_chassis(bl3save.jetbeast_main_chassis):
+                    print('     - NOTE: The default Jetbeast chassis will be unlocked automatically by the game')
 
             # Vehicle Skins
             if 'vehicleskins' in args.unlock:

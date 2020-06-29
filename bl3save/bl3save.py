@@ -1301,10 +1301,6 @@ class BL3Save(object):
         """
         to_ret = {}
         for v in self.save.vehicles_unlocked_data:
-            # Some DLC3 "vehicles" are already showing up in saves, at least this one:
-            # /Geranium/Vehicles/Horse/Design/WT_Horse_Biobeast.WT_Horse_Biobeast
-            # So check for that and don't try to load if we don't know about the
-            # vehicle type.
             if v.asset_path in chassis_to_vehicle:
                 key = chassis_to_vehicle[v.asset_path]
                 if eng:
@@ -1341,11 +1337,21 @@ class BL3Save(object):
         # Now add in any parts which aren't already part of that
         for vehicle_type in types:
             for part in vehicle_chassis[vehicle_type]:
-                if part not in cur_unlocks:
+                if part not in cur_unlocks and part not in chassis_excluders:
                     self.save.vehicles_unlocked_data.append(OakSave_pb2.VehicleUnlockedSaveGameData(
                         asset_path=part,
                         just_unlocked=True,
                         ))
+
+    def has_vehicle_chassis(self, partname):
+        """
+        Returns `True` if the savegame has unlocked the chassis described as
+        `partname`, or `False` otherwise.
+        """
+        for v in self.save.vehicles_unlocked_data:
+            if v.asset_path == partname:
+                return True
+        return False
 
     def _get_vehicle_part_counts(self, p2v_map, eng=False):
         """
