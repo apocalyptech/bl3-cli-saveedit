@@ -226,7 +226,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.7.1** - *unreleased*
+**v1.7.1** - June 29, 2020
  - Added three more DLC3 room decorations that I'd missed orginally, for the profile
    editor's cosmetic-unlock ability
  - Added Jetbeast unlocks (both parts and skins)
