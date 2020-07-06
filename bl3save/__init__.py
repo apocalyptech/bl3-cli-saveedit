@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.7.1'
+__version__ = '1.7.2b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -214,6 +214,16 @@ challengeobj_to_challenge = {
         # Also, where are the other two gun slots?
         }
 challenge_to_challengeobj = {v: k for k, v in challengeobj_to_challenge.items()}
+
+# Level-based challenges (probably unimportant, but I've already started doing it,
+# so here we go anyway)
+level_stat = '/Game/PlayerCharacters/_Shared/_Design/Stats/Character/Stat_Character_Level.Stat_Character_Level'
+level_challenges = [
+        (2, '/Game/GameData/Challenges/System/BP_Challenge_Console_1.BP_Challenge_Console_1_C'),
+        (10, '/Game/GameData/Challenges/System/BP_Challenge_Console_2.BP_Challenge_Console_2_C'),
+        (25, '/Game/GameData/Challenges/System/BP_Challenge_Console_3.BP_Challenge_Console_3_C'),
+        (50, '/Game/GameData/Challenges/System/BP_Challenge_Console_4.BP_Challenge_Console_4_C'),
+        ]
 
 # Vehicle info.  We're not doing as much object-to-english mapping stuff here, 'cause
 # I don't care enough to code it into the editor.  Just doing some more general

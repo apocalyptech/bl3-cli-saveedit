@@ -486,6 +486,26 @@ class BL3Save(object):
         else:
             self.save.experience_points = required_xp_list[level-1]
 
+        # Make sure our stats level is set properly
+        self.set_stats_obj(level_stat, level)
+
+        # If we're setting > level 1, make sure the skill tree gets unlocked
+        self.unlock_skill_tree(level)
+
+    def unlock_skill_tree(self, level=None):
+        """
+        Ensures that the player can use their skill tree (after editing their
+        savegame > lvl1).  Optionally pass in `level` to also unlock the appropriate
+        challenges for the char's level, though that probably doesn't actually
+        matter at all.
+        """
+        if self.save.ability_data.tree_grade == 0:
+            self.save.ability_data.tree_grade = 2
+        if level is not None:
+            for challenge_level, challenge_obj in level_challenges:
+                if level >= challenge_level:
+                    self.unlock_challenge_obj(challenge_obj)
+
     def get_playthroughs_completed(self):
         """
         Returns the number of playthroughs completed
@@ -1247,6 +1267,23 @@ class BL3Save(object):
         if chal_type in challenges:
             return challenges[chal_type]
         return None
+
+    def set_stats_obj(self, stat_obj, stat_value):
+        """
+        Sets the given `stat_obj`, which lives in `game_stats_data`.
+        `stat_value` will be the value of the statistic.
+        """
+        for stat in self.save.game_stats_data:
+            if stat.stat_path == stat_obj:
+                stat.stat_value = stat_value
+                return
+
+        # If we get here, the stat wasn't found, and we'll have to add
+        # it ourselves.
+        self.save.game_stats_data.append(OakShared_pb2.GameStatSaveGameData(
+            stat_value=stat_value,
+            stat_path=stat_obj,
+            ))
 
     def unlock_challenge_obj(self, challenge_obj, completed_count=1, progress_level=0):
         """

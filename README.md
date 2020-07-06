@@ -226,6 +226,9 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.7.2** - *unreleased*
+ - Allow characters to use skill trees properly if levelled higher directly from level 1.
+
 **v1.7.1** - June 29, 2020
  - Added three more DLC3 room decorations that I'd missed orginally, for the profile
    editor's cosmetic-unlock ability
