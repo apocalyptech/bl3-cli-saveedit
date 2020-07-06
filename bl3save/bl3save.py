@@ -492,14 +492,14 @@ class BL3Save(object):
         # If we're setting > level 1, make sure the skill tree gets unlocked
         self.unlock_skill_tree(level)
 
-    def unlock_skill_tree(self, level=None):
+    def unlock_skill_tree(self, level):
         """
         Ensures that the player can use their skill tree (after editing their
-        savegame > lvl1).  Optionally pass in `level` to also unlock the appropriate
+        savegame > lvl1).  `level` is used to also unlock the appropriate
         challenges for the char's level, though that probably doesn't actually
         matter at all.
         """
-        if self.save.ability_data.tree_grade == 0:
+        if level > 1 and self.save.ability_data.tree_grade == 0:
             self.save.ability_data.tree_grade = 2
         if level is not None:
             for challenge_level, challenge_obj in level_challenges:
