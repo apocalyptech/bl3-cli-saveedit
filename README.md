@@ -226,7 +226,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.7.2** - *unreleased*
+**v1.7.2** - July 6, 2020
  - Allow characters to use skill trees properly if levelled higher directly from level 1.
 
 **v1.7.1** - June 29, 2020
