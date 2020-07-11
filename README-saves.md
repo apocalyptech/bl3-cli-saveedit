@@ -26,6 +26,7 @@ commands will be:
   - [Guardian Rank](#guardian-rank)
   - [Character Level](#character-level)
   - [Mayhem Level](#mayhem-level)
+  - [Mayhem Random Seed](#mayhem-random-seed)
   - [Currency (Money and Eridium)](#currency-money-and-eridium)
   - [Takedown Discovery Missions](#takedown-discovery-missions)
   - [Item Levels](#item-levels)
@@ -184,6 +185,22 @@ playthroughs found in the game.
 Note that in order to have Anointments drop while playing in Normal
 mode, your savegame does need to have THVM unlocked, so see the `--unlock`
 docs below for how to do that.
+
+## Mayhem Random Seed
+
+The active modifiers in Mayhem Mode are all generated using a single
+[random seed](https://en.wikipedia.org/wiki/Pseudorandom_number_generator)
+which is specified on a per-playthrough basis.  If you have a set of
+Mayhem modifiers you like, you can take that seed (shown in the `bl3-save-info`
+output) and set it onto another save using the `--mayhem-seed` argument:
+
+    bl3-save-edit old.sav new.save --mayhem-seed -3938591
+
+The seeds may be positive or negative, and can range up to 2 billion or
+so, both negative and positive.  Note that if Gearbox changes the pool of
+available Mayhem modifiers, such as by disabling some, or adding new ones,
+the random seeds you're used to will start to give a different result, so
+you may have to reroll a bunch to find your favorite set, again.
 
 ## Currency (Money and Eridium)
 

@@ -140,6 +140,12 @@ def main():
             help='Set the mayhem mode for all playthroughs (mostly useful for Normal mode)',
             )
 
+    parser.add_argument('--mayhem-seed',
+            dest='mayhem_seed',
+            type=int,
+            help='Sets the mayhem random seed for all playthroughs',
+            )
+
     parser.add_argument('--money',
             type=int,
             help='Set money value',
@@ -289,6 +295,7 @@ def main():
         args.zero_guardian_rank,
         args.level is not None,
         args.mayhem is not None,
+        args.mayhem_seed is not None,
         args.money is not None,
         args.eridium is not None,
         args.clear_takedowns,
@@ -341,6 +348,12 @@ def main():
                 if not args.quiet:
                     print('   - Also ensuring that Mayhem Mode is unlocked')
                 save.unlock_challenge(bl3save.MAYHEM)
+
+        # Mayhem Seed
+        if args.mayhem_seed is not None:
+            if not args.quiet:
+                print(' - Setting Mayhem Random Seed to: {}'.format(args.mayhem_seed))
+            save.set_all_mayhem_seeds(args.mayhem_seed)
 
         # Level
         if args.level is not None:

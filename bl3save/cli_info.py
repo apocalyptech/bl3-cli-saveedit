@@ -103,8 +103,14 @@ def main():
     print('Playthroughs Completed: {}'.format(save.get_playthroughs_completed()))
 
     # Playthrough-specific Data
-    for pt, (mayhem, mapname, stations, active_missions, completed_missions) in enumerate(itertools.zip_longest(
+    for pt, (mayhem,
+                mayhem_seed,
+                mapname,
+                stations,
+                active_missions,
+                completed_missions) in enumerate(itertools.zip_longest(
             save.get_pt_mayhem_levels(),
+            save.get_pt_mayhem_seeds(),
             save.get_pt_last_maps(True),
             save.get_pt_active_ft_station_lists(),
             save.get_pt_active_mission_lists(True),
@@ -116,6 +122,8 @@ def main():
         # Mayhem
         if mayhem is not None:
             print(' - Mayhem Level: {}'.format(mayhem))
+        if mayhem_seed is not None:
+            print(' - Mayhem Random Seed: {}'.format(mayhem_seed))
 
         # Map
         if mapname is not None:

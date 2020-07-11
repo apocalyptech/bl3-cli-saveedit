@@ -560,6 +560,33 @@ class BL3Save(object):
         for data in self.save.game_state_save_data_for_playthrough:
             data.mayhem_level = mayhem
 
+    def get_pt_mayhem_seeds(self):
+        """
+        Returns a list of Mayhem seeds for each Playthrough
+        """
+        return [d.mayhem_random_seed for d in self.save.game_state_save_data_for_playthrough]
+
+    def get_pt_mayhem_seed(self, pt):
+        """
+        Returns the Mayhem seed for the given Playthrough (zero-indexed)
+        """
+        if len(self.save.game_state_save_data_for_playthrough) > pt:
+            return self.save.game_state_save_data_for_playthrough[pt].mayhem_random_seed
+        return None
+
+    def set_mayhem_seed_pt(self, pt, random_seed):
+        """
+        Sets the mayhem seed for the given Playthrough (zero-indexed)
+        """
+        self.save.game_state_save_data_for_playthrough[pt].mayhem_random_seed = random_seed
+
+    def set_all_mayhem_seeds(self, random_seed):
+        """
+        Sets the mayhem seed for all Playthroughs.
+        """
+        for data in self.save.game_state_save_data_for_playthrough:
+            data.mayhem_random_seed = random_seed
+
     def copy_game_state_pt(self, from_obj=None, from_pt=0, to_pt=1):
         """
         Copies game state (mostly mayhem level, but also possibly current-map info?

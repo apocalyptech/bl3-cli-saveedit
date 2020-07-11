@@ -226,6 +226,11 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.8.0** - *unreleased*
+ - Added `--mayhem-seed` option to `bl3-save-edit`, to set the random seed used to
+   determine active Mayhem modifiers.  The seed is now shown in the `bl3-save-info`
+   output, as well.
+
 **v1.7.2** - July 6, 2020
  - Allow characters to use skill trees properly if levelled higher directly from level 1.
 
