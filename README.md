@@ -226,7 +226,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.8.0** - *unreleased*
+**v1.8.0** - July 11, 2020
  - Added `--mayhem-seed` option to `bl3-save-edit`, to set the random seed used to
    determine active Mayhem modifiers.  The seed is now shown in the `bl3-save-info`
    output, as well.
