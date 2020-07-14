@@ -226,6 +226,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.8.1** - July 14, 2020
+ - `--item-mayhem-max` and `--item-mayhem-levels` will now apply Mayhem parts to
+   grenades as well as weapons.
+
 **v1.8.0** - July 11, 2020
  - Added `--mayhem-seed` option to `bl3-save-edit`, to set the random seed used to
    determine active Mayhem modifiers.  The seed is now shown in the `bl3-save-info`

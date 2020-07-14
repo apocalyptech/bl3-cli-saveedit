@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.8.0'
+__version__ = '1.8.1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1337,6 +1337,7 @@ mayhem_invdata_types = set([
     '/Game/Gear/Weapons/SniperRifles/Jakobs/_Shared/_Design/WT_SR_JAK.WT_SR_JAK',
     '/Game/Gear/Weapons/SniperRifles/Maliwan/Shared/_Design/WT_SR_MAL.WT_SR_MAL',
     '/Game/Gear/Weapons/SniperRifles/Vladof/_Shared/_Design/WT_SR_VLA.WT_SR_VLA',
+    '/Game/Gear/GrenadeMods/_Design/A_Data/GM_Default.GM_Default',
     ])
 mayhem_invdata_lower_types = set([t.lower() for t in mayhem_invdata_types])
 
