@@ -168,10 +168,6 @@ FOr instructions on using the Profile portions of the editor, see
 
 # TODO
 
-- DLC3 added two weapon trinkets which are technically redeemable in-game, but
-  which get stripped from the profile on load.  If those ever get fixed, we'll
-  want to add them in here.  (There's also an obviously-unfinished weapon skin
-  which does the same thing, FWIW.)
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
@@ -225,6 +221,10 @@ liking, if you didn't want to use this one for whatever reason:
   for Windows, but should compile fine on other platforms.
 
 # Changelog
+
+**v1.8.2** - July 27, 2020
+ - Updated to allow unlocking the Battle Driver and Devil Tooth weapon trinkets, since
+   the July 23 patch fixed those so that they properly stay in your profile.
 
 **v1.8.1** - July 14, 2020
  - `--item-mayhem-max` and `--item-mayhem-levels` will now apply Mayhem parts to

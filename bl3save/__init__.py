@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.8.1'
+__version__ = '1.8.2'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1117,7 +1117,7 @@ profile_weaponskins_obj_to_eng = {
         '/Game/Gear/WeaponSkins/_Design/SkinParts/WeaponSkin_8.WeaponSkin_8': "Gun-fetti",
         '/Game/Gear/WeaponSkins/_Design/SkinParts/WeaponSkin_9.WeaponSkin_9': "Leather and Regret",
         '/Game/PatchDLC/BloodyHarvest/Gear/Weapons/WeaponSkins/WeaponSkin_BloodyHarvest_01.WeaponSkin_BloodyHarvest_01': "Ghoul Metal Grey",
-        # Not including this one because it's bugged (will get removed on profile load) and is also quite obviously unfinished
+        # Not including this one because it's quite obviously unfinished, and identical to Burnished Steele
         #'/Game/PatchDLC/Geranium/Customizations/WeaponSkin/WeaponSkin_DLC3_1.WeaponSkin_DLC3_1': "DLC3 WeaponSkin",
         }
 profile_weaponskins_hash_to_eng = weapon_cust_paths_to_hash(profile_weaponskins_obj_to_eng)
@@ -1188,9 +1188,8 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_01_Squidly.Trinket_Hibiscus_01_Squidly': "Tactical Tentacle",
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_02_Necrocookmicon.Trinket_Hibiscus_02_Necrocookmicon': "Nibblenomicon",
         '/Game/PatchDLC/Steam/Gear/WeaponTrinkets/WeaponTrinket_SteamPunk.WeaponTrinket_SteamPunk': "Vapor Hoodlum",
-        # Not including these two, since they're currently bugged and get removed on profile load.
-        #'/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_1.WeaponTrinket_DLC3_1': "Devil Tooth",
-        #'/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_2.WeaponTrinket_DLC3_2': "Battle Driver",
+        '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_1.WeaponTrinket_DLC3_1': "Devil Tooth",
+        '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_2.WeaponTrinket_DLC3_2': "Battle Driver",
         }
 profile_weapontrinkets_hash_to_eng = weapon_cust_paths_to_hash(profile_weapontrinkets_obj_to_eng)
 profile_weapontrinkets_eng_to_hash = {v: k for k, v in profile_weapontrinkets_hash_to_eng.items()}
