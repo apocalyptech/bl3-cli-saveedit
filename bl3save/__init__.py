@@ -1208,6 +1208,7 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/Gear/WeaponTrinkets/_Design/TrinketParts/WeaponTrinket_7.WeaponTrinket_7': "Splorghuld, the Flesh-Slayer",
         '/Game/Gear/WeaponTrinkets/_Design/TrinketParts/WeaponTrinket_8.WeaponTrinket_8': "Action Axton",
         '/Game/Gear/WeaponTrinkets/_Design/TrinketParts/WeaponTrinket_9.WeaponTrinket_9': "Hoops Dreams",
+        '/Game/PatchDLC/Alisma/Gear/WeaponTrinkets/_Shared/Trinket_League_BloodyHarvest_2020.Trinket_League_BloodyHarvest_2020': "A Shrinking Feeling",
         '/Game/PatchDLC/Alisma/Gear/WeaponTrinkets/Trinket_DLC4_Trinket_01.Trinket_DLC4_Trinket_01': "Divergent Thinking",
         '/Game/PatchDLC/Alisma/Gear/WeaponTrinkets/Trinket_DLC4_Trinket_02.Trinket_DLC4_Trinket_02': "King's Knight",
         '/Game/PatchDLC/BloodyHarvest/Gear/Weapons/WeaponTrinkets/_Shared/Trinket_League_BloodyHarvest_1.Trinket_League_BloodyHarvest_1': "Shrunk 'n Dead",
