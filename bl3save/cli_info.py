@@ -169,6 +169,8 @@ def main():
                 importants.append('DLC2 - Guns, Love, and Tentacles')
             if 'Riding to Ruin' in mission_set:
                 importants.append('DLC3 - Bounty of Blood')
+            if 'Locus of Rage' in mission_set:
+                importants.append('DLC4 - Psycho Krieg and the Fantastic Fustercluck')
             if len(importants) > 0:
                 print(' - Mission Milestones:')
                 for important in importants:
