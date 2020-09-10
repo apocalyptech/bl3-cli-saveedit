@@ -134,7 +134,7 @@ psduobj_to_psdu = {
         }
 psdu_to_psduobj = {v: k for k, v in psduobj_to_psdu.items()}
 psdu_to_max = {
-        PSDU_LOSTLOOT: 8,
+        PSDU_LOSTLOOT: 10,
         PSDU_BANK: 23,
         }
 
@@ -160,12 +160,12 @@ ammoobj_to_ammo = {
         }
 ammo_to_ammoobj = {v: k for k, v in ammoobj_to_ammo.items()}
 ammo_to_max = {
-        AMMO_AR: 1400,
-        AMMO_GRENADE: 11,
+        AMMO_AR: 1680,
+        AMMO_GRENADE: 13,
         AMMO_HEAVY: 51,
-        AMMO_PISTOL: 1000,
-        AMMO_SMG: 1800,
-        AMMO_SHOTGUN: 240,
+        AMMO_PISTOL: 1200,
+        AMMO_SMG: 2160,
+        AMMO_SHOTGUN: 280,
         AMMO_SNIPER: 204,
         }
 
@@ -446,6 +446,14 @@ for vehicle, skins in vehicle_skins.items():
 # (all these customization sections omit the ones unlocked by default,
 # which don't seem to show up in the profile usually)
 profile_skins = set([
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomSkin_Beastmaster_DLC4_01.CustomSkin_Beastmaster_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomSkin_Gunner_DLC4_01.CustomSkin_Gunner_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomSkin_Operative__DLC4_01.CustomSkin_Operative__DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomSkin_Siren__DLC4_01.CustomSkin_Siren__DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Beastmaster/Skins/CustomSkin_Beastmaster_63.CustomSkin_Beastmaster_63',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Gunner/Skins/CustomSkin_Gunner_63.CustomSkin_Gunner_63',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Operative/Skins/CustomSkin_Operative_63.CustomSkin_Operative_63',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_63.CustomSkin_Siren_63',
     '/Game/PatchDLC/BloodyHarvest/PlayerCharacters/_Customizations/Beastmaster/Skins/CustomSkin_Beastmaster_40.CustomSkin_Beastmaster_40',
     '/Game/PatchDLC/BloodyHarvest/PlayerCharacters/_Customizations/Gunner/Skins/CustomSkin_Gunner_40.CustomSkin_Gunner_40',
     '/Game/PatchDLC/BloodyHarvest/PlayerCharacters/_Customizations/Operative/Skins/CustomSkin_Operative_40.CustomSkin_Operative_40',
@@ -656,6 +664,10 @@ profile_skins_defaults = set([
 
 # Profile customizations - Heads
 profile_heads = set([
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomHead_Beastmaster_DLC4_01.CustomHead_Beastmaster_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomHead_Gunner_DLC4_01.CustomHead_Gunner_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomHead_Operative_DLC4_01.CustomHead_Operative_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/_Shared/CustomHead_Siren_DLC4_01.CustomHead_Siren_DLC4_01',
     '/Game/PatchDLC/CitizenScience/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_CS.CustomHead_Beastmaster_CS',
     '/Game/PatchDLC/CitizenScience/PlayerCharacters/_Customizations/Gunner/Heads/CustomHead_Gunner_CS.CustomHead_Gunner_CS',
     '/Game/PatchDLC/CitizenScience/PlayerCharacters/_Customizations/Operative/Heads/CustomHead_Operative_CS.CustomHead_Operative_CS',
@@ -802,6 +814,11 @@ profile_heads_defaults = set([
 
 # Profile customizations - ECHO themes
 profile_echothemes = set([
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_79.ECHOTheme_79',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_DLC4_01.ECHOTheme_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_DLC4_02.ECHOTheme_DLC4_02',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_DLC4_03.ECHOTheme_DLC4_03',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_DLC4_04.ECHOTheme_DLC4_04',
     '/Game/PatchDLC/BloodyHarvest/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_11.ECHOTheme_11',
     '/Game/PatchDLC/Customizations/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_37.ECHOTheme_37',
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_36.ECHOTheme_36',
@@ -860,6 +877,14 @@ profile_echothemes_defaults = set([
 
 # Profile customizations - Emotes
 profile_emotes = set([
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/Beastmaster/CustomEmote_Beastmaster_DLC4_01.CustomEmote_Beastmaster_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/Beastmaster/CustomEmote_Beastmaster_DLC4_02.CustomEmote_Beastmaster_DLC4_02',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/Gunner/CustomEmote_Gunner_DLC4_01.CustomEmote_Gunner_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/Gunner/CustomEmote_Gunner_DLC4_02.CustomEmote_Gunner_DLC4_02',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/Operative/CustomEmote_Operative_DLC4_01.CustomEmote_Operative_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/Operative/CustomEmote_Operative_DLC4_02.CustomEmote_Operative_DLC4_02',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/SirenBrawler/CustomEmote_Siren_DLC4_01.CustomEmote_Siren_DLC4_01',
+    '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/Emotes/SirenBrawler/CustomEmote_Siren_DLC4_02.CustomEmote_Siren_DLC4_02',
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/Emotes/Beastmaster/CustomEmote_Beastmaster_13_HandsomeJack.CustomEmote_Beastmaster_13_HandsomeJack',
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/Emotes/Beastmaster/CustomEmote_Beastmaster_14_MakeItRain.CustomEmote_Beastmaster_14_MakeItRain',
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/Emotes/Gunner/CustomEmote_Gunner_13_Handsome_Jack.CustomEmote_Gunner_13_Handsome_Jack',
@@ -932,6 +957,11 @@ profile_emotes_defaults = set([
 # We're handling these a bit differently so that our util can re-order them in
 # alphabetical order.
 profile_roomdeco_obj_to_eng = {
+        '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/RoomDeco/RoomDeco_DLC4_01_Orbs.RoomDeco_DLC4_01_Orbs': "Memory Orbs",
+        '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/RoomDeco/RoomDeco_DLC4_02_Trophy.RoomDeco_DLC4_02_Trophy': "Psychoreaver Trophy",
+        '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/RoomDeco/RoomDeco_DLC4_03_Axe.RoomDeco_DLC4_03_Axe': "Golden Buzz-axe",
+        '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/RoomDeco/RoomDeco_DLC4_04_Moon.RoomDeco_DLC4_04_Moon': "Krieg's Moon",
+        '/Game/PatchDLC/Alisma/PlayerCharacters/_Customizations/RoomDeco/RoomDeco_DLC4_05_Mask.RoomDeco_DLC4_05_Mask': "Krieg's Mask",
         '/Game/PatchDLC/Dandelion/Customizations/RoomDeco/RoomDeco_DLC1_1.RoomDeco_DLC1_1': "Neon Peach",
         '/Game/PatchDLC/Dandelion/Customizations/RoomDeco/RoomDeco_DLC1_2.RoomDeco_DLC1_2': "Casino Banner",
         '/Game/PatchDLC/Dandelion/Customizations/RoomDeco/RoomDeco_DLC1_3.RoomDeco_DLC1_3': "Handsome Jackpot",
@@ -1178,6 +1208,8 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/Gear/WeaponTrinkets/_Design/TrinketParts/WeaponTrinket_7.WeaponTrinket_7': "Splorghuld, the Flesh-Slayer",
         '/Game/Gear/WeaponTrinkets/_Design/TrinketParts/WeaponTrinket_8.WeaponTrinket_8': "Action Axton",
         '/Game/Gear/WeaponTrinkets/_Design/TrinketParts/WeaponTrinket_9.WeaponTrinket_9': "Hoops Dreams",
+        '/Game/PatchDLC/Alisma/Gear/WeaponTrinkets/Trinket_DLC4_Trinket_01.Trinket_DLC4_Trinket_01': "Divergent Thinking",
+        '/Game/PatchDLC/Alisma/Gear/WeaponTrinkets/Trinket_DLC4_Trinket_02.Trinket_DLC4_Trinket_02': "King's Knight",
         '/Game/PatchDLC/BloodyHarvest/Gear/Weapons/WeaponTrinkets/_Shared/Trinket_League_BloodyHarvest_1.Trinket_League_BloodyHarvest_1': "Shrunk 'n Dead",
         '/Game/PatchDLC/Customizations/Gear/Weapons/WeaponTrinkets/WeaponTrinket_59.WeaponTrinket_59': "Caster Blaster",
         '/Game/PatchDLC/Dandelion/Gear/WeaponTrinkets/_Shared/Trinket_Dandelion_01_JackGoldenMask.Trinket_Dandelion_01_JackGoldenMask': "Nothing Gold Can Stay",
@@ -1185,11 +1217,11 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/Dandelion/Gear/WeaponTrinkets/_Shared/Trinket_MercenaryDay_01_CandyCane.Trinket_MercenaryDay_01_CandyCane': "Mercenary Day Ornament",
         '/Game/PatchDLC/Event2/Gear/_Design/WeaponTrinkets/WeaponTrinket_Cartels_1.WeaponTrinket_Cartels_1': "Retro Outrunner",
         '/Game/PatchDLC/EventVDay/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_League_VDay_1.Trinket_League_VDay_1': "Cosmic Romance",
+        '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_1.WeaponTrinket_DLC3_1': "Devil Tooth",
+        '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_2.WeaponTrinket_DLC3_2': "Battle Driver",
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_01_Squidly.Trinket_Hibiscus_01_Squidly': "Tactical Tentacle",
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_02_Necrocookmicon.Trinket_Hibiscus_02_Necrocookmicon': "Nibblenomicon",
         '/Game/PatchDLC/Steam/Gear/WeaponTrinkets/WeaponTrinket_SteamPunk.WeaponTrinket_SteamPunk': "Vapor Hoodlum",
-        '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_1.WeaponTrinket_DLC3_1': "Devil Tooth",
-        '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_2.WeaponTrinket_DLC3_2': "Battle Driver",
         }
 profile_weapontrinkets_hash_to_eng = weapon_cust_paths_to_hash(profile_weapontrinkets_obj_to_eng)
 profile_weapontrinkets_eng_to_hash = {v: k for k, v in profile_weapontrinkets_hash_to_eng.items()}
