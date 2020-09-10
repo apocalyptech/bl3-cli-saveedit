@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.8.2'
+__version__ = '1.9.0b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -113,12 +113,12 @@ sduobj_to_sdu = {
 sdu_to_sduobj = {v: k for k, v in sduobj_to_sdu.items()}
 sdu_to_max = {
         SDU_BACKPACK: 13,
-        SDU_AR: 8,
-        SDU_PISTOL: 8,
+        SDU_AR: 10,
+        SDU_PISTOL: 10,
         SDU_SNIPER: 13,
-        SDU_SHOTGUN: 8,
-        SDU_GRENADE: 8,
-        SDU_SMG: 8,
+        SDU_SHOTGUN: 10,
+        SDU_GRENADE: 10,
+        SDU_SMG: 10,
         SDU_HEAVY: 13,
         }
 
@@ -1199,7 +1199,7 @@ goldenkey_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCa
 goldenkey_hash = inventory_path_hash(goldenkey_category)
 
 # XP
-max_level = 60
+max_level = 65
 required_xp_list = [
     0,          # lvl 1
     358,        # lvl 2
