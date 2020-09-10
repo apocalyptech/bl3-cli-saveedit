@@ -222,8 +222,8 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.9.0** - *unreleased*
- - Updated with DLC4 (Psycho Krieg and the Fantastic Fusterclick) support
+**v1.9.0** - September 10, 2020
+ - Updated with DLC4 (Psycho Krieg and the Fantastic Fustercluck) support
 
 **v1.8.2** - July 27, 2020
  - Updated to allow unlocking the Battle Driver and Devil Tooth weapon trinkets, since
