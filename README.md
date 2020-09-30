@@ -222,6 +222,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.9.1** - September 30, 2020
+ - Fixed unlocking FL4K's "Antisoci4l" head (though you should still get
+   that one [all legit-like](https://gearboxloot.com/products/borderlands-3-mask-skins-head-pack))
+
 **v1.9.0** - September 10, 2020
  - Updated with DLC4 (Psycho Krieg and the Fantastic Fustercluck) support
 

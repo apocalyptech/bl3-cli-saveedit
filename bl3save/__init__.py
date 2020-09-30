@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.9.0'
+__version__ = '1.9.1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -708,10 +708,10 @@ profile_heads = set([
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomHead_Gunner_DLC2_01.CustomHead_Gunner_DLC2_01',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomHead_Operative_DLC2_01.CustomHead_Operative_DLC2_01',
     '/Game/PatchDLC/Hibiscus/PlayerCharacters/_Customizations/_Shared/CustomHead_Siren_DLC2_01.CustomHead_Siren_DLC2_01',
+    '/Game/PatchDLC/Takedown2/PlayerCharacters/_Customizations/CustomHeads/CustomHead46/CustomHead_Beastmaster_46.CustomHead_Beastmaster_46',
     '/Game/PatchDLC/Takedown2/PlayerCharacters/_Customizations/CustomHeads/CustomHead46/CustomHead_Gunner_46.CustomHead_Gunner_46',
     '/Game/PatchDLC/Takedown2/PlayerCharacters/_Customizations/CustomHeads/CustomHead46/CustomHead_Operative_46.CustomHead_Operative_46',
     '/Game/PatchDLC/Takedown2/PlayerCharacters/_Customizations/CustomHeads/CustomHead46/CustomHead_Siren_46.CustomHead_Siren_46',
-    '/Game/PatchDLC/Takedown2/PlayerCharacters/_Customizations/EchoDevice/EchoTheme_Takedown2.EchoTheme_Takedown2',
     '/Game/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_1.CustomHead_Beastmaster_1',
     '/Game/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_10.CustomHead_Beastmaster_10',
     '/Game/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_11.CustomHead_Beastmaster_11',
