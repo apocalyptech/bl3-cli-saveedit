@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.9.1'
+__version__ = '1.9.2'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1147,6 +1147,7 @@ profile_weaponskins_obj_to_eng = {
         '/Game/Gear/WeaponSkins/_Design/SkinParts/WeaponSkin_8.WeaponSkin_8': "Gun-fetti",
         '/Game/Gear/WeaponSkins/_Design/SkinParts/WeaponSkin_9.WeaponSkin_9': "Leather and Regret",
         '/Game/PatchDLC/BloodyHarvest/Gear/Weapons/WeaponSkins/WeaponSkin_BloodyHarvest_01.WeaponSkin_BloodyHarvest_01': "Ghoul Metal Grey",
+        '/Game/PatchDLC/BloodyHarvest/Gear/Weapons/WeaponSkins/WeaponSkin_BloodyHarvest_02.WeaponSkin_BloodyHarvest_02': "Porphyrophobia",
         # Not including this one because it's quite obviously unfinished, and identical to Burnished Steele
         #'/Game/PatchDLC/Geranium/Customizations/WeaponSkin/WeaponSkin_DLC3_1.WeaponSkin_DLC3_1': "DLC3 WeaponSkin",
         }

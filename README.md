@@ -222,6 +222,9 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.9.2** - October 8, 2020
+ - Added in the missed weapon skin "Porphyrophobia," from Bloody Harvest 2020.
+
 **v1.9.1** - September 30, 2020
  - Fixed unlocking FL4K's "Antisoci4l" head (though you should still get
    that one [all legit-like](https://gearboxloot.com/products/borderlands-3-mask-skins-head-pack))
