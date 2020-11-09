@@ -288,4 +288,5 @@ message Profile {
   int32 CitizenScienceCSBucksAmount = 226;
   bool bCitizenScienceHasSeenIntroVideo = 227;
   bool bCitizenScienceTutorialDone = 228;
+  bool fixed_initial_zonemap_rotation = 230;
 }
