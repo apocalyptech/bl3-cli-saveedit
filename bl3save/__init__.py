@@ -1434,7 +1434,7 @@ takedown_missions = {
 #
 # For most missions, the following find statement will generate this list:
 #
-#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions Game/PatchDLC/CitizenScience/Missions Game/PatchDLC/Event2/Missions Game/PatchDLC/Takedown2/Missions Game/PatchDLC/Geranium/Missions Game/PatchDLC/Alisma/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" -o -name "ALI_EP*.uexp" -o -name "ALI_SM_*.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
+#    for file in $(find Game/Missions Game/PatchDLC/Dandelion/Missions Game/PatchDLC/Hibiscus/Missions Game/PatchDLC/Raid1/Missions Game/PatchDLC/BloodyHarvest/Missions Game/PatchDLC/CitizenScience/Missions Game/PatchDLC/Event2/Missions Game/PatchDLC/Takedown2/Missions Game/PatchDLC/Geranium/Missions Game/PatchDLC/Alisma/Missions Game/PatchDLC/Ixora/Missions \( -iname "Mission_*.uexp" -o -name "SideMission_*.uexp" -o -name "EP*_DLC2.uexp" -o -name "ALI_EP*.uexp" -o -name "ALI_SM_*.uexp" \) -print); do echo -n "'/$(dirname $file)/$(basename $file .uexp)': \""; echo $(strings $file | head -n 2 | tail -n 1)\",; done
 #
 # Various plot missions, though, from both the main game and DLC1, will need
 # some edits by hand (they use a UIName_*_MissionTitle object instead.)  Also,
@@ -1446,24 +1446,6 @@ takedown_missions = {
 # Keep in mind that the El Dragon Jr one will need a hand edit, since `strings`
 # only matches on latin1 by default (at least on the GNU/Linux version).
 mission_to_name = {
-        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP01': "Enter the Psychoscape",
-        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP02': "Siege of Castle Crimson",
-        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP03': "What Love Remains",
-        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP04': "Inhuman Trials",
-        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP05': "Locus of Rage",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_AllShapesAndCalibers': "A Good Egg",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_BlastRequests': "Blast Requests",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ChecksAndBalances': "Check, Please",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ExposureTherapy': "Remodel Behavior",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_GoodbyeOldFriend': "Laid to Rust",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_HotNBothered': "Hot and Unbothered",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_InkBlots': "Don't Call it a Rorschach",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ParadeHarpoon': "Krieg's on Parade",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ShadesOfTruth': "It's an Allegory",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_SpineTingler': "Scratch, Don't Sniff",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_StrongBones': "Does a Body Good",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ThatRingsABell': "That Rings a Something",
-        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_WhenItRains': "Brainstorm",
         '/Game/Missions/Plot/Mission_Ep01_ChildrenOfTheVault': "Children of the Vault",
         '/Game/Missions/Plot/Mission_Ep02_Sacrifice': "From the Ground Up",
         '/Game/Missions/Plot/Mission_Ep03_GetVaultMap': "Cult Following",
@@ -1579,6 +1561,24 @@ mission_to_name = {
         '/Game/Missions/Side/Zone_4/Desolate/Mission_DestroyerOfWorlds': "Transaction-Packed",
         '/Game/Missions/Side/Zone_4/Desolate/Mission_Homeopathological': "Homeopathological",
         '/Game/Missions/Side/Zone_4/Desolate/Mission_ItsAlive2': "It's Alive",
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP01': "Enter the Psychoscape",
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP02': "Siege of Castle Crimson",
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP03': "What Love Remains",
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP04': "Inhuman Trials",
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP05': "Locus of Rage",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_AllShapesAndCalibers': "A Good Egg",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_BlastRequests': "Blast Requests",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ChecksAndBalances': "Check, Please",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ExposureTherapy': "Remodel Behavior",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_GoodbyeOldFriend': "Laid to Rust",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_HotNBothered': "Hot and Unbothered",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_InkBlots': "Don't Call it a Rorschach",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ParadeHarpoon': "Krieg's on Parade",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ShadesOfTruth': "It's an Allegory",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_SpineTingler': "Scratch, Don't Sniff",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_StrongBones': "Does a Body Good",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_ThatRingsABell': "That Rings a Something",
+        '/Game/PatchDLC/Alisma/Missions/Side/ALI_SM_WhenItRains': "Brainstorm",
         '/Game/PatchDLC/BloodyHarvest/Missions/Side/Seasonal/Mission_Season_01_Intro': "Bloody Harvest: Descent into Heck",
         '/Game/PatchDLC/BloodyHarvest/Missions/Side/Seasonal/Mission_Season_01_Repeatable': "Bloody Harvest: The Rebloodening",
         '/Game/PatchDLC/CitizenScience/Missions/Mission_CitizenScience_Intro': "Borderlands Science!",
@@ -1643,6 +1643,8 @@ mission_to_name = {
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_WeSlassPart2': "We Slass! (Part 2)",
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_WeSlassPart3': "We Slass! (Part 3)",
         '/Game/PatchDLC/Hibiscus/Missions/Side/SideMission_DLC2_WhereIBelong': "Call of the Deep",
+        '/Game/PatchDLC/Ixora/Missions/Side/Mission_GearUp': "Arms Race",
+        '/Game/PatchDLC/Ixora/Missions/Side/Mission_GearUp_Intro': "Arms Race: Introduction",
         '/Game/PatchDLC/Raid1/Missions/Mission_Raid1': "Takedown at the Maliwan Blacksite",
         '/Game/PatchDLC/Raid1/Missions/Mission_Raid1Intro': "Discovery: Takedown at the Maliwan Blacksite",
         '/Game/PatchDLC/Takedown2/Missions/Side/Mission_Takedown2': "Takedown at the Guardian Breach",
