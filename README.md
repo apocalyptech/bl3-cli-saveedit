@@ -219,6 +219,8 @@ liking, if you didn't want to use this one for whatever reason:
 - [sandsmark's borderlands3-save-editor](https://github.com/sandsmark/borderlands3-save-editor) -
   Written in C++ with Qt for GUI.  Is still in development.  Native downloads
   for Windows, but should compile fine on other platforms.
+- [HackerSmaker's CSave Editor](https://github.com/HackerSmacker/CSave) - Cross-platform
+  commandline editor written in C.  Has a terminal (ncurses) UI on UNIX-like OSes.
 
 # Changelog
 
