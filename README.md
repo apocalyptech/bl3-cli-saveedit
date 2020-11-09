@@ -224,6 +224,9 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.10.0** - *unreleased*
+ - Updated with DLC5 (Designer's Cut) support
+
 **v1.9.2** - October 8, 2020
  - Added in the missed weapon skin "Porphyrophobia," from Bloody Harvest 2020.
 
