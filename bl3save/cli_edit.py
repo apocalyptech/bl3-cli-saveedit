@@ -136,7 +136,7 @@ def main():
 
     parser.add_argument('--mayhem',
             type=int,
-            choices=range(11),
+            choices=range(12),
             help='Set the mayhem mode for all playthroughs (mostly useful for Normal mode)',
             )
 
