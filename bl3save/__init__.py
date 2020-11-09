@@ -38,6 +38,10 @@ classobj_to_class = {
         }
 
 # Pets
+# TODO (ish): Looks like there's currently no support for renaming your Loader
+# pet.  Make sure to add that in, if they ever get that in the game.  (I did try
+# just injecting some data even though there's no in-game UI, and couldn't
+# find a string that worked.)
 (JABBER, SPIDERANT, SKAG) = range(3)
 pet_to_eng = {
         JABBER: 'Jabber',
