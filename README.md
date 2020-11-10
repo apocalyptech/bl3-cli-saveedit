@@ -224,7 +224,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.10.0** - *unreleased*
+**v1.10.0** - November 9, 2020
  - Updated with DLC5 (Designer's Cut) support
 
 **v1.9.2** - October 8, 2020
