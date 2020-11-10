@@ -38,7 +38,7 @@ setup(
                 ],
             },
         install_requires=[
-            'protobuf ~= 3.0',
+            'protobuf ~= 3.0, >= 3.12',
             ],
         # https://pypi.python.org/pypi?%3Aaction=list_classifiers
         classifiers=[

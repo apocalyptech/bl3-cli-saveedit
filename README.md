@@ -224,6 +224,13 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.10.1** - November 10, 2020
+ - A second patch was released, about 12 hours after the Designer's Cut release, which
+   updated the protobufs and was causing us to not read saves properly.  This has been
+   fixed up now.
+ - Also require at least protobuf v3.12, which appears to be required as of my
+   latest protobuf generation.
+
 **v1.10.0** - November 9, 2020
  - Updated with DLC5 (Designer's Cut) support
 

@@ -307,4 +307,5 @@ message Character {
   uint32 last_active_league = 60;
   uint32 last_active_league_instance = 61;
   repeated ActiveLeagueInstanceForEventEntry active_league_instance_for_event = 62;
+  bool levelled_save_vehicle_part_rewards_fixup_applied = 63;
 }
