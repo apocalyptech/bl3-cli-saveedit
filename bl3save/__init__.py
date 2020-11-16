@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.10.2'
+__version__ = '1.10.3b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1394,6 +1394,10 @@ mayhem_invdata_types = set([
     '/Game/Gear/GrenadeMods/_Design/A_Data/GM_Default.GM_Default',
     ])
 mayhem_invdata_lower_types = set([t.lower() for t in mayhem_invdata_types])
+
+# Anointable InvData types - will be identical to Mayhemable list, plus shields
+anointable_invdata_types = mayhem_invdata_types | set(['/Game/Gear/Shields/_Design/A_Data/Shield_Default.Shield_Default'])
+anointable_invdata_lower_types = set([t.lower() for t in anointable_invdata_types])
 
 # Guardian Rank Rewards
 guardian_rank_rewards = set([

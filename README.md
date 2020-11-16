@@ -169,6 +169,7 @@ FOr instructions on using the Profile portions of the editor, see
 # TODO
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
+- Would be nice to have some anointment-setting functions in here.
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
   those cases.

@@ -591,6 +591,18 @@ class BL3Serial(object):
                 return False
         return self._invdata.lower() in mayhem_invdata_lower_types
 
+    def can_have_anointment(self):
+        """
+        Returns `True` if this is an item type which can have an anointment,
+        or `False` otherwise.  Will also return `False` if we're unable to
+        parse parts for the item.
+        """
+        if not self.parsed or not self.parts_parsed:
+            self._parse_serial()
+            if not self.can_parse or not self.can_parse_parts:
+                return False
+        return self._invdata.lower() in anointable_invdata_lower_types
+
     @mayhem_level.setter
     def mayhem_level(self, value):
         """
@@ -621,6 +633,60 @@ class BL3Serial(object):
                 return False
             else:
                 new_parts.append((mayhem_lvl_to_part[value], new_mayhem_part))
+
+        # Aaaand assign our list of generic parts back
+        self._generic_parts = new_parts
+
+        # Re-serialize
+        self._deparse_serial()
+        self._update_superclass_serial()
+
+        # return!
+        return True
+
+    def set_anointment(self, anointment):
+        """
+        Sets the given anointment on the item, if possible.  Returns `True` if we were
+        able to do so, or `False` if not.  This does not do any checking to see if
+        the anointment would be ordinarily "valid" for the given item type, but it does
+        at least attempt to only apply if it's an item type which can ordinarily have
+        anointments.
+
+        This will overwrite any existing anointment part on the item in question.
+
+        TODO: This routine currently assumes that any Generic part that's *not* a
+        Mayhem Level part is an anointment, and will wipe those out before setting
+        the specified part.  As of November 2020 this should be a safe assumption,
+        but might not be in the future.  Should this functionality ever get exported
+        though a "proper" CLI arg, we should really import a list of legit
+        anointments to check against, just to assist in futureproofing.
+        """
+
+        # Check for anointment part validity first thing, before we do anything
+        # else.
+        new_anointment_part = self.serial_db.get_part_index(
+                'InventoryGenericPartData',
+                anointment,
+                )
+        if not new_anointment_part:
+            raise Exception('ERROR: {} is not a known anointment'.format(anointment))
+
+        # The call to `can_have_anointment` will parse the serial if possible,
+        # so we'll be all set.
+        if not self.can_have_anointment():
+            return False
+
+        # Don't forget to set this
+        self.changed_parts = True
+
+        # Start out with our new anointment part
+        new_parts = [(anointment, new_anointment_part)]
+
+        # Now add in any existing Mayhem parts (should just be the one, but
+        # whatever)
+        for idx, (part_name, part_idx) in enumerate(self._generic_parts):
+            if part_name.lower() in mayhem_part_lower_to_lvl:
+                new_parts.append((part_name, part_idx))
 
         # Aaaand assign our list of generic parts back
         self._generic_parts = new_parts
@@ -723,6 +789,8 @@ class InventorySerialDB(object):
         Find the correct index to use for the given `part_name`, inside the given
         `category`.  Will return `None` if the part cannot be found.
         """
+        if not self.initialized:
+            self._initialize()
         if category not in self.part_cache:
             self.part_cache[category] = {}
         if part_name not in self.part_cache[category]:
