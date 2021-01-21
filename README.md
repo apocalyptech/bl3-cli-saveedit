@@ -225,6 +225,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.10.3** - *(unreleased)*
+ - Updated internal inventory DB with data from today's patch.  (No real functionality
+   changes with this.)
+
 **v1.10.2** - November 10, 2020
  - Updated internal inventory DB with a minor change which was in the previous GBX
    patch.  (Probably no actual functionality changes with this.)
