@@ -225,6 +225,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.10.4** - January 21, 2021
+ - Updated with the new cosmetics data from today's patch.  *(Totally forgot to do that
+   in v1.10.3.)*
+
 **v1.10.3** - January 21, 2021
  - Updated internal inventory DB with data from today's patch.  (No real functionality
    changes with this.)

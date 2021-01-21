@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.10.3'
+__version__ = '1.10.4'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -479,9 +479,17 @@ profile_skins = set([
     '/Game/PatchDLC/Event2/PlayerCharacters/_Customizations/Operative/Skins/CustomSkin_Operative_47.CustomSkin_Operative_47',
     '/Game/PatchDLC/Event2/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_47.CustomSkin_Siren_47',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Beastmaster_50.CustomSkin_Beastmaster_50',
+    '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Beastmaster_65.CustomSkin_Beastmaster_65',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Gunner_50.CustomSkin_Gunner_50',
+    '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Gunner_65.CustomSkin_Gunner_65',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Operative_50.CustomSkin_Operative_50',
+    '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Operative_65.CustomSkin_Operative_65',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Siren_50.CustomSkin_Siren_50',
+    '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomSkin_Siren_65.CustomSkin_Siren_65',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Beastmaster/Skins/CustomSkin_Beastmaster_61.CustomSkin_Beastmaster_61',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Gunner/Skins/CustomSkin_Gunner_61.CustomSkin_Gunner_61',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Operative/Skins/CustomSkin_Operative_61.CustomSkin_Operative_61',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Siren/Skins/CustomSkin_Siren_61.CustomSkin_Siren_61',
     '/Game/PatchDLC/Geranium/Customizations/PlayerSkin/CustomSkin_Beastmaster_DLC3_1.CustomSkin_Beastmaster_DLC3_1',
     '/Game/PatchDLC/Geranium/Customizations/PlayerSkin/CustomSkin_Gunner_DLC3_1.CustomSkin_Gunner_DLC3_1',
     '/Game/PatchDLC/Geranium/Customizations/PlayerSkin/CustomSkin_Operative_DLC3_1.CustomSkin_Operative_DLC3_1',
@@ -712,6 +720,22 @@ profile_heads = set([
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomHead_Gunner_Twitch.CustomHead_Gunner_Twitch',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomHead_Operative_Twitch.CustomHead_Operative_Twitch',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/CustomHead_Siren_Twitch.CustomHead_Siren_Twitch',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Beastmaster/Heads/DA_BMHead33.DA_BMHead33',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Beastmaster/Heads/DA_BMHead35.DA_BMHead35',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Beastmaster/Heads/DA_BMHead36.DA_BMHead36',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Beastmaster/Heads/DA_BMHead37.DA_BMHead37',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Gunner/Heads/DA_GNRHead33.DA_GNRHead33',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Gunner/Heads/DA_GNRHead35.DA_GNRHead35',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Gunner/Heads/DA_GNRHead36.DA_GNRHead36',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Gunner/Heads/DA_GNRHead37.DA_GNRHead37',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Operative/Heads/DA_OPHead33.DA_OPHead33',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Operative/Heads/DA_OPHead35.DA_OPHead35',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Operative/Heads/DA_OPHead36.DA_OPHead36',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Operative/Heads/DA_OPHead37.DA_OPHead37',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Siren/Heads/DA_SRNHead33.DA_SRNHead33',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Siren/Heads/DA_SRNHead35.DA_SRNHead35',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Siren/Heads/DA_SRNHead36.DA_SRNHead36',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Customizations/Siren/Heads/DA_SRNHead37.DA_SRNHead37',
     '/Game/PatchDLC/Geranium/Customizations/PlayerHead/CustomHead38/CustomHead_Beastmaster_38.CustomHead_Beastmaster_38',
     '/Game/PatchDLC/Geranium/Customizations/PlayerHead/CustomHead38/CustomHead_Gunner_38.CustomHead_Gunner_38',
     '/Game/PatchDLC/Geranium/Customizations/PlayerHead/CustomHead38/CustomHead_Operative_38.CustomHead_Operative_38',
@@ -843,6 +867,8 @@ profile_echothemes = set([
     '/Game/PatchDLC/Dandelion/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_66.ECHOTheme_66',
     '/Game/PatchDLC/Event2/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_44.ECHOTheme_44',
     '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/ECHODevice/EchoTheme_Valentines_01.EchoTheme_Valentines_01',
+    '/Game/PatchDLC/EventVDay/PlayerCharacters/_Shared/ECHODevice/EchoTheme_Valentines_02.EchoTheme_Valentines_02',
+    '/Game/PatchDLC/EventVDay/TwitchDrops/PlayerCharacters/_Shared/ECHODevice/ECHOTheme_46.ECHOTheme_46',
     '/Game/PatchDLC/Geranium/Customizations/EchoTheme/ECHOTheme_73.ECHOTheme_73',
     '/Game/PatchDLC/Geranium/Customizations/EchoTheme/ECHOTheme_74.ECHOTheme_74',
     '/Game/PatchDLC/Geranium/Customizations/EchoTheme/ECHOTheme_75.ECHOTheme_75',
@@ -1239,6 +1265,8 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/Dandelion/Gear/WeaponTrinkets/_Shared/Trinket_MercenaryDay_01_CandyCane.Trinket_MercenaryDay_01_CandyCane': "Mercenary Day Ornament",
         '/Game/PatchDLC/Event2/Gear/_Design/WeaponTrinkets/WeaponTrinket_Cartels_1.WeaponTrinket_Cartels_1': "Retro Outrunner",
         '/Game/PatchDLC/EventVDay/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_League_VDay_1.Trinket_League_VDay_1': "Cosmic Romance",
+        '/Game/PatchDLC/EventVDay/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_League_VDay_2.Trinket_League_VDay_2': "Cosmic Romance",
+        '/Game/PatchDLC/EventVDay/TwitchDrops/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_Twitch.Trinket_Twitch': "Pain Freeze",
         '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_1.WeaponTrinket_DLC3_1': "Devil Tooth",
         '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_2.WeaponTrinket_DLC3_2': "Battle Driver",
         '/Game/PatchDLC/Hibiscus/Gear/WeaponTrinkets/_Shared/Trinket_Hibiscus_01_Squidly.Trinket_Hibiscus_01_Squidly': "Tactical Tentacle",
