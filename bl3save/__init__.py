@@ -229,6 +229,20 @@ level_challenges = [
         (50, '/Game/GameData/Challenges/System/BP_Challenge_Console_4.BP_Challenge_Console_4_C'),
         ]
 
+# Borderlands Science
+borderlands_science_levels = [
+        (5, "Claptrap"),
+        (10, "Brick"),
+        (15, "Mordecai"),
+        (20, "Torgue"),
+        (25, "Marcus"),
+        (30, "Ellie"),
+        (35, "Lilith"),
+        (40, "Mad Moxxi"),
+        (50, "Tannis"),
+        (0, "True Tannis")
+        ]
+
 # Vehicle info.  We're not doing as much object-to-english mapping stuff here, 'cause
 # I don't care enough to code it into the editor.  Just doing some more general
 # "unlock all" type activity.
@@ -2601,4 +2615,3 @@ fts_to_map = {
         '/game/patchdlc/takedown2/gamedata/leveltravel/fts_td2droppod1.fts_td2droppod1': 'GuardianTakedown_P',
         '/game/patchdlc/takedown2/gamedata/leveltravel/lts_sanctuary3_td2.lts_sanctuary3_td2': 'Sanctuary3_P',
         }
-

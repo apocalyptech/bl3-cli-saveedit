@@ -108,6 +108,27 @@ def main():
             help="Number of available Guardian Rank tokens",
             )
 
+    parser.add_argument('--reset-borderlands-science',
+            dest='reset_borderlands_science',
+            action='store_true',
+            help='Reset Borderlands Science progression',
+            )
+    parser.add_argument('--max-borderlands-science',
+            dest='max_borderlands_science',
+            action='store_true',
+            help='Maximize Borderlands Science progression, unlocking True Tannis',
+            )
+    parser.add_argument('--remove-borderlands-science-boosts',
+            dest='remove_borderlands_science_boosts',
+            action='store_true',
+            help='Remove the currently active borderlands science boost',
+            )
+    parser.add_argument('--borderlands-science-tokens',
+            dest='borderlands_science_tokens',
+            type=int,
+            help="Number of available Borderlands Science tokens",
+            )
+
     itemlevelgroup = parser.add_mutually_exclusive_group()
 
     itemlevelgroup.add_argument('--item-levels-max',
@@ -249,6 +270,10 @@ def main():
         args.min_guardian_rank,
         args.guardian_rank_rewards is not None,
         args.guardian_rank_tokens is not None,
+        args.reset_borderlands_science,
+        args.max_borderlands_science,
+        args.remove_borderlands_science_boosts,
+        args.borderlands_science_tokens is not None,
         len(args.unlock) > 0,
         args.import_items,
         args.item_levels,
@@ -314,6 +339,29 @@ def main():
             if new_gr is not None and not args.quiet:
                 print('   - Also set Guardian Rank level to {}'.format(new_gr))
             guardian_rank_alert = True
+
+        # Reset Borderlands Science progression
+        if args.reset_borderlands_science:
+            if not args.quiet:
+                print(" - Resetting Borderlands Science progression")
+            profile.reset_borderlands_science()
+
+        if args.max_borderlands_science:
+            if not args.quiet:
+                print(" - Maximizing Borderlands Science progression")
+            profile.max_borderlands_science()
+
+        # Removing active Borderlands Science boosts
+        if args.remove_borderlands_science_boosts:
+            if not args.quiet:
+                print(" - Removing active Borderlands Science boosts")
+            profile.remove_borderlands_science_boosts()
+
+        # Setting Borderlands Science tokens
+        if args.borderlands_science_tokens is not None:
+            if not args.quiet:
+                print(" - Setting available Borderlands Science tokens to {}".format(args.borderlands_science_tokens))
+            profile.set_borderlands_science_tokens(args.borderlands_science_tokens)
 
         # Clear Customizations (do this *before* explicit customization unlocks)
         if args.clear_customizations:
