@@ -225,6 +225,10 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.11.0** - *(unreleased)*
+ - Added Citizen Science editing functionality to profile editor, thanks
+   to [@apple1417](https://github.com/apple1417/)
+
 **v1.10.4** - January 21, 2021
  - Updated with the new cosmetics data from today's patch.  *(Totally forgot to do that
    in v1.10.3.)*
