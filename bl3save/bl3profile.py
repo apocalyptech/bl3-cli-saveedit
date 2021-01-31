@@ -773,3 +773,45 @@ class BL3Profile(object):
         self.prof.guardian_rank.new_guardian_experience = 0
         return self.set_guardian_rank_reward_levels(1, force=True)
 
+    def get_borderlands_science_level(self):
+        total = sum(self.prof.CitizenScienceLevelProgression)
+        for idx, completions in enumerate(self.prof.CitizenScienceLevelProgression):
+            required_completions, name = borderlands_science_levels[idx]
+            if completions < required_completions or required_completions == 0:
+                return name + f" ({total} solves)"
+        return f"Unknown ({total} solves)"
+
+    def get_borderlands_science_tokens(self):
+        return self.prof.CitizenScienceCSBucksAmount
+
+    def reset_borderlands_science(self):
+        """
+        Reset this profile's Borderlands Science progression.
+        """
+        del self.prof.CitizenScienceLevelProgression[:]
+        self.prof.bCitizenScienceHasSeenIntroVideo = False
+        self.prof.bCitizenScienceTutorialDone = False
+
+    def max_borderlands_science(self):
+        """
+        Maximizes this profile's Borderlands Science progression, unlocking True Tannis.
+        """
+        self.prof.CitizenScienceLevelProgression[:] = (
+            level[0] for level in borderlands_science_levels
+        )
+        self.prof.bCitizenScienceHasSeenIntroVideo = True
+        self.prof.bCitizenScienceTutorialDone = True
+
+    def remove_borderlands_science_boosts(self):
+        """
+        Remove any currently active Borderlands Science boosts.
+        """
+        self.prof.CitizenScienceActiveBoosterIndex = 0
+        self.prof.CitizenScienceActiveBoosterRemainingTime = 0
+        self.prof.CitizenScienceActiveBoosterTotalTime = 0
+
+    def set_borderlands_science_tokens(self, tokens):
+        """
+        Set this profile's Borderlands Science token amount.
+        """
+        self.prof.CitizenScienceCSBucksAmount = tokens

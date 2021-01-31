@@ -64,6 +64,10 @@ def main():
     print('Guardian Rank: {}'.format(prof.get_guardian_rank()))
     print('Available GR Tokens: {}'.format(prof.get_guardian_rank_tokens()))
 
+    # Borderlands Science
+    print("Borderlands Science Level: {}".format(prof.get_borderlands_science_level()))
+    print("Available BS Tokens: {}".format(prof.get_borderlands_science_tokens()))
+
     # SDUs
     sdus = prof.get_sdus_with_max(True)
     if len(sdus) == 0:
