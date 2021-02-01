@@ -225,7 +225,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.11.0** - *(unreleased)*
+**v1.11.0** - February 1, 2021
  - Added Citizen Science editing functionality to profile editor, thanks
    to [@apple1417](https://github.com/apple1417/)
 
