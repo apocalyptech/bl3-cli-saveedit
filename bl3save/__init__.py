@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.11.0'
+__version__ = '1.11.1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1279,7 +1279,7 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/Dandelion/Gear/WeaponTrinkets/_Shared/Trinket_MercenaryDay_01_CandyCane.Trinket_MercenaryDay_01_CandyCane': "Mercenary Day Ornament",
         '/Game/PatchDLC/Event2/Gear/_Design/WeaponTrinkets/WeaponTrinket_Cartels_1.WeaponTrinket_Cartels_1': "Retro Outrunner",
         '/Game/PatchDLC/EventVDay/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_League_VDay_1.Trinket_League_VDay_1': "Cosmic Romance",
-        '/Game/PatchDLC/EventVDay/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_League_VDay_2.Trinket_League_VDay_2': "Cosmic Romance",
+        '/Game/PatchDLC/EventVDay/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_League_VDay_2.Trinket_League_VDay_2': "Tentacle Ventricles",
         '/Game/PatchDLC/EventVDay/TwitchDrops/Gear/Weapon/WeaponTrinkets/_Shared/Trinket_Twitch.Trinket_Twitch': "Pain Freeze",
         '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_1.WeaponTrinket_DLC3_1': "Devil Tooth",
         '/Game/PatchDLC/Geranium/Customizations/WeaponTrinket/WeaponTrinket_DLC3_2.WeaponTrinket_DLC3_2': "Battle Driver",
