@@ -649,29 +649,68 @@ class BL3Profile(object):
                 is_new=is_new,
                 ))
 
+    def _get_generic_keys(self, key_hash):
+        """
+        The profile holds info for a few different key types now.  This
+        will return the count for the specified `key_hash`.
+        """
+        for cat in self.prof.bank_inventory_category_list:
+            if cat.base_category_definition_hash == key_hash:
+                return cat.quantity
+        return 0
+
+    def _set_generic_keys(self, key_hash, num_keys):
+        """
+        The profile holds info for a few different key types now.  This
+        will set the number of keys for the specified `key_hash` to
+        `num_keys.
+        """
+        for cat in self.prof.bank_inventory_category_list:
+            if cat.base_category_definition_hash == key_hash:
+                cat.quantity = num_keys
+                return
+
+        # If we got here, apparently this profile hasn't seen this key type at all
+        self.prof.bank_inventory_category_list.append(OakShared_pb2.InventoryCategorySaveData(
+            base_category_definition_hash=key_hash,
+            quantity=num_keys
+            ))
+
     def get_golden_keys(self):
         """
         Returns the number of golden keys stored on this profile
         """
-        for cat in self.prof.bank_inventory_category_list:
-            if cat.base_category_definition_hash == goldenkey_hash:
-                return cat.quantity
-        return 0
+        return self._get_generic_keys(goldenkey_hash)
 
     def set_golden_keys(self, num_keys):
         """
         Sets the number of golden keys to `num_keys`
         """
-        for cat in self.prof.bank_inventory_category_list:
-            if cat.base_category_definition_hash == goldenkey_hash:
-                cat.quantity = num_keys
-                return
+        self._set_generic_keys(goldenkey_hash, num_keys)
 
-        # If we got here, apparently this profile hasn't seen golden keys at all
-        self.prof.bank_inventory_category_list.append(OakShared_pb2.InventoryCategorySaveData(
-            base_category_definition_hash=goldenkey_hash,
-            quantity=num_keys
-            ))
+    def get_diamond_keys(self):
+        """
+        Returns the number of diamond keys stored on this profile
+        """
+        return self._get_generic_keys(diamondkey_hash)
+
+    def set_diamond_keys(self, num_keys):
+        """
+        Sets the number of diamond keys to `num_keys`
+        """
+        self._set_generic_keys(diamondkey_hash, num_keys)
+
+    def get_vaultcard1_keys(self):
+        """
+        Returns the number of Vault Card 1 keys stored on this profile
+        """
+        return self._get_generic_keys(vaultcard1key_hash)
+
+    def set_vaultcard1_keys(self, num_keys):
+        """
+        Sets the number of Vault Card 1 keys to `num_keys`
+        """
+        self._set_generic_keys(vaultcard1key_hash, num_keys)
 
     def fixup_guardian_rank(self, force=True):
         """

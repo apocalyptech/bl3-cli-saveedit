@@ -1349,6 +1349,14 @@ profile_weapontrinkets_eng_to_hash = {v: k for k, v in profile_weapontrinkets_ha
 goldenkey_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCategory_GoldenKey'
 goldenkey_hash = inventory_path_hash(goldenkey_category)
 
+# Vault Card #1 Keys
+vaultcard1key_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCategory_VaultCard1Key'
+vaultcard1key_hash = inventory_path_hash(vaultcard1key_category)
+
+# Diamond Keys
+diamondkey_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCategory_DiamondKey'
+diamondkey_hash = inventory_path_hash(diamondkey_category)
+
 # XP
 max_level = 65
 required_xp_list = [

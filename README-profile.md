@@ -19,7 +19,10 @@ commands will be:
 - [Basic Operation](#basic-operation)
 - [Output Formats](#output-formats)
 - [Modifying the Profile](#modifying-the-profile)
-  - [Golden Keys](#golden-keys)
+  - [Keys](#keys)
+    - [Golden Keys](#golden-keys)
+    - [Diamond Keys](#diamond-keys)
+    - [Vault Card 1 Keys](#vault-card-1-keys)
   - [Guardian Rank](#guardian-rank)
     - [Zeroing Guardian Rank](#zeroing-guardian-rank)
     - [Minimizing Guardian Rank](#minimizing-guardian-rank)
@@ -116,12 +119,31 @@ Here's a list of all the edits you can make to the profile.  You
 can specify as many of these as you want on the commandline, to
 process multiple changes at once.
 
-## Golden Keys
+## Keys
+
+The Profile editor supports editing the various keys that are acquired
+throughout the game
+
+### Golden Keys
 
 The number of Golden Keys stored in the profile can be set using
 the `--golden-keys` argument:
 
     bl3-profile-edit profile.sav newprofile.sav --golden-keys 150
+
+### Diamond Keys
+
+The number of Diamond Keys stored in the profile can be set using
+the `--diamond-keys` argument:
+
+    bl3-profile-edit profile.sav newprofile.sav --diamond-keys 3
+
+### Vault Card 1 Keys
+
+The number of keys for the first Vault Card stored in the profile can
+be set using the `--vaultcard1-keys` argument:
+
+    bl3-profile-edit profile.sav newprofile.sav --vaultcard1-keys 10
 
 ## Guardian Rank
 

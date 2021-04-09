@@ -80,6 +80,18 @@ def main():
             help='Number of Golden Keys in the profile',
             )
 
+    parser.add_argument('--diamond-keys',
+            dest='diamond_keys',
+            type=int,
+            help='Number of Diamond Keys in the profile',
+            )
+
+    parser.add_argument('--vaultcard1-keys',
+            dest='vaultcard1_keys',
+            type=int,
+            help='Number of Vault Card 1 Keys in the profile',
+            )
+
     # Arguably we could be using a mutually-exclusive group for many of these
     # GR options, but I can see some potential value in specifying more than
     # one, so I'm not bothering.
@@ -224,9 +236,13 @@ def main():
     if args.item_mayhem_max:
         args.item_mayhem_levels = bl3save.mayhem_max
 
-    # Check golden key count; don't let it be below zero
+    # Check key counts; don't let them be below zero
     if args.golden_keys is not None and args.golden_keys < 0:
         raise argparse.ArgumentTypeError('Golden keys cannot be negative')
+    if args.diamond_keys is not None and args.diamond_keys < 0:
+        raise argparse.ArgumentTypeError('Diamond keys cannot be negative')
+    if args.vaultcard1_keys is not None and args.vaultcard1_keys < 0:
+        raise argparse.ArgumentTypeError('Vault Card 1 keys cannot be negative')
 
     # Check item level.  The max storeable in the serial number is 127, but the
     # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
@@ -266,6 +282,8 @@ def main():
     # Check to see if we have any changes to make
     have_changes = any([
         args.golden_keys is not None,
+        args.diamond_keys is not None,
+        args.vaultcard1_keys is not None,
         args.zero_guardian_rank,
         args.min_guardian_rank,
         args.guardian_rank_rewards is not None,
@@ -297,6 +315,18 @@ def main():
             if not args.quiet:
                 print(' - Setting Golden Key count to {}'.format(args.golden_keys))
             profile.set_golden_keys(args.golden_keys)
+
+        # Diamond Keys
+        if args.diamond_keys is not None:
+            if not args.quiet:
+                print(' - Setting Diamond Key count to {}'.format(args.diamond_keys))
+            profile.set_diamond_keys(args.diamond_keys)
+
+        # Vault Card 1 Keys
+        if args.vaultcard1_keys is not None:
+            if not args.quiet:
+                print(' - Setting Vault Card 1 Key count to {}'.format(args.vaultcard1_keys))
+            profile.set_vaultcard1_keys(args.vaultcard1_keys)
 
         # Zeroing Guardian Rank
         if args.zero_guardian_rank:
