@@ -225,6 +225,9 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
+**v1.12.0** - *(unreleased)*
+ - Updated with DLC6 (Director's Cut) compatibility.  (Still a WIP on git HEAD!)
+
 **v1.11.1** - February 12, 2021
  - Fixed name of the Broken Hearts 2021 weapon trinket "Cosmic Romance" to be "Tentacle
    Ventricles" like in game -- it was updated with an OakTMS update on Feb 11 by GBX.
