@@ -109,7 +109,7 @@ class BL3Serial(object):
         """
 
         self.serial = serial
-        (self.decrypted_serial, self.orig_seed) = BL3Serial._decrypt_serial(serial)
+        (self.decrypted_serial, self.orig_seed, self.serial_version) = BL3Serial._decrypt_serial(serial)
         self.parsed = False
         self.parts_parsed = False
         self.can_parse = True
@@ -130,6 +130,7 @@ class BL3Serial(object):
         self._manufacturer_idx = None
         self._manufacturer = None
         self._level = None
+        self._rerolled = None
         self._remaining_data = None
 
         # Additional data that gets filled in if we can parse parts
@@ -198,8 +199,9 @@ class BL3Serial(object):
         Decrypts (really just de-obfuscates) the serial number.
         """
 
-        # Initial byte should always be 3
-        assert(serial[0] == 3)
+        # Initial byte should always be 3 or, after the 2021-04-08 patch, 4.
+        assert(serial[0] == 3 or serial[0] == 4)
+        serial_version = serial[0]
 
         # Seed does need to be an unsigned int
         orig_seed = struct.unpack('>i', serial[1:5])[0]
@@ -223,10 +225,10 @@ class BL3Serial(object):
                 ))
 
         # Return what we decrypted
-        return (decrypted[2:], orig_seed)
+        return (decrypted[2:], orig_seed, serial_version)
 
     @staticmethod
-    def _encrypt_serial(data, seed=None):
+    def _encrypt_serial(data, serial_ver, seed=None):
         """
         Given an unencrypted `data`, return the binary serial number for
         the item, optionally with the given `seed`.  If `seed` is not passed in,
@@ -239,7 +241,7 @@ class BL3Serial(object):
             seed = random.randrange(0x100000000) - 0x80000000
 
         # Construct our header and find the checksum
-        header = struct.pack('>Bi', 3, seed)
+        header = struct.pack('>Bi', serial_ver, seed)
         crc32 = binascii.crc32(header + b"\xFF\xFF" + data)
         checksum = struct.pack('>H', ((crc32 >> 16) ^ crc32) & 0xFFFF)
 
@@ -367,12 +369,20 @@ class BL3Serial(object):
                 self.parts_parsed = False
                 self.can_parse_parts = False
 
+            # If we're a v4 (or higher) serial, read in the number of times we've
+            # been re-rolled
+            if self.serial_version >= 4:
+                self._rerolled = bits.eat(8)
+            else:
+                self._rerolled = 0
+
             # And read in our remaining data.  If there's more than 7 bits
             # left, we've done something wrong, because it should only be
             # zero-padding after all the "real" data is in place.
             if len(bits.data) > 7:
                 self.parts_parsed = False
                 self.can_parse_parts = False
+                pass
             elif '1' in bits.data:
                 # This is supposed to only be zero-padding at the moment, if
                 # we see something else, abort
@@ -443,6 +453,10 @@ class BL3Serial(object):
             # Then our number of customs (should always be zero)
             bits.append_value(self._num_customs, 4)
 
+            # Then, if we're a v4 serial, the number of times we've been rerolled
+            if self.serial_version >= 4:
+                bits.append_value(self._rerolled, 8)
+
         else:
             # Otherwise, we can re-use our original remaining data
             bits.append_data(self._remaining_data)
@@ -451,7 +465,7 @@ class BL3Serial(object):
         new_data = bits.get_data()
 
         # Encode the new serial (using seed 0; unencrypted)
-        new_serial = BL3Serial._encrypt_serial(new_data, 0)
+        new_serial = BL3Serial._encrypt_serial(new_data, self.serial_version, 0)
 
         # Load in the new serial (this will set `parsed` to `False`)
         # It bothers me that I've just done an `_encrypt_serial` in the
@@ -536,7 +550,7 @@ class BL3Serial(object):
             seed = self.orig_seed
         else:
             seed = 0
-        return BL3Serial._encrypt_serial(self.decrypted_serial, seed)
+        return BL3Serial._encrypt_serial(self.decrypted_serial, self.serial_version, seed)
 
     def get_serial_base64(self, orig_seed=False):
         """
