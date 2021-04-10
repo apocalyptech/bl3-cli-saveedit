@@ -226,7 +226,7 @@ liking, if you didn't want to use this one for whatever reason:
 # Changelog
 
 **v1.12.0** - *(unreleased)*
- - Updated with DLC6 (Director's Cut) compatibility.  (Still a WIP on git HEAD!)
+ - Updated with DLC6 (Director's Cut) compatibility.
    - Support for updated item serial number format
    - Added `--guardian-keys` and `--vaultcard1-keys` arguments for profile editor
 
