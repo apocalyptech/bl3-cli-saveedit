@@ -712,6 +712,56 @@ class BL3Profile(object):
         """
         self._set_generic_keys(vaultcard1key_hash, num_keys)
 
+    def _get_vaultcard_chests(self, vcnum):
+        """
+        Returns the number of Vault Card Chests the user has available to open,
+        for the given Vault Card number.
+        """
+        # Fortunately, even if this is run on an old savegame which doesn't
+        # have the vault_card structure, it'll still be present thanks to our
+        # protobuf stuff.
+        for card_rewards in self.prof.vault_card.vault_card_claimed_rewards:
+            if card_rewards.vault_card_id == vcnum:
+                return card_rewards.vault_card_chests
+        return 0
+
+    def _set_vaultcard_chests(self, vcnum, num_chests):
+        """
+        Sets the number of Vault Card Chests the user has available to open,
+        for the given Vault Card number.
+        """
+        # Fortunately, even if this is run on an old savegame which doesn't
+        # have the vault_card structure, it'll still be present thanks to our
+        # protobuf stuff.  We might just want to fix up a few values in it.
+        if self.prof.vault_card.last_active_vault_card_id == 0:
+            self.prof.vault_card.last_active_vault_card_id = vcnum
+        for card_rewards in self.prof.vault_card.vault_card_claimed_rewards:
+            if card_rewards.vault_card_id == vcnum:
+                card_rewards.vault_card_chests = num_chests
+                return
+        self.prof.vault_card.vault_card_claimed_rewards.append(OakProfile_pb2.VaultCardRewardList(
+            vault_card_id=vcnum,
+            vault_card_experience=0,
+            unlocked_reward_list=[],
+            redeemed_reward_list=[],
+            vault_card_chests=num_chests,
+            vault_card_chests_opened=0,
+            vault_card_keys_spent=0,
+            gear_rewards=[],
+            ))
+
+    def get_vaultcard1_chests(self):
+        """
+        Returns the number of Vault Card #1 Chests the user has available to open
+        """
+        return self._get_vaultcard_chests(1)
+
+    def set_vaultcard1_chests(self, num_chests):
+        """
+        Sets the number of Vault Card #1 Chests the user has available to open
+        """
+        self._set_vaultcard_chests(1, num_chests)
+
     def fixup_guardian_rank(self, force=True):
         """
         Fixes Guardian Rank, based on the redeemed rewards and available tokens.

@@ -92,6 +92,12 @@ def main():
             help='Number of Vault Card 1 Keys in the profile',
             )
 
+    parser.add_argument('--vaultcard1-chests',
+            dest='vaultcard1_chests',
+            type=int,
+            help='Number of Vault Card 1 Chests available in the profile',
+            )
+
     # Arguably we could be using a mutually-exclusive group for many of these
     # GR options, but I can see some potential value in specifying more than
     # one, so I'm not bothering.
@@ -243,6 +249,8 @@ def main():
         raise argparse.ArgumentTypeError('Diamond keys cannot be negative')
     if args.vaultcard1_keys is not None and args.vaultcard1_keys < 0:
         raise argparse.ArgumentTypeError('Vault Card 1 keys cannot be negative')
+    if args.vaultcard1_chests is not None and args.vaultcard1_chests < 0:
+        raise argparse.ArgumentTypeError('Vault Card 1 chests cannot be negative')
 
     # Check item level.  The max storeable in the serial number is 127, but the
     # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
@@ -284,6 +292,7 @@ def main():
         args.golden_keys is not None,
         args.diamond_keys is not None,
         args.vaultcard1_keys is not None,
+        args.vaultcard1_chests is not None,
         args.zero_guardian_rank,
         args.min_guardian_rank,
         args.guardian_rank_rewards is not None,
@@ -327,6 +336,12 @@ def main():
             if not args.quiet:
                 print(' - Setting Vault Card 1 Key count to {}'.format(args.vaultcard1_keys))
             profile.set_vaultcard1_keys(args.vaultcard1_keys)
+
+        # Vault Card 1 Chests
+        if args.vaultcard1_chests is not None:
+            if not args.quiet:
+                print(' - Setting Vault Card 1 Chest count to {}'.format(args.vaultcard1_chests))
+            profile.set_vaultcard1_chests(args.vaultcard1_chests)
 
         # Zeroing Guardian Rank
         if args.zero_guardian_rank:
