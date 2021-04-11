@@ -171,7 +171,7 @@ def main():
                 importants.append('DLC3 - Bounty of Blood')
             if 'Locus of Rage' in mission_set:
                 importants.append('DLC4 - Psycho Krieg and the Fantastic Fustercluck')
-            if "Horror at Scryer's Crypt" in mission_set:
+            if "Mysteriouslier: Horror at Scryer's Crypt" in mission_set:
                 importants.append('DLC6 - Director\'s Cut')
             if len(importants) > 0:
                 print(' - Mission Milestones:')
