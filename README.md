@@ -42,7 +42,7 @@ Please keep the following in mind:
 # Installation
 
 This editor requires [Python 3](https://www.python.org/), and has been
-tested on 3.7 and 3.8.  It also requires the [protobuf package](https://pypi.org/project/protobuf/).
+tested on 3.7, 3.8, and 3.9.  It also requires the [protobuf package](https://pypi.org/project/protobuf/).
 
 The easiest way to install this app is via `pip`/`pip3`.  Once Python 3 is
 installed, you should be able to run this to install the app:
@@ -107,10 +107,9 @@ running through PowerShell should work, too.  The first step is to
 install Python:
 
 - The recommended way is to [install Python from python.org](https://www.python.org/downloads/windows/).
-  Grab what's available in the 3.x series (at time of writing, that's either
-  3.8.2 or 3.7.7), and when it's installing, make sure to check the checkbox
-  which says something like "add to PATH", so that you can run Python from the
-  commandline directly.
+  Grab what's available in the 3.x series (at time of writing, that's 3.9.4),
+  and when it's installing, make sure to check the checkbox which says something
+  like "add to PATH", so that you can run Python from the commandline directly.
 - If you're on Windows 10, you can apparently just type `python3` into a command
   prompt to be taken to the Windows store, where you can install Python with
   just one click.  I've heard reports that this method does *not* provide the
@@ -122,7 +121,7 @@ either `cmd.exe` or PowerShell, and make sure that you see something like this
 when you run `python -V`:
 
     C:\> python -V
-    Python 3.8.2
+    Python 3.9.4
 
 If that works, you can then run the `pip3 install bl3-cli-saveedit` command
 as mentioned above, and use the commandline scripts to edit to your heart's
@@ -225,11 +224,12 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.12.0** - *(unreleased)*
+**v1.12.0** - April 11, 2021
  - Updated with DLC6 (Director's Cut) compatibility.
    - Support for updated item serial number format
    - Added `--guardian-keys`, `--vaultcard1-keys`, and `--vaultcard1-chests` arguments
      for profile editor
+ - Fixed a few item names which weren't being mapped properly
 
 **v1.11.1** - February 12, 2021
  - Fixed name of the Broken Hearts 2021 weapon trinket "Cosmic Romance" to be "Tentacle
