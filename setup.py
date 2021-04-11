@@ -33,7 +33,7 @@ setup(
         package_data={
             'bl3save': [
                 'resources/inventoryserialdb.json.xz',
-                'resources/short_name_balance_mapping.json.xz',
+                'resources/balance_name_mapping.json.xz',
                 'resources/balance_to_inv_key.json.xz',
                 ],
             },
