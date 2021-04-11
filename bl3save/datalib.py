@@ -324,7 +324,7 @@ class BL3Serial(object):
         self._balance_short = self._balance.split('.')[-1]
 
         # If we know of an English name for this balance, use it
-        self._eng_name = self.name_db.get(self._balance_short)
+        self._eng_name = self.name_db.get(self._balance)
 
         # Mark down that we've parsed the basic info (we have enough to level up
         # gear at this point)
@@ -819,9 +819,8 @@ class InventorySerialDB(object):
 
 class BalanceToName(object):
     """
-    Little wrapper to provide access to a mapping from Balance names (actually
-    just the "short" version of those, without path) to English names that
-    we can report on.
+    Little wrapper to provide access to a mapping from Balance names to
+    English names that we can report on.
     """
 
     def __init__(self):
@@ -835,7 +834,7 @@ class BalanceToName(object):
         """
         if not self.initialized:
             with lzma.open(io.BytesIO(pkg_resources.resource_string(
-                    __name__, 'resources/short_name_balance_mapping.json.xz'
+                    __name__, 'resources/balance_name_mapping.json.xz'
                     ))) as df:
                 self.mapping = json.load(df)
             self.initialized = True
@@ -846,10 +845,8 @@ class BalanceToName(object):
         """
         if not self.initialized:
             self._initialize()
-        if '/' in balance:
-            balance = balance.split('/')[-1]
         if '.' in balance:
-            balance = balance.split('.')[-1]
+            balance = balance.rsplit('.', 1)[0]
         balance = balance.lower()
         if balance in self.mapping:
             return self.mapping[balance]
