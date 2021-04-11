@@ -58,9 +58,10 @@ def main():
     prof = BL3Profile(args.filename)
 
     # Golden Keys
-    print('Golden Keys: {}'.format(prof.get_golden_keys()))
-    print('Diamond Keys: {}'.format(prof.get_diamond_keys()))
-    print('Vault Card 1 Keys: {}'.format(prof.get_vaultcard1_keys()))
+    print('Keys:')
+    print(' - Golden Keys: {}'.format(prof.get_golden_keys()))
+    print(' - Diamond Keys: {}'.format(prof.get_diamond_keys()))
+    print(' - Vault Card 1 Keys: {}'.format(prof.get_vaultcard1_keys()))
 
     # Guardian Rank
     print('Guardian Rank: {}'.format(prof.get_guardian_rank()))
