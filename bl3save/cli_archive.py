@@ -53,6 +53,10 @@ def main():
             type=str,
             help='HTML File to write output summary to')
 
+    parser.add_argument('-r', '--reverse',
+            action='store_true',
+            help='Reverse the order of CSS in HTML rows')
+
     parser.add_argument('-o', '--output',
             type=str,
             required=True,
@@ -103,6 +107,10 @@ def main():
 
     # Now loop through and process
     files_written = 0
+    if args.reverse:
+        row_offset = 1
+    else:
+        row_offset = 0
     for filename in targets:
 
         # Figure out an output filename
@@ -138,7 +146,7 @@ def main():
         if args.info:
 
             # Write out the row
-            print('<tr class="row{}">'.format(files_written % 2), file=idf)
+            print('<tr class="row{}">'.format((files_written + row_offset) % 2), file=idf)
             print('<td class="filename"><a href="bl3/{}">{}</a></td>'.format(base_filename, base_filename), file=idf)
             print('<td class="in_map">{}</td>'.format(save.get_pt_last_map(0, True)), file=idf)
             missions = save.get_pt_active_mission_list(0, True)
