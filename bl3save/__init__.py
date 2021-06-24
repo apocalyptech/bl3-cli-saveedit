@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.12.1b1'
+__version__ = '1.13.0b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1358,7 +1358,7 @@ diamondkey_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryC
 diamondkey_hash = inventory_path_hash(diamondkey_category)
 
 # XP
-max_level = 65
+max_level = 72
 required_xp_list = [
     0,          # lvl 1
     358,        # lvl 2

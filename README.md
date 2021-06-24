@@ -226,6 +226,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 **v1.13.0** - *(unreleased)*
  - Updated for today's patch
+    - Updated level cap to 72
     - Updated protobufs
  - Added `--reverse` option for my Savegame Archive processing script, for some more
    flexibility on the CSS when outputting HTML
