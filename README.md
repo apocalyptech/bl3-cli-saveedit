@@ -224,7 +224,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.13.0** - *(unreleased)*
+**v1.13.0** - June 24, 2021
  - Updated for today's patch
     - Updated level cap to 72
     - Updated protobufs
