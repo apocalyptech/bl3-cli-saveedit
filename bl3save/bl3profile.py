@@ -417,7 +417,7 @@ class BL3Profile(object):
         current_custs = self.get_cur_customizations(cust_set)
         missing = cust_set - current_custs
         for cust in missing:
-            self.prof.unlocked_customizations.append(OakProfile_pb2.OakCustomizationSaveGameData(
+            self.prof.unlocked_customizations.append(OakShared_pb2.OakCustomizationSaveGameData(
                 is_new=True,
                 customization_asset_path=cust,
                 ))
@@ -430,7 +430,7 @@ class BL3Profile(object):
         current_custs = self.get_cur_weapon_customizations(cust_dict)
         missing = set(cust_dict.keys()) - current_custs
         for cust in missing:
-            self.prof.unlocked_inventory_customization_parts.append(OakProfile_pb2.OakInventoryCustomizationPartInfo(
+            self.prof.unlocked_inventory_customization_parts.append(OakShared_pb2.OakInventoryCustomizationPartInfo(
                 customization_part_hash=cust,
                 is_new=True,
                 ))
@@ -534,7 +534,7 @@ class BL3Profile(object):
         current_custs = self.get_room_decos()
         missing = set(profile_roomdeco_obj_to_eng.keys()) - current_custs
         for cust in missing:
-            self.prof.unlocked_crew_quarters_decorations.append(OakProfile_pb2.CrewQuartersDecorationItemSaveGameData(
+            self.prof.unlocked_crew_quarters_decorations.append(OakShared_pb2.CrewQuartersDecorationItemSaveGameData(
                 is_new=True,
                 decoration_item_asset_path=cust,
                 ))
@@ -621,7 +621,7 @@ class BL3Profile(object):
         # Now do the rearranging
         del self.prof.unlocked_crew_quarters_decorations[:]
         for obj_path, is_new in new_order:
-            self.prof.unlocked_crew_quarters_decorations.append(OakProfile_pb2.CrewQuartersDecorationItemSaveGameData(
+            self.prof.unlocked_crew_quarters_decorations.append(OakShared_pb2.CrewQuartersDecorationItemSaveGameData(
                 is_new=is_new,
                 decoration_item_asset_path=obj_path,
                 ))
@@ -644,7 +644,7 @@ class BL3Profile(object):
             new_order.append((hashval, is_new))
         del self.prof.unlocked_inventory_customization_parts[:]
         for hashval, is_new in new_order:
-            self.prof.unlocked_inventory_customization_parts.append(OakProfile_pb2.OakInventoryCustomizationPartInfo(
+            self.prof.unlocked_inventory_customization_parts.append(OakShared_pb2.OakInventoryCustomizationPartInfo(
                 customization_part_hash=hashval,
                 is_new=is_new,
                 ))
@@ -739,7 +739,7 @@ class BL3Profile(object):
             if card_rewards.vault_card_id == vcnum:
                 card_rewards.vault_card_chests = num_chests
                 return
-        self.prof.vault_card.vault_card_claimed_rewards.append(OakProfile_pb2.VaultCardRewardList(
+        self.prof.vault_card.vault_card_claimed_rewards.append(OakShared_pb2.VaultCardRewardList(
             vault_card_id=vcnum,
             vault_card_experience=0,
             unlocked_reward_list=[],
