@@ -224,7 +224,9 @@ liking, if you didn't want to use this one for whatever reason:
 
 # Changelog
 
-**v1.12.1** - *(unreleased)*
+**v1.13.0** - *(unreleased)*
+ - Updated for today's patch
+    - Updated protobufs
  - Added `--reverse` option for my Savegame Archive processing script, for some more
    flexibility on the CSS when outputting HTML
 
