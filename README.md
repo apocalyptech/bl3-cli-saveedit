@@ -169,6 +169,10 @@ FOr instructions on using the Profile portions of the editor, see
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Would be nice to have some anointment-setting functions in here.
+- Options to complete Timed Event challenges, maybe?
+- Clear sidemission status, to assist with bugged missions?  We'd want to
+  avoid screwing up plot missions, though, since those function a bit
+  differently.
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
   those cases.
