@@ -169,7 +169,8 @@ FOr instructions on using the Profile portions of the editor, see
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Would be nice to have some anointment-setting functions in here.
-- Options to complete Timed Event challenges, maybe?
+- Options to complete Seasonal Event challenges, maybe?
+  - Or possibly more usefully: options to *clear* Seasonal Event progress?
 - Clear sidemission status, to assist with bugged missions?  We'd want to
   avoid screwing up plot missions, though, since those function a bit
   differently.
