@@ -502,3 +502,10 @@ always shown.
 
     bl3-save-info --all-missions old.sav
 
+If you want to see the actual object paths to any reported missions
+(for instance, when looking to clear out sidemission progress to deal
+with locked missions), use the `--mission-paths` option:
+
+    bl3-save-info --mission-paths old.sav
+    bl3-save-info --all-missions --mission-paths old.sav
+

@@ -53,6 +53,10 @@ def main():
             action='store_true',
             help='Show all missions')
 
+    parser.add_argument('--mission-paths',
+            action='store_true',
+            help='Display raw mission paths when reporting on missions')
+
     parser.add_argument('--all-challenges',
             dest='all_challenges',
             action='store_true',
@@ -108,13 +112,18 @@ def main():
                 mapname,
                 stations,
                 active_missions,
-                completed_missions) in enumerate(itertools.zip_longest(
+                active_missions_obj,
+                completed_missions,
+                completed_missions_obj,
+                ) in enumerate(itertools.zip_longest(
             save.get_pt_mayhem_levels(),
             save.get_pt_mayhem_seeds(),
             save.get_pt_last_maps(True),
             save.get_pt_active_ft_station_lists(),
             save.get_pt_active_mission_lists(True),
+            save.get_pt_active_mission_lists(),
             save.get_pt_completed_mission_lists(True),
+            save.get_pt_completed_mission_lists(),
             )):
 
         print('Playthrough {} Info:'.format(pt+1))
@@ -145,8 +154,10 @@ def main():
                 print(' - No Active Missions')
             else:
                 print(' - Active Missions:')
-                for mission in sorted(active_missions):
+                for mission, obj_name in sorted(zip(active_missions, active_missions_obj)):
                     print('   - {}'.format(mission))
+                    if args.mission_paths:
+                        print('     {}'.format(obj_name))
 
         # Completed mission count
         if completed_missions is not None:
@@ -154,8 +165,10 @@ def main():
 
             # Show all missions if need be
             if args.verbose or args.all_missions:
-                for mission in sorted(completed_missions):
+                for mission, obj_name in sorted(zip(completed_missions, completed_missions_obj)):
                     print('   - {}'.format(mission))
+                    if args.mission_paths:
+                        print('     {}'.format(obj_name))
 
             # "Important" missions - I'm torn as to whether or not this kind of thing
             # should be in bl3save.py itself, or at least some constants in __init__.py
