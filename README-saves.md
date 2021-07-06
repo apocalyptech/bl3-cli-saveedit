@@ -249,6 +249,10 @@ Docs for that function [can be found here](#missions).
     bl3-save-edit old.sav new.sav --delete-pt1-mission /Game/Missions/Side/Zone_0/Prologue/Mission_UnderwearTink.Mission_UnderwearTink_C
     bl3-save-edit old.sav new.sav --delete-pt2-mission /Game/Missions/Side/Zone_0/Prologue/Mission_UnderwearTink.Mission_UnderwearTink_C
 
+The `--delete-pt1-mission` and `--delete-pt2-mission` arguments can be
+specified more than once if you'd like to delete more than one mission at
+a time.
+
 ## Item Levels
 
 There are two arguments to set item levels.  The first is to set

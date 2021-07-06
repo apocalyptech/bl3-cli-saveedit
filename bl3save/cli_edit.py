@@ -207,19 +207,23 @@ def main():
     parser.add_argument('--delete-pt1-mission',
             type=str,
             metavar='MISSIONPATH',
+            action='append',
             help="""Deletes all stored info about the specified mission in
                 Playthrough 1 (Normal).  Will only work on sidemissions.
                 Use bl3-save-info's --mission-paths to see the correct
-                mission path to use here."""
+                mission path to use here.  This option can be specified
+                more than once."""
             )
 
     parser.add_argument('--delete-pt2-mission',
             type=str,
             metavar='MISSIONPATH',
+            action='append',
             help="""Deletes all stored info about the specified mission in
                 Playthrough 2 (TVHM).  Will only work on sidemissions.
                 Use bl3-save-info's --mission-paths to see the correct
-                mission path to use here."""
+                mission path to use here.  This option can be specified
+                more than once."""
             )
 
     # Positional args
@@ -281,8 +285,10 @@ def main():
 
     # Check to make sure that any deleted missions are not plot missions
     for arg in [args.delete_pt1_mission, args.delete_pt2_mission]:
-        if arg is not None and arg.lower() in plot_missions:
-            raise argparse.ArgumentTypeError('Plot mission cannot be deleted: {}'.format(arg))
+        if arg is not None:
+            for mission in arg:
+                if mission.lower() in plot_missions:
+                    raise argparse.ArgumentTypeError('Plot mission cannot be deleted: {}'.format(mission))
 
     # Check for overwrite warnings
     if os.path.exists(args.output_filename) and not args.force:
@@ -411,14 +417,15 @@ def main():
                 ('TVHM', 1, args.delete_pt2_mission),
                 ]:
             if arg is not None:
-                if not args.quiet:
-                    print(' - Deleting {} mission: {}'.format(label, arg))
-                if not save.delete_mission(pt, arg):
+                for mission in arg:
                     if not args.quiet:
-                        print('   NOTE: Could not find {} mission to delete: {}'.format(
-                            label,
-                            arg,
-                            ))
+                        print(' - Deleting {} mission: {}'.format(label, mission))
+                    if not save.delete_mission(pt, mission):
+                        if not args.quiet:
+                            print('   NOTE: Could not find {} mission to delete: {}'.format(
+                                label,
+                                mission,
+                                ))
 
         # Unlocks
         if len(args.unlock) > 0:
