@@ -26,6 +26,7 @@ import sys
 import bl3save
 import argparse
 from . import cli_common
+from . import plot_missions
 from bl3save.bl3save import BL3Save
 
 def main():
@@ -203,6 +204,24 @@ def main():
             help='Allow importing Fabricator when importing items from file',
             )
 
+    parser.add_argument('--delete-pt1-mission',
+            type=str,
+            metavar='MISSIONPATH',
+            help="""Deletes all stored info about the specified mission in
+                Playthrough 1 (Normal).  Will only work on sidemissions.
+                Use bl3-save-info's --mission-paths to see the correct
+                mission path to use here."""
+            )
+
+    parser.add_argument('--delete-pt2-mission',
+            type=str,
+            metavar='MISSIONPATH',
+            help="""Deletes all stored info about the specified mission in
+                Playthrough 2 (TVHM).  Will only work on sidemissions.
+                Use bl3-save-info's --mission-paths to see the correct
+                mission path to use here."""
+            )
+
     # Positional args
     parser.add_argument('input_filename',
             help='Input filename',
@@ -260,6 +279,11 @@ def main():
                 bl3save.max_level,
                 ))
 
+    # Check to make sure that any deleted missions are not plot missions
+    for arg in [args.delete_pt1_mission, args.delete_pt2_mission]:
+        if arg is not None and arg.lower() in plot_missions:
+            raise argparse.ArgumentTypeError('Plot mission cannot be deleted: {}'.format(arg))
+
     # Check for overwrite warnings
     if os.path.exists(args.output_filename) and not args.force:
         if args.output_filename == args.input_filename:
@@ -306,6 +330,8 @@ def main():
         args.item_levels,
         args.unfinish_nvhm,
         args.item_mayhem_levels is not None,
+        args.delete_pt1_mission is not None,
+        args.delete_pt2_mission is not None,
         ])
 
     # Make changes
@@ -378,6 +404,21 @@ def main():
             if not args.quiet:
                 print(' - Clearing Takedown Discovery missions')
             save.clear_takedown_discovery()
+
+        # Deleting missions
+        for label, pt, arg in [
+                ('Normal/NVHM', 0, args.delete_pt1_mission),
+                ('TVHM', 1, args.delete_pt2_mission),
+                ]:
+            if arg is not None:
+                if not args.quiet:
+                    print(' - Deleting {} mission: {}'.format(label, arg))
+                if not save.delete_mission(pt, arg):
+                    if not args.quiet:
+                        print('   NOTE: Could not find {} mission to delete: {}'.format(
+                            label,
+                            arg,
+                            ))
 
         # Unlocks
         if len(args.unlock) > 0:

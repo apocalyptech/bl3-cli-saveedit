@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.13.0'
+__version__ = '1.14.0b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1768,6 +1768,62 @@ for k, v in list(mission_to_name.items()):
     last_bit = lower.split('/')[-1]
     new_k = '{}.{}_c'.format(lower, last_bit)
     mission_to_name[new_k] = v
+
+# Plot missions (of the sort that we don't want to allow removing, since you'd
+# probably be locked out of the plot missions).  These were just copy+pasted
+# from the mission_to_name structure above and pruned manually.
+plot_missions = set()
+for mission_name in [
+        '/Game/Missions/Plot/Mission_Ep01_ChildrenOfTheVault',
+        '/Game/Missions/Plot/Mission_Ep02_Sacrifice',
+        '/Game/Missions/Plot/Mission_Ep03_GetVaultMap',
+        '/Game/Missions/Plot/Mission_Ep04_EarnSpaceship',
+        '/Game/Missions/Plot/Mission_Ep05_OvercomeHQBlockade',
+        '/Game/Missions/Plot/Mission_Ep05_Sanctuary',
+        '/Game/Missions/Plot/Mission_Ep06_MeetMaya',
+        '/Game/Missions/Plot/Mission_Ep08_OrbitalPlatform',
+        '/Game/Missions/Plot/MIssion_Ep09_AtlasHQ',
+        '/Game/Missions/Plot/Mission_Ep10_CityVault',
+        '/Game/Missions/Plot/Mission_Ep11_PrisonBreak',
+        '/Game/Missions/Plot/Mission_Ep12_GrandTour',
+        '/Game/Missions/Plot/Mission_Ep13_JakobsRebellion',
+        '/Game/Missions/Plot/Mission_Ep13_Watership',
+        '/Game/Missions/Plot/Mission_Ep15_MarshFields',
+        '/Game/Missions/Plot/Mission_Ep16_DesertVault',
+        '/Game/Missions/Plot/Mission_Ep16_SiblingRivalry',
+        '/Game/Missions/Plot/Mission_Ep17_BigChase',
+        '/Game/Missions/Plot/Mission_Ep19_MinerDetails',
+        '/Game/Missions/Plot/Mission_Ep20_FirstVaultHunter',
+        '/Game/Missions/Plot/Mission_Ep21_Beachhead',
+        '/Game/Missions/Plot/Mission_Ep22_TheMachine',
+        '/Game/Missions/Plot/Mission_Ep23_TyreenFinalBoss',
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP01',
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP02',
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP03',
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP04',
+        '/Game/PatchDLC/Alisma/Missions/Plot/ALI_EP05',
+        '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep01_MeetTimothy',
+        '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep02_MeetCrad',
+        '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep03_Impound',
+        '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep04_Trashtown',
+        '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep05_ThePlan',
+        '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep06_TheCore',
+        '/Game/PatchDLC/Dandelion/Missions/Plot/Mission_DLC1_Ep07_TheHeist',
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep01_WestlandWelcome',
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep02_Bathhouse',
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep03_ObsidianForest',
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep04_Facility',
+        '/Game/PatchDLC/Geranium/Missions/Plot/Mission_Ep05_Crater',
+        '/Game/PatchDLC/Hibiscus/Missions/Plot/EP01_DLC2',
+        '/Game/PatchDLC/Hibiscus/Missions/Plot/EP02_DLC2',
+        '/Game/PatchDLC/Hibiscus/Missions/Plot/EP03_DLC2',
+        '/Game/PatchDLC/Hibiscus/Missions/Plot/EP04_DLC2',
+        '/Game/PatchDLC/Hibiscus/Missions/Plot/EP05_DLC2',
+        '/Game/PatchDLC/Hibiscus/Missions/Plot/EP06_DLC2',
+        ]:
+    lower = mission_name.lower()
+    last_bit = lower.split('/')[-1]
+    plot_missions.add('{}.{}_c'.format(lower, last_bit))
 
 # Map-to-eng
 map_to_eng = {

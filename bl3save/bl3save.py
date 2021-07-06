@@ -1609,3 +1609,32 @@ class BL3Save(object):
                         league_instance=0,
                         ))
 
+    def delete_mission(self, pt, mission_obj, allow_plot=False):
+        """
+        Deletes the specified mission (with object path `mission_obj`), in the
+        playthrough `pt` (0 = Normal/NVHM, 1 = TVHM) from the savegame entirely.
+        By default, this method will refuse to delete plot missions, since doing
+        so will lock out the game progress, if no other edits are made.  Setting
+        `allow_plot` to `True` will permit that action.  Returns `True` if the
+        mission was deleted, or `False` if the specified mission wasn't found,
+        or wasn't permitted to be deleted on account of `allow_plot`.
+        """
+        lower = mission_obj.lower()
+        if not allow_plot and lower in plot_missions:
+            return False
+        if len(self.save.mission_playthroughs_data) <= pt:
+            return False
+        # Originally tried a fancier `itertools.filterfalse` assignment here, but
+        # repeated protobufs can't be assigned directly, and doing a del/extend
+        # dance seemed sillier than just doing it this "dumb" way.
+        to_del_idx = None
+        for idx, mission in enumerate(self.save.mission_playthroughs_data[pt].mission_list):
+            if mission.mission_class_path.lower() == lower:
+                to_del_idx = idx
+                break
+        if to_del_idx is None:
+            return False
+        else:
+            del self.save.mission_playthroughs_data[pt].mission_list[idx]
+            return True
+

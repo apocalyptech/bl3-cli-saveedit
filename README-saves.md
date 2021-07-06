@@ -29,6 +29,7 @@ commands will be:
   - [Mayhem Random Seed](#mayhem-random-seed)
   - [Currency (Money and Eridium)](#currency-money-and-eridium)
   - [Takedown Discovery Missions](#takedown-discovery-missions)
+  - [Mission Deletion](#mission-deletion)
   - [Item Levels](#item-levels)
   - [Item Mayhem Levels](#item-mayhem-levels)
   - [Unlocks](#unlocks)
@@ -228,6 +229,25 @@ itself.
 Obviously it doesn't take long to just do the Discovery missions yourself;
 you can always just fail out of the Takedown itself by fast-travelling out
 of the map, but this option would save you a minute or two, anyway.
+
+## Mission Deletion
+
+If you ever have a sidemission lock up, or just want to repeat a side
+mission, the `--delete-pt1-mission` and `--delete-pt2-mission` arguments
+can be used to delete the mission from your savegame so it can be picked
+up again.  Note that this will *only* work for side missions.  Plot
+missions aren't picked up at will like side missions are, and deleting
+plot missions will basically lock your character out of the rest of the
+game.
+
+The `pt1` argument corresponds to the first playthrough (Normal/NVHM), and
+the `pt2` argument corresponds to the second playthrough (TVHM).  To use
+this argument, you'll need to know the full object path to the mission you
+want to delete.  This can be found using `bl3-save-info --mission-paths`.
+Docs for that function [can be found here](#missions).
+
+    bl3-save-edit old.sav new.sav --delete-pt1-mission /Game/Missions/Side/Zone_0/Prologue/Mission_UnderwearTink.Mission_UnderwearTink_C
+    bl3-save-edit old.sav new.sav --delete-pt2-mission /Game/Missions/Side/Zone_0/Prologue/Mission_UnderwearTink.Mission_UnderwearTink_C
 
 ## Item Levels
 

@@ -171,9 +171,6 @@ FOr instructions on using the Profile portions of the editor, see
 - Would be nice to have some anointment-setting functions in here.
 - Options to complete Seasonal Event challenges, maybe?
   - Or possibly more usefully: options to *clear* Seasonal Event progress?
-- Clear sidemission status, to assist with bugged missions?  We'd want to
-  avoid screwing up plot missions, though, since those function a bit
-  differently.
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
   those cases.
@@ -228,6 +225,10 @@ liking, if you didn't want to use this one for whatever reason:
   commandline editor written in C.  Has a terminal (ncurses) UI on UNIX-like OSes.
 
 # Changelog
+
+**v1.14.0** - *(unreleased)*
+ - Added `--mission-paths` to `bl3-save-info`
+ - Added `--delete-pt1-mission` and `--delete-pt2-mission` to `bl3-save-edit`
 
 **v1.13.0** - June 24, 2021
  - Updated for today's patch
