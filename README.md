@@ -230,7 +230,7 @@ me noticing:
 
 # Changelog
 
-**v1.14.0** - *(unreleased)*
+**v1.14.0** - July 7, 2021
  - Added `--mission-paths` to `bl3-save-info`
  - Added `--delete-pt1-mission` and `--delete-pt2-mission` to `bl3-save-edit`
  - Added options to clear seasonal event challenge progress (Bloody Harvest,
