@@ -226,6 +226,26 @@ def main():
                 more than once."""
             )
 
+    parser.add_argument('--clear-bloody-harvest',
+            action='store_true',
+            help='Clear Bloody Harvest challenge state',
+            )
+
+    parser.add_argument('--clear-broken-hearts',
+            action='store_true',
+            help='Clear Broken Hearts challenge state',
+            )
+
+    parser.add_argument('--clear-cartels',
+            action='store_true',
+            help='Clear Revenge of the Cartels challenge state',
+            )
+
+    parser.add_argument('--clear-all-events',
+            action='store_true',
+            help='Clear all seasonal event challenge states',
+            )
+
     # Positional args
     parser.add_argument('input_filename',
             help='Input filename',
@@ -338,6 +358,10 @@ def main():
         args.item_mayhem_levels is not None,
         args.delete_pt1_mission is not None,
         args.delete_pt2_mission is not None,
+        args.clear_bloody_harvest,
+        args.clear_broken_hearts,
+        args.clear_cartels,
+        args.clear_all_events,
         ])
 
     # Make changes
@@ -426,6 +450,22 @@ def main():
                                 label,
                                 mission,
                                 ))
+
+        # Clearing seasonal event status
+        if args.clear_bloody_harvest or args.clear_all_events:
+            if not args.quiet:
+                print(' - Clearing Bloody Harvest challenge state')
+            save.clear_bloody_harvest()
+
+        if args.clear_broken_hearts or args.clear_all_events:
+            if not args.quiet:
+                print(' - Clearing Broken Hearts challenge state')
+            save.clear_broken_hearts()
+
+        if args.clear_cartels or args.clear_all_events:
+            if not args.quiet:
+                print(' - Clearing Cartels challenge state')
+            save.clear_cartels()
 
         # Unlocks
         if len(args.unlock) > 0:

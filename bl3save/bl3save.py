@@ -1638,3 +1638,35 @@ class BL3Save(object):
             del self.save.mission_playthroughs_data[pt].mission_list[idx]
             return True
 
+    def clear_challenge_prefix(self, prefix):
+        """
+        Removes all challenge data which matches the given `prefix`.  Completely
+        removes the entries, as opposed to trying to intelligently clear their
+        values.
+        """
+        prefix_lower = prefix.lower()
+        indicies_to_del = []
+        for idx, challenge in enumerate(self.save.challenge_data):
+            if challenge.challenge_class_path.lower().startswith(prefix_lower):
+                indicies_to_del.append(idx)
+        for idx in reversed(indicies_to_del):
+            del self.save.challenge_data[idx]
+
+    def clear_bloody_harvest(self):
+        """
+        Clears all Bloody Harvest challenge data
+        """
+        self.clear_challenge_prefix('/Game/PatchDLC/BloodyHarvest/')
+
+    def clear_broken_hearts(self):
+        """
+        Clears all Broken Hearts challenge data
+        """
+        self.clear_challenge_prefix('/Game/PatchDLC/EventVDay/')
+
+    def clear_cartels(self):
+        """
+        Clears all Revenge of the Cartels challenge data
+        """
+        self.clear_challenge_prefix('/Game/PatchDLC/Event2/')
+

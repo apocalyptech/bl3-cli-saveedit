@@ -30,6 +30,7 @@ commands will be:
   - [Currency (Money and Eridium)](#currency-money-and-eridium)
   - [Takedown Discovery Missions](#takedown-discovery-missions)
   - [Mission Deletion](#mission-deletion)
+  - [Seasonal Event Status](#seasonal-event-status)
   - [Item Levels](#item-levels)
   - [Item Mayhem Levels](#item-mayhem-levels)
   - [Unlocks](#unlocks)
@@ -252,6 +253,25 @@ Docs for that function [can be found here](#missions).
 The `--delete-pt1-mission` and `--delete-pt2-mission` arguments can be
 specified more than once if you'd like to delete more than one mission at
 a time.
+
+## Seasonal Event Status
+
+There are a few options available to clear out seasonal event challenge
+status (Bloody Harvest, Broken Hearts, and Revenge of the Cartels).
+This will allow you to go through the challenge ranks as if you'd not
+played the event yet.  This is admittedly a bit silly, but it might be
+useful when paired with the Event Rewards mods, which let you use
+challenge rewards from the previous years.
+
+To clear out the event challenge statuses individually:
+
+    bl3-save-edit old.sav new.sav --clear-bloody-harvest
+    bl3-save-edit old.sav new.sav --clear-broken-hearts
+    bl3-save-edit old.sav new.sav --clear-cartels
+
+Or, you can do all three at once:
+
+    bl3-save-edit old.sav new.sav --clear-all-events
 
 ## Item Levels
 

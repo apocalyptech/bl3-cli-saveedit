@@ -169,8 +169,6 @@ FOr instructions on using the Profile portions of the editor, see
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Would be nice to have some anointment-setting functions in here.
-- Options to complete Seasonal Event challenges, maybe?
-  - Or possibly more usefully: options to *clear* Seasonal Event progress?
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
   those cases.
@@ -211,24 +209,32 @@ Various BL3 Savegame/Profile editors have been popping up, ever since Gibbed
 released the encryption details.  Here's a few which could be more to your
 liking, if you didn't want to use this one for whatever reason:
 
-- [Baysix's Web-Based Editor](http://www.bl3editor.com) - Just web-based for
-  now; sourcecode release is still forthcoming.
-- [Raptor's CLI Tools](https://github.com/cfi2017/bl3-save) - These are written
-  in [Go](https://golang.org/), and the project has easy downloads for Windows,
-  Mac, and Linux (in addition to the sourcecode).
+- [Raptor's Editor](https://bl3.swiss.dev/) - This is a web-fronted editor,
+  though it uses a [local executable](https://github.com/cfi2017/bl3-save/releases)
+  to do all the work.  Sourcecode is available, and it works on Windows, Mac,
+  and Linux.  Coded in [Go](https://golang.org/).
+- [HackerSmaker's CSave Editor](https://github.com/HackerSmacker/CSave) - Cross-platform
+  commandline editor written in C.  Has a terminal (ncurses) UI on UNIX-like OSes.
 - [FromDarkHell's Profile Editor](https://github.com/FromDarkHell/BL3ProfileEditor) -
   Written in C#, has EXE downloads for ease of use on Windows.
+
+A couple others exist but as of July 2021, are out of date and not really great
+for use on newer saves.  Here they are, though, in case they get updated without
+me noticing:
+
+- [Baysix's Web-Based Editor](http://www.bl3editor.com) - Just web-based for
+  now; sourcecode release is still forthcoming.
 - [sandsmark's borderlands3-save-editor](https://github.com/sandsmark/borderlands3-save-editor) -
   Written in C++ with Qt for GUI.  Is still in development.  Native downloads
   for Windows, but should compile fine on other platforms.
-- [HackerSmaker's CSave Editor](https://github.com/HackerSmacker/CSave) - Cross-platform
-  commandline editor written in C.  Has a terminal (ncurses) UI on UNIX-like OSes.
 
 # Changelog
 
 **v1.14.0** - *(unreleased)*
  - Added `--mission-paths` to `bl3-save-info`
  - Added `--delete-pt1-mission` and `--delete-pt2-mission` to `bl3-save-edit`
+ - Added options to clear seasonal event challenge progress (Bloody Harvest,
+   Broken Hearts, Revenge of the Cartels)
 
 **v1.13.0** - June 24, 2021
  - Updated for today's patch
