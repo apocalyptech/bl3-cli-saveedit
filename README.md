@@ -233,7 +233,10 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 # Changelog
 
 **v1.15.0** - *(unreleased)*
- - Updating for Vault Card 2 patch
+ - Updated for Vault Card 2 patch:
+   - Data Updates (to understand new gear)
+   - Vault Card 2 Keys/Chests
+   - Updated Bank SDU count
 
 **v1.14.0** - July 7, 2021
  - Added `--mission-paths` to `bl3-save-info`
