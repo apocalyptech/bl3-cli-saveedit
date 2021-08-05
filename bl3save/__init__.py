@@ -1377,12 +1377,12 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/VaultCard/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC1_2.WeaponTrinket_VC1_2': "Tinker's Trinket",
         '/Game/PatchDLC/VaultCard/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC1_3.WeaponTrinket_VC1_3': "Deploy and Destroy",
         '/Game/PatchDLC/VaultCard/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC1_4.WeaponTrinket_VC1_4': "De Leon's Lash",
-        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_1.InvBal_WeaponTrinket_VC2_1': "Tchotchkey",
-        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_2.InvBal_WeaponTrinket_VC2_2': "Shooter's Shuttle",
-        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_3.InvBal_WeaponTrinket_VC2_3': "Relaxtrap",
-        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_4.InvBal_WeaponTrinket_VC2_4': "Tiny Vault",
-        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_5.InvBal_WeaponTrinket_VC2_5': "Dry Heat",
-        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_6.InvBal_WeaponTrinket_VC2_6': "Warm Welcome",
+        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_1.WeaponTrinket_VC2_1': "Tchotchkey",
+        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_2.WeaponTrinket_VC2_2': "Shooter's Shuttle",
+        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_3.WeaponTrinket_VC2_3': "Relaxtrap",
+        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_4.WeaponTrinket_VC2_4': "Tiny Vault",
+        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_5.WeaponTrinket_VC2_5': "Dry Heat",
+        '/Game/PatchDLC/VaultCard2/Gear/WeaponTrinkets/_Design/WeaponTrinket_VC2_6.WeaponTrinket_VC2_6': "Warm Welcome",
         }
 profile_weapontrinkets_hash_to_eng = weapon_cust_paths_to_hash(profile_weapontrinkets_obj_to_eng)
 profile_weapontrinkets_eng_to_hash = {v: k for k, v in profile_weapontrinkets_hash_to_eng.items()}
