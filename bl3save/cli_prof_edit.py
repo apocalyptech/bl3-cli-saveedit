@@ -98,6 +98,18 @@ def main():
             help='Number of Vault Card 1 Chests available in the profile',
             )
 
+    parser.add_argument('--vaultcard2-keys',
+            dest='vaultcard2_keys',
+            type=int,
+            help='Number of Vault Card 2 Keys in the profile',
+            )
+
+    parser.add_argument('--vaultcard2-chests',
+            dest='vaultcard2_chests',
+            type=int,
+            help='Number of Vault Card 2 Chests available in the profile',
+            )
+
     # Arguably we could be using a mutually-exclusive group for many of these
     # GR options, but I can see some potential value in specifying more than
     # one, so I'm not bothering.
@@ -251,6 +263,10 @@ def main():
         raise argparse.ArgumentTypeError('Vault Card 1 keys cannot be negative')
     if args.vaultcard1_chests is not None and args.vaultcard1_chests < 0:
         raise argparse.ArgumentTypeError('Vault Card 1 chests cannot be negative')
+    if args.vaultcard2_keys is not None and args.vaultcard2_keys < 0:
+        raise argparse.ArgumentTypeError('Vault Card 2 keys cannot be negative')
+    if args.vaultcard2_chests is not None and args.vaultcard2_chests < 0:
+        raise argparse.ArgumentTypeError('Vault Card 2 chests cannot be negative')
 
     # Check item level.  The max storeable in the serial number is 127, but the
     # effective limit in-game is 100, thanks to MaxGameStage attributes.  We
@@ -293,6 +309,8 @@ def main():
         args.diamond_keys is not None,
         args.vaultcard1_keys is not None,
         args.vaultcard1_chests is not None,
+        args.vaultcard2_keys is not None,
+        args.vaultcard2_chests is not None,
         args.zero_guardian_rank,
         args.min_guardian_rank,
         args.guardian_rank_rewards is not None,
@@ -342,6 +360,18 @@ def main():
             if not args.quiet:
                 print(' - Setting Vault Card 1 Chest count to {}'.format(args.vaultcard1_chests))
             profile.set_vaultcard1_chests(args.vaultcard1_chests)
+
+        # Vault Card 2 Keys
+        if args.vaultcard2_keys is not None:
+            if not args.quiet:
+                print(' - Setting Vault Card 2 Key count to {}'.format(args.vaultcard2_keys))
+            profile.set_vaultcard2_keys(args.vaultcard2_keys)
+
+        # Vault Card 2 Chests
+        if args.vaultcard2_chests is not None:
+            if not args.quiet:
+                print(' - Setting Vault Card 2 Chest count to {}'.format(args.vaultcard2_chests))
+            profile.set_vaultcard2_chests(args.vaultcard2_chests)
 
         # Zeroing Guardian Rank
         if args.zero_guardian_rank:

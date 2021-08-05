@@ -24,6 +24,8 @@ commands will be:
     - [Diamond Keys](#diamond-keys)
     - [Vault Card 1 Keys](#vault-card-1-keys)
     - [Vault Card 1 Chests](#vault-card-1-chests)
+    - [Vault Card 2 Keys](#vault-card-2-keys)
+    - [Vault Card 2 Chests](#vault-card-2-chests)
   - [Guardian Rank](#guardian-rank)
     - [Zeroing Guardian Rank](#zeroing-guardian-rank)
     - [Minimizing Guardian Rank](#minimizing-guardian-rank)
@@ -152,6 +154,20 @@ The number of chests available to open, for the first Vault Card stored
 in the profile, can be set using the `--vaultcard1-chests` argument:
 
     bl3-profile-edit profile.sav newprofile.sav --vaultcard1-chests 10
+
+### Vault Card 2 Keys
+
+The number of keys for the second Vault Card stored in the profile can
+be set using the `--vaultcard2-keys` argument:
+
+    bl3-profile-edit profile.sav newprofile.sav --vaultcard2-keys 10
+
+### Vault Card 2 Chests
+
+The number of chests available to open, for the second Vault Card stored
+in the profile, can be set using the `--vaultcard2-chests` argument:
+
+    bl3-profile-edit profile.sav newprofile.sav --vaultcard2-chests 10
 
 ## Guardian Rank
 

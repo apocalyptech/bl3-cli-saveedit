@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.15.0b1'
+__version__ = '1.15.0b4'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -1394,6 +1394,10 @@ goldenkey_hash = inventory_path_hash(goldenkey_category)
 # Vault Card #1 Keys
 vaultcard1key_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCategory_VaultCard1Key'
 vaultcard1key_hash = inventory_path_hash(vaultcard1key_category)
+
+# Vault Card #2 Keys
+vaultcard2key_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCategory_VaultCard2Key'
+vaultcard2key_hash = inventory_path_hash(vaultcard2key_category)
 
 # Diamond Keys
 diamondkey_category = '/Game/Gear/_Shared/_Design/InventoryCategories/InventoryCategory_DiamondKey'

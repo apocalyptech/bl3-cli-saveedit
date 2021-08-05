@@ -63,6 +63,8 @@ def main():
     print(' - Diamond Keys: {}'.format(prof.get_diamond_keys()))
     print(' - Vault Card 1 Keys: {}'.format(prof.get_vaultcard1_keys()))
     print(' - Vault Card 1 Chests: {}'.format(prof.get_vaultcard1_chests()))
+    print(' - Vault Card 2 Keys: {}'.format(prof.get_vaultcard2_keys()))
+    print(' - Vault Card 2 Chests: {}'.format(prof.get_vaultcard2_chests()))
 
     # Guardian Rank
     print('Guardian Rank: {}'.format(prof.get_guardian_rank()))

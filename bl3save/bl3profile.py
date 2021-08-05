@@ -706,6 +706,18 @@ class BL3Profile(object):
         """
         return self._get_generic_keys(vaultcard1key_hash)
 
+    def set_vaultcard2_keys(self, num_keys):
+        """
+        Sets the number of Vault Card 2 keys to `num_keys`
+        """
+        self._set_generic_keys(vaultcard2key_hash, num_keys)
+
+    def get_vaultcard2_keys(self):
+        """
+        Returns the number of Vault Card 2 keys stored on this profile
+        """
+        return self._get_generic_keys(vaultcard2key_hash)
+
     def set_vaultcard1_keys(self, num_keys):
         """
         Sets the number of Vault Card 1 keys to `num_keys`
@@ -761,6 +773,18 @@ class BL3Profile(object):
         Sets the number of Vault Card #1 Chests the user has available to open
         """
         self._set_vaultcard_chests(1, num_chests)
+
+    def get_vaultcard2_chests(self):
+        """
+        Returns the number of Vault Card #2 Chests the user has available to open
+        """
+        return self._get_vaultcard_chests(2)
+
+    def set_vaultcard2_chests(self, num_chests):
+        """
+        Sets the number of Vault Card #2 Chests the user has available to open
+        """
+        self._set_vaultcard_chests(2, num_chests)
 
     def fixup_guardian_rank(self, force=True):
         """

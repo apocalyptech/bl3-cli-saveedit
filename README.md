@@ -169,6 +169,7 @@ FOr instructions on using the Profile portions of the editor, see
 
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Would be nice to have some anointment-setting functions in here.
+- Did we want a function to *clear* Vault Card progress?
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
   those cases.
@@ -222,11 +223,12 @@ A couple others exist but as of July 2021, are out of date and not really great
 for use on newer saves.  Here they are, though, in case they get updated without
 me noticing:
 
-- [Baysix's Web-Based Editor](http://www.bl3editor.com) - Just web-based for
-  now; sourcecode release is still forthcoming.
 - [sandsmark's borderlands3-save-editor](https://github.com/sandsmark/borderlands3-save-editor) -
   Written in C++ with Qt for GUI.  Is still in development.  Native downloads
   for Windows, but should compile fine on other platforms.
+
+In Memoriam: Baysix, the author of the original web-based editor at bl3editor.com,
+passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
