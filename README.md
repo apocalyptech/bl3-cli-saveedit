@@ -170,6 +170,7 @@ FOr instructions on using the Profile portions of the editor, see
 - Would anyone appreciate an option to *delete* Fabricators?  Hm.
 - Would be nice to have some anointment-setting functions in here.
 - Did we want a function to *clear* Vault Card progress?
+- PS4 Support (for already-unlocked saves, anyway)
 - If we fail to read a savefile or profile, might be nice to *actually* check
   if it's the other of profile-or-savefile, and give a more helpful message in
   those cases.
@@ -232,7 +233,7 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
-**v1.15.0** - *(unreleased)*
+**v1.15.0** - August 5, 2021
  - Updated for Vault Card 2 patch:
    - Data Updates (to understand new gear)
    - Vault Card 2 Keys/Chests
