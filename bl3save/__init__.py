@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.15.0'
+__version__ = '1.15.1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -814,6 +814,10 @@ profile_heads = set([
     '/Game/PatchDLC/VaultCard2/PlayerCharacters/_Shared/CustomHeads/CustomHead_Gunner_49.CustomHead_Gunner_49',
     '/Game/PatchDLC/VaultCard2/PlayerCharacters/_Shared/CustomHeads/CustomHead_Operative_49.CustomHead_Operative_49',
     '/Game/PatchDLC/VaultCard2/PlayerCharacters/_Shared/CustomHeads/CustomHead_Siren_49.CustomHead_Siren_49',
+    '/Game/PatchDLC/VaultCard2/PlayerCharacters/Beastmaster/Heads/DA_BMHead03.InvBal_DA_BMHead03',
+    '/Game/PatchDLC/VaultCard2/PlayerCharacters/Gunner/Heads/DA_GNRHead03.InvBal_DA_GNRHead03',
+    '/Game/PatchDLC/VaultCard2/PlayerCharacters/Operative/Heads/DA_OPHead03.InvBal_DA_OPHead03',
+    '/Game/PatchDLC/VaultCard2/PlayerCharacters/SirenBrawler/Heads/DA_SRNHead03.InvBal_DA_SRNHead03',
     '/Game/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_1.CustomHead_Beastmaster_1',
     '/Game/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_10.CustomHead_Beastmaster_10',
     '/Game/PlayerCharacters/_Customizations/Beastmaster/Heads/CustomHead_Beastmaster_11.CustomHead_Beastmaster_11',

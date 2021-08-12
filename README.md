@@ -233,6 +233,10 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
+**v1.15.1** - August 11, 2021
+ - Updated with some Character Heads which were shipped with the Vault Card 2
+   update but overlooked for 1.15.0.
+
 **v1.15.0** - August 5, 2021
  - Updated for Vault Card 2 patch:
    - Data Updates (to understand new gear)
