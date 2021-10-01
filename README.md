@@ -211,14 +211,16 @@ Various BL3 Savegame/Profile editors have been popping up, ever since Gibbed
 released the encryption details.  Here's a few which could be more to your
 liking, if you didn't want to use this one for whatever reason:
 
+- [FromDarkHell's BL3 Save/Profile Editor](https://github.com/FromDarkHell/BL3SaveEditor) -
+  Written in C#, has EXE downloads for ease of use on Windows.
+- [Zak's Borderlands 3 Saver Editor](https://github.com/ZakisM/bl3_save_edit) - Written
+  in Rust, and is cross-platform.  Edits both saves and profiles.
 - [Raptor's Editor](https://bl3.swiss.dev/) - This is a web-fronted editor,
   though it uses a [local executable](https://github.com/cfi2017/bl3-save/releases)
   to do all the work.  Sourcecode is available, and it works on Windows, Mac,
   and Linux.  Coded in [Go](https://golang.org/).
 - [HackerSmaker's CSave Editor](https://github.com/HackerSmacker/CSave) - Cross-platform
   commandline editor written in C.  Has a terminal (ncurses) UI on UNIX-like OSes.
-- [FromDarkHell's Profile Editor](https://github.com/FromDarkHell/BL3ProfileEditor) -
-  Written in C#, has EXE downloads for ease of use on Windows.
 
 A couple others exist but as of July 2021, are out of date and not really great
 for use on newer saves.  Here they are, though, in case they get updated without
