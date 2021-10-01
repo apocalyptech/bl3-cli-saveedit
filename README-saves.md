@@ -43,7 +43,9 @@ commands will be:
     - [TVHM](#tvhm)
     - [Eridian Cube Puzzle](#eridian-cube-puzzle)
     - [All Unlocks at Once](#all-unlocks-at-once)
-  - [Copy NVHM State to TVHM](#copy-nvhm-state-to-tvhm)
+  - [Copy Playthrough States](#copy-playthrough-states)
+    - [NVHM to TVHM](#nvhm-to-tvhm)
+    - [TVHM to NVHM](#tvhm-to-nvhm)
   - ["Un-Finish" NVHM](#un-finish-nvhm)
   - [Import Items](#import-items)
 - [Importing Raw Protobufs](#importing-raw-protobufs)
@@ -393,7 +395,9 @@ options at once, without having to specify each one individually:
 
     bl3-save-edit old.sav new.sav --unlock all
 
-## Copy NVHM State to TVHM
+## Copy Playthrough States
+
+### NVHM to TVHM
 
 The `--copy-nvhm` argument can be used to copy mission status,
 unlocked Fast Travels, Mayhem Mode, and Last Map Visited from Normal
@@ -401,6 +405,15 @@ mode (NVHM) to TVHM, so your character in TVHM will be at basically
 the exact same game state as in Normal.
 
     bl3-save-edit old.sav new.sav --copy-nvhm
+
+### TVHM to NVHM
+
+The `--copy-tvhm` argument can be used to copy mission status,
+unlocked Fast Travels, Mayhem Mode, and Last Map Visited from TVHM
+to Normal mode (NVHM), so your character in Normal will be at basically
+the exact same game state as in TVHM.
+
+    bl3-save-edit old.sav new.sav --copy-tvhm
 
 ## "Un-Finish" NVHM
 
