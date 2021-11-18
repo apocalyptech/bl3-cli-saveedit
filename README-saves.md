@@ -406,15 +406,6 @@ the exact same game state as in Normal.
 
     bl3-save-edit old.sav new.sav --copy-nvhm
 
-### TVHM to NVHM
-
-The `--copy-tvhm` argument can be used to copy mission status,
-unlocked Fast Travels, Mayhem Mode, and Last Map Visited from TVHM
-to Normal mode (NVHM), so your character in Normal will be at basically
-the exact same game state as in TVHM.
-
-    bl3-save-edit old.sav new.sav --copy-tvhm
-
 ## "Un-Finish" NVHM
 
 Alternatively, you can use the `--unfinish-nvhm` argument to
