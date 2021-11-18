@@ -235,11 +235,13 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
-**v1.15.2** - *(unreleased)*
+**v1.16.0** - *(unreleased)*
  - Updated name of "Seventh Sense (unknown version)" to "Seventh Sense (purple
    version)", since realizing that it's now a valid drop from the Diamond
    Armory (presumably since DLC5's release).
  - Added `--copy-tvhm` option to copy TVHM state to NVHM.  **(untested still!)**
+ - Updated for Vault Card 3 patch:
+   - Data Updates (to understand new gear)
 
 **v1.15.1** - August 11, 2021
  - Updated with some Character Heads which were shipped with the Vault Card 2
