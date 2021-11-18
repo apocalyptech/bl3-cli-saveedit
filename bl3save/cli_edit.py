@@ -185,10 +185,10 @@ def main():
             help='Copies NVHM/Normal state to TVHM',
             )
 
-    #tvhmgroup.add_argument('--copy-tvhm',
-    #        action='store_true',
-    #        help='Copies TVHM state to NVHM/Normal',
-    #        )
+    tvhmgroup.add_argument('--copy-tvhm',
+            action='store_true',
+            help='Copies TVHM state to NVHM/Normal',
+            )
 
     tvhmgroup.add_argument('--unfinish-nvhm',
             dest='unfinish_nvhm',
@@ -343,9 +343,9 @@ def main():
 
     # If we've been told to copy TVHM state to NVHM, make sure we have TVHM data.
     # TODO: need to check this out
-    #if args.copy_tvhm:
-    #    if save.get_playthroughs_completed() < 1:
-    #        raise argparse.ArgumentTypeError('TVHM State not found to copy in {}'.format(args.input_filename))
+    if args.copy_tvhm:
+        if save.get_playthroughs_completed() < 1:
+            raise argparse.ArgumentTypeError('TVHM State not found to copy in {}'.format(args.input_filename))
 
     # Check to see if we have any changes to make
     have_changes = any([
@@ -361,7 +361,7 @@ def main():
         args.clear_takedowns,
         len(args.unlock) > 0,
         args.copy_nvhm,
-        #args.copy_tvhm,
+        args.copy_tvhm,
         args.import_items,
         args.items_to_char,
         args.item_levels,
@@ -589,10 +589,10 @@ def main():
             if not args.quiet:
                 print(' - Copying NVHM state to TVHM')
             save.copy_playthrough_data()
-        #elif args.copy_tvhm:
-        #    if not args.quiet:
-        #        print(' - Copying TVHM state to NVHM')
-        #    save.copy_playthrough_data(from_pt=1, to_pt=0)
+        elif args.copy_tvhm:
+            if not args.quiet:
+                print(' - Copying TVHM state to NVHM')
+            save.copy_playthrough_data(from_pt=1, to_pt=0)
         elif args.unfinish_nvhm:
             if not args.quiet:
                 print(' - Un-finishing NVHM state entirely')

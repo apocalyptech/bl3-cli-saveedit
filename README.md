@@ -235,6 +235,9 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
+**v1.16.1** - *(unreleased)*
+ - Added `--copy-tvhm` option to copy TVHM state to NVHM.  **(untested still!)**
+
 **v1.16.0** - November 18, 2021
  - Updated name of "Seventh Sense (unknown version)" to "Seventh Sense (purple
    version)", since realizing that it's now a valid drop from the Diamond
