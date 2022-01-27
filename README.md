@@ -42,7 +42,7 @@ Please keep the following in mind:
 # Installation
 
 This editor requires [Python 3](https://www.python.org/), and has been
-tested on 3.7, 3.8, and 3.9.  It also requires the [protobuf package](https://pypi.org/project/protobuf/).
+tested on 3.7, 3.8, 3.9, and 3.10.  It also requires the [protobuf package](https://pypi.org/project/protobuf/).
 
 The easiest way to install this app is via `pip`/`pip3`.  Once Python 3 is
 installed, you should be able to run this to install the app:
