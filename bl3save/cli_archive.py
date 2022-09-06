@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # vim: set expandtab tabstop=4 shiftwidth=4:
 
-# Copyright (c) 2020-2021 CJ Kucera (cj@apocalyptech.com)
+# Copyright (c) 2020-2022 CJ Kucera (cj@apocalyptech.com)
 # 
 # This software is provided 'as-is', without any express or implied warranty.
 # In no event will the authors be held liable for any damages arising from
@@ -147,7 +147,7 @@ def main():
 
             # Write out the row
             print('<tr class="row{}">'.format((files_written + row_offset) % 2), file=idf)
-            print('<td class="filename"><a href="bl3/{}">{}</a></td>'.format(base_filename, base_filename), file=idf)
+            print('<td class="filename"><a href="https://github.com/apocalyptech/blsaves/raw/master/bl3/{}">{}</a></td>'.format(base_filename, base_filename), file=idf)
             print('<td class="in_map">{}</td>'.format(save.get_pt_last_map(0, True)), file=idf)
             missions = save.get_pt_active_mission_list(0, True)
             if len(missions) == 0:
