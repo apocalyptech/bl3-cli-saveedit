@@ -213,7 +213,7 @@ liking, if you didn't want to use this one for whatever reason:
 
 - [FromDarkHell's BL3 Save/Profile Editor](https://github.com/FromDarkHell/BL3SaveEditor) -
   Written in C#, has EXE downloads for ease of use on Windows.
-- [Zak's Borderlands 3 Saver Editor](https://github.com/ZakisM/bl3_save_edit) - Written
+- [Zak's Borderlands 3 Save Editor](https://github.com/ZakisM/bl3_save_edit) - Written
   in Rust, and is cross-platform.  Edits both saves and profiles.
 - [Raptor's Editor](https://bl3.swiss.dev/) - This is a web-fronted editor,
   though it uses a [local executable](https://github.com/cfi2017/bl3-save/releases)
