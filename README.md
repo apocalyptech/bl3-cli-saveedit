@@ -219,13 +219,13 @@ liking, if you didn't want to use this one for whatever reason:
   though it uses a [local executable](https://github.com/cfi2017/bl3-save/releases)
   to do all the work.  Sourcecode is available, and it works on Windows, Mac,
   and Linux.  Coded in [Go](https://golang.org/).
-- [HackerSmaker's CSave Editor](https://github.com/HackerSmacker/CSave) - Cross-platform
-  commandline editor written in C.  Has a terminal (ncurses) UI on UNIX-like OSes.
 
-A couple others exist but as of July 2021, are out of date and not really great
+A couple others exist but as of September 2022, are out of date and not really great
 for use on newer saves.  Here they are, though, in case they get updated without
 me noticing:
 
+- [HackerSmaker's CSave Editor](https://github.com/HackerSmacker/CSave) - Cross-platform
+  commandline editor written in C.  Has a terminal (ncurses) UI on UNIX-like OSes.
 - [sandsmark's borderlands3-save-editor](https://github.com/sandsmark/borderlands3-save-editor) -
   Written in C++ with Qt for GUI.  Is still in development.  Native downloads
   for Windows, but should compile fine on other platforms.
