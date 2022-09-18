@@ -147,7 +147,7 @@ def main():
 
             # Write out the row
             print('<tr class="row{}">'.format((files_written + row_offset) % 2), file=idf)
-            print('<td class="filename"><a href="https://github.com/apocalyptech/blsaves/raw/master/bl3/{}">{}</a></td>'.format(base_filename, base_filename), file=idf)
+            print('<td class="filename"><a href="https://github.com/apocalyptech/blsaves/raw/main/bl3/{}">{}</a></td>'.format(base_filename, base_filename), file=idf)
             print('<td class="in_map">{}</td>'.format(save.get_pt_last_map(0, True)), file=idf)
             missions = save.get_pt_active_mission_list(0, True)
             if len(missions) == 0:
