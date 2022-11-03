@@ -13,7 +13,8 @@ savegames are not supported at the moment.
 Please keep the following in mind:
 
 - This app does not have any graphical interface.  You must be
-  on a commandline in order to use it.
+  on a commandline in order to use it.  (A rudimentary web
+  interface is available, though -- see below.)
 - The app has only very limited item-editing capability at the
   moment, which is restricted to:
   - Item Levels can be changed
@@ -27,6 +28,7 @@ Please keep the following in mind:
 
 # Table of Contents
 
+- [Web UI](#web-ui)
 - [Installation](#installation)
   - [Upgrading](#upgrading)
   - [Notes for People Using Windows](#notes-for-people-using-windows)
@@ -38,6 +40,16 @@ Please keep the following in mind:
 - [License](#license)
 - [Other Utilities](#other-utilities)
 - [Changelog](#changelog)
+
+# Web UI
+
+Abram Hindle is providing a simple web-based version of this utility,
+so feel free to give that a try:
+
+https://abramhindle.github.io/bl3-cli-saveedit/
+
+Yes, this will install python and bl3-cli-saveedit in your browser and
+give you a tiny UI to dupe your savefiles or import items.
 
 # Installation
 
@@ -191,6 +203,11 @@ mechanism used to work with weapon skins and trinkets.
 
 The rest of the savegame format was gleaned from 13xforever/Ilya's
 `gvas-converter` project: https://github.com/13xforever/gvas-converter
+
+[Abram Hindle](https://github.com/abramhindle/) is responsible for getting
+a web version of this utility online (based on his
+[ttwl-cli-saveedit](https://github.com/abramhindle/ttwl-cli-saveedit/)
+fork for Wonderlands).  Thanks!
 
 Many thanks also to Baysix, who endured an awful lot of basic questions about
 pulling apart item serial numbers.  Without their help, we wouldn't have
