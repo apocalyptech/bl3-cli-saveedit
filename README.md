@@ -254,6 +254,7 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 **v1.16.1** - *(unreleased)*
  - Added `--copy-tvhm` option to copy TVHM state to NVHM.  **(untested still!)**
+ - Ported `--inventory-wipe` inventory wipe option from `ttwl-cli-saveedit`
 
 **v1.16.0** - November 18, 2021
  - Updated name of "Seventh Sense (unknown version)" to "Seventh Sense (purple

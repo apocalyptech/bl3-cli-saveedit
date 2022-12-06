@@ -202,6 +202,12 @@ def main():
             help='Import items from file',
             )
 
+    parser.add_argument('-w', '--wipe-inventory',
+            action='store_true',
+            help="""Wipes all items from inventory.  Will be processed before
+                --import-items, so imported items will remain in inventory.""",
+            )
+
     parser.add_argument('--allow-fabricator',
             dest='allow_fabricator',
             action='store_true',
@@ -362,6 +368,7 @@ def main():
         len(args.unlock) > 0,
         args.copy_nvhm,
         args.copy_tvhm,
+        args.wipe_inventory,
         args.import_items,
         args.items_to_char,
         args.item_levels,
@@ -552,6 +559,12 @@ def main():
                 if not args.quiet:
                     print('   - Eridian Cube Puzzle')
                 save.unlock_cube_puzzle()
+
+        # Wipe Inventory
+        if args.wipe_inventory:
+            if not args.quiet:
+                print(' - Wiping Inventory')
+            save.wipe_inventory()
 
         # Import Items
         if args.import_items:
