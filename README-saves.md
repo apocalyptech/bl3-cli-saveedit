@@ -33,6 +33,7 @@ commands will be:
   - [Seasonal Event Status](#seasonal-event-status)
   - [Item Levels](#item-levels)
   - [Item Mayhem Levels](#item-mayhem-levels)
+  - [Wipe Inventory](#wipe-inventory)
   - [Unlocks](#unlocks)
     - [Ammo/Backpack Unlocks](#ammobackpack-unlocks)
     - [Eridian Resonator](#eridian-resonator)
@@ -306,6 +307,16 @@ Alternatively, you can specify a specific Mayhem level with
 
 To remove Mayhem levels from weapons/greandes entirely, specify `0` for
 `--item-mayhem-levels`.
+
+## Wipe Inventory
+
+Inventory can be wiped entirely using the `--wipe-inventory` argument:
+
+    bl3-save-edit old.sav new.sav --wipe-inventory
+
+This will happen prior to any item imports (see below), so you can wipe
+the inventory and import in the same command (and then use the above
+levelling commands to alter the gear after import).
 
 ## Unlocks
 

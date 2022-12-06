@@ -252,6 +252,9 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
+**v1.16.2** - 
+ - Ported `--inventory-wipe` inventory wipe option from `ttwl-cli-saveedit`
+
 **v1.16.1** - *(unreleased)*
  - Added `--copy-tvhm` option to copy TVHM state to NVHM.  **(untested still!)**
 
