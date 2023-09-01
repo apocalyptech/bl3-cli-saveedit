@@ -253,7 +253,7 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 # Changelog
 
 **v1.16.1** - *(unreleased)*
- - Added `--copy-tvhm` option to copy TVHM state to NVHM.  **(untested still!)**
+ - Added `--copy-tvhm` option to copy TVHM state to NVHM.
  - Ported `--inventory-wipe` inventory wipe option from `ttwl-cli-saveedit`
  - Added new cosmetics introduced in the Aug 31, 2023 patch
 

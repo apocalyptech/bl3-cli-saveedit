@@ -610,8 +610,11 @@ class BL3Save(object):
         if to_pt == len(self.save.game_state_save_data_for_playthrough):
             self.save.game_state_save_data_for_playthrough.append(from_obj.save.game_state_save_data_for_playthrough[from_pt])
         else:
+            # We can't do a "simple" element reassignment here because
+            # "RepeatedCompositeFieldContainer object does not support item assignment"
+            state_data = from_obj.save.game_state_save_data_for_playthrough[from_pt]
             del self.save.game_state_save_data_for_playthrough[to_pt]
-            self.save.game_state_save_data_for_playthrough.insert(to_pt, from_obj.save.game_state_save_data_for_playthrough[from_pt])
+            self.save.game_state_save_data_for_playthrough.insert(to_pt, state_data)
 
     def clear_game_state_pt(self, playthrough):
         """
@@ -774,8 +777,11 @@ class BL3Save(object):
         if to_pt == len(self.save.active_travel_stations_for_playthrough):
             self.save.active_travel_stations_for_playthrough.append(from_obj.save.active_travel_stations_for_playthrough[from_pt])
         else:
+            # We can't do a "simple" element reassignment here because
+            # "RepeatedCompositeFieldContainer object does not support item assignment"
+            ft_data = from_obj.save.active_travel_stations_for_playthrough[from_pt]
             del self.save.active_travel_stations_for_playthrough[to_pt]
-            self.save.active_travel_stations_for_playthrough.insert(to_pt, from_obj.save.active_travel_stations_for_playthrough[from_pt])
+            self.save.active_travel_stations_for_playthrough.insert(to_pt, ft_data)
 
     def clear_active_ft_stations_pt(self, playthrough):
         """
@@ -895,8 +901,11 @@ class BL3Save(object):
         if to_pt == len(self.save.mission_playthroughs_data):
             self.save.mission_playthroughs_data.append(from_obj.save.mission_playthroughs_data[from_pt])
         else:
+            # We can't do a "simple" element reassignment here because
+            # "RepeatedCompositeFieldContainer object does not support item assignment"
+            mission_data = from_obj.save.mission_playthroughs_data[from_pt]
             del self.save.mission_playthroughs_data[to_pt]
-            self.save.mission_playthroughs_data.insert(to_pt, from_obj.save.mission_playthroughs_data[from_pt])
+            self.save.mission_playthroughs_data.insert(to_pt, mission_data)
 
     def clear_mission_pt(self, playthrough):
         """
