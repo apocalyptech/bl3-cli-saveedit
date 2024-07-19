@@ -190,6 +190,9 @@ FOr instructions on using the Profile portions of the editor, see
   know that's not very Pythonic, but when dealing with extra-Python data
   formats, one must sometimes make exceptions.
 - Unit tests?
+- Convert `setup.py` to `pyproject.toml`
+- Check for minimum Python version on startup, rather than allowing older
+  versions to fail with a probably-confusing error
 
 # Credits
 
@@ -252,7 +255,7 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
-**v1.18.0** - *(unreleased)*
+**v1.18.0** - July 19, 2024
  - Added new movie-related cosmetics introduced in the July 18, 2024 patch
  - Python 3.12 Compatibility: Replaced `pkg_resources` usage with
    `importlib.resources` equivalents.
