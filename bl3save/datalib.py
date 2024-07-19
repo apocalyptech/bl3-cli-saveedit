@@ -28,7 +28,7 @@ import struct
 import base64
 import random
 import binascii
-import pkg_resources
+import importlib.resources
 
 from . import *
 
@@ -769,9 +769,9 @@ class InventorySerialDB(object):
         only want to do it if we're doing an operation which requires it.
         """
         if not self.initialized:
-            with lzma.open(io.BytesIO(pkg_resources.resource_string(
-                    __name__, 'resources/inventoryserialdb.json.xz'
-                    ))) as df:
+            with lzma.open(io.BytesIO(importlib.resources.files(__name__).joinpath(
+                    'resources/inventoryserialdb.json.xz').read_bytes()
+                    )) as df:
                 self.db = json.load(df)
             self.initialized = True
 
@@ -853,9 +853,9 @@ class BalanceToName(object):
         only want to do it if we're doing an operation which requires it.
         """
         if not self.initialized:
-            with lzma.open(io.BytesIO(pkg_resources.resource_string(
-                    __name__, 'resources/balance_name_mapping.json.xz'
-                    ))) as df:
+            with lzma.open(io.BytesIO(importlib.resources.files(__name__).joinpath(
+                    'resources/balance_name_mapping.json.xz').read_bytes()
+                    )) as df:
                 self.mapping = json.load(df)
             self.initialized = True
 
@@ -889,9 +889,9 @@ class BalanceToInvKey(object):
         only want to do it if we're doing an operation which requires it.
         """
         if not self.initialized:
-            with lzma.open(io.BytesIO(pkg_resources.resource_string(
-                    __name__, 'resources/balance_to_inv_key.json.xz'
-                    ))) as df:
+            with lzma.open(io.BytesIO(importlib.resources.files(__name__).joinpath(
+                    'resources/balance_to_inv_key.json.xz').read_bytes()
+                    )) as df:
                 self.mapping = json.load(df)
             self.initialized = True
 

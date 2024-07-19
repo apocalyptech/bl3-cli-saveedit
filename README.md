@@ -54,7 +54,7 @@ give you a tiny UI to dupe your savefiles or import items.
 # Installation
 
 This editor requires [Python 3](https://www.python.org/), and has been
-tested on 3.7, 3.8, 3.9, and 3.10.  It also requires the [protobuf package](https://pypi.org/project/protobuf/).
+tested on 3.9 through 3.12.  It also requires the [protobuf package](https://pypi.org/project/protobuf/).
 
 The easiest way to install this app is via `pip`/`pip3`.  Once Python 3 is
 installed, you should be able to run this to install the app:
@@ -252,8 +252,11 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
-**v1.17.1** - *(unreleased)*
+**v1.18.0** - *(unreleased)*
  - Added new movie-related cosmetics introduced in the July 18, 2024 patch
+ - Python 3.12 Compatibility: Replaced `pkg_resources` usage with
+   `importlib.resources` equivalents.
+ - Minimum Python version increased to 3.9
 
 **v1.17.0** - September 1, 2023
  - Added `--copy-tvhm` option to copy TVHM state to NVHM.

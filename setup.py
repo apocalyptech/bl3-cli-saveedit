@@ -37,6 +37,9 @@ setup(
                 'resources/balance_to_inv_key.json.xz',
                 ],
             },
+        # We now make use of importlib.resources.files, which was added in 3.9:
+        # https://docs.python.org/3/library/importlib.resources.html#importlib.resources.files
+        python_requires='>=3.9',
         install_requires=[
             'protobuf ~= 3.0, >= 3.12',
             ],
