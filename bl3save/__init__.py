@@ -20,7 +20,7 @@
 # 3. This notice may not be removed or altered from any source distribution.
 
 # Editor Version
-__version__ = '1.17.0'
+__version__ = '1.17.1b1'
 
 # Classes
 (BEASTMASTER, GUNNER, OPERATIVE, SIREN) = range(4)
@@ -750,10 +750,22 @@ profile_skins = set([
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_9.CustomSkin_Siren_9',
     ])
 profile_skins_defaults = set([
-    '/Game/PlayerCharacters/_Customizations/Beastmaster/Skins/CustomSkin_Beastmaster_Default.CustomSkin_Beastmaster_Default',
-    '/Game/PlayerCharacters/_Customizations/Gunner/Skins/CustomSkin_Gunner_Default.CustomSkin_Gunner_Default',
-    '/Game/PlayerCharacters/_Customizations/Operative/Skins/CustomSkin_Operative_Default.CustomSkin_Operative_Default',
-    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_Default.CustomSkin_Siren_Default',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Beastmaster_83.CustomSkin_Beastmaster_83',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Beastmaster_84.CustomSkin_Beastmaster_84',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Beastmaster_85.CustomSkin_Beastmaster_85',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Beastmaster_86.CustomSkin_Beastmaster_86',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Gunner_83.CustomSkin_Gunner_83',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Gunner_84.CustomSkin_Gunner_84',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Gunner_85.CustomSkin_Gunner_85',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Gunner_86.CustomSkin_Gunner_86',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Operative_83.CustomSkin_Operative_83',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Operative_84.CustomSkin_Operative_84',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Operative_85.CustomSkin_Operative_85',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Operative_86.CustomSkin_Operative_86',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Siren_83.CustomSkin_Siren_83',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Siren_84.CustomSkin_Siren_84',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Siren_85.CustomSkin_Siren_85',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomSkin_Siren_86.CustomSkin_Siren_86',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomSkin_Beastmaster_79.CustomSkin_Beastmaster_79',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomSkin_Beastmaster_80.CustomSkin_Beastmaster_80',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomSkin_Beastmaster_81.CustomSkin_Beastmaster_81',
@@ -770,6 +782,10 @@ profile_skins_defaults = set([
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomSkin_Siren_80.CustomSkin_Siren_80',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomSkin_Siren_81.CustomSkin_Siren_81',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomSkin_Siren_82.CustomSkin_Siren_82',
+    '/Game/PlayerCharacters/_Customizations/Beastmaster/Skins/CustomSkin_Beastmaster_Default.CustomSkin_Beastmaster_Default',
+    '/Game/PlayerCharacters/_Customizations/Gunner/Skins/CustomSkin_Gunner_Default.CustomSkin_Gunner_Default',
+    '/Game/PlayerCharacters/_Customizations/Operative/Skins/CustomSkin_Operative_Default.CustomSkin_Operative_Default',
+    '/Game/PlayerCharacters/_Customizations/SirenBrawler/Skins/CustomSkin_Siren_Default.CustomSkin_Siren_Default',
     ])
 
 # Profile customizations - Heads
@@ -972,6 +988,22 @@ profile_heads = set([
     '/Game/PlayerCharacters/_Customizations/SirenBrawler/Heads/CustomHead_Siren_9.CustomHead_Siren_9',
     ])
 profile_heads_defaults = set([
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Beastmaster_54.InvBal_CustomHead_Beastmaster_54',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Beastmaster_55.InvBal_CustomHead_Beastmaster_55',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Beastmaster_56.InvBal_CustomHead_Beastmaster_56',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Beastmaster_57.InvBal_CustomHead_Beastmaster_57',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Gunner_54.InvBal_CustomHead_Gunner_54',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Gunner_55.InvBal_CustomHead_Gunner_55',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Gunner_56.InvBal_CustomHead_Gunner_56',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Gunner_57.InvBal_CustomHead_Gunner_57',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Operative_54.InvBal_CustomHead_Operative_54',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Operative_55.InvBal_CustomHead_Operative_55',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Operative_56.InvBal_CustomHead_Operative_56',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Operative_57.InvBal_CustomHead_Operative_57',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Siren_54.InvBal_CustomHead_Siren_54',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Siren_55.InvBal_CustomHead_Siren_55',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Siren_56.InvBal_CustomHead_Siren_56',
+    '/Game/PatchDLC/Heroes/PlayerCharacters/_Shared/CustomHeads/CustomHead_Siren_57.InvBal_CustomHead_Siren_57',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomHeads/CustomHead_Beastmaster_50.CustomHead_Beastmaster_50',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomHeads/CustomHead_Beastmaster_51.CustomHead_Beastmaster_51',
     '/Game/PatchDLC/Villains/PlayerCharacters/_Shared/CustomHeads/CustomHead_Beastmaster_52.CustomHead_Beastmaster_52',
@@ -1093,6 +1125,8 @@ profile_echothemes = set([
     '/Game/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_35.ECHOTheme_35',
     ])
 profile_echothemes_defaults = set([
+    '/Game/PatchDLC/Heroes/Customizations/EchoTheme_Heroes_1.InvBal_EchoTheme_Heroes_1',
+    '/Game/PatchDLC/Heroes/Customizations/EchoTheme_Heroes_2.InvBal_EchoTheme_Heroes_2',
     '/Game/PatchDLC/Villains/Customizations/EchoTheme_Villians_1.EchoTheme_Villians_1',
     '/Game/PatchDLC/Villains/Customizations/EchoTheme_Villians_2.EchoTheme_Villians_2',
     '/Game/PlayerCharacters/_Customizations/EchoDevice/ECHOTheme_Default.ECHOTheme_Default',
@@ -1415,6 +1449,7 @@ profile_weaponskins_obj_to_eng = {
         '/Game/PatchDLC/VaultCard3/Gear/_Design/WeaponSkins/WeaponSkin_VC3_2.WeaponSkin_VC3_2': "Arms and Armor",
         '/Game/PatchDLC/VaultCard3/Gear/_Design/WeaponSkins/WeaponSkin_VC3_3.WeaponSkin_VC3_3': "Rainbows and Gun Drops",
         '/Game/PatchDLC/Villains/Gear/Weapons/WeaponSkins/_Design/WeaponSkin_Villians_1.WeaponSkin_Villians_1': "Cult of the Blam",
+        '/Game/PatchDLC/Heroes/Gear/Weapons/WeaponSkins/_Design/WeaponSkin_Heroes_1.InvBal_WeaponSkin_Heroes_1': "Mad Touch",
         # Not including this one because it's quite obviously unfinished, and identical to Burnished Steele
         #'/Game/PatchDLC/Geranium/Customizations/WeaponSkin/WeaponSkin_DLC3_1.WeaponSkin_DLC3_1': "DLC3 WeaponSkin",
         }
@@ -1519,6 +1554,10 @@ profile_weapontrinkets_obj_to_eng = {
         '/Game/PatchDLC/Villains/Gear/Weapons/WeaponTrinkets/_Design/WeaponTrinket_Villians_2.WeaponTrinket_Villians_2': "Freddie's Treadies",
         '/Game/PatchDLC/Villains/Gear/Weapons/WeaponTrinkets/_Design/WeaponTrinket_Villians_3.WeaponTrinket_Villians_3': "War and Mouthpiece",
         '/Game/PatchDLC/Villains/Gear/Weapons/WeaponTrinkets/_Design/WeaponTrinket_Villians_4.WeaponTrinket_Villians_4': "Pocket Knoxx",
+        '/Game/PatchDLC/Heroes/Gear/Weapons/WeaponTrinkets/_Design/WeaponTrinket_Heroes_1.InvBal_WeaponTrinket_Heroes_1': "Screamin' Wings",
+        '/Game/PatchDLC/Heroes/Gear/Weapons/WeaponTrinkets/_Design/WeaponTrinket_Heroes_2.InvBal_WeaponTrinket_Heroes_2': "Fran's Frogun",
+        '/Game/PatchDLC/Heroes/Gear/Weapons/WeaponTrinkets/_Design/WeaponTrinket_Heroes_3.InvBal_WeaponTrinket_Heroes_3': "Dollar Kills",
+        '/Game/PatchDLC/Heroes/Gear/Weapons/WeaponTrinkets/_Design/WeaponTrinket_Heroes_4.InvBal_WeaponTrinket_Heroes_4': "Salvadorable",
         }
 profile_weapontrinkets_hash_to_eng = weapon_cust_paths_to_hash(profile_weapontrinkets_obj_to_eng)
 profile_weapontrinkets_eng_to_hash = {v: k for k, v in profile_weapontrinkets_hash_to_eng.items()}

@@ -252,6 +252,9 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
+**v1.17.1** - *(unreleased)*
+ - Added new movie-related cosmetics introduced in the July 18, 2024 patch
+
 **v1.17.0** - September 1, 2023
  - Added `--copy-tvhm` option to copy TVHM state to NVHM.
  - Ported `--inventory-wipe` inventory wipe option from `ttwl-cli-saveedit`
