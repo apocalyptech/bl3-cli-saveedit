@@ -438,14 +438,14 @@ class BL3Profile(object):
     def get_char_skins_total(self):
         """
         Returns the total number of skins that are possible to unlock.  Includes the
-        skins that are unlocked by default (just one per char).
+        skins that are unlocked by default.
         """
         return len(profile_skins) + len(profile_skins_defaults)
 
     def get_char_skins(self):
         """
         Returns a set of the current character skins which are unlocked.  Includes the
-        skins that are unlocked by default (just one per char).
+        skins that are unlocked by default.
         """
         return self.get_cur_customizations(profile_skins) | profile_skins_defaults
 
@@ -458,14 +458,14 @@ class BL3Profile(object):
     def get_char_heads_total(self):
         """
         Returns the total number of heads that are possible to unlock.  Includes the
-        heads that are unlocked by default (just one per char).
+        heads that are unlocked by default.
         """
         return len(profile_heads) + len(profile_heads_defaults)
 
     def get_char_heads(self):
         """
         Returns a set of the current character heads which are unlocked.  Includes the
-        heads that are unlocked by default (just one per char).
+        heads that are unlocked by default.
         """
         return self.get_cur_customizations(profile_heads) | profile_heads_defaults
 
