@@ -255,6 +255,12 @@ passed away in early 2021, and that editor is now permanently offline.  RIP!
 
 # Changelog
 
+**v1.19.0** - *(unreleased)*
+ - Updated protobuf minimum version to 5.27.3 - **NOTE:** This needs some more
+   regression testing!
+ - Updated profile protobuf with settings addition from 2024-08-08 patch
+   *(this doesn't actually really affect the application at all)*
+
 **v1.18.0** - July 19, 2024
  - Added new movie-related cosmetics introduced in the July 18, 2024 patch
  - Python 3.12 Compatibility: Replaced `pkg_resources` usage with

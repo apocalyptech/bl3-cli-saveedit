@@ -41,7 +41,7 @@ setup(
         # https://docs.python.org/3/library/importlib.resources.html#importlib.resources.files
         python_requires='>=3.9',
         install_requires=[
-            'protobuf ~= 3.0, >= 3.12',
+            'protobuf ~= 5.0, >= 5.27.3',
             ],
         # https://pypi.python.org/pypi?%3Aaction=list_classifiers
         classifiers=[

@@ -265,4 +265,5 @@ message Profile {
   VaultCardSaveGameData vault_card = 231;
   uint32 player_selected_league = 232;
   bool needs_shift_first_boot_primary = 233;
+  int32 autosell_rarity = 234;
 }
